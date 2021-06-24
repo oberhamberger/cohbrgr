@@ -5,6 +5,8 @@ import path from 'path';
 import Logger from './utils/logger';
 
 const app = express();
+const router = express.Router();
+const staticPath = __dirname + '/public';
 const port = process.env.port || 3000; // default port to listen
 const faviconsPath = '/favicons/';
 
@@ -20,25 +22,18 @@ app.use(helmet(
     }
 ));
 
-// define a route handler for the default home page
-app.get(
-    '/',
-    (req, res) => {
-        Logger.log('info', `request to homepage - responding with index.html` );
-        res.sendFile(path.join(__dirname+'/index.html'));
-    }
-);
-
-// define a route handler for the default favicons
-app.get(
-    `${faviconsPath}:icon`,
-    (req, res) => {
-        Logger.log('info', `request to favicon - responding with ${req.params.icon}` );
-        res.sendFile(path.join(__dirname+'/favicons/'+req.params.icon));
-    }
-);
+router.use((req,res,next) => {
+    Logger.log('info', `${req.method} : ${req.path}`);
+    next();
+});
+app.use('/', router);
+app.use(express.static(staticPath));
+app.use((req, res, next) => {
+    Logger.log('warn', `Returning 404 for Request: ${req.method} : ${req.path}`);
+    res.status(404).sendFile(staticPath + '/404.html');
+});
 
 // start the Express server
-app.listen( port, () => {
+app.listen(port, () => {
     Logger.log('info', `server started at http://localhost:${ port }` );
 } );
