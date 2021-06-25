@@ -1,15 +1,15 @@
 # cohbrgr
 
 build locally: 
-´´´npm run build´´´
+```npm run build```
 run build: 
-´´´node dist´´´
+```node dist```
 
 run locally: 
-´´´npm start´´´
+```npm start```
 
 build Docker-Container: 
-´´´docker build --tag node-docker .´´´
+```docker build --tag node-docker .```
 
 run as Docker-Container: 
-´´´docker run -d -p 3000:3000 node-docker´´´
+```docker run -d -p 3000:3000 node-docker```
