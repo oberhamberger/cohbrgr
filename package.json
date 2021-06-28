@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "temporary website gone mad",
   "main": "dist/index.js",
+  "keywords": [
+    "express",
+    "typescript" 
+  ],
   "scripts": {
     "prebuild": "rm -rf ./dist && mkdir ./dist && tslint -c tslint.json -p tsconfig.json --fix && cp -r ./static/ ./dist/public",
     "build": "tsc",
