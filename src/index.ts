@@ -1,6 +1,5 @@
 import express from 'express';
 import helmet from 'helmet';
-import path from 'path';
 
 import Logger from './utils/logger';
 
@@ -8,7 +7,6 @@ const app = express();
 const router = express.Router();
 const staticPath = __dirname + '/public';
 const port = process.env.port || 3000; // default port to listen
-const faviconsPath = '/favicons/';
 
 // security
 app.use(helmet(
