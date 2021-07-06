@@ -1,6 +1,16 @@
 # cohbrgr
 
-Small Express Server running in a Docker-Container, serving static HTML Files.
+A small Express server written in Typescript running in a Docker-Container, serving static HTML Files.
+There is no build process outside of typescript compilation and copying over some files with npm scripts.
+This also means that there is no production build available right now.
+
+
+## Installing
+
+```
+npm install
+```
+
 
 ## Developing
 
@@ -10,11 +20,11 @@ build locally:
 ```
 npm run build
 ```
-run build: 
+run server: 
 ```
 node dist
 ```
-run locally: 
+develop locally: 
 ```
 npm start
 ```
