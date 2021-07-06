@@ -32,6 +32,14 @@ app.use((req, res, next) => {
 });
 
 // start the Express server
-app.listen(port, () => {
-    Logger.log('info', `server started at http://localhost:${ port }` );
+const server = app.listen(port, () => {
+    Logger.log('info', `Server started at http://localhost:${ port }` );
 } );
+
+// stopping the server correctly
+const closeGracefully = async () => {
+    await server.close();
+    Logger.log('info', `Server closed.`);
+    process.exit()
+ }
+ process.on('SIGINT', closeGracefully)
