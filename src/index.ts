@@ -4,11 +4,11 @@ import helmet from 'helmet';
 import Logger from './utils/logger';
 
 const app = express();
-const router = express.Router();
 const staticPath = __dirname + '/public';
-const port = process.env.port || 3000; // default port to listen
+const defaultPort = 3000;
+const port = process.env.port || defaultPort;
 
-// security
+// express server basic security
 app.use(helmet(
     {
         contentSecurityPolicy: {
@@ -20,18 +20,15 @@ app.use(helmet(
     }
 ));
 
-router.use((req,res,next) => {
-    Logger.log('info', `${req.method} : ${req.path}`);
-    next();
-});
-app.use('/', router);
+// express server path configuration
 app.use(express.static(staticPath));
-app.use((req, res, next) => {
+app.use((req, res) => {
+    // 404 handling
     Logger.log('warn', `Returning 404 for Request: ${req.method} : ${req.path}`);
     res.status(404).sendFile(staticPath + '/404.html');
 });
 
-// start the Express server
+// starting the server
 const server = app.listen(port, () => {
     Logger.log('info', `Server started at http://localhost:${ port }` );
 } );
@@ -41,5 +38,5 @@ const closeGracefully = async () => {
     await server.close();
     Logger.log('info', `Server closed.`);
     process.exit()
- }
- process.on('SIGINT', closeGracefully)
+}
+process.on('SIGINT', closeGracefully)
