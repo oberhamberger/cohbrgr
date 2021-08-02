@@ -31,12 +31,12 @@ app.use((req, res) => {
 // starting the server
 const server = app.listen(port, () => {
     Logger.log('info', `Server started at http://localhost:${ port }` );
-} );
+});
 
 // stopping the server correctly
 const closeGracefully = async () => {
     await server.close();
     Logger.log('info', `Server closed.`);
     process.exit()
-}
-process.on('SIGINT', closeGracefully)
+};
+process.on('SIGINT', closeGracefully);
