@@ -12,4 +12,4 @@ module.exports = {
         'prettier',
         'plugin:prettier/recommended',
     ],
-}
+};

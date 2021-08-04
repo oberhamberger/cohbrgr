@@ -1,4 +1,4 @@
-import winston from 'winston'
+import winston from 'winston';
 
 const Logger = winston.createLogger({
     level: 'info',
@@ -16,6 +16,6 @@ const Logger = winston.createLogger({
     ),
     // available log levels: error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5
     transports: [new winston.transports.Console()],
-})
+});
 
-export default Logger
+export default Logger;
