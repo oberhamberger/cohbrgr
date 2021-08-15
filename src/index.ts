@@ -14,7 +14,11 @@ app.use(
         contentSecurityPolicy: {
             useDefaults: true,
             directives: {
-                'script-src': ["'self'", 'cdn.ampproject.org'],
+                'script-src': [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'cdn.ampproject.org',
+                ],
             },
         },
     }),

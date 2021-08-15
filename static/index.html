@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="canonical" href="https://cohbrgr.com/" />
         <title>Christian Oberhamberger</title>
+
         <link
             rel="apple-touch-icon-precomposed"
             sizes="57x57"
@@ -73,7 +74,7 @@
         <link
             rel="icon"
             type="image/png"
-            href="favicons/favicon-128.png"
+            href="favicons/favicon-128x128.png"
             sizes="128x128"
         />
         <meta name="application-name" content="cohbrgr.com" />
@@ -102,7 +103,17 @@
             name="description"
             content="Christian Oberhamberger - *sipping coffee*"
         />
-        <script async src="https://cdn.ampproject.org/v0.js"></script>
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+        <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#1c1d1f">
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js');
+                });
+            }
+        </script>
+        <script async src="https://cdn.ampproject.org/v0.js"></script>     
         <style amp-boilerplate>
             body {
                 -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
