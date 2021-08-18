@@ -1,17 +1,25 @@
 {
-    "extends": "@tsconfig/node12/tsconfig.json",
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "es6",
         "esModuleInterop": true,
         "target": "es6",
-        "noImplicitAny": true,
-        "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "dist",
         "baseUrl": ".",
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "jsx": "react",
+        "allowJs": true,
+        "moduleResolution": "node",
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
         "paths": {
-            "*": ["node_modules/*"]
-        }
+            "server": [
+              "./src/server"
+            ]
+          },
     },
-    "include": ["src/**/*"]
+    "exclude": [
+        "./dist"
+    ]
 }

@@ -2,7 +2,7 @@
     "name": "cohbrgr",
     "version": "1.0.0",
     "description": "temporary website gone mad",
-    "main": "dist/index.js",
+    "private": true,
     "keywords": [
         "express",
         "typescript"
@@ -11,6 +11,7 @@
         "lint": "eslint .eslintrc.js --ext .ts src --fix",
         "prebuild": "rm -rf ./dist && mkdir ./dist && npm run lint && cp -r ./static/ ./dist/public",
         "build": "tsc",
+        "webpack": "cross-env TS_NODE_PROJECT=\"build/tsconfig.webpack.json\" webpack --config build/webpack.config.ts",
         "prestart": "npm run build",
         "start": "node .",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -33,15 +34,23 @@
     "devDependencies": {
         "@tsconfig/node12": "^1.0.9",
         "@types/express": "^4.17.13",
-        "@types/node": "^16.4.10",
+        "@types/node": "^16.6.1",
+        "@types/webpack": "^5.28.0",
+        "@types/webpack-dev-server": "^3.11.5",
         "@typescript-eslint/eslint-plugin": "^4.29.0",
         "@typescript-eslint/parser": "^4.29.0",
+        "cross-env": "^7.0.3",
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-jsdoc": "^36.0.6",
         "eslint-plugin-prefer-arrow": "^1.2.3",
         "eslint-plugin-prettier": "^3.4.0",
         "prettier": "2.3.2",
-        "typescript": "^4.3.5"
+        "ts-loader": "^9.2.5",
+        "ts-node": "^10.2.0",
+        "typescript": "^4.3.5",
+        "webpack": "^5.50.0",
+        "webpack-cli": "^4.8.0",
+        "webpack-dev-server": "^3.11.2"
     }
 }
