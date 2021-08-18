@@ -1,12 +1,12 @@
 import express from 'express';
 import helmet from 'helmet';
 
-import Logger from './utils/logger';
+import Logger from 'src/server/utils/logger';
 
 const app = express();
 const staticPath = __dirname + '/public';
 const defaultPort = 3000;
-const port = process.env.port || defaultPort;
+const port = process.env.PORT || defaultPort;
 
 // express server basic security
 app.use(
