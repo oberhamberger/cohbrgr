@@ -4,9 +4,7 @@ import { join, resolve, dirname } from 'path';
 import 'webpack-dev-server';
 
 const CWD = process.cwd();
-const {
-    NODE_ENV = 'production',
-}: any = process.env;
+const { NODE_ENV = 'production' }: any = process.env;
 
 const config: Configuration = {
     mode: NODE_ENV,
@@ -20,10 +18,10 @@ const config: Configuration = {
             // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
             {
                 test: /\.tsx?$/,
-                loader: "ts-loader",
+                loader: 'ts-loader',
                 exclude: /node_modules/,
-            }
-        ]
+            },
+        ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -32,9 +30,9 @@ const config: Configuration = {
             join(CWD, 'node_modules'),
             join(dirname(require.main!.filename), '..', 'node_modules'),
             join(dirname(require.main!.filename), 'node_modules'),
-            'node_modules'
-          ],
-        alias: { 'src': 'src' }
+            'node_modules',
+        ],
+        alias: { src: 'src' },
     },
     plugins: [
         new ProgressPlugin({
@@ -49,12 +47,12 @@ const config: Configuration = {
             dependencies: true,
             dependenciesCount: 10000,
             percentBy: null,
-          })
+        }),
     ],
     output: {
         path: resolve(__dirname, '../dist/server/'),
         filename: 'index.js',
-        clean: true
+        clean: true,
     },
 };
 
