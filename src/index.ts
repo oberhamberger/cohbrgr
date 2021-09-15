@@ -14,11 +14,9 @@ app.use(
         contentSecurityPolicy: {
             useDefaults: true,
             directives: {
-                'script-src': [
-                    "'self'",
-                    "'unsafe-inline'",
-                    'cdn.ampproject.org',
-                ],
+                'script-src': ["'nonce-18cafefd-fbaf-4608-afb1-6edf0a4035df'"],
+                'style-src': ["'nonce-18cafefd-fbaf-4608-afb1-6edf0a4035df'"],
+                'worker-src': ["'self'"],
             },
         },
     }),
