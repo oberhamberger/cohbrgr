@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v1';
+var CACHE_NAME = 'cohbrgr-page-cache-v0';
 var urlsToCache = [
     '/'
 ];
