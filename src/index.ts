@@ -20,6 +20,7 @@ app.use(
                 ],
                 'style-src': ["'nonce-18cafefd-fbaf-4608-afb1-6edf0a4035df'"],
                 'manifest-src': ["'self'"],
+                'connect-src': ["'self'"],
                 'worker-src': ["'self'"],
                 'form-action': ["'none'"],
                 'default-src': ["'none'"],
