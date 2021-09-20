@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import Logger from 'src/server/utils/logger';
 
 const app = express();
-const staticPath = __dirname + '/public';
+const staticPath = __dirname + '/../client';
 const defaultPort = 3000;
 const port = process.env.PORT || defaultPort;
 
@@ -32,6 +32,8 @@ app.use((req, res) => {
         'warn',
         `Returning 404 for Request: ${req.method} : ${req.path}`,
     );
+    const temppath = staticPath + '/404.html';
+    console.log(temppath);
     res.status(404).sendFile(staticPath + '/404.html');
 });
 
