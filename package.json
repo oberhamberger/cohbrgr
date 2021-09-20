@@ -12,9 +12,9 @@
         "lint": "eslint .eslintrc.js src --fix",
         "prebuild": "rm -rf ./dist && npm run lint",
         "build": "cross-env TS_NODE_PROJECT=\"build/tsconfig.webpack.json\" NODE_ENV=production webpack --config build/webpack.config.ts",
-        "prestart": "npm run build --watch",
+        "prestart": "npm run build",
         "start": "npm run server",
-        "server": "node dist/server",
+        "server": "node .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
