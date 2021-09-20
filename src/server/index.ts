@@ -1,5 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
+import compression from 'compression';
 import { resolve } from 'path';
 
 import Logger from 'src/server/utils/logger';
@@ -29,6 +30,8 @@ app.use(
         },
     }),
 );
+
+app.use(compression());
 
 // express server path configuration
 app.use(express.static(staticPath));
