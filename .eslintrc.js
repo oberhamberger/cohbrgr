@@ -12,4 +12,10 @@ module.exports = {
         'prettier',
         'plugin:prettier/recommended',
     ],
+    overrides: [
+        {
+            files: ['src/client/**'],
+            extends: '.eslint.client.js',
+        },
+    ],
 };

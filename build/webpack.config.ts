@@ -2,11 +2,11 @@ import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import ESLintPlugin from 'eslint-webpack-plugin';
+
 import { join, resolve, dirname } from 'path';
 
 // in case you run into any typescript error when configuring `devServer`
-import 'webpack-dev-server';
-
 
 const CWD = process.cwd();
 
@@ -18,9 +18,9 @@ export enum Mode {
 const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 
 
-const serverConfig: Configuration = {
-    mode: true ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-    devtool: true ? false : 'inline-source-map',
+export const serverConfig: Configuration = {
+    mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
+    devtool: isProduction ? false : 'inline-source-map',
     target: 'node',
     entry: {
         server: resolve(__dirname, '../src/server'),
@@ -56,23 +56,15 @@ const serverConfig: Configuration = {
         path: resolve(__dirname, '../dist/server/'),
         filename: 'index.js',
         clean: true,
+        publicPath: '/',
     },
     
 };
 
 const clientConfig: Configuration = {
-  mode: true ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-  entry: {
-    server: resolve(__dirname, '../src/client'),
-  },
-  module: {
-    rules: [
-        {
-          test: /\.html$/i,
-          type: "asset/resource"
-        },
-    ],
-  },
+  mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
+  devtool: isProduction ? false : 'inline-source-map',
+  entry: {},
   resolve: {
     extensions: ['.html', '.json', '.js'],
     modules: [
@@ -85,6 +77,7 @@ const clientConfig: Configuration = {
     alias: { src: 'src' },
 },
   plugins: [
+    new ESLintPlugin(),
     new WebpackBar({
       name: 'Client',
       color: 'blue'
@@ -110,7 +103,7 @@ const clientConfig: Configuration = {
   },
 }
 
-export default [serverConfig, clientConfig];
+export default [clientConfig, serverConfig];
 
 
 
