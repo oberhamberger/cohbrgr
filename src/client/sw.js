@@ -1,5 +1,7 @@
-const CACHE_NAME = 'my-site-cache-v1';
-const urlsToCache = ['/'];
+const CACHE_NAME = 'cohbrgr-page-cache-v0';
+const urlsToCache = [
+    '/'
+];
 
 self.addEventListener('install', function (event) {
     // Perform install steps
