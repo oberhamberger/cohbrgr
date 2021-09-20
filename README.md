@@ -1,8 +1,6 @@
 # cohbrgr
 
 A small Express server written in Typescript running in a Docker-Container, serving static HTML Files.
-There is no build process outside of typescript compilation and copying over some files with npm scripts.
-This also means that there is no production build available right now.
 
 ## Installing
 
@@ -21,7 +19,7 @@ npm run build
 run server:
 
 ```
-node dist
+node .
 ```
 
 develop locally:

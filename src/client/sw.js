@@ -1,20 +1,17 @@
-var CACHE_NAME = 'my-site-cache-v1';
-var urlsToCache = [
-    '/'
-];
+const CACHE_NAME = 'my-site-cache-v1';
+const urlsToCache = ['/'];
 
 self.addEventListener('install', function (event) {
     // Perform install steps
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(function (cache) {
-                return cache.addAll(urlsToCache);
-            })
+        caches.open(CACHE_NAME).then(function (cache) {
+            return cache.addAll(urlsToCache);
+        }),
     );
 });
 
 self.addEventListener('activate', function (event) {
-    var cacheAllowlist = [CACHE_NAME];
+    const cacheAllowlist = [CACHE_NAME];
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(
@@ -22,8 +19,8 @@ self.addEventListener('activate', function (event) {
                     if (cacheAllowlist.indexOf(cacheName) === -1) {
                         return caches.delete(cacheName);
                     }
-                })
+                }),
             );
-        })
+        }),
     );
 });
