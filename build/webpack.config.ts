@@ -18,6 +18,48 @@ export enum Mode {
 const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 
 
+const clientConfig: Configuration = {
+  mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
+  devtool: isProduction ? false : 'inline-source-map',
+  entry: {},
+  resolve: {
+    extensions: ['.html', '.json', '.js'],
+    modules: [
+        join(CWD, ''),
+        join(CWD, 'node_modules'),
+        join(dirname(require.main!.filename), '..', 'node_modules'),
+        join(dirname(require.main!.filename), 'node_modules'),
+        'node_modules',
+    ],
+    alias: { src: 'src' },
+},
+  plugins: [
+    new ESLintPlugin(),
+    new WebpackBar({
+      name: 'Client',
+      color: 'aquamarine'
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "./src/client",
+          to: "./client/"
+        },
+      ],
+    }),
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new HtmlMinimizerPlugin(),
+    ],
+  },
+  output: {
+      path: resolve(__dirname, '../dist/'),
+      clean: true,
+  },
+}
+
 export const serverConfig: Configuration = {
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
@@ -49,7 +91,7 @@ export const serverConfig: Configuration = {
     plugins: [
       new WebpackBar({
         name: 'Server',
-        color: 'yellow'
+        color: '#ff50e1'
       }),
     ],
     output: {
@@ -61,47 +103,6 @@ export const serverConfig: Configuration = {
     
 };
 
-const clientConfig: Configuration = {
-  mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-  devtool: isProduction ? false : 'inline-source-map',
-  entry: {},
-  resolve: {
-    extensions: ['.html', '.json', '.js'],
-    modules: [
-        join(CWD, ''),
-        join(CWD, 'node_modules'),
-        join(dirname(require.main!.filename), '..', 'node_modules'),
-        join(dirname(require.main!.filename), 'node_modules'),
-        'node_modules',
-    ],
-    alias: { src: 'src' },
-},
-  plugins: [
-    new ESLintPlugin(),
-    new WebpackBar({
-      name: 'Client',
-      color: 'blue'
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: "./src/client",
-          to: "./client/"
-        },
-      ],
-    }),
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new HtmlMinimizerPlugin(),
-    ],
-  },
-  output: {
-      path: resolve(__dirname, '../dist/'),
-      clean: true,
-  },
-}
 
 export default [clientConfig, serverConfig];
 
