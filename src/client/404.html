@@ -15,12 +15,25 @@
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
         <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#1c1d1f">
         <style nonce="18cafefd-fbaf-4608-afb1-6edf0a4035df">
+         
+         :root {
+                --color-background-light: #fff;
+                --color-font-light: #1d1d1f; 
+                --color-link-light: #000;
+
+                --color-background-dark: #1d1d1f;
+                --color-font-dark: #fff;
+
+                --color-primary: #ff00f2;
+                --color-secondary: #ffee00;
+            }
+
             html,
             body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                     Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
                     sans-serif;
-                color: #1d1d1f;
+                color: var(--color-font-light);
             }
 
             main {
@@ -34,7 +47,7 @@
 
             h2 {
                 margin: 1rem 0 1rem 0;
-                font-size: xx-large;
+                font-size: x-large;
                 font-weight: 500;
             }
 
@@ -45,16 +58,16 @@
             }
 
             a {
-                color: #000;
+                color: var(--color-link-light);
                 text-decoration: none;
-                text-shadow: 0 0 12px #00e7ff, 0 0 20px #ff00e0;
+                text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
             }
 
             a:hover,
             a:active,
             a:focus {
                 text-decoration: underline;
-                text-shadow: 0 0 12px #00e7ff, 0 0 28px #ff00e0;
+                text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
             }
 
             .social {
@@ -69,17 +82,17 @@
             @media (prefers-color-scheme: dark) {
                 html,
                 body {
-                    background: #1c1d1f;
-                    color: #fff;
+                    background: var(--color-background-dark);
+                    color: var(--color-font-dark);
                 }
                 a {
-                    color: #fff;
-                    text-shadow: 0 0 12px #ff00e0, 0 0 20px #00e7ff;
+                    color: var(--color-font-dark);
+                    text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary), 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
                 }
                 a:hover,
                 a:active,
                 a:focus {
-                    text-shadow: 0 0 12px #ff00e0, 0 0 28px #00e7ff;
+                    text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary), 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
                 }
             }
 
@@ -93,6 +106,10 @@
 
                 h1 {
                     margin-top: 2rem;
+                }
+
+                h2 {
+                    font-size: xx-large;
                 }
 
                 p {
