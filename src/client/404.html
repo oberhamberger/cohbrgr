@@ -60,8 +60,6 @@
             a {
                 color: var(--color-link-light);
                 text-decoration: none;
-                font-weight: 500;
-                font-style: italic;
                 text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
             }
 
@@ -72,11 +70,13 @@
                 text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
             }
 
-            .social {
+            nav {
                 margin-top: 2rem;
             }
 
-            .social a {
+            nav a {
+                font-weight: 500;
+                font-style: italic;
                 font-size: large;
                 margin-right: 1rem;
             }
@@ -118,7 +118,7 @@
                     line-height: 2.5rem;
                 }
 
-                .social a {
+                nav a {
                     font-size: x-large;
                     margin-right: 2.5rem;
                 }
@@ -128,7 +128,9 @@
     <body>
         <main>
             <h1>Not Found</h1>
-            <a href="/">return</a>
+            <nav>
+                <a href="/">return</a>
+            </nav>
         </main>
     </body>
 </html>
