@@ -1,8 +1,8 @@
+import { join, resolve, dirname } from 'path';
 import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
-import { join, resolve, dirname } from 'path';
-
 import { Mode } from './webpack.config';
+
 const CWD = process.cwd();
 
 export default (isProduction: boolean): Configuration => ({
