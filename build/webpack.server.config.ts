@@ -1,11 +1,11 @@
 import { join, resolve, dirname } from 'path';
 import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
-import { Mode } from './webpack.config';
+import { Mode, isProduction } from './webpack.config';
 
 const CWD = process.cwd();
 
-export default (isProduction: boolean): Configuration => ({
+export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
     target: 'node',
