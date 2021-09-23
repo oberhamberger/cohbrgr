@@ -1,5 +1,6 @@
-import webpackClientConfig from './webpack.client.config';
-import webpackServerConfig from './webpack.server.config';
+import { Configuration } from 'webpack';
+import getWebpackClientConfig from './webpack.client.config';
+import getWebpackServerConfig from './webpack.server.config';
 
 export enum Mode {
     DEVELOPMENT = 'development',
@@ -8,4 +9,13 @@ export enum Mode {
 
 export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 
-export default [webpackClientConfig(), webpackServerConfig()];
+const config: Configuration[] = []
+const clientConfig: Configuration = getWebpackClientConfig();
+config.push(clientConfig);
+
+if (isProduction) {
+    config.push(getWebpackServerConfig());
+}
+
+
+export default config;
