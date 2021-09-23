@@ -5,7 +5,6 @@ import CopyPlugin from 'copy-webpack-plugin';
 import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import { Mode, isProduction } from './webpack.config';
-import {} from 'webpack-dev-server';
 
 export default (): Configuration => ({
   mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
