@@ -1,11 +1,11 @@
+import { join, resolve, dirname } from 'path';
 import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
-import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-import { join, resolve, dirname } from 'path';
-
 import { Mode } from './webpack.config';
+
 const CWD = process.cwd();
 
 export default (isProduction: boolean): Configuration => ({
