@@ -34,10 +34,10 @@ export default (): Configuration => ({
         alias: { src: 'src' },
     },
     plugins: [
-      new WebpackBar({
-        name: 'Server',
-        color: '#ff50e1'
-      }),
+        new WebpackBar({
+            name: 'Server',
+            color: '#ff50e1'
+        }),
     ],
     output: {
         path: resolve(__dirname, '../dist/server/'),
@@ -45,5 +45,5 @@ export default (): Configuration => ({
         clean: true,
         publicPath: '/',
     },
-    
+
 });
