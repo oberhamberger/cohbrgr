@@ -9,13 +9,6 @@ export enum Mode {
 
 export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 
-const config: Configuration[] = []
-const clientConfig: Configuration = getWebpackClientConfig();
-config.push(clientConfig);
-
-if (isProduction) {
-    config.push(getWebpackServerConfig());
-}
-
+const config: Configuration[] = [getWebpackClientConfig(), getWebpackServerConfig()]
 
 export default config;

@@ -31,9 +31,10 @@ app.use(
     }),
 );
 
+// express server basic compression
 app.use(compression());
 
-// express server path configuration
+// express server static path configuration
 app.use(express.static(staticPath));
 app.use((req, res) => {
     // 404 handling
