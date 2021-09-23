@@ -6,6 +6,6 @@ export enum Mode {
     PRODUCTION = 'production'
 }
 
-const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
+export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 
-export default [webpackClientConfig(isProduction), webpackServerConfig(isProduction)];
+export default [webpackClientConfig(), webpackServerConfig()];
