@@ -22,7 +22,7 @@ run server:
 node .
 ```
 
-develop (client) locally:
+develop locally:
 
 ```
 npm start
