@@ -15,11 +15,9 @@
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
         <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#1c1d1f">
         <style nonce="18cafefd-fbaf-4608-afb1-6edf0a4035df">
-     
             :root {
                 --color-background-light: #fff;
-                --color-font-light: #1d1d1f; 
-                --color-link-light: #000;
+                --color-font-light: #000;
 
                 --color-background-dark: #1d1d1f;
                 --color-font-dark: #fff;
@@ -40,7 +38,7 @@
             }
 
             main {
-                margin: 0 1.5rem;
+                margin: 0 24px;
             }
 
             h1, h2, h3, h4, h5, h6 {
@@ -49,7 +47,7 @@
             }
 
             h1 {
-                margin-top: 1.5rem;
+                margin-top: 24px;
                 font-weight: 700;
                 font-size: 3rem;
             }
@@ -61,25 +59,25 @@
 
             p {
                 font-weight: 300;
-                line-height: 2rem;
                 font-size: 1.2rem;
+                line-height: 1.88rem;
             }
 
             a {
-                color: var(--color-link-light);
+                color: var(--color-font-light);
                 text-decoration: none;
-                text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary), 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
+                text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
             }
 
             a:hover,
             a:active,
             a:focus {
                 text-decoration: underline;
-                text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary), 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
+                text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
             }
 
             nav {
-                margin: 2rem 1.5rem 0 1.5rem;
+                margin: 32px 24px 0 24px;
             }
 
             nav ul {
@@ -90,13 +88,13 @@
             nav li {
                 list-style: none;
                 display: inline-block;
-                margin-right: 1rem;
+                margin-right: 1.2rem;
             }
 
             nav a {
                 font-weight: 500;
                 font-style: italic;
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             @media (prefers-color-scheme: dark) {
@@ -117,32 +115,36 @@
             }
 
             @media screen and (min-width: 768px) {
-                html,
-                body {
-                    font-size: 1.2rem;
-                }
-
                 main {
-                    max-width: calc(768px - 3rem);
+                    max-width: calc(768px - 48px);
                     margin: 0 auto;
                 }
 
                 h1 {
-                    margin-top: 2rem;
-                    font-size: 3.32rem;
+                    margin-top: 48px;
+                    font-size: 4rem;
                 }
 
                 h2 {
-                    font-size: 1.66rem;
+                    font-size: 2rem;
+                }
+
+                p {
+                    font-size: 1.44rem;
+                    line-height: 2.25rem;
                 }
 
                 nav {
-                    max-width: calc(768px - 3rem);
-                    margin: 2rem auto 0 auto;
+                    max-width: calc(768px - 48px);
+                    margin: 38px auto 0 auto;
                 }
 
                 nav li {
-                    margin-right: 2rem;
+                    margin-right: 2.4rem;
+                }
+
+                nav a {
+                    font-size: 1.44rem;
                 }
             }
 
