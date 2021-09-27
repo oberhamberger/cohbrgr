@@ -28,7 +28,6 @@
             }
         </script>
         <style nonce="18cafefd-fbaf-4608-afb1-6edf0a4035df">
-
             :root {
                 --color-background-light: #fff;
                 --color-font-light: #1d1d1f; 
@@ -41,34 +40,41 @@
                 --color-secondary: #ff50e1;
             }
 
-            html,
-            body {
+            html, body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                     Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
                     sans-serif;
                 color: var(--color-font-light);
                 -webkit-font-smoothing: antialiased;
+                padding: 0;
+                margin: 0;
+                font-size: 100%;
             }
 
             main {
-                padding: 1.5rem;
+                margin: 0 1.5rem;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+               margin: 0;
+               padding: 0; 
             }
 
             h1 {
-                margin: 1rem 0 0 0;
+                margin-top: 1.5rem;
                 font-weight: 700;
+                font-size: 3rem;
             }
 
             h2 {
-                margin: 1rem 0 1rem 0;
-                font-size: x-large;
+                font-size: 1.5rem;
                 font-weight: 500;
             }
 
             p {
-                font-size: x-large;
-                line-height: 2.25rem;
                 font-weight: 300;
+                line-height: 2rem;
+                font-size: 1.2rem;
             }
 
             a {
@@ -85,14 +91,24 @@
             }
 
             nav {
-                margin-top: 2rem;
+                margin: 2rem 1.5rem 0 1.5rem;
+            }
+
+            nav ul {
+                padding: 0;
+                margin: 0;
+            }
+
+            nav li {
+                list-style: none;
+                display: inline-block;
+                margin-right: 1rem;
             }
 
             nav a {
                 font-weight: 500;
                 font-style: italic;
-                font-size: large;
-                margin-right: 1rem;
+                font-size: 1.2rem;
             }
 
             @media (prefers-color-scheme: dark) {
@@ -113,28 +129,42 @@
             }
 
             @media screen and (min-width: 768px) {
+                html,
+                body {
+                    font-size: 1.2rem;
+                }
+
                 main {
-                    font-size: xx-large;
-                    max-width: 768px;
-                    padding: 0;
+                    max-width: calc(768px - 3rem);
                     margin: 0 auto;
                 }
 
                 h1 {
                     margin-top: 2rem;
+                    font-size: 3.32rem;
                 }
 
                 h2 {
-                    font-size: xx-large;
+                    font-size: 1.66rem;
                 }
 
-                p {
-                    line-height: 2.5rem;
+                nav {
+                    max-width: calc(768px - 3rem);
+                    margin: 2rem auto 0 auto;
                 }
 
-                nav a {
-                    font-size: x-large;
-                    margin-right: 2.5rem;
+                nav li {
+                    margin-right: 2rem;
+                }
+            }
+
+            @media screen and (min-width: 992px) {
+                main {
+                    max-width: 768px;
+                }
+
+                nav {
+                    max-width: 768px;
                 }
             }
         </style>
@@ -147,11 +177,13 @@
                 I am a Frontend Developer at <a href="https://www.netconomy.net/">Netconomy</a>.
                 I mainly work with React and Node.js on online commerce platforms.
             </p>
-            <nav>
-                <a href="https://twitter.com/cohbrgr">Twitter</a>
-                <a href="https://github.com/oberhamberger">Github</a>
-                <a href="https://www.linkedin.com/in/oberhamberger/">LinkedIn</a>
-            </nav>
         </main>
+        <nav>
+            <ul>
+                <li><a href="https://twitter.com/cohbrgr">Twitter</a></li>
+                <li><a href="https://github.com/oberhamberger">Github</a></li>
+                <li><a href="https://www.linkedin.com/in/oberhamberger/">LinkedIn</a></li>
+            </ul>
+        </nav>
     </body>
 </html>
