@@ -1,38 +1,46 @@
-import { resolve } from 'path';
-import { Configuration } from "webpack";
+import { resolve, dirname, join } from 'path';
+import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
-import CopyPlugin from 'copy-webpack-plugin';
-import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import { Mode, isProduction } from './webpack.config';
 
+const CWD = process.cwd();
+
 export default (): Configuration => ({
-  mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-  devtool: isProduction ? false : 'inline-source-map',
-  entry: {},
-  plugins: [
-    new ESLintPlugin(),
-    new WebpackBar({
-      name: 'Client',
-      color: 'aquamarine'
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: "./src/client",
-          to: "./client/"
-        },
-      ],
-    }),
-  ],
-  optimization: {
-    minimize: isProduction,
-    minimizer: isProduction ? [
-      new HtmlMinimizerPlugin(),
-    ] : [],
-  },
-  output: {
-    path: resolve(__dirname, '../dist/'),
-    clean: true,
-  },
+    mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
+    devtool: isProduction ? false : 'inline-source-map',
+    entry: 'src/client',
+    target: 'web',
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+        modules: [
+            join(CWD, ''),
+            join(CWD, 'node_modules'),
+            join(dirname(require.main.filename), '..', 'node_modules'),
+            join(dirname(require.main.filename), 'node_modules'),
+            'node_modules',
+        ],
+        alias: { src: 'src/' },
+    },
+    plugins: [
+        new ESLintPlugin(),
+        new WebpackBar({
+            name: 'Client',
+            color: '#99ccff',
+        }),
+    ],
+    output: {
+        path: resolve(__dirname, '../dist/client'),
+        filename: 'bundle.js',
+        clean: true,
+    },
 });

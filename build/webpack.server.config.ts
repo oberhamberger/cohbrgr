@@ -26,24 +26,24 @@ export default (): Configuration => ({
         modules: [
             join(CWD, ''),
             join(CWD, 'node_modules'),
-            join(dirname(require.main!.filename), '..', 'node_modules'),
-            join(dirname(require.main!.filename), 'node_modules'),
+            join(dirname(require.main.filename), '..', 'node_modules'),
+            join(dirname(require.main.filename), 'node_modules'),
             'node_modules',
         ],
-        alias: { src: 'src/server' },
+        alias: { src: 'src/' },
     },
     plugins: [
         new ESLintPlugin(),
         new WebpackBar({
             name: 'Server',
-            color: '#ff50e1'
+            color: '#ff50e1',
         }),
-        new NodemonPlugin()
+        new NodemonPlugin(),
     ],
     output: {
         path: resolve(__dirname, '../dist/server/'),
         filename: 'index.js',
         clean: true,
         publicPath: '/',
-    }
+    },
 });
