@@ -1,16 +1,14 @@
 import express from 'express';
 import helmet from 'helmet';
 import compression from 'compression';
-import { resolve } from 'path';
 
 import Logger from 'src/server/utils/logger';
+import render from './middleware/render';
 
 const app = express();
-const staticPath = resolve(__dirname + '/../client');
 const defaultPort = 3000;
 const port = process.env.PORT || defaultPort;
 
-// express server basic security
 app.use(
     helmet({
         contentSecurityPolicy: {
@@ -30,20 +28,9 @@ app.use(
         },
     }),
 );
-
-// express server basic compression
 app.use(compression());
 
-// express server static path configuration
-app.use(express.static(staticPath));
-app.use((req, res) => {
-    // 404 handling
-    Logger.log(
-        'warn',
-        `Returning 404 for Request: ${req.method} : ${req.path}`,
-    );
-    res.status(404).sendFile(staticPath + '/404.html');
-});
+app.use(render());
 
 // starting the server
 const server = app.listen(port, () => {

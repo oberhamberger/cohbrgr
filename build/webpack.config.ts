@@ -4,14 +4,14 @@ import getWebpackServerConfig from './webpack.server.config';
 
 export enum Mode {
     DEVELOPMENT = 'development',
-    PRODUCTION = 'production'
+    PRODUCTION = 'production',
 }
 
 export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 
 const config: Configuration[] = [
     getWebpackClientConfig(),
-    getWebpackServerConfig()
+    getWebpackServerConfig(),
 ];
 
 export default config;
