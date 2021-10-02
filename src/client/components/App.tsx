@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import Nav from 'src/client/components/nav';
 
-const App: FunctionComponent = (props: any) => {
+const App: FunctionComponent = () => {
     return (
         <>
             <main>
@@ -12,21 +13,7 @@ const App: FunctionComponent = (props: any) => {
                     work with React and Node.js on online commerce platforms.
                 </p>
             </main>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="https://twitter.com/cohbrgr">Twitter</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/oberhamberger">Github</a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/oberhamberger/">
-                            LinkedIn
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <Nav />
         </>
     );
 };
