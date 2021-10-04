@@ -1,18 +1,16 @@
 import React, { FunctionComponent } from 'react';
+
+import Head from 'src/client/components/head';
+import Main from 'src/client/components/main';
 import Nav from 'src/client/components/nav';
+
+import 'src/client/resources/Global.scss';
 
 const App: FunctionComponent = () => {
     return (
         <>
-            <main>
-                <h1>Hi!</h1>
-                <h2>My name is Christian</h2>
-                <p>
-                    I am a Frontend Developer at{' '}
-                    <a href="https://www.netconomy.net/">Netconomy</a>. I mainly
-                    work with React and Node.js on online commerce platforms.
-                </p>
-            </main>
+            <Head />
+            <Main />
             <Nav />
         </>
     );

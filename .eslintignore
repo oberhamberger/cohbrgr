@@ -1,3 +1,4 @@
 node_modules
 dist
 coverage
+*.scss.d.ts
