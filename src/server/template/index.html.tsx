@@ -1,3 +1,5 @@
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import React, { FunctionComponent } from 'react';
 import App from 'src/client/components/App';
 import { StaticContext } from 'react-router';
@@ -12,25 +14,10 @@ interface IIndexProps {
 export type IndexProps = IIndexProps;
 
 const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
-    const ApplicationBody = (
-        <>
-            <div id="root">
-                <StaticRouter location={props.location} context={props.context}>
-                    <App />
-                </StaticRouter>
-            </div>
-            {props.useCSR && (
-                <script
-                    async
-                    type="module"
-                    crossOrigin="use-credentials"
-                    nonce="18cafefd-fbaf-4608-afb1-6edf0a4035df"
-                    src="bundle.js"
-                ></script>
-            )}
-        </>
+    const styleFile = readFileSync(
+        resolve(__dirname + '/../client/styles.css'),
+        'utf8',
     );
-
     return (
         <html lang="en">
             <head>
@@ -78,9 +65,27 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     media="(prefers-color-scheme: dark)"
                     content="#1c1d1f"
                 />
-                <link rel="stylesheet" href="styles.css"></link>
+                <style dangerouslySetInnerHTML={{ __html: styleFile }}></style>
             </head>
-            <body>{ApplicationBody}</body>
+            <body>
+                <div id="root">
+                    <StaticRouter
+                        location={props.location}
+                        context={props.context}
+                    >
+                        <App />
+                    </StaticRouter>
+                </div>
+                {props.useCSR && (
+                    <script
+                        async
+                        type="module"
+                        crossOrigin="use-credentials"
+                        nonce="18cafefd-fbaf-4608-afb1-6edf0a4035df"
+                        src="bundle.js"
+                    ></script>
+                )}
+            </body>
         </html>
     );
 };
