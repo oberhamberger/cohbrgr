@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import getCSSModuleLocalIdent from 'react-dev-utils/getCSSModuleLocalIdent';
+import CopyPlugin from 'copy-webpack-plugin';
 import { Mode, isProduction } from './webpack.config';
 
 const CWD = process.cwd();
@@ -66,6 +66,9 @@ export default (): Configuration => ({
             color: '#99ccff',
         }),
         new MiniCssExtractPlugin({ filename: 'styles.css' }),
+        new CopyPlugin({
+            patterns: [{ from: 'src/client/resources/static', to: './' }],
+        }),
     ],
     output: {
         path: resolve(__dirname, '../dist/client'),

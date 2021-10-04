@@ -1,15 +1,17 @@
+import { resolve } from 'path';
 import express from 'express';
 import helmet from 'helmet';
 import compression from 'compression';
 
 import Logger from 'src/server/utils/logger';
-import render from './middleware/render';
-import { resolve } from 'path';
+import methodDetermination from 'src/server/middleware/methodDetermination';
+import render from 'src/server/middleware/render';
 
 const app = express();
 const defaultPort = 3000;
 const port = process.env.PORT || defaultPort;
 const staticPath = resolve(__dirname + '/../client');
+const useClientSideRendering = true;
 
 app.use(
     helmet({
@@ -30,9 +32,9 @@ app.use(
     }),
 );
 app.use(compression());
-
+app.use(methodDetermination);
 app.use(express.static(staticPath));
-app.use(render());
+app.use(render(useClientSideRendering));
 
 // starting the server
 const server = app.listen(port, () => {

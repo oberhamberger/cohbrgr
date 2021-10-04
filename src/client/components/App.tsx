@@ -1,18 +1,21 @@
 import React, { FunctionComponent } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import Head from 'src/client/components/head';
-import Main from 'src/client/components/main';
-import Nav from 'src/client/components/nav';
+import Content from 'src/client/components/content';
+import NotFound from 'src/client/components/not-found';
 
-import 'src/client/resources/Global.scss';
+import 'src/client/resources/styles/Global.scss';
 
 const App: FunctionComponent = () => {
     return (
-        <>
-            <Head />
-            <Main />
-            <Nav />
-        </>
+        <Switch>
+            <Route exact path="/">
+                <Content />
+            </Route>
+            <Route path="*">
+                <NotFound />
+            </Route>
+        </Switch>
     );
 };
 
