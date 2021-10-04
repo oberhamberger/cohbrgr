@@ -3,7 +3,7 @@ import React from 'react';
 import { StaticContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import Index from 'src/server/template/index.html';
-import Logger from '../utils/logger';
+import Logger from 'src/server/utils/logger';
 
 const doctype = '<!DOCTYPE html>';
 

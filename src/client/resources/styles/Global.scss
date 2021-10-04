@@ -18,10 +18,25 @@ html, body {
     padding: 0;
     margin: 0;
     font-size: 100%;
+
+
+    @media (prefers-color-scheme: dark) {
+        background: var(--color-background-dark);
+        color: var(--color-font-dark);
+    }
 }
 
 main {
     margin: 0 24px;
+
+    @media screen and (min-width: 768px) {
+        max-width: calc(768px - 48px);
+        margin: 0 auto;
+    }
+
+    @media screen and (min-width: 992px) {    
+        max-width: 768px;
+    }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,112 +48,93 @@ h1 {
     margin-top: 24px;
     font-weight: 700;
     font-size: 3rem;
+
+    @media screen and (min-width: 768px) {
+        font-size: 4rem;
+    }
+
+    @media screen and (min-width: 992px) {
+        margin-top: 48px;
+    }
 }
 
 h2 {
     font-size: 1.5rem;
     font-weight: 600;
+
+    @media screen and (min-width: 768px) {
+        font-size: 2rem;
+    }
 }
 
 p {
     font-weight: 300;
     font-size: 1.2rem;
     line-height: 1.88rem;
+    @media screen and (min-width: 768px) {
+        font-size: 1.44rem;
+        line-height: 2.25rem;
+    }
 }
 
 a {
     color: var(--color-font-light);
     text-decoration: none;
     text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
-}
 
-a:hover,
-a:active,
-a:focus {
-    text-decoration: underline;
-    text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
+    &:hover,
+    &:active,
+    &:focus {
+        text-decoration: underline;
+        text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
+
+        @media (prefers-color-scheme: dark) {
+            text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        color: var(--color-font-dark);
+        text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
+    }
+
 }
 
 nav {
     margin: 32px 24px 0 24px;
-}
 
-nav ul {
-    padding: 0;
-    margin: 0;
-}
-
-nav li {
-    list-style: none;
-    display: inline-block;
-    margin-right: 1.2rem;
-}
-
-nav a {
-    font-style: italic;
-    font-size: 1rem;
-}
-
-@media (prefers-color-scheme: dark) {
-    html,
-    body {
-        background: var(--color-background-dark);
-        color: var(--color-font-dark);
-    }
-    a {
-        color: var(--color-font-dark);
-        text-shadow: 8px 0 12px var(--color-primary),-4px 0 12px var(--color-secondary);
-    }
-    a:hover,
-    a:active,
-    a:focus {
-        text-shadow: 8px 0 18px var(--color-primary), -4px 0 18px var(--color-secondary);
-    }
-}
-
-@media screen and (min-width: 768px) {
-    main {
-        max-width: calc(768px - 48px);
-        margin: 0 auto;
-    }
-
-    h1 {
-        font-size: 4rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-    }
-
-    p {
-        font-size: 1.44rem;
-        line-height: 2.25rem;
-    }
-
-    nav {
+    @media screen and (min-width: 768px) {
         max-width: calc(768px - 48px);
         margin: 38px auto 0 auto;
     }
 
-    nav li {
-        margin-right: 2.4rem;
-    }
 
-    nav a {
-        font-size: 1.44rem;
-    }
-}
-
-@media screen and (min-width: 992px) {
-    h1 {
-        margin-top: 48px;
-    }
-
-    main {
+    @media screen and (min-width: 992px) {
         max-width: 768px;
     }
-
-    nav {
-        max-width: 768px;
+    
+    ul {
+        padding: 0;
+        margin: 0;
     }
+
+    li {
+        list-style: none;
+        display: inline-block;
+        margin-right: 1.2rem;
+
+        @media screen and (min-width: 768px) {
+            margin-right: 2.4rem;
+        }
+    }
+
+    a {
+        font-style: italic;
+        font-size: 1rem;
+
+        @media screen and (min-width: 768px) {
+            font-size: 1.44rem;
+        }
+    }
+
 }
