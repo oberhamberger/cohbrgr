@@ -43,6 +43,12 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 <link rel="canonical" href="https://cohbrgr.com/" />
                 <title>Christian Oberhamberger</title>
 
+                <link rel="icon" href="/favicon.ico" sizes="any" />
+                <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+                <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+                <link rel="manifest" href="/manifest.json" />
+
                 <meta
                     name="description"
                     content="Christian Oberhamberger - *sipping coffee*"
