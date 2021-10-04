@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import getCSSModuleLocalIdent from 'react-dev-utils/getCSSModuleLocalIdent';
 import { Mode, isProduction } from './webpack.config';
 
 const CWD = process.cwd();
@@ -26,16 +26,17 @@ export default (): Configuration => ({
                 // For Less - /\.((c|le)ss)$/i,
                 test: /\.((c|sa|sc)ss)$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
-                            // Run `postcss-loader` on each CSS `@import` and CSS modules/ICSS imports, do not forget that `sass-loader` compile non CSS `@import`'s into a single file
-                            // If you need run `sass-loader` and `postcss-loader` on each CSS `@import` please set it to `2`
+                            modules: {
+                                localIdentName: '[hash:base64:8]',
+                                exportOnlyLocals: true,
+                            },
+                            esModule: true,
                             importLoaders: 1,
                         },
                     },
-                    // Can be `less-loader`
                     {
                         loader: 'sass-loader',
                     },
@@ -44,7 +45,7 @@ export default (): Configuration => ({
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.css'],
+        extensions: ['.tsx', '.ts', '.js', '.scss'],
         modules: [
             join(CWD, ''),
             join(CWD, 'node_modules'),
@@ -60,7 +61,6 @@ export default (): Configuration => ({
             name: 'Server',
             color: '#ff50e1',
         }),
-        new MiniCssExtractPlugin(),
         new NodemonPlugin(),
     ],
     output: {

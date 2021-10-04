@@ -3,6 +3,7 @@ import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import getCSSModuleLocalIdent from 'react-dev-utils/getCSSModuleLocalIdent';
 import { Mode, isProduction } from './webpack.config';
 
 const CWD = process.cwd();
@@ -20,17 +21,23 @@ export default (): Configuration => ({
                 exclude: /node_modules/,
             },
             {
-                // For pure CSS - /\.css$/i,
-                // For Sass/SCSS - /\.((c|sa|sc)ss)$/i,
-                // For Less - /\.((c|le)ss)$/i,
                 test: /\.((c|sa|sc)ss)$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
+                        loader: 'css-modules-typescript-loader',
+                        options: {
+                            mode: process.env.CI ? 'verify' : 'emit',
+                        },
+                    },
+                    {
                         loader: 'css-loader',
                         options: {
-                            // Run `postcss-loader` on each CSS `@import` and CSS modules/ICSS imports, do not forget that `sass-loader` compile non CSS `@import`'s into a single file
-                            // If you need run `sass-loader` and `postcss-loader` on each CSS `@import` please set it to `2`
+                            modules: {
+                                localIdentName: '[hash:base64:8]',
+                                exportOnlyLocals: false,
+                            },
+                            esModule: true,
                             importLoaders: 1,
                         },
                     },
@@ -42,7 +49,7 @@ export default (): Configuration => ({
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.css'],
+        extensions: ['.tsx', '.ts', '.js', '.scss'],
         modules: [
             join(CWD, ''),
             join(CWD, 'node_modules'),
@@ -58,7 +65,7 @@ export default (): Configuration => ({
             name: 'Client',
             color: '#99ccff',
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({ filename: 'styles.css' }),
     ],
     output: {
         path: resolve(__dirname, '../dist/client'),

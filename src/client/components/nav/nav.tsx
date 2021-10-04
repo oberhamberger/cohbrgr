@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import 'src/client/components/nav/nav.module.css';
 
 const Nav: FunctionComponent = () => {
     return (
