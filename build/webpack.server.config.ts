@@ -3,7 +3,6 @@ import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-import getCSSModuleLocalIdent from 'react-dev-utils/getCSSModuleLocalIdent';
 import { Mode, isProduction } from './webpack.config';
 
 const CWD = process.cwd();
