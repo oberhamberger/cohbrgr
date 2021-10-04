@@ -12,17 +12,15 @@ const render =
     (req: Request, res: Response): Response => {
         Logger.info(`Rendering React Application with path: ${req.url}`);
         const context: StaticContext = {};
-        return res.send(
-            doctype +
-                renderToString(
-                    <Index
-                        location={req.url}
-                        context={context}
-                        useCSR={useClientSideRendering}
-                        nonce={nonce}
-                    />,
-                ),
+        const markup = renderToString(
+            <Index
+                location={req.url}
+                context={context}
+                useCSR={useClientSideRendering}
+                nonce={nonce}
+            />,
         );
+        return res.status(context.statusCode || 200).send(doctype + markup);
     };
 
 export default render;
