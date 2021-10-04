@@ -6,22 +6,21 @@ import compression from 'compression';
 import Logger from 'src/server/utils/logger';
 import methodDetermination from 'src/server/middleware/methodDetermination';
 import render from 'src/server/middleware/render';
+import { randomBytes } from 'crypto';
 
 const app = express();
 const defaultPort = 3000;
 const port = process.env.PORT || defaultPort;
 const staticPath = resolve(__dirname + '/../client');
 const useClientSideRendering = true;
+const nonce = randomBytes(16).toString('base64');
 
 app.use(
     helmet({
         contentSecurityPolicy: {
             useDefaults: true,
             directives: {
-                'script-src': [
-                    "'nonce-18cafefd-fbaf-4608-afb1-6edf0a4035df'",
-                    "'unsafe-inline'",
-                ],
+                'script-src': [`'nonce-${nonce}'`, "'unsafe-inline'"],
                 'manifest-src': ["'self'"],
                 'connect-src': ["'self'"],
                 'worker-src': ["'self'"],
@@ -34,7 +33,7 @@ app.use(
 app.use(compression());
 app.use(methodDetermination);
 app.use(express.static(staticPath));
-app.use(render(useClientSideRendering));
+app.use(render(useClientSideRendering, nonce));
 
 // starting the server
 const server = app.listen(port, () => {

@@ -9,6 +9,7 @@ interface IIndexProps {
     location: string;
     context: StaticContext;
     useCSR: boolean;
+    nonce: string;
 }
 
 export type IndexProps = IIndexProps;
@@ -81,8 +82,8 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                         async
                         type="module"
                         crossOrigin="use-credentials"
-                        nonce="18cafefd-fbaf-4608-afb1-6edf0a4035df"
-                        src="bundle.js"
+                        nonce={props.nonce}
+                        src="/bundle.js"
                     ></script>
                 )}
             </body>
