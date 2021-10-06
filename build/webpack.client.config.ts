@@ -73,6 +73,5 @@ export default (): Configuration => ({
     output: {
         path: resolve(__dirname, '../dist/client'),
         filename: 'bundle.js',
-        clean: true,
     },
 });
