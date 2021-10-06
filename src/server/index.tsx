@@ -20,7 +20,7 @@ app.use(
         contentSecurityPolicy: {
             useDefaults: true,
             directives: {
-                'script-src': [`'nonce-${nonce}'`, "'unsafe-inline'"],
+                'script-src': [`'nonce-${nonce}'`],
                 'manifest-src': ["'self'"],
                 'connect-src': ["'self'"],
                 'worker-src': ["'self'"],
@@ -32,7 +32,7 @@ app.use(
 );
 app.use(compression());
 app.use(methodDetermination);
-app.use(express.static(staticPath));
+app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 app.use(render(useClientSideRendering, nonce));
 
 // starting the server

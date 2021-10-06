@@ -6,20 +6,21 @@
         "sourceMap": true,
         "baseUrl": ".",
         "outDir": "./dist/",
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "jsx": "react",
         "allowJs": true,
         "moduleResolution": "node",
         "typeRoots": [
             "./node_modules/@types"
         ],
-        "paths": {
-            "server": [
-              "./src/server"
-            ]
-          },
+        "lib": [
+            "es2017",
+            "dom",
+            "dom.iterable",
+            "webworker"
+        ],
     },
     "exclude": [
-        "./dist"
+        "./dist",
     ]
 }

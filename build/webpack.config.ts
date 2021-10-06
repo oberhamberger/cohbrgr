@@ -1,6 +1,7 @@
 import { Configuration } from 'webpack';
 import getWebpackClientConfig from './webpack.client.config';
 import getWebpackServerConfig from './webpack.server.config';
+import getWebpackServiceWorkerConfig from './webpack.service-worker.config';
 
 export enum Mode {
     DEVELOPMENT = 'development',
@@ -12,6 +13,7 @@ export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 const config: Configuration[] = [
     getWebpackClientConfig(),
     getWebpackServerConfig(),
+    getWebpackServiceWorkerConfig(),
 ];
 
 export default config;
