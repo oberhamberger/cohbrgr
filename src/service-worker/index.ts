@@ -1,4 +1,4 @@
-import * as navigationPreload from 'workbox-navigation-preload';
+import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { NetworkOnly } from 'workbox-strategies';
 
@@ -10,7 +10,7 @@ self.addEventListener('install', async (event: ExtendableEvent) => {
     );
 });
 
-navigationPreload.enable();
+navigationPreloadEnable();
 
 const networkOnly = new NetworkOnly();
 const navigationHandler = async (params) => {
@@ -23,5 +23,4 @@ const navigationHandler = async (params) => {
     }
 };
 
-// Register this strategy to handle all navigations.
 registerRoute(new NavigationRoute(navigationHandler));
