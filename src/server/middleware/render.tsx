@@ -9,10 +9,9 @@ const doctype = '<!DOCTYPE html>';
 
 const render =
     (useClientSideRendering: boolean, nonce: string) =>
-    (req: Request, res: Response): Response => {
-        Logger.info(`Rendering React Application with path: ${req.url}`);
+    async (req: Request, res: Response): Promise<Response> => {
         const context: StaticContext = {};
-        const markup = renderToString(
+        const markup = await renderToString(
             <Index
                 location={req.url}
                 context={context}
@@ -20,7 +19,20 @@ const render =
                 nonce={nonce}
             />,
         );
-        return res.status(context.statusCode || 200).send(doctype + markup);
+
+        const renderStatusCode = context.statusCode || 200;
+
+        if (renderStatusCode < 300) {
+            Logger.info(`Rendered App with path: ${req.url}`);
+        } else if (renderStatusCode < 400) {
+            Logger.warn(`Redirected: ${req.url}`);
+        } else if (renderStatusCode < 500) {
+            Logger.warn(`Not found: ${req.url}`);
+        } else {
+            Logger.error(`Major Server Error while rendering: ${req.url}`);
+        }
+
+        return res.status(renderStatusCode).send(doctype + markup);
     };
 
 export default render;
