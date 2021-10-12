@@ -4,6 +4,7 @@ import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import { Mode, isProduction } from './webpack.config';
+import LocalIdentNames from './style-utils/localIdentNames';
 
 const CWD = process.cwd();
 
@@ -20,20 +21,17 @@ export default (): Configuration => ({
                 exclude: /node_modules/,
             },
             {
-                // For pure CSS - /\.css$/i,
-                // For Sass/SCSS - /\.((c|sa|sc)ss)$/i,
-                // For Less - /\.((c|le)ss)$/i,
                 test: /\.((c|sa|sc)ss)$/i,
                 use: [
                     {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                localIdentName: '[hash:base64:8]',
                                 exportOnlyLocals: true,
+                                getLocalIdent: LocalIdentNames.get,
                             },
                             esModule: true,
-                            importLoaders: 1,
+                            importLoaders: 2,
                         },
                     },
                     {

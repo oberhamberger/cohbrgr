@@ -66,6 +66,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     media="(prefers-color-scheme: dark)"
                     content="#1c1d1f"
                 />
+
                 <style dangerouslySetInnerHTML={{ __html: styleFile }}></style>
             </head>
             <body>

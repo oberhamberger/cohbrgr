@@ -5,6 +5,7 @@ import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { Mode, isProduction } from './webpack.config';
+import LocalIdentNames from './style-utils/localIdentNames';
 
 const CWD = process.cwd();
 
@@ -23,22 +24,21 @@ export default (): Configuration => ({
             {
                 test: /\.((c|sa|sc)ss)$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     {
-                        loader: 'css-modules-typescript-loader',
+                        loader: MiniCssExtractPlugin.loader,
                         options: {
-                            mode: process.env.CI ? 'verify' : 'emit',
+                            esModule: true,
                         },
                     },
                     {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                localIdentName: '[hash:base64:8]',
                                 exportOnlyLocals: false,
+                                getLocalIdent: LocalIdentNames.get,
                             },
                             esModule: true,
-                            importLoaders: 1,
+                            importLoaders: 2,
                         },
                     },
                     {
