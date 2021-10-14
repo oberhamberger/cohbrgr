@@ -1,16 +1,14 @@
 {
-    "name": "Christian Oberhamberger",
+    "name": "cohbrgr",
     "short_name": "cohbrgr",
     "description": "personal playground",
     "author": "Christian Oberhamberger",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icons": [
         {"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},
         {"src": "/android-chrome-384x384.png","sizes":"384x384","type": "image/png"},
         {"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}
     ],
     "start_url": "/",
-    "background_color": "#ffffff",
-    "theme_color": "#ffffff",
     "display": "standalone"
 }
