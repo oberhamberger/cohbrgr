@@ -67,6 +67,18 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     content="#1c1d1f"
                 />
                 <style dangerouslySetInnerHTML={{ __html: styleFile }}></style>
+                <script
+                    crossOrigin="use-credentials"
+                    nonce={props.nonce}
+                    dangerouslySetInnerHTML={{
+                        __html: `
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+    });
+}`,
+                    }}
+                ></script>
             </head>
             <body>
                 <div id="root">
@@ -86,21 +98,6 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                         src="/bundle.js"
                     ></script>
                 )}
-                <script
-                    crossOrigin="use-credentials"
-                    nonce={props.nonce}
-                    dangerouslySetInnerHTML={{
-                        __html: `
-// Check that service workers are supported
-if ('serviceWorker' in navigator) {
-// Use the window load event to keep the page load performant
-window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js');
-});
-}
-                `,
-                    }}
-                ></script>
             </body>
         </html>
     );
