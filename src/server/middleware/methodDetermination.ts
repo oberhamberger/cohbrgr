@@ -3,9 +3,13 @@ import Logger from 'src/server/utils/logger';
 
 export enum HttpMethod {
     GET = 'GET',
+    HEAD = 'HEAD',
     POST = 'POST',
-    DELETE = 'DELETE',
     PUT = 'PUT',
+    DELETE = 'DELETE',
+    CONNECT = 'CONNECT',
+    OPTIONS = 'OPTIONS',
+    TRACE = 'TRACE',
     PATCH = 'PATCH',
 }
 
@@ -18,7 +22,7 @@ const methodDetermination = (
         Logger.warn(
             `Unexpected Request with Method: ${req.method} on ${req.originalUrl}`,
         );
-        return res.status(405).send('Nothing here.');
+        return res.status(405).send('Method Not allowed');
     }
     next();
 };
