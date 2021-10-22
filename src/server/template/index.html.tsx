@@ -16,7 +16,7 @@ export type IndexProps = IIndexProps;
 
 const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
     const styleFile = readFileSync(
-        resolve(__dirname + '/../client/styles.css'),
+        resolve(__dirname + '/../client/styles/bundle.css'),
         'utf8',
     );
     return (

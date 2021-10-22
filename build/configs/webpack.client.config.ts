@@ -4,47 +4,28 @@ import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
-import { Mode, isProduction } from './webpack.config';
 
-const CWD = process.cwd();
+import { Mode, isProduction, regexStyle, regexSource, CWD } from '..';
+import styleLoaders from '../loaders/style-loaders';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
-    entry: 'src/client',
+    context: resolve(__dirname, 'src'),
+    entry: {
+        client: 'src/client',
+    },
     target: 'web',
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: regexSource,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
             },
             {
-                test: /\.((c|sa|sc)ss)$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: 'css-modules-typescript-loader',
-                        options: {
-                            mode: process.env.CI ? 'verify' : 'emit',
-                        },
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: {
-                                localIdentName: '[hash:base64:8]',
-                                exportOnlyLocals: false,
-                            },
-                            esModule: true,
-                            importLoaders: 1,
-                        },
-                    },
-                    {
-                        loader: 'sass-loader',
-                    },
-                ],
+                test: regexStyle,
+                use: styleLoaders(false, isProduction),
             },
         ],
     },
@@ -65,13 +46,15 @@ export default (): Configuration => ({
             name: 'Client',
             color: '#99ccff',
         }),
-        new MiniCssExtractPlugin({ filename: 'styles.css' }),
+        new MiniCssExtractPlugin({ filename: 'styles/bundle.css' }),
         new CopyPlugin({
-            patterns: [{ from: 'src/client/resources/static', to: './' }],
+            patterns: [
+                { from: '../../../src/client/resources/static', to: './' },
+            ],
         }),
     ],
     output: {
-        path: resolve(__dirname, '../dist/client'),
+        path: resolve(__dirname, '../../dist/client'),
         filename: 'bundle.js',
     },
 });
