@@ -2,9 +2,7 @@ import { join, resolve, dirname } from 'path';
 import { Configuration } from 'webpack';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import WebpackBar from 'webpackbar';
-import { Mode, isProduction } from './webpack.config';
-
-const CWD = process.cwd();
+import { Mode, isProduction, CWD } from '..';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
@@ -39,7 +37,7 @@ export default (): Configuration => ({
         }),
     ],
     output: {
-        path: resolve(__dirname, '../dist/client/'),
+        path: resolve(__dirname, '../../dist/client/'),
         filename: 'service-worker.js',
         publicPath: '/',
     },
