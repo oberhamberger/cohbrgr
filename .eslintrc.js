@@ -12,6 +12,9 @@ module.exports = {
         'prettier',
         'plugin:prettier/recommended',
     ],
+    rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+    },
     overrides: [
         {
             files: ['src/client/**'],
