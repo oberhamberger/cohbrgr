@@ -1,13 +1,11 @@
-import { resolve } from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-const styleLoaders = (isServer: boolean, isProduction: boolean): any[] => {
+export default (isServer: boolean, isProduction: boolean): any[] => {
     const loaders: any[] = [
         {
             loader: 'css-loader',
             options: {
                 modules: {
-                    localIdentContext: resolve(__dirname, '../../../src'),
                     exportOnlyLocals: isServer,
                     exportLocalsConvention: 'camelCase',
                     exportGlobals: true,
@@ -36,5 +34,3 @@ const styleLoaders = (isServer: boolean, isProduction: boolean): any[] => {
 
     return loaders;
 };
-
-export default styleLoaders;
