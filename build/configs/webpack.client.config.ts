@@ -55,9 +55,14 @@ const getWebpackClientConfig = (): Configuration => {
                 ],
             }),
         ],
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+            },
+        },
         output: {
             path: resolve(__dirname, '../../dist/client'),
-            filename: 'bundle.js',
+            filename: 'scripts/[name].js',
         },
     };
 
