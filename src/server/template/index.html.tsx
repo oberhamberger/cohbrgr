@@ -1,5 +1,5 @@
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { readFileSync, readdirSync } from 'fs';
+import { resolve, extname } from 'path';
 import React, { FunctionComponent } from 'react';
 import App from 'src/client/components/App';
 import { StaticContext } from 'react-router';
@@ -14,11 +14,16 @@ interface IIndexProps {
 
 export type IndexProps = IIndexProps;
 
+const styleFile = readFileSync(
+    resolve(__dirname + '/../client/styles/bundle.css'),
+    'utf8',
+);
+
+const scriptFiles = readdirSync(
+    resolve(__dirname + '/../client/scripts'),
+).filter((fileName) => extname(fileName) === '.js');
+
 const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
-    const styleFile = readFileSync(
-        resolve(__dirname + '/../client/styles/bundle.css'),
-        'utf8',
-    );
     return (
         <html lang="en">
             <head>
@@ -89,15 +94,17 @@ if ('serviceWorker' in navigator) {
                         <App />
                     </StaticRouter>
                 </div>
-                {props.useCSR && (
-                    <script
-                        async
-                        type="module"
-                        crossOrigin="use-credentials"
-                        nonce={props.nonce}
-                        src="/bundle.js"
-                    ></script>
-                )}
+                {props.useCSR &&
+                    scriptFiles.map((file) => (
+                        <script
+                            key={file}
+                            async
+                            type="module"
+                            crossOrigin="use-credentials"
+                            nonce={props.nonce}
+                            src={`scripts/${file}`}
+                        ></script>
+                    ))}
             </body>
         </html>
     );
