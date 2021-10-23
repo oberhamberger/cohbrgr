@@ -14,7 +14,7 @@ export default (isServer: boolean, isProduction: boolean): any[] => {
                         : '[name]__[local]__[hash:base64:3]',
                 },
                 esModule: true,
-                importLoaders: 2,
+                importLoaders: 1,
                 sourceMap: !isProduction,
             },
         },
