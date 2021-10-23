@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import 'src/client/resources/styles/Global.scss';
+import 'src/client/resources/styles';
 
 import Content from 'src/client/components/content';
 import Offline from 'src/client/components/offline';

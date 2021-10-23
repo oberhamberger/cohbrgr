@@ -4,7 +4,7 @@ import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import { Mode, isProduction, regexStyle, regexSource, CWD } from '..';
-import styleLoaders from '../loaders/style-loaders';
+import getStyleLoader from '../loader/style.loader';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
@@ -23,7 +23,7 @@ export default (): Configuration => ({
             },
             {
                 test: regexStyle,
-                use: styleLoaders(true, isProduction),
+                use: getStyleLoader(true, isProduction),
             },
         ],
     },
