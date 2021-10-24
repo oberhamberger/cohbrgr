@@ -54,4 +54,5 @@ docker run -d -p 3000:3000 node-docker
 - Serviceworker using Workbox (for offline-Mode)
 - Linting
 - Prettier
+- Jest
 - and of course: dark mode
