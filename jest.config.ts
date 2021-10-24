@@ -7,6 +7,9 @@ const moduleNames = pathsToModuleNameMapper(
     tsconfig.compilerOptions.paths /*, { prefix: '<rootDir>/' } */,
 );
 
+moduleNames['.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$'] =
+    'jest-transform-stub';
+
 const config: InitialOptionsTsJest = {
     globals: {
         'ts-jest': {

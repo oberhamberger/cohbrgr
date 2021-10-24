@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import 'src/client/resources/styles';
 
+import 'src/client/resources/styles/index.scss';
 import Content from 'src/client/components/content';
 import Offline from 'src/client/components/offline';
 import NotFound from 'src/client/components/not-found';
