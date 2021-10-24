@@ -4,6 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { StaticContext } from 'react-router';
 import { StaticRouter } from 'react-router-dom';
 
+import Logger from 'src/server/utils/logger';
 import App from 'src/client/components/App';
 
 interface IIndexProps {
@@ -15,14 +16,24 @@ interface IIndexProps {
 
 export type IndexProps = IIndexProps;
 
-const styleFile = readFileSync(
-    resolve(__dirname + '/../client/styles/bundle.css'),
-    'utf8',
-);
+let styleFileContents = '';
+let scriptFiles: string[] = [];
+try {
+    styleFileContents = readFileSync(
+        resolve(__dirname + '/../client/styles/bundle.css'),
+        'utf8',
+    );
+} catch (err) {
+    Logger.warn('HTML-Template: no files found in current context');
+}
 
-const scriptFiles = readdirSync(
-    resolve(__dirname + '/../client/scripts'),
-).filter((fileName) => extname(fileName) === '.js');
+try {
+    scriptFiles = readdirSync(resolve(__dirname + '/../client/scripts')).filter(
+        (fileName) => extname(fileName) === '.js',
+    );
+} catch (err) {
+    Logger.warn('HTML-Template: no files found in current context');
+}
 
 const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
     return (
@@ -72,7 +83,9 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     media="(prefers-color-scheme: dark)"
                     content="#1c1d1f"
                 />
-                <style dangerouslySetInnerHTML={{ __html: styleFile }}></style>
+                <style
+                    dangerouslySetInnerHTML={{ __html: styleFileContents }}
+                ></style>
                 <script
                     crossOrigin="use-credentials"
                     nonce={props.nonce}

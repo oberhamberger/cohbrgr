@@ -9,7 +9,7 @@ const doctype = '<!DOCTYPE html>';
 
 const render =
     (useClientSideRendering: boolean, nonce: string) =>
-    async (req: Request, res: Response): Promise<Response> => {
+    async (req: Request, res: Response) => {
         const context: StaticContext = {};
         const markup = await renderToString(
             <Index
@@ -32,7 +32,10 @@ const render =
             Logger.error(`Major Server Error while rendering: ${req.url}`);
         }
 
-        return res.status(renderStatusCode).send(doctype + markup);
+        res.status(renderStatusCode);
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.send(doctype + markup);
+        res.end();
     };
 
 export default render;
