@@ -22,7 +22,8 @@ const methodDetermination = (
         Logger.warn(
             `Unexpected Request with Method: ${req.method} on ${req.originalUrl}`,
         );
-        return res.status(405).send('Method Not allowed');
+        res.statusCode = 405;
+        return res.send('Method Not allowed');
     }
     next();
 };

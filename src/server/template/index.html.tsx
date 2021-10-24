@@ -1,9 +1,10 @@
 import { readFileSync, readdirSync } from 'fs';
 import { resolve, extname } from 'path';
 import React, { FunctionComponent } from 'react';
-import App from 'src/client/components/App';
 import { StaticContext } from 'react-router';
 import { StaticRouter } from 'react-router-dom';
+
+import App from 'src/client/components/App';
 
 interface IIndexProps {
     location: string;
