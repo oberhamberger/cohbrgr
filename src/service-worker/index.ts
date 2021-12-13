@@ -30,7 +30,6 @@ const resourceHandler = async ({ request }) =>
     request.destination === 'style' ||
     request.destination === 'script' ||
     request.destination === 'image' ||
-    request.destination === 'manifest' ||
     request.destination === 'font';
 
 registerRoute(new NavigationRoute(offlineNavigationHandler));
