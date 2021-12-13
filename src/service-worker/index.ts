@@ -1,6 +1,6 @@
 import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
-import { NetworkOnly } from 'workbox-strategies';
+import { NetworkOnly, CacheFirst } from 'workbox-strategies';
 
 const CACHE_NAME = 'offline-html';
 const FALLBACK_HTML_URL = '/offline';
@@ -13,7 +13,7 @@ self.addEventListener('install', async (event: ExtendableEvent) => {
 navigationPreloadEnable();
 
 const networkOnly = new NetworkOnly();
-const navigationHandler = async (params) => {
+const offlineNavigationHandler = async (params) => {
     try {
         return await networkOnly.handle(params);
     } catch (error) {
@@ -23,4 +23,15 @@ const navigationHandler = async (params) => {
     }
 };
 
-registerRoute(new NavigationRoute(navigationHandler));
+const cacheFirst = new CacheFirst({
+    cacheName: 'resources',
+});
+const resourceHandler = async ({ request }) =>
+    request.destination === 'style' ||
+    request.destination === 'script' ||
+    request.destination === 'image' ||
+    request.destination === 'manifest' ||
+    request.destination === 'font';
+
+registerRoute(new NavigationRoute(offlineNavigationHandler));
+registerRoute(resourceHandler, cacheFirst);
