@@ -1,4 +1,4 @@
-import { pathsToModuleNameMapper } from 'ts-jest/utils';
+import { pathsToModuleNameMapper } from 'ts-jest';
 import baseConfig, { moduleNames } from '../../jest.config.base';
 import * as tsconfig from '../../tsconfig.json';
 
