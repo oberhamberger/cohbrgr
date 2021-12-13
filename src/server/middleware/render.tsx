@@ -1,26 +1,27 @@
 import { Request, Response } from 'express';
 import React from 'react';
-import { StaticContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import Index from 'src/server/template/index.html';
 import Logger from 'src/server/utils/logger';
+import { HttpContextData, HttpProvider } from 'src/server/utils/http/context';
 
 const doctype = '<!DOCTYPE html>';
 
 const render =
     (useClientSideRendering: boolean, nonce: string) =>
     async (req: Request, res: Response) => {
-        const context: StaticContext = {};
+        const httpContext: HttpContextData = {};
         const markup = await renderToString(
-            <Index
-                location={req.url}
-                context={context}
-                useCSR={useClientSideRendering}
-                nonce={nonce}
-            />,
+            <HttpProvider context={httpContext}>
+                <Index
+                    location={req.url}
+                    useCSR={useClientSideRendering}
+                    nonce={nonce}
+                />
+            </HttpProvider>,
         );
 
-        const renderStatusCode = context.statusCode || 200;
+        const renderStatusCode = httpContext.statusCode || 200;
 
         if (renderStatusCode < 300) {
             Logger.info(`Rendered App with path: ${req.url}`);
