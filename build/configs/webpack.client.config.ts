@@ -62,7 +62,7 @@ const getWebpackClientConfig = (): Configuration => {
         },
         output: {
             path: resolve(__dirname, '../../dist/client'),
-            filename: 'scripts/[name].js',
+            filename: 'scripts/[id].[contenthash].js',
         },
     };
 
