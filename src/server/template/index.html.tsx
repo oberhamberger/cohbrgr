@@ -1,15 +1,13 @@
 import { readFileSync, readdirSync } from 'fs';
 import { resolve, extname } from 'path';
 import React, { FunctionComponent } from 'react';
-import { StaticContext } from 'react-router';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom/server';
 
 import Logger from 'src/server/utils/logger';
 import App from 'src/client/components/App';
 
 interface IIndexProps {
     location: string;
-    context: StaticContext;
     useCSR: boolean;
     nonce: string;
 }
@@ -101,10 +99,7 @@ if ('serviceWorker' in navigator) {
             </head>
             <body>
                 <div id="root">
-                    <StaticRouter
-                        location={props.location}
-                        context={props.context}
-                    >
+                    <StaticRouter location={props.location}>
                         <App />
                     </StaticRouter>
                 </div>
