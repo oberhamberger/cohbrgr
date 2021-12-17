@@ -24,10 +24,11 @@ describe('methodDetermination middleware', () => {
 
         mockResponse = httpMocks.createResponse();
 
-        await render(true, 'test-nonce')(
-            mockRequest as Request,
-            mockResponse as Response,
-        );
+        await render(
+            true,
+            true,
+            'test-nonce',
+        )(mockRequest as Request, mockResponse as Response);
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';

@@ -22,7 +22,7 @@ export const CWD = process.cwd();
 const config: Configuration[] = [
     getWebpackClientConfig(),
     getWebpackServerConfig(),
-    getWebpackServiceWorkerConfig(),
 ];
+isProduction && config.push(getWebpackServiceWorkerConfig());
 
 export default config;

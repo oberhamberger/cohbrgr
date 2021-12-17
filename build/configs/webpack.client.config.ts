@@ -48,7 +48,10 @@ const getWebpackClientConfig = (): Configuration => {
                 name: 'Client',
                 color: '#99ccff',
             }),
-            new MiniCssExtractPlugin({ filename: 'styles/bundle.css' }),
+            new MiniCssExtractPlugin({
+                filename: 'css/[name].css',
+                chunkFilename: 'css/[id].css',
+            }),
             new CopyPlugin({
                 patterns: [
                     { from: '../../../src/client/resources/static', to: './' },
@@ -56,13 +59,15 @@ const getWebpackClientConfig = (): Configuration => {
             }),
         ],
         optimization: {
+            chunkIds: isProduction ? 'natural' : 'named',
+            minimize: isProduction,
             splitChunks: {
                 chunks: 'all',
             },
         },
         output: {
             path: resolve(__dirname, '../../dist/client'),
-            filename: 'scripts/[id].[contenthash].js',
+            filename: 'js/[id].[contenthash].js',
         },
     };
 
