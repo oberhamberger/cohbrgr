@@ -5,8 +5,10 @@ import { StaticRouter } from 'react-router-dom/server';
 
 import Logger from 'src/server/utils/logger';
 import App from 'src/client/components/App';
+import ServiceWorker from 'src/server/template/components/serviceworker.html';
 
 interface IIndexProps {
+    isProduction: boolean;
     location: string;
     useCSR: boolean;
     nonce: string;
@@ -18,19 +20,19 @@ let styleFileContents = '';
 let scriptFiles: string[] = [];
 try {
     styleFileContents = readFileSync(
-        resolve(__dirname + '/../client/styles/bundle.css'),
+        resolve(__dirname + '/../client/css/client.css'),
         'utf8',
     );
 } catch (err) {
-    Logger.warn('HTML-Template: no files found in current context');
+    Logger.warn('HTML-Template: no css files found in current context');
 }
 
 try {
-    scriptFiles = readdirSync(resolve(__dirname + '/../client/scripts')).filter(
+    scriptFiles = readdirSync(resolve(__dirname + '/../client/js')).filter(
         (fileName) => extname(fileName) === '.js',
     );
 } catch (err) {
-    Logger.warn('HTML-Template: no files found in current context');
+    Logger.warn('HTML-Template: no js files found in current context');
 }
 
 const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
@@ -84,18 +86,8 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 <style
                     dangerouslySetInnerHTML={{ __html: styleFileContents }}
                 ></style>
-                <script
-                    crossOrigin="use-credentials"
-                    nonce={props.nonce}
-                    dangerouslySetInnerHTML={{
-                        __html: `
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-    });
-}`,
-                    }}
-                ></script>
+
+                {props.isProduction && <ServiceWorker nonce={props.nonce} />}
             </head>
             <body>
                 <div id="root">
@@ -111,7 +103,7 @@ if ('serviceWorker' in navigator) {
                             type="module"
                             crossOrigin="use-credentials"
                             nonce={props.nonce}
-                            src={`scripts/${file}`}
+                            src={`js/${file}`}
                         ></script>
                     ))}
             </body>

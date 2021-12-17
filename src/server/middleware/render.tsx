@@ -8,12 +8,13 @@ import { HttpContextData, HttpProvider } from 'src/server/utils/http/context';
 const doctype = '<!DOCTYPE html>';
 
 const render =
-    (useClientSideRendering: boolean, nonce: string) =>
+    (isProduction: boolean, useClientSideRendering: boolean, nonce: string) =>
     async (req: Request, res: Response) => {
         const httpContext: HttpContextData = {};
         const markup = await renderToString(
             <HttpProvider context={httpContext}>
                 <Index
+                    isProduction={isProduction}
                     location={req.url}
                     useCSR={useClientSideRendering}
                     nonce={nonce}
