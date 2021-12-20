@@ -56,3 +56,7 @@ docker run -d -p 3000:3000 node-docker
 - Prettier
 - Jest + React Testing Library
 - and of course: dark mode
+
+## forever ignored
+
+- Internet Explorer Support
