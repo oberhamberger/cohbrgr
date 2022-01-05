@@ -11,6 +11,7 @@ const render =
     (isProduction: boolean, useClientSideRendering: boolean, nonce: string) =>
     async (req: Request, res: Response) => {
         const httpContext: HttpContextData = {};
+
         const markup = await renderToString(
             <HttpProvider context={httpContext}>
                 <Index

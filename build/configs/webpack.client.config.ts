@@ -36,8 +36,13 @@ const getWebpackClientConfig = (): Configuration => {
             modules: [
                 join(CWD, ''),
                 join(CWD, 'node_modules'),
-                join(dirname(require.main.filename), '..', 'node_modules'),
-                join(dirname(require.main.filename), 'node_modules'),
+                join(
+                    dirname(require.main?.filename || ''),
+                    '..',
+                    'node_modules',
+                ),
+                join(dirname(require.main?.filename || ''), 'node_modules'),
+                'node_modules',
                 'node_modules',
             ],
             alias: { src: 'src/' },
@@ -73,13 +78,16 @@ const getWebpackClientConfig = (): Configuration => {
 
     const isAnalyze = process.env.ANALYZE === 'true';
     if (isAnalyze) {
-        clientConfig.plugins.unshift(
-            new BundleAnalyzerPlugin({
-                generateStatsFile: true,
-                openAnalyzer: true,
-                analyzerPort: 0,
-            }),
-        );
+        const analyzerPlugin = new BundleAnalyzerPlugin({
+            generateStatsFile: true,
+            openAnalyzer: true,
+            analyzerPort: 0,
+        });
+        if (clientConfig.plugins) {
+            clientConfig.plugins.unshift(analyzerPlugin);
+        } else {
+            clientConfig.plugins = [analyzerPlugin];
+        }
     }
 
     return clientConfig;

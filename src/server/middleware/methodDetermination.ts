@@ -17,7 +17,7 @@ const methodDetermination = (
     req: Request,
     res: Response,
     next: NextFunction,
-): Response => {
+) => {
     if (req.method !== HttpMethod.GET) {
         Logger.warn(
             `Unexpected Request with Method: ${req.method} on ${req.originalUrl}`,

@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import express from 'express';
 import helmet from 'helmet';
 import compression from 'compression';
@@ -13,7 +12,7 @@ const app = express();
 const defaultPort = 3000;
 const port = process.env.PORT || defaultPort;
 const isProduction = process.env.NODE_ENV === 'production';
-const staticPath = resolve(__dirname + '/../client');
+const staticPath = 'dist/client';
 const useClientSideRendering = true;
 const nonce = randomBytes(16).toString('base64');
 

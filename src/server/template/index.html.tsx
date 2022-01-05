@@ -1,11 +1,10 @@
-import { readFileSync, readdirSync } from 'fs';
-import { resolve, extname } from 'path';
 import React, { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 
-import Logger from 'src/server/utils/logger';
 import App from 'src/client/components/App';
 import ServiceWorker from 'src/server/template/components/serviceworker.html';
+import Javascript from 'src/server/template/components/javascript.html';
+import Stylesheets from 'src/server/template/components/stylesheets.html';
 
 interface IIndexProps {
     isProduction: boolean;
@@ -15,25 +14,6 @@ interface IIndexProps {
 }
 
 export type IndexProps = IIndexProps;
-
-let styleFileContents = '';
-let scriptFiles: string[] = [];
-try {
-    styleFileContents = readFileSync(
-        resolve(__dirname + '/../client/css/client.css'),
-        'utf8',
-    );
-} catch (err) {
-    Logger.warn('HTML-Template: no css files found in current context');
-}
-
-try {
-    scriptFiles = readdirSync(resolve(__dirname + '/../client/js')).filter(
-        (fileName) => extname(fileName) === '.js',
-    );
-} catch (err) {
-    Logger.warn('HTML-Template: no js files found in current context');
-}
 
 const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
     return (
@@ -46,7 +26,23 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
                 <link rel="canonical" href="https://cohbrgr.com/" />
+
                 <title>Christian Oberhamberger</title>
+
+                <meta
+                    name="description"
+                    content="Christian Oberhamberger - *sipping coffee*"
+                />
+                <meta
+                    name="theme-color"
+                    media="(prefers-color-scheme: light)"
+                    content="#ffffff"
+                />
+                <meta
+                    name="theme-color"
+                    media="(prefers-color-scheme: dark)"
+                    content="#1c1d1f"
+                />
 
                 <link
                     rel="apple-touch-icon"
@@ -68,25 +64,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 <link rel="manifest" href="/manifest.json" />
 
-                <meta
-                    name="description"
-                    content="Christian Oberhamberger - *sipping coffee*"
-                />
-
-                <meta
-                    name="theme-color"
-                    media="(prefers-color-scheme: light)"
-                    content="#ffffff"
-                />
-                <meta
-                    name="theme-color"
-                    media="(prefers-color-scheme: dark)"
-                    content="#1c1d1f"
-                />
-                <style
-                    dangerouslySetInnerHTML={{ __html: styleFileContents }}
-                ></style>
-
+                <Stylesheets />
                 {props.isProduction && <ServiceWorker nonce={props.nonce} />}
             </head>
             <body>
@@ -95,17 +73,8 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                         <App />
                     </StaticRouter>
                 </div>
-                {props.useCSR &&
-                    scriptFiles.map((file) => (
-                        <script
-                            key={file}
-                            async
-                            type="module"
-                            crossOrigin="use-credentials"
-                            nonce={props.nonce}
-                            src={`js/${file}`}
-                        ></script>
-                    ))}
+
+                {props.useCSR && <Javascript nonce={props.nonce} />}
             </body>
         </html>
     );
