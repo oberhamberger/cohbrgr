@@ -2,9 +2,12 @@ import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { NetworkOnly, CacheFirst } from 'workbox-strategies';
 
+declare const self: ServiceWorkerGlobalScope;
+
 const CACHE_NAME = 'offline-html';
 const FALLBACK_HTML_URL = '/offline';
-self.addEventListener('install', async (event: ExtendableEvent) => {
+
+self.addEventListener('install', async (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => cache.add(FALLBACK_HTML_URL)),
     );
@@ -13,7 +16,7 @@ self.addEventListener('install', async (event: ExtendableEvent) => {
 navigationPreloadEnable();
 
 const networkOnly = new NetworkOnly();
-const offlineNavigationHandler = async (params) => {
+const offlineNavigationHandler: any = async (params) => {
     try {
         return await networkOnly.handle(params);
     } catch (error) {

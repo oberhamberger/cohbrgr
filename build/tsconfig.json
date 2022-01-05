@@ -1,8 +1,6 @@
 {
+    "extends": "@tsconfig/node16/tsconfig.json",
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "esModuleInterop": true,
         "typeRoots": ["build/@types", "node_modules/@types"],
     }
 }

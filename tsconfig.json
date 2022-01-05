@@ -1,32 +1,29 @@
 {
-    "compilerOptions":{
-       "paths":{
-          "@App/*":[
-             "*"
-          ]
-       },
-       "module":"es6",
-       "esModuleInterop":true,
-       "target":"es6",
-       "sourceMap":true,
-       "baseUrl":".",
-       "outDir":"./dist/",
-       "noImplicitAny":false,
-       "jsx":"react",
-       "allowJs":true,
-       "moduleResolution":"node",
-       "typeRoots":[
-          "./node_modules/@types"
-       ],
-       "resolveJsonModule":true,
-       "lib":[
-          "es2017",
-          "dom",
-          "dom.iterable",
-          "webworker"
-       ]
-    },
-    "exclude":[
-       "./dist"
-    ]
- }
+   "extends": "@tsconfig/node16/tsconfig.json",
+   "compilerOptions": {
+      "paths": {
+         "src/*": [
+            "src/*"
+         ]
+      },
+      "baseUrl": ".",
+      "sourceMap": true,
+      "noImplicitAny": false,
+      "jsx": "react",
+      "allowJs": false,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "typeRoots": [
+         "./node_modules/@types"
+      ],
+      "lib": [
+         "es2017",
+         "dom",
+         "dom.iterable",
+         "webworker"
+      ]
+   },
+   "exclude": [
+      "./dist"
+   ]
+}
