@@ -58,4 +58,5 @@ const closeGracefully = async () => {
     Logger.log('info', `Server closed.`);
     process.exit();
 };
+process.on('SIGTERM', closeGracefully);
 process.on('SIGINT', closeGracefully);
