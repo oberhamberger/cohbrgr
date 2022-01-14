@@ -5,7 +5,7 @@ USER node
 COPY --chown=node:node . /usr/app
 WORKDIR /usr/app
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 ENTRYPOINT ["node", "."]
