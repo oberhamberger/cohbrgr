@@ -1,0 +1,18 @@
+schema {
+  query: Query
+}
+
+type Query {
+  translation(id: ID!): Translation
+  allTranslations: [Translations]
+  getTranslations(ids: [ID]!): [Translations]
+}
+
+type Translation {
+  en: String!
+  de: String
+}
+
+type Translations {
+  ID: Translation
+}

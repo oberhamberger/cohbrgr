@@ -14,7 +14,8 @@
       "moduleResolution": "node",
       "resolveJsonModule": true,
       "typeRoots": [
-         "./node_modules/@types"
+         "node_modules/@types",
+         "src/@types"
       ],
       "lib": [
          "es2017",
@@ -23,6 +24,8 @@
          "webworker"
       ]
    },
+   "files": ["src/@types/translations.d.ts"],
+   "include": ["src/**/*"],
    "exclude": [
       "./dist"
    ]

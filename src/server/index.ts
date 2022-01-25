@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 
 import Logger from 'src/server/utils/logger';
 import methodDetermination from 'src/server/middleware/methodDetermination';
+import translation from 'src/server/middleware/translation';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
@@ -36,6 +37,8 @@ const useHelmet = helmet({
 });
 
 app.use(useLimiter);
+app.use('/graphql', translation);
+
 app.use(useCompression);
 app.use(useHelmet);
 app.use(methodDetermination);

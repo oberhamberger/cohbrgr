@@ -1,0 +1,10 @@
+{
+    "app.content.greeting": {
+        "en": "My name is Christian",
+        "de": "Mein Name ist Christian"
+    },
+    "app.content.description": {
+        "en": "I am a Frontend Developer at Netconomy <a href='https://www.netconomy.net/'>Netconomy</a>. I mainly work with React and Node.js on online commerce platforms.",
+        "de": "Ich arbeite als Frontend Entwickler bei <a href='https://www.netconomy.net/'>Netconomy</a>."
+    }
+}

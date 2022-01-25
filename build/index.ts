@@ -14,6 +14,7 @@ export const regexTypescript = /\.(ts|tsx)$/;
 export const regexSource = /\.(ts|tsx|js|jsx)$/;
 export const regexFonts = /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/;
 export const regexFiles = /\.(png|jp(e*)g|ico|svg)$/;
+export const regexGraphQL = /\.(graphql|gql)$/;
 
 export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 
