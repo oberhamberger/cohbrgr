@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 
-import App from 'src/client/components/App';
+import App, { clientRoutes } from 'src/client/components/App';
 import ServiceWorker from 'src/server/template/components/serviceworker.html';
 import Javascript from 'src/server/template/components/javascript.html';
 import Stylesheets from 'src/server/template/components/stylesheets.html';
@@ -74,7 +74,9 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     </StaticRouter>
                 </div>
 
-                {props.useCSR && <Javascript nonce={props.nonce} />}
+                {props.useCSR && !(props.location === clientRoutes.offline) && (
+                    <Javascript nonce={props.nonce} />
+                )}
             </body>
         </html>
     );
