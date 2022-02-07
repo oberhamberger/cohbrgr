@@ -67,12 +67,20 @@ const getWebpackClientConfig = (): Configuration => {
             chunkIds: isProduction ? 'natural' : 'named',
             minimize: isProduction,
             splitChunks: {
-                chunks: 'all',
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendor',
+                        chunks: 'all',
+                    },
+                },
             },
         },
         output: {
             path: resolve(__dirname, '../../dist/client'),
-            filename: 'js/[id].[contenthash].js',
+            filename: isProduction
+                ? 'js/[id].[contenthash].js'
+                : 'js/[name].js',
         },
     };
 
