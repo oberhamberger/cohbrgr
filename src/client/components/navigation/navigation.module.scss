@@ -1,0 +1,24 @@
+.navigation {
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        list-style: none;
+        display: inline-block;
+        margin-right: 1.2rem;
+
+        @media screen and (min-width: 768px) {
+            margin-right: 2.4rem;
+        }
+    }
+
+    a {
+        font-size: 1.25rem;
+
+        @media screen and (min-width: 768px) {
+            font-size: 1.44rem;
+        }
+    }
+}

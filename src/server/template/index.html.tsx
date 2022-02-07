@@ -64,7 +64,10 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 <link rel="manifest" href="/manifest.json" />
 
-                <Stylesheets />
+                <Stylesheets
+                    isProduction={props.isProduction}
+                    nonce={props.nonce}
+                />
                 {props.isProduction && <ServiceWorker nonce={props.nonce} />}
             </head>
             <body>

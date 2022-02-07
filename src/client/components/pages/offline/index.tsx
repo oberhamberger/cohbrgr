@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import Navigation from 'src/client/components/navigation';
 
 const Offline: FunctionComponent = () => {
     return (
@@ -7,13 +8,9 @@ const Offline: FunctionComponent = () => {
                 <h1>You are Offline!</h1>
                 <p>Come back whenever you are ready :)</p>
             </main>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="">refresh</a>
-                    </li>
-                </ul>
-            </nav>
+            <Navigation>
+                <a href="">refresh</a>
+            </Navigation>
         </>
     );
 };
