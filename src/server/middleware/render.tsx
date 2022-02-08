@@ -3,7 +3,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Index from 'src/server/template/index.html';
 import Logger from 'src/server/utils/logger';
-import { HttpContextData, HttpProvider } from 'src/server/utils/http/context';
+import { HttpContextData, HttpProvider } from 'src/client/utils/http/context';
 
 const doctype = '<!DOCTYPE html>';
 
