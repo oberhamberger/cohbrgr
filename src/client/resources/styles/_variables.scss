@@ -7,4 +7,18 @@
 
     --color-highlight-light: #0a9c6c;
     --color-highlight-dark: aquamarine;
+
+    --color-background: var(--color-background-light);
+    --color-font: var(--color-font-light);
+    --color-highlight: var(--color-highlight-light);
+
+    @media (prefers-color-scheme: dark) {
+        --color-background: var(--color-background-dark);
+        --color-font: var(--color-font-dark);
+        --color-highlight: var(--color-highlight-dark);
+    }
+
+    --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
+        sans-serif;
 }
