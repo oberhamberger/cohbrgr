@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import Style from 'src/client/components/navigation/navigation.module.scss';
+import styles from 'src/client/components/navigation/navigation.module.scss';
 
 const Navigation: FunctionComponent = ({ children }) => {
     const navigationNodes = React.Children.map(children, (child) => {
@@ -7,7 +7,7 @@ const Navigation: FunctionComponent = ({ children }) => {
     });
 
     return (
-        <nav className={Style.navigation}>
+        <nav className={styles.navigation}>
             <ul>{navigationNodes}</ul>
         </nav>
     );

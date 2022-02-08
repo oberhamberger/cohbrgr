@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import Style from 'src/client/components/layout/layout.module.scss';
+import styles from 'src/client/components/layout/layout.module.scss';
 
-const Navigation: FunctionComponent = ({ children }) => {
-    return <div className={Style.layout}>{children}</div>;
+const Layout: FunctionComponent = ({ children }) => {
+    return <div className={styles.layout}>{children}</div>;
 };
 
-export default Navigation;
+export default Layout;
