@@ -7,11 +7,11 @@ import Content from 'src/client/components/pages/content';
 import Offline from 'src/client/components/pages/offline';
 import NotFound from 'src/client/components/pages/not-found';
 
-export const clientRoutes = {
-    start: '/',
-    offline: '/offline',
-    notFound: '*',
-};
+export enum clientRoutes {
+    start = '/',
+    offline = '/offline',
+    notFound = '*',
+}
 
 const App: FunctionComponent = () => {
     return (
