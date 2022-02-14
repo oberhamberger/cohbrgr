@@ -2,16 +2,13 @@
     display: grid;
     align-content: space-between;
     justify-content: start;
+    height: 100vh;
 
     /* Avoid Chrome to see Safari hack */
     @supports (-webkit-touch-callout: none) {
-        body {
-        /* The hack for Safari */
-           height: -webkit-fill-available;
-        }
+        height: -webkit-fill-available;
     }
 
-    height: 100vh;
 
     @media screen and (min-width: 768px) {
         height: unset;
