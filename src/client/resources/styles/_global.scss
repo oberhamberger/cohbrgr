@@ -11,8 +11,11 @@ html, body {
 
 main {
     padding: 2rem;
-    @media screen and (min-width: 420px) {
-        padding: 2rem 0 0 0;
+    @media screen and (orientation: landscape) and (min-width: 420px) {
+        padding: 2rem;
+    }
+    @media screen and (orientation: portrait) and (min-width: 768px) {
+        padding: 2rem 0;
     }
 }
 
@@ -22,15 +25,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 3.75rem;
+    font-size: 3.25rem;
+
+    @media screen and (orientation: portrait) and (min-width: 420px) {
+        font-size: 3.75rem;
+    }
+    @media screen and (orientation: landscape) and (min-width: 768px) {
+        font-size: 3.75rem;
+    }
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    @media screen and (orientation: portrait) and (min-width: 420px) {
+        font-size: 2rem;
+    }
+    @media screen and (orientation: landscape) and (min-width: 768px) {
+        font-size: 2rem;
+    }
 }
 
 p {
-    @media screen and (min-width: 420px) {
+    @media screen and (orientation: portrait) and (min-width: 420px) {
+        font-size: 1.25rem;
+    }
+    @media screen and (orientation: landscape) and (min-width: 768px) {
         font-size: 1.25rem;
     }
 }
