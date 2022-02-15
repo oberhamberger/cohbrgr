@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+
 import Index from 'src/server/template/index.html';
 import Logger from 'src/server/utils/logger';
-import { HttpContextData, HttpProvider } from 'src/client/utils/http/context';
+import { HttpContextData } from 'src/client/contexts/http';
 
 const doctype = '<!DOCTYPE html>';
 
@@ -13,14 +14,13 @@ const render =
         const httpContext: HttpContextData = {};
 
         const markup = await renderToString(
-            <HttpProvider context={httpContext}>
-                <Index
-                    isProduction={isProduction}
-                    location={req.url}
-                    useCSR={useClientSideRendering}
-                    nonce={nonce}
-                />
-            </HttpProvider>,
+            <Index
+                isProduction={isProduction}
+                location={req.url}
+                useCSR={useClientSideRendering}
+                nonce={nonce}
+                httpContextData={httpContext}
+            />,
         );
 
         const renderStatusCode = httpContext.statusCode || 200;
