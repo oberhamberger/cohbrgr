@@ -1,29 +1,33 @@
+import { RouteHandler } from 'workbox-core';
 import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
-import { registerRoute, NavigationRoute } from 'workbox-routing';
-import { NetworkOnly, CacheFirst } from 'workbox-strategies';
+import { registerRoute, setCatchHandler } from 'workbox-routing';
+import { CacheFirst } from 'workbox-strategies';
 
 declare const self: ServiceWorkerGlobalScope;
 
-const CACHE_NAME = 'offline-html';
+const OFFLINE_CACHE_NAME = 'offline';
 const FALLBACK_HTML_URL = '/offline';
 
 self.addEventListener('install', async (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => cache.add(FALLBACK_HTML_URL)),
+        caches
+            .open(OFFLINE_CACHE_NAME)
+            .then((cache) => cache.add(FALLBACK_HTML_URL)),
     );
 });
 
 navigationPreloadEnable();
 
-const networkOnly = new NetworkOnly();
-const offlineNavigationHandler: any = async (params) => {
-    try {
-        return await networkOnly.handle(params);
-    } catch (error) {
-        return caches.match(FALLBACK_HTML_URL, {
-            cacheName: CACHE_NAME,
-        });
+const offlineNavigationHandler: RouteHandler = async ({ request }) => {
+    const dest = request.destination;
+    const offlineCache = await self.caches.open(OFFLINE_CACHE_NAME);
+
+    if (dest === 'document') {
+        return (
+            (await offlineCache.match(OFFLINE_CACHE_NAME)) || Response.error()
+        );
     }
+    return Response.error();
 };
 
 const cacheFirst = new CacheFirst({
@@ -35,5 +39,5 @@ const resourceHandler = async ({ request }) =>
     request.destination === 'image' ||
     request.destination === 'font';
 
-registerRoute(new NavigationRoute(offlineNavigationHandler));
+setCatchHandler(offlineNavigationHandler);
 registerRoute(resourceHandler, cacheFirst);

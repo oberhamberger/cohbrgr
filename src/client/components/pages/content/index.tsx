@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import Navigation from 'src/client/components/navigation';
 
 const Content: FunctionComponent = () => {
     return (
@@ -12,21 +13,13 @@ const Content: FunctionComponent = () => {
                     work with React and Node.js on online commerce platforms.
                 </p>
             </main>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="https://twitter.com/cohbrgr">Twitter</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/oberhamberger">Github</a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/oberhamberger/">
-                            LinkedIn
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <Navigation>
+                <a href="https://twitter.com/cohbrgr">Twitter</a>
+                <a href="https://github.com/oberhamberger">Github</a>
+                <a href="https://www.linkedin.com/in/oberhamberger/">
+                    LinkedIn
+                </a>
+            </Navigation>
         </>
     );
 };

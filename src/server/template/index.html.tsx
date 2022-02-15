@@ -1,16 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 
-import App from 'src/client/components/App';
-import ServiceWorker from 'src/server/template/components/serviceworker.html';
+import App, { clientRoutes } from 'src/client/components/App';
 import Javascript from 'src/server/template/components/javascript.html';
 import Stylesheets from 'src/server/template/components/stylesheets.html';
+import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
 
 interface IIndexProps {
     isProduction: boolean;
     location: string;
     useCSR: boolean;
     nonce: string;
+    httpContextData: HttpContextData;
 }
 
 export type IndexProps = IIndexProps;
@@ -36,12 +37,12 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 <meta
                     name="theme-color"
                     media="(prefers-color-scheme: light)"
-                    content="#ffffff"
+                    content="#fff1ee"
                 />
                 <meta
                     name="theme-color"
                     media="(prefers-color-scheme: dark)"
-                    content="#1c1d1f"
+                    content="#001e26"
                 />
 
                 <link
@@ -64,17 +65,26 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 <link rel="manifest" href="/manifest.json" />
 
-                <Stylesheets />
-                {props.isProduction && <ServiceWorker nonce={props.nonce} />}
+                <Stylesheets
+                    isProduction={props.isProduction}
+                    nonce={props.nonce}
+                />
             </head>
             <body>
                 <div id="root">
-                    <StaticRouter location={props.location}>
-                        <App />
-                    </StaticRouter>
+                    <HttpProvider context={props.httpContextData}>
+                        <StaticRouter location={props.location}>
+                            <App />
+                        </StaticRouter>
+                    </HttpProvider>
                 </div>
 
-                {props.useCSR && <Javascript nonce={props.nonce} />}
+                {props.useCSR && !(props.location === clientRoutes.offline) && (
+                    <Javascript
+                        nonce={props.nonce}
+                        isProduction={props.isProduction}
+                    />
+                )}
             </body>
         </html>
     );

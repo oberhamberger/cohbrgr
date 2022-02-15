@@ -17,10 +17,6 @@ const staticPath = 'dist/client';
 const useClientSideRendering = true;
 const nonce = randomBytes(16).toString('base64');
 
-const useLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-});
 const useCompression = compression();
 const useHelmet = helmet({
     contentSecurityPolicy: {
@@ -36,11 +32,19 @@ const useHelmet = helmet({
     },
 });
 
-app.use(useLimiter);
 app.use('/graphql', translation);
-
 app.use(useCompression);
 app.use(useHelmet);
+
+if (isProduction) {
+    const useLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 100, // limit each IP to 100 requests per windowMs
+    });
+
+    app.use(useLimiter);
+}
+
 app.use(methodDetermination);
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 app.use(render(isProduction, useClientSideRendering, nonce));
