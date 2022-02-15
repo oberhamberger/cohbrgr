@@ -39,7 +39,7 @@ export default (): Configuration => ({
     ],
     output: {
         path: resolve(__dirname, '../../dist/client/'),
-        filename: 'service-worker.js',
+        filename: 'sw.js',
         publicPath: '/',
     },
 });

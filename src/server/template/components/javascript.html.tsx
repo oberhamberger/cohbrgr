@@ -5,6 +5,7 @@ import Logger from 'src/server/utils/logger';
 
 interface IJavascriptHTMLProps {
     nonce: string;
+    isProduction: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
@@ -20,8 +21,22 @@ try {
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     props: JavascriptHTMLProps,
 ) => {
+    const __initial_state__ = {
+        isProduction: props.isProduction,
+    };
+
     return (
         <>
+            {
+                <script
+                    nonce={props.nonce}
+                    dangerouslySetInnerHTML={{
+                        __html: `__initial_state__ = ${JSON.stringify(
+                            __initial_state__,
+                        )}`,
+                    }}
+                ></script>
+            }
             {scriptFiles.map((file) => (
                 <script
                     key={file}

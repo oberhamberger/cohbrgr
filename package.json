@@ -45,7 +45,8 @@
         "workbox-core": "^6.4.2",
         "workbox-navigation-preload": "^6.4.2",
         "workbox-routing": "^6.4.2",
-        "workbox-strategies": "^6.4.2"
+        "workbox-strategies": "^6.4.2",
+        "workbox-window": "^6.4.2"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.16.2",
