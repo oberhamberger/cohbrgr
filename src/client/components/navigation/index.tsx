@@ -13,4 +13,6 @@ const Navigation: FunctionComponent = ({ children }) => {
     );
 };
 
+Navigation.displayName = 'Navigation';
+
 export default Navigation;

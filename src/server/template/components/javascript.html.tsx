@@ -52,4 +52,6 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     );
 };
 
+Javascript.displayName = 'SSRJavascript';
+
 export default Javascript;

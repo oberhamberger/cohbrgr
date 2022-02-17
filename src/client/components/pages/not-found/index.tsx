@@ -17,4 +17,6 @@ const NotFound: FunctionComponent = () => {
     );
 };
 
+NotFound.displayName = 'NotFound';
+
 export default NotFound;

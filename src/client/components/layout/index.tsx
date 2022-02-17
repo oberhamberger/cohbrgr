@@ -5,4 +5,6 @@ const Layout: FunctionComponent = ({ children }) => {
     return <div className={styles.layout}>{children}</div>;
 };
 
+Layout.displayName = 'Layout';
+
 export default Layout;

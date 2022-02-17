@@ -32,4 +32,6 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
     );
 };
 
+Stylesheets.displayName = 'SSRStylesheets';
+
 export default Stylesheets;
