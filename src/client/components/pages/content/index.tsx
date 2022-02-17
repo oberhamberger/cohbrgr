@@ -24,4 +24,6 @@ const Content: FunctionComponent = () => {
     );
 };
 
+Content.displayName = 'Content';
+
 export default Content;

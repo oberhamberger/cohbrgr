@@ -25,4 +25,6 @@ const App: FunctionComponent = () => {
     );
 };
 
+App.displayName = 'App';
+
 export default App;

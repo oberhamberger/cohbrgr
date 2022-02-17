@@ -15,4 +15,6 @@ const Offline: FunctionComponent = () => {
     );
 };
 
+Offline.displayName = 'Offline';
+
 export default Offline;

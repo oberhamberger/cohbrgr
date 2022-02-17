@@ -90,4 +90,6 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
     );
 };
 
+Index.displayName = 'SSRIndex';
+
 export default Index;
