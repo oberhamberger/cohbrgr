@@ -1,5 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
+import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
@@ -33,6 +34,7 @@ const useHelmet = helmet({
 
 app.use(useCompression);
 app.use(useHelmet);
+app.use(nocache());
 
 if (isProduction) {
     const useLimiter = rateLimit({
