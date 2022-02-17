@@ -44,6 +44,7 @@
         "react-router-dom": "^6.2.1",
         "winston": "^3.6.0",
         "workbox-core": "^6.4.2",
+        "workbox-expiration": "^6.4.2",
         "workbox-navigation-preload": "^6.4.2",
         "workbox-routing": "^6.4.2",
         "workbox-strategies": "^6.4.2",

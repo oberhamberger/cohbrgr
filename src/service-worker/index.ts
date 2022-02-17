@@ -2,6 +2,7 @@ import { RouteHandler } from 'workbox-core';
 import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
 import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { CacheFirst } from 'workbox-strategies';
+import { ExpirationPlugin } from 'workbox-expiration';
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -19,10 +20,10 @@ self.addEventListener('install', async (event) => {
 navigationPreloadEnable();
 
 const offlineNavigationHandler: RouteHandler = async ({ request }) => {
-    const dest = request.destination;
+    const { destination, mode } = request;
     const offlineCache = await self.caches.open(OFFLINE_CACHE_NAME);
 
-    if (dest === 'document') {
+    if (destination === 'document' && mode === 'navigate') {
         return (
             (await offlineCache.match(OFFLINE_CACHE_NAME)) || Response.error()
         );
@@ -32,6 +33,12 @@ const offlineNavigationHandler: RouteHandler = async ({ request }) => {
 
 const cacheFirst = new CacheFirst({
     cacheName: 'resources',
+    plugins: [
+        new ExpirationPlugin({
+            maxEntries: 20,
+            maxAgeSeconds: 60 * 60 * 24,
+        }),
+    ],
 });
 const resourceHandler = async ({ request }) =>
     request.destination === 'style' ||
