@@ -5,6 +5,7 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
 import Logger from 'src/server/utils/logger';
+import logging from 'src/server/middleware/logging';
 import methodDetermination from 'src/server/middleware/methodDetermination';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
@@ -45,6 +46,7 @@ if (isProduction) {
     app.use(useLimiter);
 }
 
+app.use(logging(isProduction));
 app.use(methodDetermination);
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 app.use(render(isProduction, useClientSideRendering, nonce));
