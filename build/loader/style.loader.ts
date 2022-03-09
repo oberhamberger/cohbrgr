@@ -1,7 +1,8 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { RuleSetUseItem } from 'webpack';
 
-export default (isServer: boolean, isProduction: boolean): any[] => {
-    const loaders: any[] = [
+export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {
+    const loaders: RuleSetUseItem[] = [
         {
             loader: 'css-loader',
             options: {

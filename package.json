@@ -14,7 +14,7 @@
     "scripts": {
         "cleanup": "rm -rf ./dist",
         "bootstrap": "rm -rf ./node_modules && npm run cleanup && npm install",
-        "lint": "eslint .eslintrc.js src --fix",
+        "lint": "eslint .eslintrc.js build && eslint .eslintrc.js src",
         "prestart": "npm run cleanup && npm run lint",
         "prebuild": "npm run cleanup",
         "build": "cross-env TS_NODE_PROJECT=\"build/tsconfig.json\" NODE_ENV=production webpack --config build/index.ts",
