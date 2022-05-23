@@ -12,7 +12,6 @@ const modules = {
 
 const config = {
     ...baseConfig,
-    name: 'client',
     displayName: 'client',
     testEnvironment: 'jsdom',
     rootDir: './../../',

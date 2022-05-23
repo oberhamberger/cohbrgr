@@ -12,7 +12,6 @@ const modules = {
 
 const config = {
     ...baseConfig,
-    name: 'server',
     displayName: 'server',
     testEnvironment: 'node',
     rootDir: './../../',
