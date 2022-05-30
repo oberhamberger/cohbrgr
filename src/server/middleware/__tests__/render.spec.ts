@@ -16,10 +16,62 @@ describe('methodDetermination middleware', () => {
     };
     const htmlvalidate = new HtmlValidate(htmlValidatorConfig);
 
-    it('should return valid html', async () => {
+    it('startpage should return valid html', async () => {
         mockRequest = httpMocks.createRequest({
             method: 'GET',
             url: '/',
+        });
+
+        mockResponse = httpMocks.createResponse();
+
+        await render(
+            true,
+            true,
+            'test-nonce',
+        )(mockRequest as Request, mockResponse as Response);
+
+        const htmlResponse = mockResponse._getData();
+        const docType = '<!DOCTYPE html>';
+
+        const report = htmlvalidate.validateString(htmlResponse);
+
+        expect(mockResponse.statusCode).toEqual(200);
+        expect(htmlResponse.length).toBeGreaterThan(0);
+        expect(htmlResponse.startsWith(docType)).toBe(true);
+        expect(report.valid).toEqual(true);
+        expect(report.errorCount).toBeLessThan(1);
+    });
+
+    it('not found page should return valid html', async () => {
+        mockRequest = httpMocks.createRequest({
+            method: 'GET',
+            url: '/asdf',
+        });
+
+        mockResponse = httpMocks.createResponse();
+
+        await render(
+            true,
+            true,
+            'test-nonce',
+        )(mockRequest as Request, mockResponse as Response);
+
+        const htmlResponse = mockResponse._getData();
+        const docType = '<!DOCTYPE html>';
+
+        const report = htmlvalidate.validateString(htmlResponse);
+
+        expect(mockResponse.statusCode).toEqual(404);
+        expect(htmlResponse.length).toBeGreaterThan(0);
+        expect(htmlResponse.startsWith(docType)).toBe(true);
+        expect(report.valid).toEqual(true);
+        expect(report.errorCount).toBeLessThan(1);
+    });
+
+    it('offlinepage should return valid html', async () => {
+        mockRequest = httpMocks.createRequest({
+            method: 'GET',
+            url: '/offline',
         });
 
         mockResponse = httpMocks.createResponse();
