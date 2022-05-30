@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import Index from 'src/server/template/index.html';
 import Logger from 'src/server/utils/logger';
 import { HttpContextData } from 'src/client/contexts/http';
+import { HttpMethod } from './methodDetermination';
 
 const doctype = '<!DOCTYPE html>';
 
@@ -37,7 +38,11 @@ const render =
 
         res.status(renderStatusCode);
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        res.send(doctype + markup);
+        if (req.method === HttpMethod.GET) {
+            res.send(doctype + markup);
+        } else if (req.method === HttpMethod.HEAD) {
+            res.send();
+        }
         res.end();
     };
 
