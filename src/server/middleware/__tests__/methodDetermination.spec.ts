@@ -48,18 +48,15 @@ describe('methodDetermination middleware', () => {
         expect(mockResponse.send).toBeCalledWith(expectedResponse.error);
     });
 
-    it('should return 405 for HEAD Requests', async () => {
+    it('should call next() for HEAD Requests', async () => {
         methodDetermination(
             {
-                method: HttpMethod.HEAD,
+                method: HttpMethod.GET,
             } as Request,
             mockResponse as Response,
             mockNext as NextFunction,
         );
-        expect(mockResponse.statusCode).toBe(405);
-        expect(mockResponse.send).toBeCalled();
-        expect(mockResponse.send).toReturn();
-        expect(mockResponse.send).toBeCalledWith(expectedResponse.error);
+        expect(mockNext).toBeCalled();
     });
 
     it('should call next() for GET Requests', async () => {
