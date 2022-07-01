@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { readdirSync } from 'fs';
 import { resolve, extname } from 'path';
 import Logger from 'src/server/utils/logger';
+import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
     nonce: string;
@@ -21,7 +22,7 @@ try {
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     props: JavascriptHTMLProps,
 ) => {
-    const __initial_state__ = {
+    const __initial_state__: State = {
         isProduction: props.isProduction,
     };
 
