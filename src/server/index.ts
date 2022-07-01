@@ -10,7 +10,6 @@ import methodDetermination from 'src/server/middleware/methodDetermination';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
-const app = express();
 const defaultPort = 3000;
 const port = process.env.PORT || defaultPort;
 const isProduction = process.env.NODE_ENV === 'production';
@@ -33,6 +32,7 @@ const useHelmet = helmet({
     },
 });
 
+const app = express();
 app.use(useCompression);
 app.use(useHelmet);
 app.use(nocache());
