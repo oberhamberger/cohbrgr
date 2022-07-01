@@ -1,4 +1,4 @@
-import { RouteHandler } from 'workbox-core';
+import { RouteHandler, RouteMatchCallback } from 'workbox-core';
 import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
 import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { CacheFirst } from 'workbox-strategies';
@@ -40,7 +40,7 @@ const cacheFirst = new CacheFirst({
         }),
     ],
 });
-const resourceHandler = async ({ request }) =>
+const resourceHandler: RouteMatchCallback = async ({ request }) =>
     request.destination === 'style' ||
     request.destination === 'script' ||
     request.destination === 'image' ||
