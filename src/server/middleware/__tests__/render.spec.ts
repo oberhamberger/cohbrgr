@@ -4,7 +4,7 @@ import httpMocks from 'node-mocks-http';
 import 'html-validate/jest';
 import render from 'src/server/middleware/render';
 
-describe('methodDetermination middleware', () => {
+describe('render middleware', () => {
     let mockRequest: Partial<Request>;
     let mockResponse;
     const htmlValidatorConfig: ConfigData = {
@@ -16,7 +16,7 @@ describe('methodDetermination middleware', () => {
     };
     const htmlvalidate = new HtmlValidate(htmlValidatorConfig);
 
-    it('startpage should return valid html', async () => {
+    it('startpage should return valid html and return 200', async () => {
         mockRequest = httpMocks.createRequest({
             method: 'GET',
             url: '/',
@@ -42,7 +42,7 @@ describe('methodDetermination middleware', () => {
         expect(report.errorCount).toBeLessThan(1);
     });
 
-    it('not found page should return valid html', async () => {
+    it('not found page should return valid html and return status 404', async () => {
         mockRequest = httpMocks.createRequest({
             method: 'GET',
             url: '/asdf',
