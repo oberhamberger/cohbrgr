@@ -33,9 +33,9 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     id="initial-state"
                     nonce={props.nonce}
                     dangerouslySetInnerHTML={{
-                        __html: `__initial_state__ = ${JSON.stringify(
+                        __html: `__initial_state__ = JSON.parse('${JSON.stringify(
                             __initial_state__,
-                        )}`,
+                        )}')`,
                     }}
                 ></script>
             }
