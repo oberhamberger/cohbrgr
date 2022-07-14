@@ -19,8 +19,8 @@ if (root) {
             </BrowserRouter>
         </React.StrictMode>,
     );
+}
 
-    if (isProduction) {
-        registerServiceWorker();
-    }
+if (isProduction) {
+    registerServiceWorker();
 }

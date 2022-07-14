@@ -1,6 +1,7 @@
 import { join, resolve, dirname } from 'path';
 import { Configuration } from 'webpack';
 import ESLintPlugin from 'eslint-webpack-plugin';
+import WorkBoxPlugin from 'workbox-webpack-plugin';
 import WebpackBar from 'webpackbar';
 import { Mode, isProduction, CWD } from '..';
 
@@ -31,6 +32,10 @@ export default (): Configuration => ({
         alias: { src: 'src/' },
     },
     plugins: [
+        new WorkBoxPlugin.InjectManifest({
+            swSrc: 'src/service-worker',
+            swDest: 'sw.js',
+        }),
         new ESLintPlugin(),
         new WebpackBar({
             name: 'Service Worker',
@@ -39,7 +44,5 @@ export default (): Configuration => ({
     ],
     output: {
         path: resolve(__dirname, '../../dist/client/'),
-        filename: 'sw.js',
-        publicPath: '/',
     },
 });

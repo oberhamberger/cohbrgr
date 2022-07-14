@@ -43,7 +43,7 @@ export default (): Configuration => ({
         new ESLintPlugin(),
         new WebpackBar({
             name: 'Server',
-            color: '#ff50e1',
+            color: '#0a9c6c',
         }),
         new NodemonPlugin(),
     ],
