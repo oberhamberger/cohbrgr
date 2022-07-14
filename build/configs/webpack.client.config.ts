@@ -51,7 +51,7 @@ const getWebpackClientConfig = (): Configuration => {
             new ESLintPlugin(),
             new WebpackBar({
                 name: 'Client',
-                color: '#99ccff',
+                color: '#fff1ee',
             }),
             new MiniCssExtractPlugin({
                 filename: 'css/[name].css',
