@@ -1,6 +1,6 @@
 import { RouteHandler, RouteMatchCallback } from 'workbox-core';
 import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
-import { registerRoute, setCatchHandler } from 'workbox-routing';
+import { registerRoute, Route, setCatchHandler } from 'workbox-routing';
 import { CacheFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 
@@ -31,7 +31,7 @@ const offlineNavigationHandler: RouteHandler = async ({ request }) => {
     return Response.error();
 };
 
-const cacheFirst = new CacheFirst({
+const resourceCacheFirst = new CacheFirst({
     cacheName: 'resources',
     plugins: [
         new ExpirationPlugin({
@@ -45,6 +45,7 @@ const resourceHandler: RouteMatchCallback = async ({ request }) =>
     request.destination === 'script' ||
     request.destination === 'image' ||
     request.destination === 'font';
+const resourceRoute = new Route(resourceHandler, resourceCacheFirst);
 
 setCatchHandler(offlineNavigationHandler);
-registerRoute(resourceHandler, cacheFirst);
+registerRoute(resourceRoute);
