@@ -1,5 +1,6 @@
-FROM node:18
+FROM node:18-alpine
 # source image info: https://hub.docker.com/_/node/
+RUN apk add g++ make py3-pip
 
 USER node
 COPY --chown=node:node . /usr/app
