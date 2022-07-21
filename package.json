@@ -83,7 +83,6 @@
         "jest-transform-stub": "^2.0.0",
         "mini-css-extract-plugin": "^2.6.1",
         "node-mocks-http": "^1.11.0",
-        "node-sass": "^7.0.1",
         "nodemon-webpack-plugin": "^4.8.1",
         "prettier": "2.7.1",
         "raw-loader": "^4.0.2",
