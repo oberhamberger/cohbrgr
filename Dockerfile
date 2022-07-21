@@ -1,4 +1,4 @@
-FROM node:18-slim
+FROM node:18-alpine
 # source image info: https://hub.docker.com/_/node/
 
 USER node
