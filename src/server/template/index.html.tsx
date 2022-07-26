@@ -5,6 +5,7 @@ import App, { clientRoutes } from 'src/client/components/App';
 import Javascript from 'src/server/template/components/javascript.html';
 import Stylesheets from 'src/server/template/components/stylesheets.html';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
+import { AppStateProvider } from 'src/client/contexts/app-state';
 
 interface IIndexProps {
     isProduction: boolean;
@@ -32,7 +33,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 <meta
                     name="description"
-                    content="Christian Oberhamberger - *sipping coffee*"
+                    content="My name is Christian. I am a Frontend Developer at Netconomy. I mainly work with React and Node.js on online commerce platforms. *sipping coffee*"
                 />
                 <meta
                     name="theme-color"
@@ -72,11 +73,18 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
             </head>
             <body>
                 <div id="root">
-                    <HttpProvider context={props.httpContextData}>
-                        <StaticRouter location={props.location}>
-                            <App />
-                        </StaticRouter>
-                    </HttpProvider>
+                    <AppStateProvider
+                        context={{
+                            nonce: props.nonce,
+                            isProduction: props.isProduction,
+                        }}
+                    >
+                        <HttpProvider context={props.httpContextData}>
+                            <StaticRouter location={props.location}>
+                                <App />
+                            </StaticRouter>
+                        </HttpProvider>
+                    </AppStateProvider>
                 </div>
 
                 {props.useCSR && !(props.location === clientRoutes.offline) && (
