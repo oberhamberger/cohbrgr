@@ -17,7 +17,7 @@ const StructuredData: FunctionComponent = () => {
     return (
         <script
             nonce={nonce}
-            type="application/json+ld"
+            type="application/ld+json"
             suppressHydrationWarning={true}
             dangerouslySetInnerHTML={{
                 __html: buildJsonLd(),
