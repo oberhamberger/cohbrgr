@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Navigation from 'src/client/components/navigation';
+import StructuredData from 'src/client/components/structured-data';
 
 const Content: FunctionComponent = () => {
     return (
@@ -20,6 +21,7 @@ const Content: FunctionComponent = () => {
                     LinkedIn
                 </a>
             </Navigation>
+            <StructuredData />
         </>
     );
 };
