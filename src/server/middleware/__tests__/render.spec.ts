@@ -39,7 +39,8 @@ describe('render middleware', () => {
         expect(htmlResponse.length).toBeGreaterThan(0);
         expect(htmlResponse.startsWith(docType)).toBe(true);
         expect(report.valid).toEqual(true);
-        expect(report.errorCount).toBeLessThan(1);
+        expect(report.errorCount).toBeFalsy();
+        expect(report.warningCount).toBeFalsy();
     });
 
     it('not found page should return valid html and return status 404', async () => {
