@@ -17,6 +17,7 @@ const staticPath = 'dist/client';
 const useClientSideRendering = true;
 const nonce = randomBytes(16).toString('base64');
 
+const useCache = nocache();
 const useCompression = compression();
 const useHelmet = helmet({
     contentSecurityPolicy: {
@@ -36,7 +37,7 @@ const app = express();
 
 app.use(useCompression);
 app.use(useHelmet);
-app.use(nocache());
+app.use(useCache);
 
 if (isProduction) {
     const useLimiter = rateLimit({
