@@ -12,6 +12,8 @@ const buildJsonLd = () => {
     });
 };
 
+const jsonLd = buildJsonLd();
+
 const StructuredData: FunctionComponent = () => {
     const { nonce } = useContext(AppStateContext);
     return (
@@ -20,7 +22,7 @@ const StructuredData: FunctionComponent = () => {
             type="application/ld+json"
             suppressHydrationWarning={true}
             dangerouslySetInnerHTML={{
-                __html: buildJsonLd(),
+                __html: jsonLd,
             }}
         />
     );
