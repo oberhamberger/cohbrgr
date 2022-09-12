@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import WorkBoxPlugin from 'workbox-webpack-plugin';
 import WebpackBar from 'webpackbar';
-import { Mode, isProduction, CWD } from '..';
+import { Mode, isProduction, CWD } from '../utils/constants';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,

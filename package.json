@@ -19,9 +19,9 @@
         "lint": "eslint .eslintrc.js build && eslint .eslintrc.js src",
         "prestart": "npm run cleanup && npm run lint",
         "prebuild": "npm run cleanup",
-        "build": "cross-env TS_NODE_PROJECT=\"build/tsconfig.json\" NODE_ENV=production webpack --config build/index.ts",
-        "build:analyze": "cross-env TS_NODE_PROJECT=\"build/tsconfig.json\" NODE_ENV=production ANALYZE=true webpack --config build/index.ts",
-        "start": "cross-env TS_NODE_PROJECT=\"build/tsconfig.json\" NODE_ENV=development webpack --watch --config build/index.ts",
+        "build": "NODE_ENV=production webpack --config build/index.ts",
+        "build:analyze": "NODE_ENV=production ANALYZE=true webpack --config build/index.ts",
+        "start": "NODE_ENV=development webpack --watch",
         "test": "jest"
     },
     "repository": {
@@ -69,7 +69,6 @@
         "@typescript-eslint/eslint-plugin": "^5.36.2",
         "@typescript-eslint/parser": "^5.36.2",
         "copy-webpack-plugin": "^11.0.0",
-        "cross-env": "^7.0.3",
         "css-loader": "^6.7.1",
         "eslint": "^8.23.1",
         "eslint-config-prettier": "^8.5.0",
