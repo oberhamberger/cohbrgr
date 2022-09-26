@@ -41,8 +41,12 @@ app.use(useCache);
 
 if (isProduction) {
     const useLimiter = rateLimit({
-        windowMs: 15 * 60 * 1000, // 15 minutes
-        max: 100, // limit each IP to 100 requests per window
+        windowMs: 10 * 60 * 1000, // 10 minutes
+        max: 500, // limit each IP to 500 requests per window
+        handler: (request, response, next, options) => {
+            Logger.log('warn', `Restricted request from ${request.ip} for ${request.path}`)
+            return response.status(options.statusCode).send(options.message);
+        }
     });
 
     app.use(useLimiter);

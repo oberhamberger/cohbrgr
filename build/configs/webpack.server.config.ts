@@ -3,7 +3,13 @@ import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-import { Mode, isProduction, regexStyle, regexSource, CWD } from '..';
+import {
+    Mode,
+    isProduction,
+    regexStyle,
+    regexSource,
+    CWD,
+} from '../utils/constants';
 import getStyleLoader from '../loader/style.loader';
 
 export default (): Configuration => ({
