@@ -6,7 +6,13 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-import { Mode, isProduction, regexStyle, regexSource, CWD } from '..';
+import {
+    Mode,
+    isProduction,
+    regexStyle,
+    regexSource,
+    CWD,
+} from '../utils/constants';
 import getStyleLoader from '../loader/style.loader';
 
 const getWebpackClientConfig = (): Configuration => {

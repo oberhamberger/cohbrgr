@@ -6,14 +6,9 @@ export const moduleNames = {
 };
 
 const config: InitialOptionsTsJest = {
-    globals: {
-        'ts-jest': {
-            useESM: true,
-        },
-    },
     preset: 'ts-jest/presets/default-esm',
     transform: {
-        '^.+\\.(ts|tsx)$': 'ts-jest',
+        '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true,}],
     },
 };
 
