@@ -1,17 +1,16 @@
 {
    "extends": "@tsconfig/node18/tsconfig.json",
    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-         "src/*": [ "src/*" ]
-      },
       "sourceMap": true,
       "jsx": "react",
       "allowJs": false,
       "resolveJsonModule": true,
       "typeRoots": [
-         "./node_modules/@types", "./build/@types/*", "./src/@types/*"
+         "./node_modules/@types",
+         "./build/@types/*",
+         "./src/@types/*"
       ],
+      "module": "esnext",
       "lib": [
          "ES2022",
          "dom",

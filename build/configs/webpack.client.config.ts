@@ -73,13 +73,7 @@ const getWebpackClientConfig = (): Configuration => {
             chunkIds: isProduction ? 'natural' : 'named',
             minimize: isProduction,
             splitChunks: {
-                cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'vendor',
-                        chunks: 'all',
-                    },
-                },
+                chunks: 'all',
             },
         },
         output: {

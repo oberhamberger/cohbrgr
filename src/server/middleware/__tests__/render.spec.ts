@@ -59,7 +59,6 @@ describe('render middleware', () => {
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
-
         const report = htmlvalidate.validateString(htmlResponse);
 
         expect(mockResponse.statusCode).toEqual(404);

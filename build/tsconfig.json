@@ -1,0 +1,17 @@
+{
+    "extends": "../tsconfig.base.json",
+    "paths": {
+        "build/*": [
+            "build/*"
+        ]
+    },
+    "lib": [
+        "es2022"
+    ],
+    "module": "commonjs",
+    "target": "es2022",
+    "typeRoots": [
+        "build/@types",
+        "node_modules/@types"
+    ],
+}

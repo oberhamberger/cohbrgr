@@ -1,12 +1,11 @@
 import { pathsToModuleNameMapper } from 'ts-jest';
 import baseConfig, { moduleNames } from '../../jest.config.base';
-import * as tsconfig from '../../tsconfig.json';
+import { compilerOptions } from '../../tsconfig.base.json';
 
 const modules = {
     ...moduleNames,
     ...pathsToModuleNameMapper(
-        tsconfig.compilerOptions
-            .paths /*, { prefix: '<rootDir>/src/server/' } */,
+        compilerOptions.paths /*, { prefix: '<rootDir>/src/server/' } */,
     ),
 };
 
