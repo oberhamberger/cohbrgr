@@ -6,6 +6,8 @@ const logging =
     (req: Request, res: Response, next: NextFunction) => {
         if (!isProduction) {
             Logger.info(`Requesting: ${req.url}`);
+        } else {
+            Logger.info(`${req.headers['user-agent']} requests: ${req.url}`);
         }
         next();
     };
