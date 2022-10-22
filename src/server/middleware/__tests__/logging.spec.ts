@@ -7,7 +7,12 @@ describe('logging middleware', () => {
     let mockNext: Partial<NextFunction>;
 
     beforeEach(() => {
-        mockRequest = {};
+        mockRequest = {
+            ip: 'test',
+            headers: {
+                'user-agent': 'test',
+            },
+        };
         mockResponse = {
             statusCode: 0,
             json: jest.fn(),
