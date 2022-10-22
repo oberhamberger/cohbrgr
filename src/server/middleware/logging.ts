@@ -7,7 +7,9 @@ const logging =
         if (!isProduction) {
             Logger.info(`Requesting: ${req.url}`);
         } else {
-            Logger.info(`${req.ip} - ${req.headers['user-agent']} requests: ${req.url}`);
+            Logger.info(
+                `${req.ip} - ${req.headers['user-agent']} requests: ${req.url}`,
+            );
         }
         next();
     };
