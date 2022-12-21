@@ -10,7 +10,7 @@ import { HttpMethod } from './methodDetermination';
 const doctype = '<!DOCTYPE html>';
 
 const render =
-    (isProduction: boolean, useClientSideRendering: boolean, nonce: string) =>
+    (isProduction: boolean, useClientSideRendering: boolean) =>
     async (req: Request, res: Response) => {
         const httpContext: HttpContextData = {};
 
@@ -19,7 +19,7 @@ const render =
                 isProduction={isProduction}
                 location={req.url}
                 useCSR={useClientSideRendering}
-                nonce={nonce}
+                nonce={res.locals.nonce}
                 httpContextData={httpContext}
             />,
         );
