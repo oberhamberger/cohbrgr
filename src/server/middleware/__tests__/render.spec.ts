@@ -24,11 +24,10 @@ describe('render middleware', () => {
 
         mockResponse = httpMocks.createResponse();
 
-        await render(
-            true,
-            true,
-            'test-nonce',
-        )(mockRequest as Request, mockResponse as Response);
+        await render(true, true)(
+            mockRequest as Request,
+            mockResponse as Response,
+        );
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
@@ -51,11 +50,10 @@ describe('render middleware', () => {
 
         mockResponse = httpMocks.createResponse();
 
-        await render(
-            true,
-            true,
-            'test-nonce',
-        )(mockRequest as Request, mockResponse as Response);
+        await render(true, true)(
+            mockRequest as Request,
+            mockResponse as Response,
+        );
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
@@ -77,11 +75,10 @@ describe('render middleware', () => {
 
         mockResponse = httpMocks.createResponse();
 
-        await render(
-            true,
-            true,
-            'test-nonce',
-        )(mockRequest as Request, mockResponse as Response);
+        await render(true, true)(
+            mockRequest as Request,
+            mockResponse as Response,
+        );
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
