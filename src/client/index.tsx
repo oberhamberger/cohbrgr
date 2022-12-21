@@ -24,5 +24,3 @@ if (root) {
 if (window.__initial_state__?.isProduction) {
     registerServiceWorker();
 }
-
-delete window.__initial_state__.nonce;
