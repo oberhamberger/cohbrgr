@@ -35,6 +35,7 @@ export default (): Configuration => ({
         new WorkBoxPlugin.InjectManifest({
             swSrc: 'src/service-worker',
             swDest: 'sw.js',
+            include: [/\.js$/, /\.css$/],
         }),
         new ESLintPlugin(),
         new WebpackBar({
