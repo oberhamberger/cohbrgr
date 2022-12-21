@@ -34,9 +34,9 @@ if (isProduction) {
             },
         }),
     );
-} else {
-    app.use(nocache());
 }
+
+app.use(nocache());
 app.use(logging(isProduction));
 app.use(methodDetermination);
 app.use(compression());
