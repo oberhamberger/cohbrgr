@@ -1,4 +1,3 @@
-import { enable as navigationPreloadEnable } from 'workbox-navigation-preload';
 import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { precacheAndRoute } from 'workbox-precaching';
 
@@ -19,8 +18,6 @@ self.addEventListener('install', async (event) => {
             .then((cache) => cache.add(FALLBACK_HTML_URL)),
     );
 });
-
-navigationPreloadEnable();
 
 registerRoute(navigateRoute);
 registerRoute(resourceRoute);
