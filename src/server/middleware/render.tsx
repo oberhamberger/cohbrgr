@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
-import Index from 'src/server/template/Index.html';
+import Index from 'src/server/template/index.html';
 import Logger from 'src/server/utils/logger';
 import { HttpContextData } from 'src/client/contexts/http';
 import { HttpMethod } from './methodDetermination';
