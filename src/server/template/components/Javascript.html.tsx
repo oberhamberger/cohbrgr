@@ -46,7 +46,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     type="module"
                     crossOrigin="use-credentials"
                     nonce={props.nonce}
-                    src={`js/${file}`}
+                    src={`/js/${file}`}
                 ></script>
             ))}
         </>

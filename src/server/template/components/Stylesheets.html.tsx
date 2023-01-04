@@ -21,7 +21,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
     props: StylesheetProps,
 ) => {
     if (!props.isProduction) {
-        return <link rel="stylesheet" href="css/client.css" />;
+        return <link rel="stylesheet" href="/css/client.css" />;
     }
 
     return (
