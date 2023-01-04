@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 
 import App, { clientRoutes } from 'src/client/components/App';
-import Javascript from 'src/server/template/components/javascript.html';
-import Stylesheets from 'src/server/template/components/stylesheets.html';
+import Javascript from 'src/server/template/components/Javascript.html';
+import Stylesheets from 'src/server/template/components/Stylesheets.html';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 
