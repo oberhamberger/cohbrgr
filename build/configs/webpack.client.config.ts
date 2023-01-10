@@ -61,7 +61,9 @@ const getWebpackClientConfig = (): Configuration => {
                 color: '#fff1ee',
             }),
             new MiniCssExtractPlugin({
-                filename: 'css/[id].[contenthash].css',
+                filename: isProduction
+                    ? 'css/[id].[contenthash].css'
+                    : 'css/[name].css',
             }),
             new CopyPlugin({
                 patterns: [
