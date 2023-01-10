@@ -4,6 +4,7 @@ import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import {
@@ -60,14 +61,20 @@ const getWebpackClientConfig = (): Configuration => {
                 color: '#fff1ee',
             }),
             new MiniCssExtractPlugin({
-                filename: 'css/[name].css',
-                chunkFilename: 'css/[id].css',
+                filename: 'css/[id].[contenthash].css',
             }),
             new CopyPlugin({
                 patterns: [
                     { from: '../../../src/client/resources/static', to: './' },
                 ],
             }),
+            isProduction
+                ? new InjectManifest({
+                      swSrc: 'src/service-worker',
+                      swDest: 'sw.js',
+                      include: [/\.js$/],
+                  })
+                : () => null,
         ],
         optimization: {
             chunkIds: isProduction ? 'natural' : 'named',
