@@ -36,7 +36,18 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
     props: StylesheetProps,
 ) => {
     if (!props.isProduction) {
-        return <link rel="stylesheet" href="/css/client.css" />;
+        return (
+            <>
+                {styleFiles.map((file) => (
+                    <link
+                        key={file}
+                        nonce={props.nonce}
+                        rel="stylesheet"
+                        href={`/css/${file}`}
+                    />
+                ))}
+            </>
+        );
     }
 
     return (

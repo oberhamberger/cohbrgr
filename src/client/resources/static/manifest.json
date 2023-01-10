@@ -4,6 +4,7 @@
     "description": "personal playground",
     "author": "Christian Oberhamberger",
     "version": "1.0.1",
+    
     "icons": [
         {"src":"/android-chrome-192x192.png","type":"image/png","sizes":"192x192"},
         {"src": "/android-chrome-384x384.png","type": "image/png","sizes":"384x384"},
@@ -22,6 +23,7 @@
 		{"src": "/favicon-16x16.png","type": "image/png","sizes": "16x16"}
     ],
     "start_url": "/",
+    "id": "/",
     "lang": "en",
 	"dir": "ltr",
 	"display": "standalone",
