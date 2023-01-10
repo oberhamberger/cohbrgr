@@ -13,11 +13,10 @@ const resourceCacheFirst = new CacheFirst({
     ],
 });
 
+// this resource handler is meant for images+fonts that may be referenced
+// without being checked into the codebase under /resources/static
 const resourceMatch: RouteMatchCallback = ({ request }) =>
-    request.destination === 'style' ||
-    request.destination === 'script' ||
-    request.destination === 'image' ||
-    request.destination === 'font';
+    request.destination === 'image' || request.destination === 'font';
 
 const resourceRoute = new Route(resourceMatch, resourceCacheFirst);
 

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { readFileSync, readdirSync } from 'fs';
+import { resolve, extname } from 'path';
 import Logger from 'src/server/utils/logger';
 
 interface IStylesheetProps {
@@ -9,11 +9,26 @@ interface IStylesheetProps {
 }
 export type StylesheetProps = IStylesheetProps;
 
-const styleFile = resolve(__dirname + '/../client/css/client.css');
+let styleFiles: string[] = [];
 let styleFileContents = '';
+
 try {
-    styleFileContents = readFileSync(styleFile, 'utf8');
-} catch (err) {
+    styleFiles = readdirSync(resolve(__dirname + '/../client/css')).filter(
+        (fileName) => extname(fileName) === '.css',
+    );
+    if (styleFiles.length) {
+        try {
+            styleFiles.forEach((file) => {
+                styleFileContents += readFileSync(
+                    resolve(__dirname + '/../client/css/' + file),
+                    'utf8',
+                );
+            });
+        } catch (singleFileError) {
+            Logger.warn('HTML-Template: error reading css file');
+        }
+    }
+} catch (allFilesError) {
     Logger.warn('HTML-Template: no css files found in current context');
 }
 
