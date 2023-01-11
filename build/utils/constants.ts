@@ -2,6 +2,9 @@ export enum Mode {
     DEVELOPMENT = 'development',
     PRODUCTION = 'production',
 }
+
+export const serviceWorker = 'sw.js';
+
 export const regexStyle = /\.(s?[ac]ss)$/;
 export const regexGlobalStyle = /global\.(s?[ac]ss)$/;
 export const regexModuleStyles = /\.module\.(s?[ac]ss)$/;
