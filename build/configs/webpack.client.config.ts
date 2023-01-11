@@ -13,6 +13,7 @@ import {
     regexStyle,
     regexSource,
     CWD,
+    serviceWorker,
 } from '../utils/constants';
 import getStyleLoader from '../loader/style.loader';
 
@@ -66,14 +67,12 @@ const getWebpackClientConfig = (): Configuration => {
                     : 'css/[name].css',
             }),
             new CopyPlugin({
-                patterns: [
-                    { from: '../../../src/client/resources/static', to: './' },
-                ],
+                patterns: [{ from: '../../../src/assets/static', to: './' }],
             }),
             isProduction
                 ? new InjectManifest({
                       swSrc: 'src/service-worker',
-                      swDest: 'sw.js',
+                      swDest: serviceWorker,
                       include: [/\.js$/],
                   })
                 : () => null,
