@@ -70,19 +70,19 @@ export default (): Configuration => ({
         new CopyPlugin({
             patterns: [{ from: '../../../src/assets/static', to: './' }],
         }),
-        isProduction
-            ? new InjectManifest({
+        ...(isProduction
+            ? [new InjectManifest({
                     swSrc: 'src/service-worker',
                     swDest: serviceWorker,
                     include: [/\.js$/],
-                })
-            : () => null,
-        isAnalyze 
-            ? new BundleAnalyzerPlugin({
+               })]
+        : []),
+        ...(isAnalyze 
+            ? [new BundleAnalyzerPlugin({
                 generateStatsFile: true,
                 openAnalyzer: true,
                 analyzerPort: 0,
-            }) : () => null
+            })] : [])
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
