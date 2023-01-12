@@ -8,12 +8,12 @@ import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import {
-Mode,
-isProduction,
-regexStyle,
-regexSource,
-CWD,
-serviceWorker,
+    Mode,
+    isProduction,
+    regexStyle,
+    regexSource,
+    CWD,
+    serviceWorker,
 } from '../utils/constants';
 import getStyleLoader from '../loader/style.loader';
 
@@ -45,11 +45,7 @@ export default (): Configuration => ({
         modules: [
             join(CWD, ''),
             join(CWD, 'node_modules'),
-            join(
-                dirname(require.main?.filename || ''),
-                '..',
-                'node_modules',
-            ),
+            join(dirname(require.main?.filename || ''), '..', 'node_modules'),
             join(dirname(require.main?.filename || ''), 'node_modules'),
             'node_modules',
             'node_modules',
@@ -71,18 +67,23 @@ export default (): Configuration => ({
             patterns: [{ from: '../../../src/assets/static', to: './' }],
         }),
         ...(isProduction
-            ? [new InjectManifest({
-                    swSrc: 'src/service-worker',
-                    swDest: serviceWorker,
-                    include: [/\.js$/],
-               })]
-        : []),
-        ...(isAnalyze 
-            ? [new BundleAnalyzerPlugin({
-                generateStatsFile: true,
-                openAnalyzer: true,
-                analyzerPort: 0,
-            })] : [])
+            ? [
+                  new InjectManifest({
+                      swSrc: 'src/service-worker',
+                      swDest: serviceWorker,
+                      include: [/\.js$/],
+                  }),
+              ]
+            : []),
+        ...(isAnalyze
+            ? [
+                  new BundleAnalyzerPlugin({
+                      generateStatsFile: true,
+                      openAnalyzer: true,
+                      analyzerPort: 0,
+                  }),
+              ]
+            : []),
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
@@ -99,8 +100,6 @@ export default (): Configuration => ({
     },
     output: {
         path: resolve(__dirname, '../../dist/client'),
-        filename: isProduction
-            ? 'js/[id].[contenthash].js'
-            : 'js/[name].js',
+        filename: isProduction ? 'js/[id].[contenthash].js' : 'js/[name].js',
     },
 });
