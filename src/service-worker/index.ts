@@ -1,7 +1,12 @@
-import { registerRoute, setCatchHandler } from 'workbox-routing';
+import {
+    registerRoute,
+    setCatchHandler,
+    NavigationRoute,
+} from 'workbox-routing';
 import { precacheAndRoute } from 'workbox-precaching';
+import { NetworkOnly } from 'workbox-strategies';
+import * as navigationPreload from 'workbox-navigation-preload';
 
-import navigateRoute from 'src/service-worker/routes/navigate';
 import resourceRoute from 'src/service-worker/routes/resources';
 import offlineNavigationHandler, {
     FALLBACK_HTML_URL,
@@ -11,6 +16,10 @@ import offlineNavigationHandler, {
 declare const self: ServiceWorkerGlobalScope;
 precacheAndRoute(self.__WB_MANIFEST);
 
+navigationPreload.enable();
+const navigationRoute = new NavigationRoute(new NetworkOnly());
+registerRoute(navigationRoute);
+
 self.addEventListener('install', async (event) => {
     event.waitUntil(
         caches
@@ -19,6 +28,5 @@ self.addEventListener('install', async (event) => {
     );
 });
 
-registerRoute(navigateRoute);
 registerRoute(resourceRoute);
 setCatchHandler(offlineNavigationHandler);
