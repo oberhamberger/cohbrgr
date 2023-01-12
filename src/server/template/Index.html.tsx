@@ -6,6 +6,7 @@ import Javascript from 'src/server/template/components/Javascript.html';
 import Stylesheets from 'src/server/template/components/Stylesheets.html';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
 import { AppStateProvider } from 'src/client/contexts/app-state';
+import ServiceWorker from 'src/server/template/components/ServiceWorker.html';
 
 interface IIndexProps {
     isProduction: boolean;
@@ -65,7 +66,10 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 />
 
                 <link rel="manifest" href="/manifest.json" />
-
+                <ServiceWorker
+                    isProduction={props.isProduction}
+                    nonce={props.nonce}
+                />
                 <Stylesheets
                     isProduction={props.isProduction}
                     nonce={props.nonce}

@@ -42,7 +42,6 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
             {scriptFiles.map((file) => (
                 <script
                     key={file}
-                    async
                     type="module"
                     crossOrigin="use-credentials"
                     nonce={props.nonce}

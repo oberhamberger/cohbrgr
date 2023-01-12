@@ -20,7 +20,3 @@ if (root) {
         </React.StrictMode>,
     );
 }
-
-if (window.__initial_state__?.isProduction) {
-    registerServiceWorker();
-}

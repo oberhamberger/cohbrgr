@@ -2,13 +2,17 @@ import { join, resolve, dirname } from 'path';
 import { Configuration } from 'webpack';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import WorkBoxPlugin from 'workbox-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import WebpackBar from 'webpackbar';
 import { Mode, isProduction, CWD } from '../utils/constants';
+
+
+const isAnalyze = process.env.ANALYZE === 'true';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
-    entry: 'src/service-worker',
+    entry: 'src/service-worker/bootstrap.ts',
     target: 'web',
     module: {
         rules: [
@@ -32,6 +36,11 @@ export default (): Configuration => ({
         alias: { src: 'src/' },
     },
     plugins: [
+        isAnalyze ? new BundleAnalyzerPlugin({
+            generateStatsFile: true,
+            openAnalyzer: true,
+            analyzerPort: 0,
+        }) : () => null,
         new WorkBoxPlugin.InjectManifest({
             swSrc: 'src/service-worker',
             swDest: 'sw.js',
@@ -45,5 +54,6 @@ export default (): Configuration => ({
     ],
     output: {
         path: resolve(__dirname, '../../dist/client/'),
+        filename: 'registerSW.js'
     },
 });
