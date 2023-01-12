@@ -24,7 +24,7 @@ export default (): Configuration => ({
     devtool: isProduction ? false : 'inline-source-map',
     context: resolve(__dirname, 'src'),
     entry: {
-        client: 'src/client',
+        bundle: 'src/client',
     },
     target: 'web',
     module: {
@@ -100,6 +100,6 @@ export default (): Configuration => ({
     },
     output: {
         path: resolve(__dirname, '../../dist/client'),
-        filename: isProduction ? 'js/[id].[contenthash].js' : 'js/[name].js',
+        filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });
