@@ -4,7 +4,7 @@ import {
     NavigationRoute,
 } from 'workbox-routing';
 import { precacheAndRoute } from 'workbox-precaching';
-import { NetworkOnly } from 'workbox-strategies';
+import { NetworkFirst } from 'workbox-strategies';
 import * as navigationPreload from 'workbox-navigation-preload';
 
 import resourceRoute from 'src/service-worker/routes/resources';
@@ -17,7 +17,7 @@ declare const self: ServiceWorkerGlobalScope;
 precacheAndRoute(self.__WB_MANIFEST);
 
 navigationPreload.enable();
-const navigationRoute = new NavigationRoute(new NetworkOnly());
+const navigationRoute = new NavigationRoute(new NetworkFirst());
 registerRoute(navigationRoute);
 
 self.addEventListener('install', async (event) => {
