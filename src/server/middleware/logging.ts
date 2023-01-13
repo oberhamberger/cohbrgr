@@ -8,7 +8,7 @@ const logging =
             Logger.info(`Requesting: ${req.url}`);
         } else {
             Logger.info(
-                `${req.ip} - ${req.headers['user-agent']} requests: ${req.url}`,
+                `${req.ip} requests: ${req.url}`,
             );
         }
         next();

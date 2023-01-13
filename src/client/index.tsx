@@ -3,7 +3,6 @@ import { hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from 'src/client/components/App';
-import registerServiceWorker from 'src/client/utils/register-service-worker';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 
 const root = document.getElementById('root');

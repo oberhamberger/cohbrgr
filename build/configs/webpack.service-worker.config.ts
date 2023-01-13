@@ -12,7 +12,9 @@ const isAnalyze = process.env.ANALYZE === 'true';
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
-    entry: 'src/service-worker/bootstrap.ts',
+    entry: {
+        registerSW: 'src/service-worker/bootstrap.ts'
+    },
     target: 'web',
     module: {
         rules: [
@@ -54,6 +56,5 @@ export default (): Configuration => ({
     ],
     output: {
         path: resolve(__dirname, '../../dist/client/'),
-        filename: 'registerSW.js'
     },
 });
