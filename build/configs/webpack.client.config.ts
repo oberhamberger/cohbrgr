@@ -60,7 +60,7 @@ export default (): Configuration => ({
         }),
         new MiniCssExtractPlugin({
             filename: isProduction
-                ? 'css/[id].[contenthash].css'
+                ? 'css/[name].[contenthash].css'
                 : 'css/[name].css',
         }),
         new CopyPlugin({
