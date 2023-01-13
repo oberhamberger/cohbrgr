@@ -6,14 +6,13 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import WebpackBar from 'webpackbar';
 import { Mode, isProduction, CWD } from '../utils/constants';
 
-
 const isAnalyze = process.env.ANALYZE === 'true';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
     entry: {
-        registerSW: 'src/service-worker/bootstrap.ts'
+        registerSW: 'src/service-worker/bootstrap.ts',
     },
     target: 'web',
     module: {
@@ -38,11 +37,13 @@ export default (): Configuration => ({
         alias: { src: 'src/' },
     },
     plugins: [
-        isAnalyze ? new BundleAnalyzerPlugin({
-            generateStatsFile: true,
-            openAnalyzer: true,
-            analyzerPort: 0,
-        }) : () => null,
+        isAnalyze
+            ? new BundleAnalyzerPlugin({
+                  generateStatsFile: true,
+                  openAnalyzer: true,
+                  analyzerPort: 0,
+              })
+            : () => null,
         new WorkBoxPlugin.InjectManifest({
             swSrc: 'src/service-worker',
             swDest: 'sw.js',

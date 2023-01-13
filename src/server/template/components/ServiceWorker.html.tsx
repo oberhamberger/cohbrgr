@@ -14,7 +14,9 @@ let registerSWFileContents = '';
 try {
     registerSWFileContents = readFileSync(registerSWFile, 'utf8');
 } catch (err) {
-    Logger.warn('HTML-Template: no files for registering the Service Worker found in current context');
+    Logger.warn(
+        'HTML-Template: no files for registering the Service Worker found in current context',
+    );
 }
 
 const ServiceWorker: FunctionComponent<ServiceWorkerProps> = (
