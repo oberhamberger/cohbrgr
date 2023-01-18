@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, ReactNode, Children } from 'react';
 import styles from 'src/client/components/navigation/Navigation.module.scss';
 
 interface INavigation {
@@ -6,7 +6,7 @@ interface INavigation {
 }
 
 const Navigation: FunctionComponent<INavigation> = ({ children }) => {
-    const navigationNodes = React.Children.map(children, (child) => {
+    const navigationNodes = Children.map(children, (child) => {
         return <li>{child}</li>;
     });
 

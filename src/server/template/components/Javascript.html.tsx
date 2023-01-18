@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { readdirSync } from 'fs';
 import { resolve, extname } from 'path';
 import Logger from 'src/server/utils/logger';

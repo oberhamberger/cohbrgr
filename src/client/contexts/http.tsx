@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext, ReactNode, ReactElement } from 'react';
 
 export type HttpContextData = {
     statusCode?: number;
@@ -6,7 +6,7 @@ export type HttpContextData = {
 };
 
 type ProviderProps = {
-    children?: React.ReactChild;
+    children?: ReactElement;
     context: HttpContextData;
 };
 
@@ -23,7 +23,7 @@ export function HttpStatus({
     children,
 }: {
     code: number;
-    children?: React.ReactNode;
+    children?: ReactNode;
 }) {
     // TODO: This might not work properly with suspense, figure out how to prevent adding
     // a new item for renders that aren't "committed"
