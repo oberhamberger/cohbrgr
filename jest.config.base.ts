@@ -1,8 +1,9 @@
-import type { JestConfigWithTsJest } from 'ts-jest/dist/types';
+import type { JestConfigWithTsJest } from 'ts-jest';
 
-export const moduleNames = {
+export const modules = {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
         'jest-transform-stub',
+    '^src/(.*)$': '<rootDir>/src/$1',
 };
 
 const config: JestConfigWithTsJest = {
@@ -10,6 +11,7 @@ const config: JestConfigWithTsJest = {
     transform: {
         '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true }],
     },
+    moduleNameMapper: modules,
 };
 
 export default config;

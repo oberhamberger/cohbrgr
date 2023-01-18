@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import styles from 'src/client/components/layout/Layout.module.scss';
 
 interface ILayout {

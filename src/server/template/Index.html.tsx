@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 
 import App, { clientRoutes } from 'src/client/components/App';

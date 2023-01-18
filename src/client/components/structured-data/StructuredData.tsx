@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { AppStateContext } from 'src/client/contexts/app-state';
 
 const buildJsonLd = () => {

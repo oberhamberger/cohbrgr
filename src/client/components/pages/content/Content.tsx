@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import Navigation from 'src/client/components/navigation';
 import StructuredData from 'src/client/components/structured-data';
 

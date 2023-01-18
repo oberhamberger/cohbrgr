@@ -1,16 +1,7 @@
-import { pathsToModuleNameMapper } from 'ts-jest';
-import baseConfig, { moduleNames } from '../../jest.config.base';
-import * as tsconfig from '../../tsconfig.json';
+import type { JestConfigWithTsJest } from 'ts-jest';
+import baseConfig from '../../jest.config.base';
 
-const modules = {
-    ...moduleNames,
-    ...pathsToModuleNameMapper(
-        tsconfig.compilerOptions
-            .paths /*, { prefix: '<rootDir>/src/client/' } */,
-    ),
-};
-
-const config = {
+const config: JestConfigWithTsJest = {
     ...baseConfig,
     displayName: 'client',
     testEnvironment: 'jsdom',
@@ -20,7 +11,6 @@ const config = {
         '**/client/**/__tests__/**/*.+(ts|tsx|js)',
         '**/client/**/?(*.)+(spec|test).+(ts|tsx|js)',
     ],
-    moduleNameMapper: modules,
 };
 
 export default config;

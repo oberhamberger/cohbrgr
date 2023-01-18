@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -11,13 +11,13 @@ const root = document.getElementById('root');
 if (root) {
     hydrateRoot(
         root,
-        <React.StrictMode>
+        <StrictMode>
             <AppStateProvider context={window.__initial_state__}>
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>
             </AppStateProvider>
-        </React.StrictMode>,
+        </StrictMode>,
     );
 }
 

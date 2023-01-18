@@ -19,9 +19,9 @@
         "lint": "eslint .eslintrc.js build && eslint .eslintrc.js src",
         "prestart": "npm run cleanup && npm run lint",
         "prebuild": "npm run cleanup",
-        "build": "NODE_ENV=production webpack",
-        "build:analyze": "NODE_ENV=production ANALYZE=true webpack",
-        "start": "NODE_ENV=development webpack --watch",
+        "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
+        "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register build --analyze",
+        "start": "NODE_ENV=development ts-node -r tsconfig-paths/register build -w",
         "test": "jest"
     },
     "repository": {
@@ -64,7 +64,6 @@
         "@types/webpack": "^5.28.0",
         "@types/webpack-bundle-analyzer": "^4.6.0",
         "@types/webpack-env": "^1.18.0",
-        "@types/workbox-webpack-plugin": "^6.0.0",
         "@typescript-eslint/eslint-plugin": "^5.48.2",
         "@typescript-eslint/parser": "^5.48.2",
         "copy-webpack-plugin": "^11.0.0",
@@ -89,6 +88,7 @@
         "ts-jest": "^29.0.5",
         "ts-loader": "^9.4.2",
         "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.1.2",
         "typescript": "^4.9.4",
         "webpack": "^5.75.0",
         "webpack-bundle-analyzer": "^4.7.0",

@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import { createContext, ReactElement } from 'react';
 import { State } from 'src/client/store/state';
 
 const initialAppStateContext: State = {
@@ -6,7 +6,7 @@ const initialAppStateContext: State = {
 };
 
 type ProviderProps = {
-    children?: React.ReactNode;
+    children?: ReactElement;
     context: State;
 };
 

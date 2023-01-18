@@ -1,3 +1,5 @@
+import { findProcessArgs } from 'build/utils/helpers';
+
 export enum Mode {
     DEVELOPMENT = 'development',
     PRODUCTION = 'production',
@@ -15,3 +17,5 @@ export const regexFiles = /\.(png|jp(e*)g|ico|svg)$/;
 
 export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 export const CWD = process.cwd();
+export const isWatch = findProcessArgs(['--watch', '-w']);
+export const isAnalyze = findProcessArgs(['--analyze']);

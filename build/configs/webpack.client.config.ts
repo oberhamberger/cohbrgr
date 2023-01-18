@@ -6,7 +6,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-
 import {
     Mode,
     isProduction,
@@ -14,10 +13,9 @@ import {
     regexSource,
     CWD,
     serviceWorker,
-} from '../utils/constants';
-import getStyleLoader from '../loader/style.loader';
-
-const isAnalyze = process.env.ANALYZE === 'true';
+    isAnalyze,
+} from 'build/utils/constants';
+import getStyleLoader from 'build/loader/style.loader';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,

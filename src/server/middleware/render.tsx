@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import Index from 'src/server/template/Index.html';

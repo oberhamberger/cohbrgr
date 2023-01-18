@@ -1,12 +1,15 @@
 {
    "extends": "@tsconfig/node18/tsconfig.json",
+   "ts-node": {},
    "compilerOptions": {
       "baseUrl": ".",
       "paths": {
-         "src/*": [ "src/*" ]
+         "build/*": [ "build/*" ],
+         "src/*": [ "src/*" ],
       },
       "sourceMap": true,
-      "jsx": "react",
+      "incremental": true,
+      "jsx": "react-jsx",
       "allowJs": false,
       "resolveJsonModule": true,
       "typeRoots": [
