@@ -1,28 +1,13 @@
 {
    "extends": "@tsconfig/node18/tsconfig.json",
-   "ts-node": {},
    "compilerOptions": {
       "baseUrl": ".",
       "paths": {
-         "build/*": [ "build/*" ],
-         "src/*": [ "src/*" ],
+         "packages/build/*": [ "packages/build/*" ],
       },
-      "sourceMap": true,
-      "incremental": true,
-      "jsx": "react-jsx",
-      "allowJs": false,
-      "resolveJsonModule": true,
-      "typeRoots": [
-         "./node_modules/@types", "./build/@types/*", "./src/@types/*"
-      ],
-      "lib": [
-         "ES2022",
-         "dom",
-         "dom.iterable",
-         "webworker"
-      ]
-   },
-   "exclude": [
-      "./dist"
-   ]
+      "lib": ["es5", "es6", "dom"],
+      "outDir": "./dist/cli",
+    },
+    "include": ["./packages/build/**/*"],
+    "exclude": ["**/*.spec.ts"]
 }
