@@ -17,14 +17,13 @@ import {
 } from '../utils/constants';
 import getStyleLoader from '../loader/style.loader';
 
-console.log(resolve(__dirname, '../../../packages/src'));
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
     context: resolve(__dirname, '../../../packages/src'),
     entry: {
-        bundle: 'packages/src/client',
+        bundle: 'src/client',
     },
     target: 'web',
     module: {
@@ -99,7 +98,7 @@ export default (): Configuration => ({
         },
     },
     output: {
-        path: resolve(__dirname, '../../client'),
+        path: resolve(__dirname, '../../../../dist/client'),
         filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });

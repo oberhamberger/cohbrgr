@@ -14,8 +14,7 @@
         "ssr"
     ],
     "scripts": {
-        "tsc": "tsc",
-        "cli": "node dist/cli",
+        "cli": "node packages/build/bin",
         "cleanup": "rm -rf ./dist",
         "bootstrap": "rm -rf ./node_modules && npm run cleanup && npm install",
         "lint": "eslint .eslintrc.js build && eslint .eslintrc.js src",

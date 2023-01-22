@@ -1,13 +1,7 @@
 {
    "extends": "@tsconfig/node18/tsconfig.json",
    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-         "packages/build/*": [ "packages/build/*" ],
-      },
-      "lib": ["es5", "es6", "dom"],
-      "outDir": "./dist/cli",
-    },
-    "include": ["./packages/build/**/*"],
-    "exclude": ["**/*.spec.ts"]
+      "noImplicitAny": true,
+      "removeComments": true,
+   }
 }

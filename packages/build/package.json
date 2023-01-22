@@ -1,7 +1,8 @@
 {
     "name": "build",
     "scripts": {
-        "test": "echo 'all build tests passed!'"
+        "prebuild": "rm -rf ./bin",
+        "build": "tsc"
     },
     "dependencies": {
         "copy-webpack-plugin": "^11.0.0",

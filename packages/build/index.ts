@@ -4,7 +4,7 @@ import getWebpackServerConfig from './configs/webpack.server.config';
 import { isWatch } from './utils/constants';
 const config: Configuration[] = [
     getWebpackClientConfig(),
-    getWebpackServerConfig(),
+    //getWebpackServerConfig(),
 ];
 const compiler = webpack(config);
 

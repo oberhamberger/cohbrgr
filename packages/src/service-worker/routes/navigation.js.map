@@ -1,1 +1,0 @@
-{"version":3,"file":"navigation.js","sourceRoot":"","sources":["navigation.ts"],"names":[],"mappings":";;AACA,qDAAwC;AACxC,2DAAiD;AAEjD,MAAM,mBAAmB,GAAG,IAAI,gCAAW,EAAE,CAAC;AAC9C,MAAM,aAAa,GAAuB,CAAC,EAAE,OAAO,EAAE,EAAE,EAAE,CACtD,OAAO,CAAC,IAAI,KAAK,UAAU,CAAC;AAEhC,MAAM,eAAe,GAAG,IAAI,uBAAK,CAAC,aAAa,EAAE,mBAAmB,CAAC,CAAC;AAEtE,kBAAe,eAAe,CAAC"}

@@ -15,9 +15,9 @@ import getStyleLoader from '../loader/style.loader';
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
-    context: resolve(__dirname, 'packages/src'),
+    context: resolve(__dirname, '../../../packages/build'),
     entry: {
-        server: 'packages/src/server',
+        cli: 'packages/build',
     },
     target: 'node',
     module: {
@@ -26,15 +26,11 @@ export default (): Configuration => ({
                 test: regexSource,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
-            },
-            {
-                test: regexStyle,
-                use: getStyleLoader(true, isProduction),
-            },
+            }
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
+        extensions: ['.tsx', '.ts', '.js'],
         modules: [
             join(CWD, ''),
             join(CWD, 'node_modules'),
@@ -43,18 +39,17 @@ export default (): Configuration => ({
             'node_modules',
             'node_modules',
         ],
-        alias: { src: 'src/' },
+        alias: { build: 'build/' },
     },
     plugins: [
         new ESLintPlugin(),
         new WebpackBar({
-            name: 'Server',
-            color: '#0a9c6c',
+            name: 'CLI',
+            color: 'red',
         }),
-        new NodemonPlugin(),
     ],
     output: {
-        path: resolve(__dirname, '../../dist/server'),
+        path: resolve(__dirname, '../../dist/cli'),
         filename: 'index.js',
         clean: true,
         publicPath: '/',
