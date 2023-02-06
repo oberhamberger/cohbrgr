@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import Index from 'src/server/template/Index.html';
 import Logger from 'src/server/utils/logger';
 import { HttpContextData } from 'src/client/contexts/http';
-import { HttpMethod } from './methodDetermination';
+import { HttpMethod } from 'src/server/middleware/methodDetermination';
 
 const doctype = '<!DOCTYPE html>';
 
