@@ -12,10 +12,8 @@ const compiler = webpack(config);
 const errorFallback = (error: Error | null | undefined) => {
     if (error) {
         Logger.error(error);
-    } else {
-        Logger.error('Compiler failed with no error');
     }
-}
+};
 
 if (isWatch) {
     compiler.watch({}, errorFallback);
