@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     background-color: var(--color-background);
     font-family: var(--font-system);
     -webkit-font-smoothing: antialiased;
@@ -19,7 +20,12 @@ main {
     }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     line-height: 1;
     margin: 1.5rem 0;
 }
