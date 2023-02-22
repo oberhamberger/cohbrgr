@@ -1,28 +1,23 @@
 {
-   "extends": "@tsconfig/node18/tsconfig.json",
-   "ts-node": {},
-   "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-         "build/*": [ "build/*" ],
-         "src/*": [ "src/*" ],
-      },
-      "sourceMap": true,
-      "incremental": true,
-      "jsx": "react-jsx",
-      "allowJs": false,
-      "resolveJsonModule": true,
-      "typeRoots": [
-         "./node_modules/@types", "./build/@types/*", "./src/@types/*"
-      ],
-      "lib": [
-         "ES2022",
-         "dom",
-         "dom.iterable",
-         "webworker"
-      ]
-   },
-   "exclude": [
-      "./dist"
-   ]
+    "extends": "@tsconfig/node18/tsconfig.json",
+    "ts-node": {},
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "build/*": ["build/*"],
+            "src/*": ["src/*"]
+        },
+        "sourceMap": true,
+        "incremental": true,
+        "jsx": "react-jsx",
+        "allowJs": false,
+        "resolveJsonModule": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./build/@types/*",
+            "./src/@types/*"
+        ],
+        "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
+    },
+    "exclude": ["./dist"]
 }
