@@ -1,6 +1,10 @@
 .npmrc
 .env
 .DS_Store
+.git
+.idea
+.vscode
+.tmp
 node_modules
 npm-debug.log
 dist
