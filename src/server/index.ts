@@ -10,9 +10,9 @@ import methodDetermination from 'src/server/middleware/methodDetermination';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
-const defaultPort = 3000;
-const port = process.env.PORT || defaultPort;
 const isProduction = process.env.NODE_ENV === 'production';
+const defaultPort = isProduction ? 3000 : 3030;
+const port = process.env.PORT || defaultPort;
 const staticPath = 'dist/client';
 const useClientSideRendering = true;
 
