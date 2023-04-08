@@ -28,7 +28,9 @@ const render =
                     } else if (renderStatusCode < 500) {
                         Logger.warn(`Not found: ${req.url}`);
                     } else {
-                        Logger.error(`Major Server Error while rendering: ${req.url}`);
+                        Logger.error(
+                            `Major Server Error while rendering: ${req.url}`,
+                        );
                     }
 
                     res.status(renderStatusCode);
