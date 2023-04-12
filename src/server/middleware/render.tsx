@@ -10,7 +10,7 @@ const render =
     async (req: Request, res: Response) => {
         const httpContext: HttpContextData = {};
 
-        const stream = renderToPipeableStream(
+        const { pipe } = renderToPipeableStream(
             <Index
                 isProduction={isProduction}
                 location={req.url}
@@ -19,7 +19,7 @@ const render =
                 httpContextData={httpContext}
             />,
             {
-                onShellReady: () => {
+                onShellReady() {
                     const renderStatusCode = httpContext.statusCode || 200;
                     if (renderStatusCode < 300) {
                         Logger.info(`Rendered App with path: ${req.url}`);
@@ -35,11 +35,14 @@ const render =
 
                     res.status(renderStatusCode);
                     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+
+                    pipe(res);
+                },
+                onError(error) {
+                    Logger.error(error);
                 },
             },
         );
-
-        stream.pipe(res);
     };
 
 export default render;
