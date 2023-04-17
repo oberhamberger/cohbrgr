@@ -70,7 +70,7 @@
         "copy-webpack-plugin": "^11.0.0",
         "css-loader": "^6.7.3",
         "eslint": "^8.38.0",
-        "eslint-plugin-jsdoc": "^41.1.1",
+        "eslint-plugin-jsdoc": "^41.1.2",
         "eslint-plugin-prefer-arrow": "^1.2.3",
         "eslint-webpack-plugin": "^4.0.1",
         "html-validate": "^7.15.1",
