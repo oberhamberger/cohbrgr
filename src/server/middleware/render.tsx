@@ -15,7 +15,7 @@ const render =
                 isProduction={isProduction}
                 location={req.url}
                 useCSR={useClientSideRendering}
-                nonce={res.locals.nonce}
+                nonce={res.locals.cspNonce}
                 httpContextData={httpContext}
             />,
             {

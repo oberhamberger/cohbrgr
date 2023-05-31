@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response } from 'express';
 import helmet from 'helmet';
 import nocache from 'nocache';
 import compression from 'compression';
@@ -41,14 +41,19 @@ app.use(logging(isProduction));
 app.use(methodDetermination);
 app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
-
 app.use((req, res, next) => {
     res.locals.cspNonce = randomBytes(16).toString('hex');
+    next();
+});
+app.use(
     helmet({
         contentSecurityPolicy: {
             useDefaults: true,
             directives: {
-                'script-src': [`'nonce-${res.locals.cspNonce}'`],
+                'script-src': [
+                    (req, res) =>
+                        `'nonce-${(res as Response).locals.cspNonce}'`,
+                ],
                 'manifest-src': ["'self'"],
                 'connect-src': ["'self'"],
                 'worker-src': ["'self'"],
@@ -56,9 +61,8 @@ app.use((req, res, next) => {
                 'default-src': ["'none'"],
             },
         },
-    });
-    next();
-});
+    }),
+);
 app.use(render(isProduction, useClientSideRendering));
 
 // starting the server
