@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import { HtmlValidate, ConfigData } from 'html-validate';
-import httpMocks from 'node-mocks-http';
+import httpMocks, { MockRequest, MockResponse } from 'node-mocks-http';
 import 'html-validate/jest';
 import render from 'src/server/middleware/render';
 
 describe('render middleware', () => {
-    let mockRequest: Partial<Request>;
-    let mockResponse;
+    let mockRequest: MockRequest<Request>;
+    let mockResponse: MockResponse<Response>;
+
     const htmlValidatorConfig: ConfigData = {
         extends: ['html-validate:document'],
         root: true,
@@ -22,24 +23,31 @@ describe('render middleware', () => {
             url: '/',
         });
 
-        mockResponse = httpMocks.createResponse();
+        mockResponse = httpMocks.createResponse({
+            eventEmitter: require('events').EventEmitter
+        });
 
         await render(true, true)(
-            mockRequest as Request,
-            mockResponse as Response,
+            mockRequest,
+            mockResponse
         );
+
+        mockResponse.on('end', () => {
+            debugger;
+        });
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
 
-        const report = htmlvalidate.validateString(htmlResponse);
-
         expect(mockResponse.statusCode).toEqual(200);
         expect(htmlResponse.length).toBeGreaterThan(0);
         expect(htmlResponse.startsWith(docType)).toBe(true);
-        expect(report.valid).toEqual(true);
-        expect(report.errorCount).toBeFalsy();
-        expect(report.warningCount).toBeFalsy();
+
+        htmlvalidate.validateString(htmlResponse).then((report) => {
+            expect(report.valid).toEqual(true);
+            expect(report.errorCount).toBeFalsy();
+            expect(report.warningCount).toBeFalsy();
+        });
     });
 
     it('not found page should return valid html and return status 404', async () => {
@@ -51,20 +59,21 @@ describe('render middleware', () => {
         mockResponse = httpMocks.createResponse();
 
         await render(true, true)(
-            mockRequest as Request,
-            mockResponse as Response,
+            mockRequest,
+            mockResponse
         );
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
 
-        const report = htmlvalidate.validateString(htmlResponse);
-
         expect(mockResponse.statusCode).toEqual(404);
         expect(htmlResponse.length).toBeGreaterThan(0);
         expect(htmlResponse.startsWith(docType)).toBe(true);
-        expect(report.valid).toEqual(true);
-        expect(report.errorCount).toBeLessThan(1);
+
+        htmlvalidate.validateString(htmlResponse).then((report) => {
+            expect(report.valid).toEqual(true);
+            expect(report.errorCount).toBeLessThan(1);
+        });
     });
 
     it('offlinepage should return valid html', async () => {
@@ -76,19 +85,20 @@ describe('render middleware', () => {
         mockResponse = httpMocks.createResponse();
 
         await render(true, true)(
-            mockRequest as Request,
-            mockResponse as Response,
+            mockRequest,
+            mockResponse
         );
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
 
-        const report = htmlvalidate.validateString(htmlResponse);
-
         expect(mockResponse.statusCode).toEqual(200);
         expect(htmlResponse.length).toBeGreaterThan(0);
         expect(htmlResponse.startsWith(docType)).toBe(true);
-        expect(report.valid).toEqual(true);
-        expect(report.errorCount).toBeLessThan(1);
+
+        htmlvalidate.validateString(htmlResponse).then((report) => {
+            expect(report.valid).toEqual(true);
+            expect(report.errorCount).toBeLessThan(1);
+        });
     });
 });

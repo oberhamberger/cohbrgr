@@ -10,7 +10,7 @@ const render =
     async (req: Request, res: Response) => {
         const httpContext: HttpContextData = {};
 
-        const { pipe } = renderToPipeableStream(
+        const { pipe, abort } = renderToPipeableStream(
             <Index
                 isProduction={isProduction}
                 location={req.url}
@@ -38,11 +38,23 @@ const render =
 
                     pipe(res);
                 },
+                onShellError(error) {
+                    Logger.error(error);
+                    res.statusCode = 500;
+                    res.setHeader('content-type', 'text/html');
+                    res.send('<h1>Something went wrong</h1>'); 
+                },
                 onError(error) {
                     Logger.error(error);
-                },
+                }
             },
         );
+
+        setTimeout(() => {
+            Logger.error('Render timed out');
+            abort();
+            res.end();
+        }, 10000);
     };
 
 export default render;
