@@ -23,12 +23,18 @@ describe('render middleware', () => {
             url: '/',
         });
 
-        mockResponse = httpMocks.createResponse();
+        mockResponse = httpMocks.createResponse({
+            eventEmitter: require('events').EventEmitter
+        });
 
         await render(true, true)(
             mockRequest,
             mockResponse
         );
+
+        mockResponse.on('end', () => {
+            debugger;
+        });
 
         const htmlResponse = mockResponse._getData();
         const docType = '<!DOCTYPE html>';
