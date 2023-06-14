@@ -49,12 +49,6 @@ const render =
                 },
             },
         );
-
-        setTimeout(() => {
-            Logger.error('Render timed out');
-            abort();
-            res.end();
-        }, 10000);
     };
 
 export default render;
