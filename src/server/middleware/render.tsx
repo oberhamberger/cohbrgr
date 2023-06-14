@@ -42,11 +42,11 @@ const render =
                     Logger.error(error);
                     res.statusCode = 500;
                     res.setHeader('content-type', 'text/html');
-                    res.send('<h1>Something went wrong</h1>'); 
+                    res.send('<h1>Something went wrong</h1>');
                 },
                 onError(error) {
                     Logger.error(error);
-                }
+                },
             },
         );
 
