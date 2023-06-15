@@ -10,7 +10,7 @@ const render =
     async (req: Request, res: Response) => {
         const httpContext: HttpContextData = {};
 
-        const { pipe, abort } = renderToPipeableStream(
+        const { pipe } = renderToPipeableStream(
             <Index
                 isProduction={isProduction}
                 location={req.url}
