@@ -23,6 +23,12 @@ describe('render middleware', () => {
             url: '/',
         });
 
+        mockResponse = httpMocks.createResponse({
+            locals: {
+                nonce: '1234',
+            },
+        });
+
         await render(true, true)(mockRequest, mockResponse);
 
         const htmlResponse = mockResponse._getData();
@@ -45,7 +51,11 @@ describe('render middleware', () => {
             url: '/asdf',
         });
 
-        mockResponse = httpMocks.createResponse();
+        mockResponse = httpMocks.createResponse({
+            locals: {
+                nonce: '1234',
+            },
+        });
 
         await render(true, true)(mockRequest, mockResponse);
 
@@ -68,8 +78,11 @@ describe('render middleware', () => {
             url: '/offline',
         });
 
-        mockResponse = httpMocks.createResponse();
-
+        mockResponse = httpMocks.createResponse({
+            locals: {
+                nonce: '1234',
+            },
+        });
         await render(true, true)(mockRequest, mockResponse);
 
         const htmlResponse = mockResponse._getData();
