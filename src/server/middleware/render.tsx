@@ -4,6 +4,7 @@ import { renderToPipeableStream } from 'react-dom/server';
 
 import Index from 'src/server/template/Index.html';
 import Logger from 'src/server/utils/logger';
+import { HttpMethod } from 'src/server/middleware/methodDetermination';
 import { HttpContextData } from 'src/client/contexts/http';
 
 const streamToString = (stream: Stream): Promise<string> => {
@@ -57,11 +58,13 @@ const render =
                         Logger.error(error);
                         res.statusCode = 500;
                         res.setHeader('content-type', 'text/html');
-                        res.send('<h1>Something went wrong</h1>');
-                        reject(new Error('General Error Happened'));
+                        reject(new Error('Something went wrong'));
                     },
                     onError(error) {
                         Logger.error(error);
+                        res.statusCode = 500;
+                        res.setHeader('content-type', 'text/html');
+                        reject(new Error('Something went wrong'));
                     },
                 },
             );
@@ -69,9 +72,14 @@ const render =
         });
 
         const awaitedStream = await stream;
-        const result = await streamToString(awaitedStream);
+        const markup = await streamToString(awaitedStream);
 
-        res.send(result);
+        if (req.method === HttpMethod.GET) {
+            res.send(markup);
+        } else if (req.method === HttpMethod.HEAD) {
+            res.send();
+        }
+        res.end();
     };
 
 export default render;
