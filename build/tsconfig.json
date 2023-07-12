@@ -1,0 +1,23 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "ts-node": {},
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "../compiler",
+        "paths": {
+            "build/*": ["./*"],
+        },
+        "sourceMap": true,
+        "incremental": true,
+        "allowJs": false,
+        "resolveJsonModule": true,
+        "moduleResolution": "nodenext",
+        "module": "CommonJS",
+        "typeRoots": [
+            "../node_modules/@types",
+            "./@types/*",
+        ],
+        "lib": ["ES2022"]
+    },
+    "exclude": ["./dist"]
+}
