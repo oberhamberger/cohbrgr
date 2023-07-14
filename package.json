@@ -20,6 +20,7 @@
         "prestart": "npm run cleanup && npm run lint && npm run prettier",
         "prebuild": "npm run cleanup",
         "prettier": "node_modules/.bin/prettier --write .",
+        "build:cli": "npx tsc --build ./build",
         "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
         "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register build --analyze",
         "start": "NODE_ENV=development ts-node -r tsconfig-paths/register build -w",
