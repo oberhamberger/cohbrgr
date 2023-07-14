@@ -86,8 +86,23 @@ export default (): Configuration => ({
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
         minimize: isProduction,
+        runtimeChunk: { name: 'webpack' },
         splitChunks: {
             cacheGroups: {
+                react: {
+                    name: 'react',
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    chunks: 'all',
+                    priority: 40,
+                    enforce: true,
+                },
+                workbox: {
+                    name: 'workbox',
+                    test: /[\\/]node_modules[\\/](workbox-window)[\\/]/,
+                    chunks: 'all',
+                    priority: 40,
+                    enforce: true,
+                },
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendor',
