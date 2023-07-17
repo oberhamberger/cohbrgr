@@ -59,4 +59,7 @@ export default (): Configuration => ({
         clean: true,
         publicPath: '/',
     },
+    externals: {
+        express: 'express',
+    }
 });
