@@ -60,6 +60,6 @@ export default (): Configuration => ({
         publicPath: '/',
     },
     externals: {
-        express: 'express',
-    }
+        express: "require('express')",
+    },
 });
