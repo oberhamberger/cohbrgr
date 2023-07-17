@@ -1,5 +1,5 @@
 {
-    "extends": "@tsconfig/node20/tsconfig.json",
+    "extends": "../../node_modules/@tsconfig/node20/tsconfig.json",
     "ts-node": {},
     "compilerOptions": {
         "baseUrl": ".",
@@ -38,10 +38,10 @@
         "strictPropertyInitialization": true,
         "ignoreDeprecations": "5.0",
         "typeRoots": [
-            "../node_modules/@types",
+            "../../node_modules/@types",
             "./@types/*",
         ],
         "lib": ["ES2022"]
     },
-    "exclude": ["./dist"]
+    "exclude": ["./dist", "./lib"]
 }

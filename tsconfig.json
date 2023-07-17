@@ -15,10 +15,10 @@
         "moduleResolution": "node",
         "typeRoots": [
             "./node_modules/@types",
-            "./build/@types/*",
-            "./src/@types/*"
+            "./packages/build/@types/*",
+            "./packages/src/@types/*"
         ],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
-    "exclude": ["./dist"]
+    "exclude": ["./dist", "./lib"]
 }

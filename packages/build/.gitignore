@@ -1,0 +1,4 @@
+lib/*
+!custom/lib
+!lib/node
+!lib/javascript

@@ -54,9 +54,12 @@ export default (): Configuration => ({
         new NodemonPlugin(),
     ],
     output: {
-        path: resolve(__dirname, '../../dist/server/'),
+        path: resolve(__dirname, '../../../../dist/server/'),
         filename: 'index.js',
         clean: true,
         publicPath: '/',
+    },
+    externals: {
+        express: 'express',
     },
 });

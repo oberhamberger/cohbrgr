@@ -6,6 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
 import {
     Mode,
     isProduction,
@@ -21,6 +22,7 @@ export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
     context: resolve(__dirname, 'src'),
+    stats: "detailed",
     entry: {
         bundle: 'src/client',
     },
@@ -62,12 +64,12 @@ export default (): Configuration => ({
                 : 'css/[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: '../../../src/assets/static', to: './' }],
+            patterns: [{ from: '../../../../src/assets/static', to: './' }],
         }),
         ...(isProduction
             ? [
                   new InjectManifest({
-                      swSrc: 'src/service-worker',
+                      swSrc: '../src/service-worker',
                       swDest: serviceWorker,
                       include: [/\.js$/],
                   }),
@@ -112,7 +114,7 @@ export default (): Configuration => ({
         },
     },
     output: {
-        path: resolve(__dirname, '../../dist/client'),
+        path: resolve(__dirname, '../../../../dist/client'),
         filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });

@@ -1,15 +1,15 @@
 import type { JestConfigWithTsJest } from 'ts-jest';
-import baseConfig from '../../jest.config.base';
+import baseConfig from '../../../jest.config.base';
 
 const config: JestConfigWithTsJest = {
     ...baseConfig,
-    displayName: 'client',
-    testEnvironment: 'jsdom',
+    displayName: 'server',
+    testEnvironment: 'node',
     rootDir: './../../',
     modulePaths: ['node_modules', '<rootDir>'],
     testMatch: [
-        '**/client/**/__tests__/**/*.+(ts|tsx|js)',
-        '**/client/**/?(*.)+(spec|test).+(ts|tsx|js)',
+        '**/server/**/__tests__/**/*.+(ts|tsx|js)',
+        '**/server/**/?(*.)+(spec|test).+(ts|tsx|js)',
     ],
 };
 
