@@ -1,7 +1,7 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
 import getWebpackClientConfig from 'build/configs/webpack.client.config';
 import getWebpackServerConfig from 'build/configs/webpack.server.config';
-import Logger from 'src/server/utils/logger';
+import Logger from 'build/utils/logger';
 import { isWatch } from 'build/utils/constants';
 
 const errorFallback = (err?: Error | null, result?: MultiStats) => {
