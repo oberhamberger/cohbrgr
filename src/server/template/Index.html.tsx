@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 
-import App, { clientRoutes } from 'src/client/components/App';
+import App, { clientRoutes } from 'src/client/App';
 import Javascript from 'src/server/template/components/Javascript.html';
 import Stylesheets from 'src/server/template/components/Stylesheets.html';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';

@@ -3,9 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 
 import 'src/assets/styles/index.scss';
 import Layout from 'src/client/components/layout';
-import Content from 'src/client/components/pages/content';
-import Offline from 'src/client/components/pages/offline';
-import NotFound from 'src/client/components/pages/not-found';
+import Content from 'src/client/pages/content';
+import Offline from 'src/client/pages/offline';
+import NotFound from 'src/client/pages/not-found';
 
 export enum clientRoutes {
     start = '/',
