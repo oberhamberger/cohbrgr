@@ -1,5 +1,5 @@
 import { registerRoute, setCatchHandler } from 'workbox-routing';
-import { precacheAndRoute } from 'workbox-precaching';
+import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 
 import navigationRoute from 'src/service-worker/routes/navigation';
 import resourceRoute from 'src/service-worker/routes/resources';
@@ -9,6 +9,8 @@ import offlineNavigationHandler, {
 } from 'src/service-worker/routes/offline';
 
 declare const self: ServiceWorkerGlobalScope;
+
+cleanupOutdatedCaches();
 precacheAndRoute(self.__WB_MANIFEST);
 
 self.addEventListener('install', async (event) => {
