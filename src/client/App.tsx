@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import 'src/assets/styles/index.scss';
+import 'src/client/styles/index.scss';
 import Layout from 'src/client/components/layout';
 import Content from 'src/client/pages/content';
 import Offline from 'src/client/pages/offline';
