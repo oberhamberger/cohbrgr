@@ -67,12 +67,14 @@ app.use(render(isProduction, useClientSideRendering));
 
 // starting the server
 const server = app.listen(port, () => {
-    Logger.log(
-        'info',
+    Logger.info(
         `Server started at http://localhost:${port} in ${
             isProduction ? 'production' : 'development'
         } mode`,
     );
+    if (process.send) {
+        process.send('server-ready');
+    }
 });
 
 // stopping the server correctly
