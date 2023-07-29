@@ -9,7 +9,7 @@ const serverAddress = `http://localhost:${port}`;
 const staticOutputPath = 'dist/client/static';
 
 const staticSiteGenerator = async () => {
-    const runningServer = fork('./dist/server/index.js', { silent: true });
+    const runningServer = fork('./dist/server/index.js', ['--generator'], { silent: true });
     runningServer.on('exit', (code, signal) => {
         Logger.info(`Exited Server with code ${code} and signal ${signal}`);
     });

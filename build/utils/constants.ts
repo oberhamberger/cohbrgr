@@ -19,5 +19,5 @@ export const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
 export const CWD = process.cwd();
 export const isWatch = findProcessArgs(['--watch', '-w']);
 export const isAnalyze = findProcessArgs(['--analyze']);
-export const isSSG = findProcessArgs(['--ssg']);
+export const isSSG = findProcessArgs(['--generator']);
 export const port = process.env.PORT || isProduction ? 3000 : 3030;

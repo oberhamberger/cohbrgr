@@ -16,7 +16,7 @@ try {
         (fileName) => extname(fileName) === '.js',
     );
 } catch (err) {
-    Logger.warn('HTML-Template: no js files found in current context');
+    Logger.warn(`HTML-Template: error loading js files for SSR: ${err}`);
 }
 
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
