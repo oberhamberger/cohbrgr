@@ -27,6 +27,8 @@
         "prebuild": "npm run cleanup",
         "prettier": "node_modules/.bin/prettier --write .",
         "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
+        "prebuild:ssg": "npm run cleanup",
+        "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register build --ssg",
         "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register build --analyze",
         "start": "NODE_ENV=development ts-node -r tsconfig-paths/register build -w",
         "test": "jest"

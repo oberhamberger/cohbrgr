@@ -2,13 +2,21 @@ import webpack, { Configuration, MultiStats } from 'webpack';
 import getWebpackClientConfig from 'build/configs/webpack.client.config';
 import getWebpackServerConfig from 'build/configs/webpack.server.config';
 import Logger from 'build/utils/logger';
-import { isWatch } from 'build/utils/constants';
+import { isWatch, isSSG } from 'build/utils/constants';
+import staticSiteGenerator from 'build/ssg';
 
-const errorFallback = (err?: Error | null, result?: MultiStats) => {
+const config: Configuration[] = [
+    getWebpackClientConfig(),
+    getWebpackServerConfig(),
+];
+const compiler = webpack(config);
+
+const compilerCallback = (err?: Error | null, result?: MultiStats) => {
     if (err) {
         Logger.error(err);
     }
     if (!result) {
+        Logger.warn('Compiler returned no result.');
         return;
     }
 
@@ -28,18 +36,16 @@ const errorFallback = (err?: Error | null, result?: MultiStats) => {
     if (!rawMessages.errors?.length && !rawMessages.warnings?.length) {
         Logger.info(`compiled successfully.`);
     }
+
+    if (isSSG) {
+        staticSiteGenerator();
+    }
 };
 
-const config: Configuration[] = [
-    getWebpackClientConfig(),
-    getWebpackServerConfig(),
-];
-const compiler = webpack(config);
-
 if (isWatch) {
-    compiler.watch({}, errorFallback);
+    compiler.watch({}, compilerCallback);
 } else {
-    compiler.run(errorFallback);
+    compiler.run(compilerCallback);
 }
 
 export default config;

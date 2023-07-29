@@ -6,20 +6,15 @@ import Layout from 'src/client/components/layout';
 import Content from 'src/client/pages/content';
 import Offline from 'src/client/pages/offline';
 import NotFound from 'src/client/pages/not-found';
-
-export enum clientRoutes {
-    start = '/',
-    offline = '/offline',
-    notFound = '*',
-}
+import routes from 'src/client/routes';
 
 const App: FunctionComponent = () => {
     return (
         <Layout>
             <Routes>
-                <Route path={clientRoutes.start} element={<Content />} />
-                <Route path={clientRoutes.offline} element={<Offline />} />
-                <Route path={clientRoutes.notFound} element={<NotFound />} />
+                <Route path={routes.start} element={<Content />} />
+                <Route path={routes.offline} element={<Offline />} />
+                <Route path={routes.notFound} element={<NotFound />} />
             </Routes>
         </Layout>
     );
