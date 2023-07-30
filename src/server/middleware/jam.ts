@@ -8,6 +8,8 @@ import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 const isGenerator = findProcessArgs(['--generator']);
 const routeKeys = Object.keys(routes);
 const routeValues = Object.values(routes);
+const noncePlaceHolder = new RegExp('!CSPNONCE_PLACEHOLDER!', "g");
+
 
 const matchPathWithRoutes = (path: string) => {
     let matchedRoute = null;
@@ -50,9 +52,9 @@ const jam =
                     matchedHTMLFileName,
                     'utf8',
                 );
+                const matchedHTMLFileWithNonce = matchedHTMLFile.replaceAll(noncePlaceHolder, res.locals.cspNonce)
                 res.statusCode = 200;
-                res.locals.cspNonce = undefined;
-                return res.send(matchedHTMLFile);
+                return res.send(matchedHTMLFileWithNonce);
             }
         }
         next();
