@@ -62,7 +62,7 @@ export default (): Configuration => ({
                 : 'css/[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: '../../../src/assets/static', to: './' }],
+            patterns: [{ from: '../../../src/client/assets', to: './' }],
         }),
         ...(isProduction
             ? [

@@ -7,14 +7,17 @@ import rateLimit from 'express-rate-limit';
 import Logger from 'src/server/utils/logger';
 import logging from 'src/server/middleware/logging';
 import methodDetermination from 'src/server/middleware/methodDetermination';
+import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
+import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3000 : 3030;
 const port = process.env.PORT || defaultPort;
 const staticPath = 'dist/client';
 const useClientSideRendering = true;
+const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
 
@@ -42,7 +45,8 @@ app.use(methodDetermination);
 app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 app.use((req, res, next) => {
-    res.locals.cspNonce = randomBytes(16).toString('hex');
+    res.locals.cspNonce = isGenerator ? '!CSPNONCE_PLACEHOLDER!' :
+    randomBytes(16).toString('hex');
     next();
 });
 app.use(
@@ -63,16 +67,20 @@ app.use(
         },
     }),
 );
+
+app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));
 
 // starting the server
 const server = app.listen(port, () => {
-    Logger.log(
-        'info',
+    Logger.info(
         `Server started at http://localhost:${port} in ${
             isProduction ? 'production' : 'development'
         } mode`,
     );
+    if (process.send) {
+        process.send('server-ready');
+    }
 });
 
 // stopping the server correctly
