@@ -1,7 +1,8 @@
 import { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 
-import App, { clientRoutes } from 'src/client/App';
+import App from 'src/client/App';
+import routes from 'src/client/routes';
 import Javascript from 'src/server/template/components/Javascript.html';
 import Stylesheets from 'src/server/template/components/Stylesheets.html';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
@@ -87,7 +88,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     </AppStateProvider>
                 </div>
 
-                {props.useCSR && !(props.location === clientRoutes.offline) && (
+                {props.useCSR && !(props.location === routes.offline) && (
                     <Javascript
                         nonce={props.nonce}
                         isProduction={props.isProduction}

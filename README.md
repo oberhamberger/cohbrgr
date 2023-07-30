@@ -47,6 +47,7 @@ docker run -d -p 3000:3000 node-docker
 
 -   Minimal React Single Page Application
 -   NodeJS Express Server providing SSR
+-   Static Site Generation
 -   SCSS Modules Styles
 -   Typescript
 -   Webpack Bundling
