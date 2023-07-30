@@ -6,6 +6,6 @@ COPY --chown=node:node . /usr/app
 WORKDIR /usr/app
 
 RUN npm ci
-RUN npm run build
+RUN npm run build:ssg
 
 ENTRYPOINT ["node", "."]
