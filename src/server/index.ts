@@ -45,8 +45,9 @@ app.use(methodDetermination);
 app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 app.use((req, res, next) => {
-    res.locals.cspNonce = isGenerator ? '!CSPNONCE_PLACEHOLDER!' :
-    randomBytes(16).toString('hex');
+    res.locals.cspNonce = isGenerator
+        ? '!CSPNONCE_PLACEHOLDER!'
+        : randomBytes(16).toString('hex');
     next();
 });
 app.use(
