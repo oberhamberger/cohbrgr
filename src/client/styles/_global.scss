@@ -65,11 +65,10 @@ p {
 
 a {
     color: var(--color-highlight);
-    text-decoration: none;
 
     &:hover,
     &:active,
     &:focus {
-        text-decoration: underline;
+        text-decoration: none;
     }
 }
