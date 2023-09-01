@@ -12,6 +12,7 @@
         "jsx": "react-jsx",
         "allowJs": false,
         "resolveJsonModule": true,
+        "module": "CommonJS",
         "moduleResolution": "node",
         "typeRoots": [
             "./node_modules/@types",
