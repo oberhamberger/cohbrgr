@@ -21,6 +21,4 @@ if (root) {
     );
 }
 
-if (window.__initial_state__?.isProduction) {
-    registerServiceWorker();
-}
+registerServiceWorker();
