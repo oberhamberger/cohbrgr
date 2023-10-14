@@ -4,8 +4,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "build/*": ["build/*"],
-            "src/*": ["src/*"]
+            "packages/*": ["packages/*"]
         },
         "sourceMap": true,
         "incremental": true,
@@ -14,11 +13,7 @@
         "resolveJsonModule": true,
         "module": "CommonJS",
         "moduleResolution": "node",
-        "typeRoots": [
-            "./node_modules/@types",
-            "./build/@types/*",
-            "./src/@types/*"
-        ],
+        "typeRoots": ["./node_modules/@types", "./packages/build/@types/*"],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
     "exclude": ["./dist"]

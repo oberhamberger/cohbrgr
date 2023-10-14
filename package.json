@@ -7,10 +7,7 @@
     "private": true,
     "license": "ISC",
     "workspaces": [
-        "build",
-        "src/client",
-        "src/server",
-        "src/service-worker"
+        "packages/*"
     ],
     "keywords": [
         "express",
@@ -22,15 +19,15 @@
     "scripts": {
         "cleanup": "rimraf ./dist",
         "bootstrap": "npm run cleanup && rimraf ./node_modules && npm install",
-        "lint": "eslint .eslintrc.js build && eslint .eslintrc.js src",
+        "lint": "eslint .eslintrc.js packages",
         "prestart": "npm run cleanup && npm run lint && npm run prettier",
         "prebuild": "npm run cleanup",
         "prettier": "node_modules/.bin/prettier --write .",
-        "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
+        "build": "NODE_ENV=production ts-node -r tsconfig-paths/register packages/build",
         "prebuild:ssg": "npm run cleanup",
-        "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register build --generator",
-        "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register build --analyze",
-        "start": "NODE_ENV=development ts-node -r tsconfig-paths/register build -w",
+        "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register packages/build --generator",
+        "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register packages/build --analyze",
+        "start": "NODE_ENV=development ts-node -r tsconfig-paths/register packages/build -w",
         "test": "jest"
     },
     "repository": {

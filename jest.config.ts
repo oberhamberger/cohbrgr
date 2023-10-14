@@ -1,3 +1,6 @@
 export default {
-    projects: ['src/client/jest.config.ts', 'src/server/jest.config.ts'],
+    projects: [
+        'packages/client/jest.config.ts',
+        'packages/server/jest.config.ts',
+    ],
 };
