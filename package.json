@@ -17,6 +17,8 @@
         "ssr"
     ],
     "scripts": {
+        "nx": "nx build build",
+        "nx:test": "nx test client",
         "cleanup": "rimraf ./dist",
         "bootstrap": "npm run cleanup && rimraf ./node_modules && npm install",
         "lint": "eslint .eslintrc.js packages",
@@ -46,6 +48,7 @@
         "winston": "^3.11.0"
     },
     "devDependencies": {
+        "@nx/js": "16.10.0",
         "@tsconfig/node20": "^20.1.2",
         "@types/jest": "^29.5.5",
         "@types/node": "^20.8.6",
@@ -62,6 +65,7 @@
         "jest": "^29.7.0",
         "jest-environment-jsdom": "^29.7.0",
         "jest-transform-stub": "^2.0.0",
+        "nx": "16.10.0",
         "prettier": "^3.0.3",
         "rimraf": "^5.0.5",
         "ts-jest": "^29.1.1",

@@ -9,8 +9,8 @@ import {
     regexStyle,
     regexSource,
     CWD,
-} from 'build/utils/constants';
-import getStyleLoader from 'build/loader/style.loader';
+} from '../utils/constants';
+import getStyleLoader from '../loader/style.loader';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
@@ -54,7 +54,7 @@ export default (): Configuration => ({
         new NodemonPlugin(),
     ],
     output: {
-        path: resolve(__dirname, '../../../dist/server/'),
+        path: resolve(__dirname, '../../../../../dist/server/'),
         filename: 'index.js',
         clean: true,
         publicPath: '/',

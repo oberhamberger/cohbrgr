@@ -14,8 +14,8 @@ import {
     CWD,
     serviceWorker,
     isAnalyze,
-} from 'build/utils/constants';
-import getStyleLoader from 'build/loader/style.loader';
+} from '../utils/constants';
+import getStyleLoader from '../loader/style.loader';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
@@ -62,7 +62,7 @@ export default (): Configuration => ({
                 : 'css/[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: '../../../client/assets', to: './' }],
+            patterns: [{ from: '../../../../client/assets', to: './' }],
         }),
         ...(isProduction
             ? [
@@ -112,7 +112,7 @@ export default (): Configuration => ({
         },
     },
     output: {
-        path: resolve(__dirname, '../../../dist/client'),
+        path: resolve(__dirname, '../../../../../dist/client'),
         filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });
