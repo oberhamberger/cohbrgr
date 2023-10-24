@@ -6,7 +6,7 @@ const registerServiceWorker = async () => {
         if (isProduction) {
             const { Workbox } = await import('workbox-window');
             const workbox = new Workbox(serviceWorker);
-            workbox.register();
+            return await workbox.register();
         } else {
             return await navigator.serviceWorker.ready
                 .then((registration) => {
@@ -17,6 +17,7 @@ const registerServiceWorker = async () => {
                 });
         }
     }
+    return Promise.resolve();
 };
 
 export default registerServiceWorker;
