@@ -14,8 +14,8 @@ import {
     CWD,
     serviceWorker,
     isAnalyze,
-} from '../utils/constants';
-import getStyleLoader from '../loader/style.loader';
+} from '../utils/constants.js';
+import getStyleLoader from '../loader/style.loader.js';
 
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,

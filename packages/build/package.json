@@ -2,9 +2,15 @@
     "name": "build",
     "version": "1.0.0",
     "description": "",
+    "main": "lib/index",
+    "bin": "lib/index",
+    "type": "module",
     "scripts": {
-        "build": "tsc",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "prestart": "npm run build",
+        "start": "node .",
+        "build": "swc src -d lib",
+        "cleanup": "rimraf ./dist",
+        "prebuild": "npm run cleanup"
     },
     "author": "",
     "license": "ISC",
@@ -26,5 +32,9 @@
         "webpack-cli": "^5.1.4",
         "webpackbar": "^5.0.2",
         "workbox-webpack-plugin": "^7.0.0"
+    },
+    "devDependencies": {
+        "@swc/cli": "^0.1.62",
+        "@swc/core": "^1.3.95"
     }
 }
