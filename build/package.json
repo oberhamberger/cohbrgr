@@ -8,9 +8,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@types/webpack": "^5.28.4",
-        "@types/webpack-bundle-analyzer": "^4.6.2",
-        "@types/webpack-env": "^1.18.3",
+        "@types/webpack": "^5.28.5",
+        "@types/webpack-bundle-analyzer": "^4.6.3",
+        "@types/webpack-env": "^1.18.4",
         "copy-webpack-plugin": "^11.0.0",
         "css-loader": "^6.8.1",
         "mini-css-extract-plugin": "^2.7.6",
