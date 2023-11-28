@@ -28,13 +28,14 @@ h3,
 h4,
 h5,
 h6 {
-    line-height: 1;
-    margin: 1.5rem 0;
+    line-height: 1.07143;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 
 h1 {
     font-size: 3.25rem;
-    font-style: italic;
 
     @media screen and (orientation: portrait) and (min-width: 420px) {
         font-size: 3.75rem;
@@ -55,6 +56,7 @@ h2 {
 }
 
 p {
+    text-align: center;
     @media screen and (orientation: portrait) and (min-width: 420px) {
         font-size: 1.25rem;
     }
@@ -65,10 +67,10 @@ p {
 
 a {
     color: var(--color-highlight);
-
+    text-decoration: none;
     &:hover,
     &:active,
     &:focus {
-        text-decoration: none;
+        text-decoration: underline;
     }
 }
