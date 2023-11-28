@@ -2,15 +2,16 @@
 // lake green: #001e26;
 // natural grey: #bbb5a9;
 // dark red: #630f0b
+// blush pink: #f9f3f4
 
 :root {
-    --color-background-light: #f9f3f4;
-    --color-font-light: #0c3139;
+    --color-background-light: #f7f7f7;
+    --color-font-light: #000;
 
     --color-background-dark: #09171b;
     --color-font-dark: #fff1ee;
 
-    --color-highlight-light: #555;
+    --color-highlight-light: #217c84;
     --color-highlight-dark: aquamarine;
 
     --color-background: var(--color-background-light);
