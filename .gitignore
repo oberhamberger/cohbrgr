@@ -105,3 +105,5 @@ dist
 
 # more custom stuff
 .DS_Store
+
+.temp_cache

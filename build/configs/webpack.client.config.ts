@@ -25,6 +25,18 @@ export default (): Configuration => ({
         bundle: 'src/client',
     },
     target: 'web',
+    cache: {
+        type: 'filesystem',
+        cacheDirectory: resolve(__dirname, '../../.temp_cache/client'),
+        allowCollectingMemory: true,
+        buildDependencies: {
+            config: [__filename],
+        },
+    },
+    infrastructureLogging: {
+        appendOnly: true,
+        level: 'verbose',
+    },
     module: {
         rules: [
             {
