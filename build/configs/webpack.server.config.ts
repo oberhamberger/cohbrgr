@@ -20,6 +20,18 @@ export default (): Configuration => ({
         server: 'src/server',
     },
     target: 'node',
+    cache: {
+        type: 'filesystem',
+        cacheDirectory: resolve(__dirname, '../../.temp_cache/server'),
+        allowCollectingMemory: true,
+        buildDependencies: {
+            config: [__filename],
+        },
+    },
+    infrastructureLogging: {
+        appendOnly: true,
+        level: 'verbose',
+    },
     module: {
         rules: [
             {
