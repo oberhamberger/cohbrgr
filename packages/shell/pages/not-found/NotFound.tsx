@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { HttpStatus } from 'packages/client/contexts/http';
-import Navigation from 'packages/client/components/navigation';
+import { HttpStatus } from 'packages/shell/contexts/http';
+import Navigation from 'packages/shell/components/navigation';
 
 const NotFound: FunctionComponent = () => {
     return (

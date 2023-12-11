@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { readdirSync } from 'fs';
 import { resolve, extname } from 'path';
 import Logger from 'packages/server/utils/logger';
-import { State } from 'packages/client/store/state';
+import { State } from 'packages/shell/store/state';
 
 interface IJavascriptHTMLProps {
     nonce: string;
