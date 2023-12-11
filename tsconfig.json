@@ -4,8 +4,12 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "build/*": ["build/*"],
-            "src/*": ["src/*"]
+            "build/*": ["packages/build/*"],
+            "src/*": [
+                "packages/client/*",
+                "packages/server/*",
+                "packages/service-worker/*"
+            ]
         },
         "sourceMap": true,
         "incremental": true,
@@ -16,8 +20,9 @@
         "moduleResolution": "node",
         "typeRoots": [
             "./node_modules/@types",
-            "./build/@types/*",
-            "./src/@types/*"
+            "./packages/build/@types/*",
+            "./packages/client/@types/*",
+            "./packages/server/@types/*"
         ],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
