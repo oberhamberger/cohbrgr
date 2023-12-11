@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactNode, Children } from 'react';
-import styles from 'src/client/components/navigation/Navigation.module.scss';
+import styles from 'packages/client/components/navigation/Navigation.module.scss';
 
 interface INavigation {
     children: ReactNode;

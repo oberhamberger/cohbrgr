@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext } from 'react';
-import { AppStateContext } from 'src/client/contexts/app-state';
+import { AppStateContext } from 'packages/client/contexts/app-state';
 
 const buildJsonLd = () => {
     return JSON.stringify({

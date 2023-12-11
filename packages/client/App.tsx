@@ -1,12 +1,12 @@
 import { FunctionComponent } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import 'src/client/styles/index.scss';
-import Layout from 'src/client/components/layout';
-import Content from 'src/client/pages/content';
-import Offline from 'src/client/pages/offline';
-import NotFound from 'src/client/pages/not-found';
-import routes from 'src/client/routes';
+import 'packages/client/styles/index.scss';
+import Layout from 'packages/client/components/layout';
+import Content from 'packages/client/pages/content';
+import Offline from 'packages/client/pages/offline';
+import NotFound from 'packages/client/pages/not-found';
+import routes from 'packages/client/routes';
 
 const App: FunctionComponent = () => {
     return (

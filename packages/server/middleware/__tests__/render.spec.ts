@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { HtmlValidate, ConfigData } from 'html-validate';
 import httpMocks, { MockRequest, MockResponse } from 'node-mocks-http';
 import 'html-validate/jest';
-import render from 'src/server/middleware/render';
+import render from 'packages/server/middleware/render';
 
 describe('render middleware', () => {
     let mockRequest: MockRequest<Request>;

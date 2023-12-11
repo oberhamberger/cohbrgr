@@ -1,3 +1,3 @@
-import Layout from 'src/client/components/layout/Layout';
+import Layout from 'packages/client/components/layout/Layout';
 
 export default Layout;

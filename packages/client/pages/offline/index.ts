@@ -1,3 +1,3 @@
-import Offline from 'src/client/pages/offline/Offline';
+import Offline from 'packages/client/pages/offline/Offline';
 
 export default Offline;
