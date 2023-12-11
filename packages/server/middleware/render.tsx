@@ -5,7 +5,7 @@ import { renderToPipeableStream } from 'react-dom/server';
 import Index from 'packages/server/template/Index.html';
 import Logger from 'packages/server/utils/logger';
 import { HttpMethod } from 'packages/server/middleware/methodDetermination';
-import { HttpContextData } from 'packages/client/contexts/http';
+import { HttpContextData } from 'packages/shell/contexts/http';
 
 const streamToString = (stream: Stream): Promise<string> => {
     const chunks: Uint8Array[] = [];

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import Navigation from 'packages/client/components/navigation';
+import Navigation from 'packages/shell/components/navigation';
 
 const Offline: FunctionComponent = () => {
     return (

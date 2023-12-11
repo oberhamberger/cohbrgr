@@ -1,4 +1,4 @@
-import { State } from 'packages/client/store/state';
+import { State } from 'packages/shell/store/state';
 
 declare global {
     interface Window {

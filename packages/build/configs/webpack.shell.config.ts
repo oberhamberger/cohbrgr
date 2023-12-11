@@ -19,7 +19,7 @@ import getStyleLoader from 'build/loader/style.loader';
 export default (): Configuration => ({
     ...getWebpackSharedConfig(),
     entry: {
-        bundle: '/client',
+        bundle: '/shell',
     },
     target: 'web',
     module: {
@@ -38,7 +38,7 @@ export default (): Configuration => ({
     plugins: [
         new ESLintPlugin(),
         new WebpackBar({
-            name: 'Client',
+            name: 'Shell',
             color: '#fff1ee',
         }),
         new MiniCssExtractPlugin({
@@ -47,7 +47,7 @@ export default (): Configuration => ({
                 : 'css/[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: './client/assets', to: './' }],
+            patterns: [{ from: './shell/assets', to: './' }],
         }),
         ...(isProduction
             ? [
@@ -97,7 +97,7 @@ export default (): Configuration => ({
         },
     },
     output: {
-        path: resolve(__dirname, '../../../dist/client'),
+        path: resolve(__dirname, '../../../dist/shell'),
         filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });

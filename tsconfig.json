@@ -6,7 +6,7 @@
         "paths": {
             "build/*": ["packages/build/*"],
             "src/*": [
-                "packages/client/*",
+                "packages/shell/*",
                 "packages/server/*",
                 "packages/service-worker/*"
             ]
@@ -21,7 +21,7 @@
         "typeRoots": [
             "./node_modules/@types",
             "./packages/build/@types/*",
-            "./packages/client/@types/*",
+            "packages/shell/@types/*",
             "./packages/server/@types/*"
         ],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]

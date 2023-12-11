@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
-import Navigation from 'packages/client/components/navigation';
-import StructuredData from 'packages/client/components/structured-data';
+import Navigation from 'packages/shell/components/navigation';
+import StructuredData from 'packages/shell/components/structured-data';
 
 const Content: FunctionComponent = () => {
     return (
