@@ -9,7 +9,7 @@ module.exports = {
     extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
     overrides: [
         {
-            files: ['src/client/**'],
+            files: ['packages/client/**'],
             extends: '.eslint.client.js',
         },
     ],

@@ -1,12 +1,12 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
-import getWebpackClientConfig from 'build/configs/webpack.client.config';
+//import getWebpackClientConfig from 'build/configs/webpack.client.config';
 import getWebpackServerConfig from 'build/configs/webpack.server.config';
 import Logger from 'build/utils/logger';
 import { isWatch, isSSG } from 'build/utils/constants';
 import staticSiteGenerator from 'build/ssg';
 
 const config: Configuration[] = [
-    getWebpackClientConfig(),
+    //getWebpackClientConfig(),
     getWebpackServerConfig(),
 ];
 const compiler = webpack(config);

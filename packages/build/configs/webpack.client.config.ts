@@ -19,7 +19,7 @@ import getStyleLoader from 'build/loader/style.loader';
 export default (): Configuration => ({
     ...getWebpackSharedConfig(),
     entry: {
-        bundle: 'src/client',
+        bundle: '/client',
     },
     target: 'web',
     module: {
@@ -47,12 +47,12 @@ export default (): Configuration => ({
                 : 'css/[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: '../../../src/client/assets', to: './' }],
+            patterns: [{ from: '../../../client/assets', to: './' }],
         }),
         ...(isProduction
             ? [
                   new InjectManifest({
-                      swSrc: 'src/service-worker',
+                      swSrc: './service-worker',
                       swDest: serviceWorker,
                       include: [/\.js$/],
                   }),
@@ -97,7 +97,7 @@ export default (): Configuration => ({
         },
     },
     output: {
-        path: resolve(__dirname, '../../dist/client'),
+        path: resolve(__dirname, '../../../dist/client'),
         filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });
