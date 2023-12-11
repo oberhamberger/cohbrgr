@@ -1,5 +1,6 @@
-import { resolve, dirname, join } from 'path';
+import { resolve } from 'path';
 import { Configuration } from 'webpack';
+import getWebpackSharedConfig from 'build/configs/webpack.shared.config';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -7,36 +8,20 @@ import CopyPlugin from 'copy-webpack-plugin';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import {
-    Mode,
+    isAnalyze,
     isProduction,
+    serviceWorker,
     regexStyle,
     regexSource,
-    CWD,
-    serviceWorker,
-    isAnalyze,
 } from 'build/utils/constants';
 import getStyleLoader from 'build/loader/style.loader';
 
 export default (): Configuration => ({
-    mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-    devtool: isProduction ? false : 'inline-source-map',
-    context: resolve(__dirname, 'src'),
+    ...getWebpackSharedConfig(),
     entry: {
         bundle: 'src/client',
     },
     target: 'web',
-    cache: {
-        type: 'filesystem',
-        cacheDirectory: resolve(__dirname, '../../.temp_cache/client'),
-        allowCollectingMemory: true,
-        buildDependencies: {
-            config: [__filename],
-        },
-    },
-    infrastructureLogging: {
-        appendOnly: true,
-        level: 'verbose',
-    },
     module: {
         rules: [
             {
@@ -49,18 +34,6 @@ export default (): Configuration => ({
                 use: getStyleLoader(false, isProduction),
             },
         ],
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
-        modules: [
-            join(CWD, ''),
-            join(CWD, 'node_modules'),
-            join(dirname(require.main?.filename || ''), '..', 'node_modules'),
-            join(dirname(require.main?.filename || ''), 'node_modules'),
-            'node_modules',
-            'node_modules',
-        ],
-        alias: { src: 'src/' },
     },
     plugins: [
         new ESLintPlugin(),
