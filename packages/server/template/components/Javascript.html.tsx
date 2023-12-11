@@ -12,7 +12,7 @@ export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
 let scriptFiles: string[] = [];
 try {
-    scriptFiles = readdirSync(resolve(__dirname + '/../client/js')).filter(
+    scriptFiles = readdirSync(resolve(__dirname + '/../shell/js')).filter(
         (fileName) => extname(fileName) === '.js',
     );
 } catch (err) {

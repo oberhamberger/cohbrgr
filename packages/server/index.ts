@@ -15,7 +15,7 @@ import { findProcessArgs } from 'packages/server/utils/findProcessArgs';
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3000 : 3030;
 const port = process.env.PORT || defaultPort;
-const staticPath = 'dist/client';
+const staticPath = 'dist/shell';
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
