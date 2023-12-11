@@ -1,37 +1,18 @@
-import { join, resolve, dirname } from 'path';
+import { resolve } from 'path';
 import { Configuration } from 'webpack';
+import getWebpackSharedConfig from 'build/configs/webpack.shared.config';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-import {
-    Mode,
-    isProduction,
-    regexStyle,
-    regexSource,
-    CWD,
-} from 'build/utils/constants';
+import { isProduction, regexStyle, regexSource } from 'build/utils/constants';
 import getStyleLoader from 'build/loader/style.loader';
 
 export default (): Configuration => ({
-    mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-    devtool: isProduction ? false : 'inline-source-map',
-    context: resolve(__dirname, 'src'),
+    ...getWebpackSharedConfig(),
     entry: {
         server: 'src/server',
     },
     target: 'node',
-    cache: {
-        type: 'filesystem',
-        cacheDirectory: resolve(__dirname, '../../.temp_cache/server'),
-        allowCollectingMemory: true,
-        buildDependencies: {
-            config: [__filename],
-        },
-    },
-    infrastructureLogging: {
-        appendOnly: true,
-        level: 'verbose',
-    },
     module: {
         rules: [
             {
@@ -44,18 +25,6 @@ export default (): Configuration => ({
                 use: getStyleLoader(true, isProduction),
             },
         ],
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
-        modules: [
-            join(CWD, ''),
-            join(CWD, 'node_modules'),
-            join(dirname(require.main?.filename || ''), '..', 'node_modules'),
-            join(dirname(require.main?.filename || ''), 'node_modules'),
-            'node_modules',
-            'node_modules',
-        ],
-        alias: { src: 'src/' },
     },
     plugins: [
         new ESLintPlugin(),
