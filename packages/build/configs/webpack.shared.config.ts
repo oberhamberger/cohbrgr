@@ -5,7 +5,7 @@ import { Mode, isProduction, CWD } from 'build/utils/constants';
 export default (): Configuration => ({
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'inline-source-map',
-    context: resolve(__dirname, 'src'),
+    context: resolve(__dirname, '../../'),
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.scss'],
         modules: [
