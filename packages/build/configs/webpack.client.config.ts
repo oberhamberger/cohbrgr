@@ -47,7 +47,7 @@ export default (): Configuration => ({
                 : 'css/[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: '../../../client/assets', to: './' }],
+            patterns: [{ from: './client/assets', to: './' }],
         }),
         ...(isProduction
             ? [

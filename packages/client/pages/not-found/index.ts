@@ -1,3 +1,3 @@
-import NotFound from 'src/client/pages/not-found/NotFound';
+import NotFound from 'packages/client/pages/not-found/NotFound';
 
 export default NotFound;

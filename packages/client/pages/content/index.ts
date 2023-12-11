@@ -1,3 +1,3 @@
-import Content from 'src/client/pages/content/Content';
+import Content from 'packages/client/pages/content/Content';
 
 export default Content;
