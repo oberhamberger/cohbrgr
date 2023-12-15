@@ -7,6 +7,7 @@
     "private": true,
     "license": "ISC",
     "workspaces": [
+        "build",
         "packages/*"
     ],
     "keywords": [
@@ -23,11 +24,11 @@
         "prestart": "npm run cleanup && npm run lint && npm run prettier",
         "prebuild": "npm run cleanup",
         "prettier": "node_modules/.bin/prettier --write .",
-        "build": "NODE_ENV=production ts-node -r tsconfig-paths/register packages/build",
+        "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
         "prebuild:ssg": "npm run cleanup",
-        "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register packages/build --generator",
-        "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register packages/build --analyze",
-        "start": "NODE_ENV=development ts-node -r tsconfig-paths/register packages/build -w",
+        "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register build --generator",
+        "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register build --analyze",
+        "start": "NODE_ENV=development ts-node -r tsconfig-paths/register build -w",
         "test": "jest"
     },
     "repository": {

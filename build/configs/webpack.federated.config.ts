@@ -1,5 +1,5 @@
 import { container } from 'webpack';
-import { dependencies } from '../../../package.json';
+import { dependencies } from '../../package.json';
 
 export default {
     shell: new container.ModuleFederationPlugin({
