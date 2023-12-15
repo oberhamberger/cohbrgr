@@ -10,7 +10,7 @@ import getStyleLoader from 'build/loader/style.loader';
 export default (): Configuration => ({
     ...getWebpackSharedConfig(),
     entry: {
-        server: '/server',
+        server: 'packages/server',
     },
     target: 'node',
     module: {
@@ -35,7 +35,7 @@ export default (): Configuration => ({
         new NodemonPlugin(),
     ],
     output: {
-        path: resolve(__dirname, '../../../dist/server/'),
+        path: resolve(__dirname, '../../dist/server/'),
         filename: 'index.js',
         clean: true,
         publicPath: '/',

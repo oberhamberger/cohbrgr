@@ -15,12 +15,12 @@ import {
     regexSource,
 } from 'build/utils/constants';
 import getStyleLoader from 'build/loader/style.loader';
-import moduleFederationPlugin from 'build/configs/webpack.federated.config';
+// import moduleFederationPlugin from 'build/configs/webpack.federated.config';
 
 export default (): Configuration => ({
     ...getWebpackSharedConfig(),
     entry: {
-        bundle: '/shell',
+        bundle: 'packages/shell',
     },
     target: 'web',
     module: {
@@ -48,13 +48,13 @@ export default (): Configuration => ({
                 : 'css/[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: './shell/assets', to: './' }],
+            patterns: [{ from: '../../../packages/shell/assets', to: './' }],
         }),
-        moduleFederationPlugin.shell,
+        // moduleFederationPlugin.shell,
         ...(isProduction
             ? [
                   new InjectManifest({
-                      swSrc: './service-worker',
+                      swSrc: 'packages/service-worker',
                       swDest: serviceWorker,
                       include: [/\.js$/],
                   }),
@@ -99,7 +99,7 @@ export default (): Configuration => ({
         },
     },
     output: {
-        path: resolve(__dirname, '../../../dist/shell'),
+        path: resolve(__dirname, '../../dist/shell'),
         filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });

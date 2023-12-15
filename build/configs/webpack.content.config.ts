@@ -12,12 +12,12 @@ import {
     regexSource,
 } from 'build/utils/constants';
 import getStyleLoader from 'build/loader/style.loader';
-import moduleFederationPlugin from 'build/configs/webpack.federated.config';
+// import moduleFederationPlugin from 'build/configs/webpack.federated.config';
 
 export default (): Configuration => ({
     ...getWebpackSharedConfig(),
     entry: {
-        bundle: '/content',
+        bundle: 'packages/content',
     },
     target: 'web',
     module: {
@@ -44,7 +44,7 @@ export default (): Configuration => ({
                 ? 'css/[name].[contenthash].css'
                 : 'css/[name].css',
         }),
-        moduleFederationPlugin.content,
+        // moduleFederationPlugin.content,
         ...(isAnalyze
             ? [
                   new BundleAnalyzerPlugin({
@@ -56,7 +56,7 @@ export default (): Configuration => ({
             : []),
     ],
     output: {
-        path: resolve(__dirname, '../../../dist/content'),
+        path: resolve(__dirname, '../../dist/content'),
         filename: isProduction ? 'js/[name].[contenthash].js' : 'js/[name].js',
     },
 });

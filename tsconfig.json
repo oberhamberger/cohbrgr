@@ -4,7 +4,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "build/*": ["packages/build/*"],
+            "build/*": ["build/*"],
             "src/*": [
                 "packages/shell/*",
                 "packages/server/*",
@@ -20,7 +20,7 @@
         "moduleResolution": "node",
         "typeRoots": [
             "./node_modules/@types",
-            "./packages/build/@types/*",
+            "build/@types/*",
             "packages/shell/@types/*",
             "./packages/server/@types/*"
         ],
