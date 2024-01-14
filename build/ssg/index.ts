@@ -1,7 +1,7 @@
 import { writeFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { fork } from 'child_process';
-import routes from 'packages/shell/routes';
+import routes from 'packages/shell/client/routes';
 import Logger from 'build/utils/logger';
 import { port } from 'build/utils/constants';
 

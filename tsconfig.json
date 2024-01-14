@@ -5,11 +5,8 @@
         "baseUrl": ".",
         "paths": {
             "build/*": ["build/*"],
-            "src/*": [
-                "packages/shell/*",
-                "packages/server/*",
-                "packages/service-worker/*"
-            ]
+            "@shell/*": ["./packages/shell/*"],
+            "@content/*": ["./packages/content/*"]
         },
         "sourceMap": true,
         "incremental": true,
@@ -22,7 +19,7 @@
             "./node_modules/@types",
             "build/@types/*",
             "packages/shell/@types/*",
-            "./packages/server/@types/*"
+            "./packages/shell/server/@types/*"
         ],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
