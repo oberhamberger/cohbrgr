@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
-import Content from 'src/client/Content';
+import Content from 'src/client/pages/content/Content';
 
 describe('Main Content Component', () => {
     it('displays greeting', async () => {

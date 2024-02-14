@@ -2,10 +2,10 @@ import { PassThrough, Stream } from 'stream';
 import { Request, Response } from 'express';
 import { renderToPipeableStream } from 'react-dom/server';
 
-import Index from '@shell/src/server/template/Index.html';
-import Logger from '@shell/src/server/utils/logger';
-import { HttpMethod } from '@shell/src/server/middleware/methodDetermination';
-import { HttpContextData } from '@shell/src/client/contexts/http';
+import Index from 'src/server/template/Index.html';
+import Logger from 'src/server/utils/logger';
+import { HttpMethod } from 'src/server/middleware/methodDetermination';
+import { HttpContextData } from 'src/client/contexts/http';
 
 const streamToString = (stream: Stream): Promise<string> => {
     const chunks: Uint8Array[] = [];

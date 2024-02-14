@@ -1,3 +1,3 @@
-import StructuredData from '@shell/src/client/components/structured-data/StructuredData';
+import StructuredData from 'src/client/components/structured-data/StructuredData';
 
 export default StructuredData;

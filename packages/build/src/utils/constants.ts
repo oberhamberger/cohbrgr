@@ -1,4 +1,4 @@
-import { findProcessArgs } from 'build/build/src/utils/helpers';
+import { findProcessArgs } from 'build/src/utils/helpers';
 
 export enum Mode {
     DEVELOPMENT = 'development',

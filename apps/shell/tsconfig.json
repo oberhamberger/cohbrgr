@@ -1,0 +1,26 @@
+{
+    "extends": "../../tsconfig.json",
+    "ts-node": {},
+    "compilerOptions": {
+        "module": "CommonJS",
+        "moduleResolution": "node",
+
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"],
+        },
+
+        "outDir": "lib",
+        "sourceMap": true,
+        "incremental": true,
+        "allowJs": false,
+        "resolveJsonModule": true,
+
+
+        "typeRoots": [
+            "../../node_modules/@types",
+            "./client/src/@types/*"
+        ],
+    },
+    "exclude": ["./dist", "./bin"]
+}

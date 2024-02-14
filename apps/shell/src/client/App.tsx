@@ -1,33 +1,20 @@
-import { FunctionComponent, lazy, Suspense } from 'react';
+import { FunctionComponent } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import '@shell/client/styles/index.scss';
+import 'src/client/styles/index.scss';
 
-import Layout from '@shell/src/client/components/layout';
-import StructuredData from '@shell/src/client/components/structured-data';
-import Navigation from '@shell/src/client/components/navigation';
-import Offline from '@shell/src/client/pages/offline';
-import NotFound from '@shell/src/client/pages/not-found';
-import routes from '@shell/src/client/routes';
-
-const Content = lazy(() => import('@content/src/client/index'));
+import Layout from 'src/client/components/layout';
+import StructuredData from 'src/client/components/structured-data';
+import Content from 'src/client/pages/content';
+import Offline from 'src/client/pages/offline';
+import NotFound from 'src/client/pages/not-found';
+import routes from 'src/client/routes';
 
 const App: FunctionComponent = () => {
     return (
         <Layout>
             <Routes>
-                <Route path={routes.start}>
-                    <Suspense fallback={<>...</>}>
-                        <Content />
-                    </Suspense>
-                    <Navigation>
-                        <a href="https://mastodon.social/@cohbrgr">Mastodon</a>
-                        <a href="https://github.com/oberhamberger">Github</a>
-                        <a href="https://www.linkedin.com/in/oberhamberger/">
-                            LinkedIn
-                        </a>
-                    </Navigation>
-                </Route>
+                <Route path={routes.start} element={<Content />} />
                 <Route path={routes.offline} element={<Offline />} />
                 <Route path={routes.notFound} element={<NotFound />} />
             </Routes>

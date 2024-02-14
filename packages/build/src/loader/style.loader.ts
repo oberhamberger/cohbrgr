@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { RuleSetUseItem } from 'webpack';
 
@@ -10,6 +11,7 @@ export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {
                     exportOnlyLocals: isServer,
                     exportLocalsConvention: 'camelCase',
                     exportGlobals: true,
+                    localIdentContext: resolve(__dirname, 'src'),
                     localIdentName: isProduction
                         ? '[hash:base64:6]'
                         : '[name]__[local]__[hash:base64:3]',

@@ -1,3 +1,3 @@
-import Offline from '@shell/src/client/pages/offline/Offline';
+import Offline from 'src/client/pages/offline/Offline';
 
 export default Offline;

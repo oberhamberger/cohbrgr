@@ -1,9 +1,9 @@
 import { writeFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { fork } from 'child_process';
-import routes from '@shell/src/client/routes';
-import Logger from 'build/build/src/utils/logger';
-import { port } from 'build/build/src/utils/constants';
+import routes from '../../../../apps/shell/src/client/routes';
+import Logger from 'build/src/utils/logger';
+import { port } from 'build/src/utils/constants';
 
 const serverAddress = `http://localhost:${port}`;
 const staticOutputPath = 'dist/client/static';

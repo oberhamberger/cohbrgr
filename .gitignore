@@ -107,3 +107,5 @@ dist
 .DS_Store
 
 .temp_cache
+
+bin

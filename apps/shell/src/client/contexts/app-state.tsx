@@ -1,5 +1,5 @@
 import { createContext, ReactElement } from 'react';
-import { State } from '@shell/src/client/store/state';
+import { State } from 'src/client/store/state';
 
 const initialAppStateContext: State = {
     isProduction: false,

@@ -1,13 +1,8 @@
 {
-    "extends": "./node_modules/@tsconfig/node20/tsconfig.json",
+    "extends": "../../tsconfig.json",
     "ts-node": {},
     "compilerOptions": {
         "baseUrl": ".",
-        "paths": {
-            "build/*": ["packages/*"],
-            "shell/*": ["apps/shell/*"],
-            "content/*": ["apps/content/*"]
-        },
         "sourceMap": true,
         "incremental": true,
         "jsx": "react-jsx",
@@ -15,11 +10,6 @@
         "resolveJsonModule": true,
         "module": "CommonJS",
         "moduleResolution": "node",
-        "typeRoots": [
-            "./node_modules/@types",
-            "packages/@types/*",
-            "packages/build/src/@types/*"
-        ],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
     "exclude": ["./dist"]

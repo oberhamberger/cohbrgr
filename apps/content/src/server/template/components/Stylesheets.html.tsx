@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { readFileSync, readdirSync } from 'fs';
 import { resolve, extname } from 'path';
-import Logger from '@shell/src/server/utils/logger';
+import Logger from 'src/server/utils/logger';
 
 interface IStylesheetProps {
     nonce: string;
