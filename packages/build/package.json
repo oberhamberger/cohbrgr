@@ -2,10 +2,9 @@
     "name": "@cohbrgr/build",
     "version": "1.0.0",
     "author": "Christian Oberhamberger",
-    "type": "module",
     "license": "ISC",
     "scripts": {
-        "build": "node esbuild.config.js",
+        "build": "node esbuild.config.mjs",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
