@@ -1,12 +1,12 @@
 import { registerRoute, setCatchHandler } from 'workbox-routing';
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 
-import navigationRoute from '@shell/src/client/service-worker/routes/navigation';
-import resourceRoute from '@shell/src/client/service-worker/routes/resources';
+import navigationRoute from 'src/client/service-worker/routes/navigation';
+import resourceRoute from 'src/client/service-worker/routes/resources';
 import offlineNavigationHandler, {
     FALLBACK_HTML_URL,
     OFFLINE_CACHE_NAME,
-} from '@shell/src/client/service-worker/routes/offline';
+} from 'src/client/service-worker/routes/offline';
 
 declare const self: ServiceWorkerGlobalScope;
 

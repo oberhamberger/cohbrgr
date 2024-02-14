@@ -1,19 +1,17 @@
-import { readdirSync } from 'fs';
 import webpack, { Configuration, MultiStats } from 'webpack';
-import getWebpackClientConfig from 'build/build/src/configs/webpack.client.config';
-import getWebpackServerConfig from 'build/build/src/configs/webpack.server.config';
-import Logger from 'build/build/src/utils/logger';
-import { isWatch, isSSG } from 'build/build/src/utils/constants';
-import staticSiteGenerator from 'build/build/src/ssg';
+import getWebpackClientConfig from 'build/src/configs/webpack.client.config';
+import getWebpackServerConfig from 'build/src/configs/webpack.server.config';
+import Logger from 'build/src/utils/logger';
+import { isWatch, isSSG } from 'build/src/utils/constants';
+import staticSiteGenerator from 'build/src/ssg';
 
-const packages = readdirSync('./packages/');
+
 const configs: [Configuration[]?] = [];
-packages.forEach(pack => {
-    configs.push([
-        getWebpackClientConfig(pack),
-        getWebpackServerConfig(pack),
-    ]);
-})
+configs.push([
+    getWebpackClientConfig(),
+    getWebpackServerConfig(),
+]);
+
 
 configs.forEach(config => {
     if (!config) {

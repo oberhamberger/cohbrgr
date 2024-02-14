@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { readFileSync, readdirSync } from 'fs';
 import { resolve, extname } from 'path';
-import Logger from '@shell/src/server/utils/logger';
+import Logger from 'src/server/utils/logger';
 
 interface IStylesheetProps {
     nonce: string;
@@ -13,14 +13,14 @@ let styleFiles: string[] = [];
 let styleFileContents = '';
 
 try {
-    styleFiles = readdirSync(resolve(__dirname + '/../shell/css')).filter(
+    styleFiles = readdirSync(resolve(__dirname + '/../client/css')).filter(
         (fileName) => extname(fileName) === '.css',
     );
     if (styleFiles.length) {
         try {
             styleFiles.forEach((file) => {
                 styleFileContents += readFileSync(
-                    resolve(__dirname + '/../shell/css/' + file),
+                    resolve(__dirname + '/../client/css/' + file),
                     'utf8',
                 );
             });

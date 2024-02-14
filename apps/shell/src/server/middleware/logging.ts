@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import Logger from '@shell/src/server/utils/logger';
+import Logger from 'src/server/utils/logger';
 
 const logging =
     (isProduction: boolean) =>

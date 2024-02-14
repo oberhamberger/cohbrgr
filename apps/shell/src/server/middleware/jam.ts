@@ -1,9 +1,9 @@
 import { readFileSync, access, constants } from 'fs';
 import { resolve } from 'path';
 import { NextFunction, Request, Response } from 'express';
-import Logger from '@shell/src/server/utils/logger';
-import routes from '@shell/src/client/routes';
-import { findProcessArgs } from '@shell/src/server/utils/findProcessArgs';
+import Logger from 'src/server/utils/logger';
+import routes from 'src/client/routes';
+import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 
 const isGenerator = findProcessArgs(['--generator']);
 const routeKeys = Object.keys(routes);

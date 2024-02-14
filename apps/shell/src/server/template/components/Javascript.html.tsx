@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
 import { readdirSync } from 'fs';
 import { resolve, extname } from 'path';
-import Logger from '@shell/src/server/utils/logger';
-import { State } from '@shell/src/client/store/state';
+import Logger from 'src/server/utils/logger';
+import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
     nonce: string;
@@ -12,7 +12,7 @@ export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
 let scriptFiles: string[] = [];
 try {
-    scriptFiles = readdirSync(resolve(__dirname + '/../shell/js')).filter(
+    scriptFiles = readdirSync(resolve(__dirname + '/../client/js')).filter(
         (fileName) => extname(fileName) === '.js',
     );
 } catch (err) {

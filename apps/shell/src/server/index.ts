@@ -1,25 +1,29 @@
+import { join } from 'path';
 import express, { Response } from 'express';
 import helmet from 'helmet';
 import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
-import Logger from '@shell/src/server/utils/logger';
-import logging from '@shell/src/server/middleware/logging';
-import methodDetermination from '@shell/src/server/middleware/methodDetermination';
-import jam from '@shell/src/server/middleware/jam';
-import render from '@shell/src/server/middleware/render';
+import Logger from 'src/server/utils/logger';
+import logging from 'src/server/middleware/logging';
+import methodDetermination from 'src/server/middleware/methodDetermination';
+import jam from 'src/server/middleware/jam';
+import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
-import { findProcessArgs } from '@shell/src/server/utils/findProcessArgs';
+import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3000 : 3030;
 const port = process.env.PORT || defaultPort;
-const staticPath = 'dist/shell';
+const staticPath = join(__dirname, '../client');
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
+
+
+console.log(staticPath);
 
 if (isProduction) {
     app.use(

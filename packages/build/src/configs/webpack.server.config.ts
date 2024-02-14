@@ -9,15 +9,14 @@ import {
     regexSource,
     Mode,
     CWD,
-} from 'build/build/src/utils/constants';
-import getStyleLoader from 'build/build/src/loader/style.loader';
+} from 'build/src/utils/constants';
+import getStyleLoader from 'build/src/loader/style.loader';
 
-export default (pack: string): Configuration => {
-    console.log(pack);
+export default (): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'inline-source-map',
-        context: resolve(__dirname, `./packages/${pack}/server`),
+        context: resolve(CWD, `./src/server`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
             modules: [
@@ -35,7 +34,7 @@ export default (pack: string): Configuration => {
             alias: { packages: 'packages/' },
         },
         entry: {
-            server: `packages/${pack}/server`,
+            server: `src/server`,
         },
         target: 'node',
         module: {
@@ -54,13 +53,13 @@ export default (pack: string): Configuration => {
         plugins: [
             new ESLintPlugin(),
             new WebpackBar({
-                name: `${pack}: server`,
+                name: `Server`,
                 color: '#0a9c6c',
             }),
             new NodemonPlugin(),
         ],
         output: {
-            path: resolve(__dirname, '../../dist/server/'),
+            path: resolve(CWD, './dist/server/'),
             filename: 'index.js',
             clean: true,
             publicPath: '/',

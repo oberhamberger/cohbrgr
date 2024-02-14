@@ -4,27 +4,26 @@ import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
-import { InjectManifest } from 'workbox-webpack-plugin';
+// import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import {
     isAnalyze,
     isProduction,
-    serviceWorker,
+//    serviceWorker,
     regexStyle,
     regexSource,
     Mode,
     CWD,
-} from 'build/build/src/utils/constants';
-import getStyleLoader from 'build/build/src/loader/style.loader';
+} from 'build/src/utils/constants';
+import getStyleLoader from 'build/src/loader/style.loader';
 
 // import moduleFederationPlugin from 'build/configs/webpack.federated.config';
 
-export default (pack: string): Configuration => {
-    console.log(pack);
+export default (): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'inline-source-map',
-        context: resolve(__dirname, `./packages/${pack}/client`),
+        context: resolve(CWD, `./src/client`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
             modules: [
@@ -32,17 +31,17 @@ export default (pack: string): Configuration => {
                 join(CWD, 'node_modules'),
                 join(
                     dirname(require.main?.filename || ''),
-                    '..',
+                    '../..',
                     'node_modules',
                 ),
                 join(dirname(require.main?.filename || ''), 'node_modules'),
                 'node_modules',
                 'node_modules',
             ],
-            alias: { packages: 'packages/' },
+            alias: { src: 'src/' },
         },
         entry: {
-            bundle: `packages/${pack}/client`,
+            bundle: `src/client`,
         },
         target: 'web',
         module: {
@@ -61,7 +60,7 @@ export default (pack: string): Configuration => {
         plugins: [
             new ESLintPlugin(),
             new WebpackBar({
-                name: `${pack}: client`,
+                name: `Client`,
                 color: '#fff1ee',
             }),
             new MiniCssExtractPlugin({
@@ -71,19 +70,19 @@ export default (pack: string): Configuration => {
             }),
             new CopyPlugin({
                 patterns: [
-                    { from: '../../../packages/shell/assets', to: './' },
+                    { from: '../../src/client/assets', to: './' },
                 ],
             }),
             // moduleFederationPlugin.shell,
-            ...(isProduction
-                ? [
-                      new InjectManifest({
-                          swSrc: 'packages/service-worker',
-                          swDest: serviceWorker,
-                          include: [/\.js$/],
-                      }),
-                  ]
-                : []),
+            // ...(isProduction
+            //     ? [
+            //           new InjectManifest({
+            //               swSrc: 'packages/service-worker',
+            //               swDest: serviceWorker,
+            //               include: [/\.js$/],
+            //           }),
+            //       ]
+            //     : []),
             ...(isAnalyze
                 ? [
                       new BundleAnalyzerPlugin({
@@ -123,7 +122,7 @@ export default (pack: string): Configuration => {
             },
         },
         output: {
-            path: resolve(__dirname, '../../dist/shell'),
+            path: resolve(CWD, './dist/client'),
             filename: isProduction
                 ? 'js/[name].[contenthash].js'
                 : 'js/[name].js',

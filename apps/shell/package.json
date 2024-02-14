@@ -1,10 +1,24 @@
 {
-  "name": "shell",
+  "name": "@cohbrgr/shell",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "workspaces": [
+    "src/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cleanup": "rimraf ./dist",
+    "bootstrap": "npm run cleanup && rimraf ./node_modules && npm install",
+    "lint": "eslint .eslintrc.js packages",
+    "prestart": "npm run cleanup && npm run lint && npm run prettier",
+    "prebuild": "npm run cleanup",
+    "prettier": "node_modules/.bin/prettier --write .",
+    "build": "NODE_ENV=production node ./../../packages/build/bin",
+    "prebuild:ssg": "npm run cleanup",
+    "build:ssg": "NODE_ENV=production node ../../packages/build/bin --generator",
+    "build:analyze": "NODE_ENV=production node ../../packages/build/bin --analyze",
+    "start": "NODE_ENV=development node ../../packages/build/bin build -w",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC"
