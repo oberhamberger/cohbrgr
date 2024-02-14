@@ -1,9 +1,9 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
-import getWebpackClientConfig from 'build/src/configs/webpack.client.config';
-import getWebpackServerConfig from 'build/src/configs/webpack.server.config';
-import Logger from 'build/src/utils/logger';
-import { isWatch, isSSG } from 'build/src/utils/constants';
-import staticSiteGenerator from 'build/src/ssg';
+import getWebpackClientConfig from 'src/configs/webpack.client.config';
+import getWebpackServerConfig from 'src/configs/webpack.server.config';
+import Logger from 'src/utils/logger';
+import { isWatch, isSSG } from 'src/utils/constants';
+import staticSiteGenerator from 'src/ssg';
 
 
 const configs: [Configuration[]?] = [];
