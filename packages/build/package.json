@@ -1,13 +1,13 @@
 {
     "name": "@cohbrgr/build",
     "version": "1.0.0",
-    "description": "",
+    "author": "Christian Oberhamberger",
+    "type": "module",
+    "license": "ISC",
     "scripts": {
-        "build": "node esbuild.config.mjs",
+        "build": "node esbuild.config.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.6.3",

@@ -1,11 +1,12 @@
 {
     "name": "@cohbrgr/shell-client",
     "version": "1.0.0",
+    "author": "Christian Oberhamberger",
+    "type": "module",
+    "license": "ISC",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "workbox-core": "^7.0.0",
         "workbox-expiration": "^7.0.0",

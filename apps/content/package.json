@@ -1,6 +1,10 @@
 {
   "name": "content",
   "version": "1.0.0",
+  "author": "Christian Oberhamberger",
+  "type": "module",
+  "license": "ISC",
+
   "main": "index.js",
   "workspaces": [
     "src/*"
@@ -8,8 +12,5 @@
   "scripts": {
     "build": "node ../../packages/build/bin",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }
