@@ -22,9 +22,6 @@ const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
 
-
-console.log(staticPath);
-
 if (isProduction) {
     app.use(
         rateLimit({
