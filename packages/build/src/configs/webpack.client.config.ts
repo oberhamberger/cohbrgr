@@ -14,8 +14,8 @@ import {
     regexSource,
     Mode,
     CWD,
-} from 'build/src/utils/constants';
-import getStyleLoader from 'build/src/loader/style.loader';
+} from 'src/utils/constants';
+import getStyleLoader from 'src/loader/style.loader';
 
 // import moduleFederationPlugin from 'build/configs/webpack.federated.config';
 
