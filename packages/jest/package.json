@@ -1,0 +1,19 @@
+{
+    "name": "@cohbrgr/jest",
+    "version": "1.0.0",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "scripts": {
+        "build": "node esbuild.config.mjs",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "jest-transform-stub": "^2.0.0",
+        "ts-jest": "^29.1.1"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.11"
+    }
+}

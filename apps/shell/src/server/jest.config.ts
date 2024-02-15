@@ -1,11 +1,11 @@
 import type { JestConfigWithTsJest } from 'ts-jest';
-import baseConfig from '../../../../jest.config.base';
+import baseConfig from '../../../../packages/jest/jest.config.base';
 
 const config: JestConfigWithTsJest = {
     ...baseConfig,
     displayName: 'server',
     testEnvironment: 'node',
-    rootDir: './',
+    rootDir: './../../',
     modulePaths: ['node_modules', '<rootDir>'],
     testMatch: [
         '**/server/**/__tests__/**/*.+(ts|tsx|js)',
