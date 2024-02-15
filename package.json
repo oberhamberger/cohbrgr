@@ -22,7 +22,7 @@
         "bootstrap": "npm run cleanup && rimraf ./node_modules && npm install",
         "prestart": "npm run cleanup && npm run prettier",
         "prebuild": "npm run cleanup",
-        "prettier": "node_modules/.bin/prettier --write .",
+        "prettier": "prettier --write .",
         "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
         "prebuild:ssg": "npm run cleanup",
         "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register build --generator",
