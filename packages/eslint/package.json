@@ -1,0 +1,16 @@
+{
+    "name": "@cohbrgr/eslint",
+    "version": "1.0.0",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "main": "index.js",
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^7.0.1",
+        "@typescript-eslint/parser": "^7.0.1",
+        "eslint": "^8.55.0",
+        "eslint-plugin-jsdoc": "^48.1.0",
+        "eslint-plugin-prefer-arrow": "^1.2.3",
+        "eslint-plugin-react": "^7.33.2",
+        "eslint-webpack-plugin": "^4.0.1"
+    }
+}

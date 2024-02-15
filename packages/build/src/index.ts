@@ -5,15 +5,10 @@ import Logger from 'src/utils/logger';
 import { isWatch, isSSG } from 'src/utils/constants';
 import staticSiteGenerator from 'src/ssg';
 
-
 const configs: [Configuration[]?] = [];
-configs.push([
-    getWebpackClientConfig(),
-    getWebpackServerConfig(),
-]);
+configs.push([getWebpackClientConfig(), getWebpackServerConfig()]);
 
-
-configs.forEach(config => {
+configs.forEach((config) => {
     if (!config) {
         return;
     }
@@ -27,7 +22,7 @@ configs.forEach(config => {
             Logger.warn('Compiler returned no result.');
             return;
         }
-    
+
         const rawMessages = result.toJson();
         if (rawMessages.errors?.length) {
             rawMessages.errors.forEach((e) => {
@@ -44,18 +39,17 @@ configs.forEach(config => {
         if (!rawMessages.errors?.length && !rawMessages.warnings?.length) {
             Logger.info(`compiled successfully.`);
         }
-    
+
         if (isSSG) {
             staticSiteGenerator();
         }
     };
-    
+
     if (isWatch) {
         compiler.watch({}, compilerCallback);
     } else {
         compiler.run(compilerCallback);
     }
-})
-
+});
 
 export default configs;

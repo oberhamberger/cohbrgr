@@ -9,7 +9,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import {
     isAnalyze,
     isProduction,
-//    serviceWorker,
+    //    serviceWorker,
     regexStyle,
     regexSource,
     Mode,
@@ -69,9 +69,7 @@ export default (): Configuration => {
                     : 'css/[name].css',
             }),
             new CopyPlugin({
-                patterns: [
-                    { from: '../../src/client/assets', to: './' },
-                ],
+                patterns: [{ from: '../../src/client/assets', to: './' }],
             }),
             // moduleFederationPlugin.shell,
             // ...(isProduction
