@@ -10,8 +10,6 @@ import Offline from 'src/client/pages/offline';
 import NotFound from 'src/client/pages/not-found';
 import routes from 'src/client/routes';
 
-const bla = 'blub';
-
 const App: FunctionComponent = () => {
     return (
         <Layout>

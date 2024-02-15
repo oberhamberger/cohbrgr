@@ -1,17 +1,7 @@
-const typescriptEslintPlugin = require('@typescript-eslint/eslint-plugin');
-const typescriptEslintParser = require('@typescript-eslint/parser');
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
 
-console.log('base eslint config');
-
-module.exports = {
-    languageOptions: {
-        ecmaVersion: "latest",
-        parser: typescriptEslintParser,
-    },
-    plugins: {
-        typescriptEslint: typescriptEslintPlugin,
-    },
-    rules: {
-        'no-unused-vars': 'error'
-    }
-};
+module.exports = tseslint.config(
+    eslint.configs.recommended,
+    ...tseslint.configs.recommended,
+);

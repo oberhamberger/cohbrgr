@@ -14,6 +14,7 @@
         "@types/webpack-env": "^1.18.4",
         "copy-webpack-plugin": "^12.0.2",
         "css-loader": "^6.8.1",
+        "eslint-webpack-plugin": "^4.0.1",
         "mini-css-extract-plugin": "^2.7.6",
         "nodemon-webpack-plugin": "^4.8.2",
         "raw-loader": "^4.0.2",
