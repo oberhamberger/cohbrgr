@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve } from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { RuleSetUseItem } from 'webpack';
 

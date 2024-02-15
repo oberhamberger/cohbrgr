@@ -1,16 +1,15 @@
 {
-  "name": "content",
-  "version": "1.0.0",
-  "author": "Christian Oberhamberger",
-  "type": "module",
-  "license": "ISC",
-
-  "main": "index.js",
-  "workspaces": [
-    "src/*"
-  ],
-  "scripts": {
-    "build": "node ../../packages/build/bin",
-    "test": "jest"
-  }
+    "name": "content",
+    "version": "1.0.0",
+    "author": "Christian Oberhamberger",
+    "type": "module",
+    "license": "ISC",
+    "main": "index.js",
+    "workspaces": [
+        "src/*"
+    ],
+    "scripts": {
+        "build": "node ../../packages/build/bin",
+        "test": "jest"
+    }
 }
