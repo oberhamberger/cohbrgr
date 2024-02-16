@@ -1,7 +1,7 @@
 import { readFileSync, access, constants } from 'fs';
 import { resolve } from 'path';
 import { NextFunction, Request, Response } from 'express';
-import Logger from 'src/server/utils/logger';
+import { Logger } from '@cohbrgr/utils';
 import routes from 'src/client/routes';
 import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 
