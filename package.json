@@ -18,16 +18,8 @@
         "ssr"
     ],
     "scripts": {
-        "cleanup": "rimraf ./dist",
-        "bootstrap": "npm run cleanup && rimraf ./node_modules && npm install",
-        "prestart": "npm run cleanup && npm run prettier",
-        "prebuild": "npm run cleanup",
-        "prettier": "prettier --write .",
-        "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
-        "prebuild:ssg": "npm run cleanup",
-        "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register build --generator",
-        "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register build --analyze",
-        "start": "NODE_ENV=development ts-node -r tsconfig-paths/register build -w"
+        "bootstrap": "git clean -xfd && npm install",
+        "prettier": "prettier --write ."
     },
     "repository": {
         "type": "git",
@@ -45,14 +37,11 @@
         "winston": "^3.11.0"
     },
     "devDependencies": {
-        "@tsconfig/node21": "^21.0.1",
         "@types/node": "^20.10.4",
         "@types/react": "^18.2.43",
         "@types/react-dom": "^18.2.17",
         "@types/react-router": "^5.1.20",
         "@types/react-router-dom": "^5.3.3",
-        "rimraf": "^5.0.5",
-        "tsconfig-paths": "^4.2.0",
         "typescript": "^5.3.3"
     }
 }
