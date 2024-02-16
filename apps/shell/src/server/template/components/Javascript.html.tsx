@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { readdirSync } from 'fs';
 import { resolve, extname } from 'path';
-import Logger from 'src/server/utils/logger';
+import { Logger } from '@cohbrgr/utils';
 import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {

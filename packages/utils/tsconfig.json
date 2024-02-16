@@ -4,19 +4,20 @@
     "compilerOptions": {
         "module": "CommonJS",
         "moduleResolution": "node",
-
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]
         },
 
-        "outDir": "lib",
+        "outDir": "bin",
         "sourceMap": true,
         "incremental": true,
         "allowJs": false,
+        "declaration": true,
         "resolveJsonModule": true,
 
         "typeRoots": ["../../node_modules/@types", "./@types/*"]
     },
-    "exclude": ["./dist", "./bin"]
+    "exclude": ["./dist", "./bin"],
+    "include": ["src"]
 }
