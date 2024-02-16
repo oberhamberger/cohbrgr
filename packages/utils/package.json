@@ -3,11 +3,7 @@
     "version": "1.0.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "bin/index.js",
-    "types": "bin/index.d.ts",
-    "scripts": {
-        "build": "tsc"
-    },
+    "main": "index.ts",
     "dependencies": {
         "winston": "^3.11.0"
     },

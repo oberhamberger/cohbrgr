@@ -9,7 +9,7 @@
     "scripts": {
         "lint": "eslint src",
         "prestart": "npm run lint && npm run prettier",
-        "prettier": "node_modules/.bin/prettier --write .",
+        "prettier": "prettier --write .",
         "build": "NODE_ENV=production node ./../../packages/build/bin",
         "build:ssg": "NODE_ENV=production node ../../packages/build/bin --generator",
         "build:analyze": "NODE_ENV=production node ../../packages/build/bin --analyze",

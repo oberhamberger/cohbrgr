@@ -108,4 +108,6 @@ dist
 
 .temp_cache
 
+# project specific
 bin
+

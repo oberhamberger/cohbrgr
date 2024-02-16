@@ -1,22 +1,11 @@
 {
     "extends": "@cohbrgr/tsconfig",
-    "ts-node": {},
     "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "node",
-
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]
         },
-
-        "outDir": "lib",
-        "sourceMap": true,
-        "incremental": true,
-        "allowJs": false,
-        "resolveJsonModule": true,
-
-        "typeRoots": ["../../node_modules/@types", "./@types/*"]
+        "typeRoots": ["node_modules/@types", "/src/@types/*"]
     },
-    "exclude": ["./dist", "./bin"]
+    "exclude": ["./bin"]
 }
