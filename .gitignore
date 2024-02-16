@@ -111,3 +111,5 @@ dist
 # project specific
 bin
 
+
+.nx/cache

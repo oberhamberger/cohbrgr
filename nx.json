@@ -1,0 +1,39 @@
+{
+  "targetDefaults": {
+    "build": {
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "^test"
+      ]
+    },
+    "lint": {
+      "dependsOn": []
+    },
+    "prestart": {
+      "dependsOn": []
+    },
+    "prettier": {
+      "dependsOn": []
+    },
+    "build:ssg": {
+      "dependsOn": [
+        "^build:ssg"
+      ]
+    },
+    "build:analyze": {
+      "dependsOn": [
+        "^build:analyze"
+      ]
+    },
+    "start": {
+      "dependsOn": [
+        "^start"
+      ]
+    }
+  }
+}
