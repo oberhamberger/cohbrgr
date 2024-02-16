@@ -1,5 +1,5 @@
 {
-    "extends": "../../tsconfig.json",
+    "extends": "@cohbrgr/tsconfig",
     "ts-node": {},
     "compilerOptions": {
         "baseUrl": ".",

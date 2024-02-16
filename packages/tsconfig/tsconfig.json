@@ -4,9 +4,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "build/*": ["packages/*"],
-            "shell/*": ["apps/shell/*"],
-            "content/*": ["apps/content/*"]
+            "build/*": ["packages/*"]
         },
         "sourceMap": true,
         "incremental": true,
