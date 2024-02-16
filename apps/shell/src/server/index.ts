@@ -5,7 +5,7 @@ import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
-import Logger from 'src/server/utils/logger';
+import { Logger } from '@cohbrgr/utils';
 import logging from 'src/server/middleware/logging';
 import methodDetermination from 'src/server/middleware/methodDetermination';
 import jam from 'src/server/middleware/jam';

@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { renderToPipeableStream } from 'react-dom/server';
 
 import Index from 'src/server/template/Index.html';
-import Logger from 'src/server/utils/logger';
+import { Logger } from '@cohbrgr/utils';
 import { HttpMethod } from 'src/server/middleware/methodDetermination';
 import { HttpContextData } from 'src/client/contexts/http';
 
