@@ -20,6 +20,7 @@
     "scripts": {
         "bootstrap": "git clean -xfd && npm install",
         "prettier": "prettier --write .",
+        "build:compiler": "lerna run build --scope=@cohbrgr/build",
         "build": "lerna run build --scope=@cohbrgr/shell"
     },
     "repository": {

@@ -4,35 +4,20 @@
       "cache": true,
       "dependsOn": [
         "^build"
-      ]
-    },
-    "test": {
-      "dependsOn": [
-        "^test"
-      ]
-    },
-    "lint": {
-      "dependsOn": []
-    },
-    "prestart": {
-      "dependsOn": []
-    },
-    "prettier": {
-      "dependsOn": []
-    },
-    "build:ssg": {
-      "dependsOn": [
-        "^build:ssg"
-      ]
-    },
-    "build:analyze": {
-      "dependsOn": [
-        "^build:analyze"
+      ],
+      "outputs": [
+        "{workspaceRoot}/dist",
+        "{workspaceRoot}/bin"
       ]
     },
     "start": {
+      "cache": true,
       "dependsOn": [
-        "^start"
+        "^build"
+      ],
+      "outputs": [
+        "{workspaceRoot}/dist",
+        "{workspaceRoot}/bin"
       ]
     }
   }
