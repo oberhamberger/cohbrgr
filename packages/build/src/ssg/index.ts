@@ -2,7 +2,7 @@ import { writeFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { fork } from 'child_process';
 import routes from '../../../../apps/shell/src/client/routes';
-import Logger from 'src/utils/logger';
+import { Logger } from '@cohbrgr/utils';
 import { port } from 'src/utils/constants';
 
 const serverAddress = `http://localhost:${port}`;
