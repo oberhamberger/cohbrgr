@@ -1,22 +1,13 @@
 {
     "extends": "@cohbrgr/tsconfig",
-    "ts-node": {},
     "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "node",
-
+        "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]
         },
-
-        "outDir": "lib",
-        "sourceMap": true,
-        "incremental": true,
-        "allowJs": false,
-        "resolveJsonModule": true,
-
-        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"]
+        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
+        "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
-    "exclude": ["./dist", "./bin"]
+    "exclude": ["./dist"]
 }
