@@ -121,6 +121,7 @@ export default (): Configuration => {
         },
         output: {
             path: resolve(CWD, './dist/client'),
+            clean: true,
             filename: isProduction
                 ? 'js/[name].[contenthash].js'
                 : 'js/[name].js',
