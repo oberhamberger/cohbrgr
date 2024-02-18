@@ -21,7 +21,8 @@
         "bootstrap": "git clean -xfd && npm install",
         "prettier": "prettier --write .",
         "build:compiler": "lerna run build --scope=@cohbrgr/build",
-        "build": "lerna run build --scope=@cohbrgr/shell"
+        "build": "lerna run build --scope=@cohbrgr/shell",
+        "start": "lerna run start --scope=@cohbrgr/shell"
     },
     "repository": {
         "type": "git",
