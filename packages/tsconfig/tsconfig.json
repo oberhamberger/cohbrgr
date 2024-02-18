@@ -1,0 +1,11 @@
+{
+    "extends": "@tsconfig/node21/tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "sourceMap": true,
+        "incremental": true,
+        "allowJs": false,
+        "resolveJsonModule": true,
+        "typeRoots": ["node_modules/@types"]
+    }
+}

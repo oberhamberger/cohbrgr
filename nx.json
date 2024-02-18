@@ -1,0 +1,35 @@
+{
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "nx/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["test", "build", "lint"]
+            }
+        }
+    },
+    "targetDefaults": {
+        "clean": {
+            "dependsOn": ["^clean"]
+        },
+
+        "start": {
+            "cache": false,
+            "dependsOn": ["^build", "prestart"],
+            "outputs": ["{projectRoot}/bin", "{projectRoot}/dist"]
+        },
+        "build": {
+            "cache": false,
+            "dependsOn": ["^build", "prebuild"],
+            "outputs": ["{projectRoot}/bin", "{projectRoot}/dist"]
+        },
+        "postbuild": {
+            "dependsOn": ["^postbuild"]
+        },
+        "prebuild": {
+            "dependsOn": ["^prebuild"]
+        },
+        "test": {
+            "outputs": ["{projectRoot}/coverage"]
+        }
+    }
+}
