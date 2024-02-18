@@ -107,3 +107,9 @@ dist
 .DS_Store
 
 .temp_cache
+
+# project specific
+bin
+
+
+.nx/cache

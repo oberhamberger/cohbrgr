@@ -1,0 +1,10 @@
+{
+    "name": "@cohbrgr/tsconfig",
+    "version": "1.0.0-alpha.0",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "main": "tsconfig.json",
+    "dependencies": {
+        "@tsconfig/node21": "^21.0.1"
+    }
+}

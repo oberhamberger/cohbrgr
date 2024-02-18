@@ -1,16 +1,14 @@
 {
     "name": "cohbrgr",
-    "version": "1.0.1",
-    "main": "dist/server",
+    "version": "1.0.0",
+    "main": "apps/shell/dist/server",
     "author": "Christian Oberhamberger",
     "description": "temporary website gone mad",
     "private": true,
     "license": "ISC",
     "workspaces": [
-        "build",
-        "src/client",
-        "src/server",
-        "src/service-worker"
+        "apps/**/*",
+        "packages/*"
     ],
     "keywords": [
         "express",
@@ -20,18 +18,11 @@
         "ssr"
     ],
     "scripts": {
-        "cleanup": "rimraf ./dist",
-        "bootstrap": "npm run cleanup && rimraf ./node_modules && npm install",
-        "lint": "eslint .eslintrc.js build && eslint .eslintrc.js src",
-        "prestart": "npm run cleanup && npm run lint && npm run prettier",
-        "prebuild": "npm run cleanup",
-        "prettier": "node_modules/.bin/prettier --write .",
-        "build": "NODE_ENV=production ts-node -r tsconfig-paths/register build",
-        "prebuild:ssg": "npm run cleanup",
-        "build:ssg": "NODE_ENV=production ts-node -r tsconfig-paths/register build --generator",
-        "build:analyze": "NODE_ENV=production ts-node -r tsconfig-paths/register build --analyze",
-        "start": "NODE_ENV=development ts-node -r tsconfig-paths/register build -w",
-        "test": "jest"
+        "bootstrap": "git clean -xfd && npm install",
+        "prettier": "prettier --write .",
+        "build:compiler": "lerna run build --scope=@cohbrgr/build",
+        "build": "lerna run build --scope=@cohbrgr/shell",
+        "start": "lerna run start --scope=@cohbrgr/shell"
     },
     "repository": {
         "type": "git",
@@ -45,30 +36,15 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router": "^6.20.1",
-        "react-router-dom": "^6.20.1",
-        "winston": "^3.11.0"
+        "react-router-dom": "^6.20.1"
     },
     "devDependencies": {
-        "@tsconfig/node20": "^20.1.2",
-        "@types/jest": "^29.5.11",
-        "@types/node": "^20.10.4",
-        "@types/react": "^18.2.42",
+        "@types/node": "^20.11.19",
+        "@types/react": "^18.2.43",
         "@types/react-dom": "^18.2.17",
         "@types/react-router": "^5.1.20",
         "@types/react-router-dom": "^5.3.3",
-        "@typescript-eslint/eslint-plugin": "^6.13.2",
-        "@typescript-eslint/parser": "^6.13.2",
-        "eslint": "^8.55.0",
-        "eslint-plugin-jsdoc": "^46.9.0",
-        "eslint-plugin-prefer-arrow": "^1.2.3",
-        "eslint-webpack-plugin": "^4.0.1",
-        "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0",
-        "jest-transform-stub": "^2.0.0",
-        "prettier": "^3.1.0",
-        "rimraf": "^5.0.5",
-        "ts-jest": "^29.1.1",
-        "tsconfig-paths": "^4.2.0",
+        "lerna": "^8.1.2",
         "typescript": "^5.3.3"
     }
 }

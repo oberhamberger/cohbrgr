@@ -1,0 +1,11 @@
+{
+    "extends": "@cohbrgr/tsconfig",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"]
+        },
+        "typeRoots": ["node_modules/@types", "/src/@types/*"]
+    },
+    "exclude": ["./bin"]
+}
