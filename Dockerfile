@@ -6,9 +6,6 @@ COPY --chown=node:node . /usr/app
 WORKDIR /usr/app
 
 RUN npm ci
-RUN npm run build:compiler
-RUN chmod +x packages/build/bin/index.js
-
-RUN npm run build:shell
+RUN npm run build
 
 ENTRYPOINT ["node", "."]
