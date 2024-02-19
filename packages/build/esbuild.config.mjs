@@ -7,10 +7,14 @@ const packageJson = JSON.parse(rawPackageJson);
 const options = {
     entryPoints: ['./src/index.ts'],
     bundle: true,
+
     platform: 'node',
     outfile: 'bin/index.js',
     sourcemap: false,
     minify: true,
+    banner: {
+        js: '#!/usr/bin/env node'
+    },
     external: [
         ...Object.keys(packageJson.dependencies),
         './worker',
