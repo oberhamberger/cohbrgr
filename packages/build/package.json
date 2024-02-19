@@ -4,6 +4,9 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "bin/index.js",
+    "bin": {
+        "@cohbrgr/build": "bin/index.js"
+    },
     "scripts": {
         "build": "node esbuild.config.mjs",
         "test": "echo \"Error: no test specified\" && exit 1"
