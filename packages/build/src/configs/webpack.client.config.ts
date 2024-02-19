@@ -4,12 +4,12 @@ import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
-// import { InjectManifest } from 'workbox-webpack-plugin';
+import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import {
     isAnalyze,
     isProduction,
-    //    serviceWorker,
+    serviceWorker,
     regexStyle,
     regexSource,
     Mode,
@@ -72,15 +72,15 @@ export default (): Configuration => {
                 patterns: [{ from: '../../src/client/assets', to: './' }],
             }),
             // moduleFederationPlugin.shell,
-            // ...(isProduction
-            //     ? [
-            //           new InjectManifest({
-            //               swSrc: 'packages/service-worker',
-            //               swDest: serviceWorker,
-            //               include: [/\.js$/],
-            //           }),
-            //       ]
-            //     : []),
+             ...(isProduction
+                 ? [
+                       new InjectManifest({
+                           swSrc: './service-worker',
+                           swDest: serviceWorker,
+                           include: [/\.js$/],
+                       }),
+                   ]
+                 : []),
             ...(isAnalyze
                 ? [
                       new BundleAnalyzerPlugin({
