@@ -1,10 +1,10 @@
+import { Workbox } from 'workbox-window';
 const serviceWorker = '/sw.js';
 const isProduction = window.__initial_state__?.isProduction;
 
 const registerServiceWorker = async () => {
     if ('serviceWorker' in navigator) {
         if (isProduction) {
-            const { Workbox } = await import('workbox-window');
             const workbox = new Workbox(serviceWorker);
             return await workbox.register();
         } else {
