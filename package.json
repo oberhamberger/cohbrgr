@@ -22,6 +22,7 @@
         "prettier": "prettier --write .",
         "build:compiler": "lerna run build --scope=@cohbrgr/build",
         "postbuild:compiler": "npm ci",
+        "lint:shell": "lerna run lint --scope=@cohbrgr/shell",
         "build:shell": "lerna run build --scope=@cohbrgr/shell",
         "build": "lerna run build --scope=@cohbrgr/shell",
         "start": "lerna run start --scope=@cohbrgr/shell",
