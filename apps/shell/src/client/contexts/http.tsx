@@ -22,8 +22,8 @@ export function HttpStatus({
     code,
     children,
 }: {
-    code: number;
-    children?: ReactNode;
+    code: Readonly<number>;
+    children?: Readonly<ReactNode>;
 }) {
     // TODO: This might not work properly with suspense, figure out how to prevent adding
     // a new item for renders that aren't "committed"
