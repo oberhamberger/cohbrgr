@@ -6,19 +6,11 @@
 
 :root {
     --color-background-light: #fff;
-    --gradient-background-light: linear-gradient(
-        to right,
-        #005d56,
-        #8c7e59
-    );
+    --gradient-background-light: linear-gradient(to right, #005d56, #8c7e59);
     --color-font-light: #000;
 
     --color-background-dark: #000;
-    --gradient-background-dark: linear-gradient(
-        to right,
-        #005d56,
-        #fec9d2
-    );
+    --gradient-background-dark: linear-gradient(to right, #005d56, #fec9d2);
     --color-font-dark: #fff;
 
     --color-highlight-light: #217c84;
