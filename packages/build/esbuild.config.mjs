@@ -13,7 +13,7 @@ const options = {
     sourcemap: false,
     minify: true,
     banner: {
-        js: '#!/usr/bin/env node'
+        js: '#!/usr/bin/env node',
     },
     external: [
         ...Object.keys(packageJson.dependencies),

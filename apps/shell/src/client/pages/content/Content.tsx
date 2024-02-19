@@ -15,11 +15,9 @@ const Content: FunctionComponent = () => {
                 </p>
             </main>
             <Navigation>
-                <a href="https://mastodon.social/@cohbrgr">Mastodon</a>
                 <a href="https://github.com/oberhamberger">Github</a>
-                <a href="https://www.linkedin.com/in/oberhamberger/">
-                    LinkedIn
-                </a>
+                <a href="https://www.instagram.com/cohbrgr">Instagram</a>
+                <a href="https://www.linkedin.com/in/oberhamberger">LinkedIn</a>
             </Navigation>
             <StructuredData />
         </>
