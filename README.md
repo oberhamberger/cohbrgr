@@ -51,7 +51,7 @@ docker run -d -p 3000:3000 node-docker
 -   SCSS Modules Styles
 -   Typescript
 -   Webpack Bundling
--   Basic Chunk Splitting
+-   Monorepositories
 -   Serviceworker using Workbox (for offline-Mode)
 -   Linting
 -   Prettier

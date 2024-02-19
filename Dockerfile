@@ -1,8 +1,7 @@
 FROM node:21-alpine
 # source image info: https://hub.docker.com/_/node/
 
-USER node
-COPY --chown=node:node . /usr/app
+COPY --chown=root:root --chmod=644 . /usr/app
 WORKDIR /usr/app
 
 RUN npm ci
