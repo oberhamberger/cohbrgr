@@ -1,7 +1,7 @@
 import { writeFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { fork } from 'child_process';
-import routes from '../../../../apps/shell/src/client/routes';
+import routes from '@cohbrgr/shell-client/routes';
 import { Logger } from '@cohbrgr/utils';
 import { port } from 'src/utils/constants';
 
@@ -12,9 +12,26 @@ const staticSiteGenerator = async () => {
     const runningServer = fork('./dist/server/index.js', ['--generator'], {
         silent: true,
     });
+
+    const safeHTMLtoFile = (html: string, index: number) => {
+        const outputPath = join(
+            staticOutputPath,
+            `${Object.keys(routes)[index]}.html`,
+        );
+        writeFile(outputPath, html, (err) => {
+            if (err) {
+                Logger.error('Error writing to file:', err);
+            } else {
+                Logger.info(`Data has been saved to the file: ${outputPath}`);
+            }
+        });
+        Logger.info(`Generated ${Object.values(routes)[index]}`);
+    };
+
     runningServer.on('exit', (code, signal) => {
         Logger.info(`Exited Server with code ${code} and signal ${signal}`);
     });
+
     runningServer.on('message', async (message) => {
         if (message === 'server-ready') {
             const fetchPromises: Promise<Response>[] = [];
@@ -31,24 +48,7 @@ const staticSiteGenerator = async () => {
                 Promise.all(htmlPromises)
                     .then(function (htmlArray) {
                         mkdirSync(staticOutputPath);
-                        htmlArray.forEach((html, index) => {
-                            const outputPath = join(
-                                staticOutputPath,
-                                `${Object.keys(routes)[index]}.html`,
-                            );
-                            writeFile(outputPath, html, (err) => {
-                                if (err) {
-                                    Logger.error('Error writing to file:', err);
-                                } else {
-                                    Logger.info(
-                                        `Data has been saved to the file: ${outputPath}`,
-                                    );
-                                }
-                            });
-                            Logger.info(
-                                `Generated ${Object.values(routes)[index]}`,
-                            );
-                        });
+                        htmlArray.forEach(safeHTMLtoFile);
                         runningServer.kill();
                     })
                     .catch(function (err) {
