@@ -8,7 +8,7 @@ import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 const isGenerator = findProcessArgs(['--generator']);
 const routeKeys = Object.keys(routes);
 const routeValues = Object.values(routes);
-const noncePlaceHolder = new RegExp('!CSPNONCE_PLACEHOLDER!', 'g');
+const noncePlaceHolder = /!CSPNONCE_PLACEHOLDER!/g;
 
 const matchPathWithRoutes = (path: string) => {
     let matchedRoute = null;
