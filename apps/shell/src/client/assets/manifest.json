@@ -4,8 +4,8 @@
     "description": "personal playground",
     "author": "Christian Oberhamberger",
     "version": "1.0.1",
-    "background_color": "#09171B",
-    "theme_color": "#09171B",
+    "background_color": "#000",
+    "theme_color": "#000",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -76,5 +76,5 @@
     "lang": "en",
     "dir": "ltr",
     "display": "standalone",
-    "orientation": "any"
+    "orientation": "portrait"
 }

@@ -39,12 +39,12 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 <meta
                     name="theme-color"
                     media="(prefers-color-scheme: light)"
-                    content="#f7f7f7"
+                    content="#fff"
                 />
                 <meta
                     name="theme-color"
                     media="(prefers-color-scheme: dark)"
-                    content="#09171b"
+                    content="#000"
                 />
 
                 <link
