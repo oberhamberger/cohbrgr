@@ -6,20 +6,32 @@
 
 :root {
     --color-background-light: #f7f7f7;
+    --gradient-background-light: linear-gradient(
+        to right,
+        #005d56,
+        #8c7e59
+    );
     --color-font-light: #000;
 
-    --color-background-dark: #09171b;
-    --color-font-dark: #fff1ee;
+    --color-background-dark: #000;
+    --gradient-background-dark: linear-gradient(
+        to right,
+        #005d56,
+        #fec9d2
+    );
+    --color-font-dark: #fff;
 
     --color-highlight-light: #217c84;
     --color-highlight-dark: aquamarine;
 
     --color-background: var(--color-background-light);
+    --gradient-background: var(--gradient-background-light);
     --color-font: var(--color-font-light);
     --color-highlight: var(--color-highlight-light);
 
     @media (prefers-color-scheme: dark) {
         --color-background: var(--color-background-dark);
+        --gradient-background: var(--gradient-background-dark);
         --color-font: var(--color-font-dark);
         --color-highlight: var(--color-highlight-dark);
     }

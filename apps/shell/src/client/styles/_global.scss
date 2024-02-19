@@ -1,6 +1,5 @@
 html,
 body {
-    background-color: var(--color-background);
     font-family: var(--font-system);
     -webkit-font-smoothing: antialiased;
     color: var(--color-font);
@@ -11,11 +10,25 @@ body {
     max-width: 100vw;
     overflow-x: hidden;
 }
+html {
+    background-color: var(--color-background);
+}
+html::after {
+    content: '';
+    position: fixed;
+    top: 15vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-background);
+    mask: linear-gradient(transparent, #fff);
+    z-index: -1;
+}
 
 main {
     padding: 2rem;
     @media screen and (orientation: landscape) and (min-width: 420px) {
-        padding: 2rem;
+        padding: 4rem;
         min-width: calc(400px - 2rem);
     }
     @media screen and (orientation: portrait) and (min-width: 768px) {
@@ -67,8 +80,9 @@ p {
 }
 
 a {
-    color: var(--color-highlight);
+    color: var(--color-font);
     text-decoration: none;
+    font-weight: bold;
     &:hover,
     &:active,
     &:focus {
