@@ -8,6 +8,8 @@ import { Logger } from '@cohbrgr/utils';
 const configs: [Configuration[]?] = [];
 configs.push([getWebpackClientConfig(), getWebpackServerConfig()]);
 
+console.log('thihhi2');
+
 configs.forEach((config) => {
     if (!config) {
         return;
