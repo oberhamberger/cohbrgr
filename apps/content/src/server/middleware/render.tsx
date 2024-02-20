@@ -25,7 +25,7 @@ const render =
                     isProduction={isProduction}
                     location={req.url}
                     useCSR={useClientSideRendering}
-                    nonce={res.locals.cspNonce}
+                    // nonce={res.locals.cspNonce}
                 />,
                 {
                     onAllReady() {
