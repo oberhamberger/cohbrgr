@@ -4,7 +4,7 @@ import { resolve, extname } from 'path';
 import { Logger } from '@cohbrgr/utils';
 
 interface IJavascriptHTMLProps {
-    nonce: string;
+    // nonce: string;
     isProduction: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
@@ -29,7 +29,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     async
                     type="module"
                     crossOrigin="use-credentials"
-                    nonce={props.nonce}
+                    // nonce={props.nonce}
                     src={`/js/${file}`}
                 ></script>
             ))}

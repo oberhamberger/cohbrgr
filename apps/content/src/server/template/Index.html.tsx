@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import { StaticRouter } from 'react-router-dom/server';
 
 import App from 'src/client/App';
 import Javascript from 'src/server/template/components/Javascript.html';
@@ -10,7 +9,7 @@ interface IIndexProps {
     isProduction: boolean;
     location: string;
     useCSR: boolean;
-    nonce: string;
+    // nonce: string;
 }
 
 export type IndexProps = IIndexProps;
@@ -66,7 +65,6 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 <Stylesheets
                     isProduction={props.isProduction}
-                    nonce={props.nonce}
                 />
             </head>
             <body>
@@ -76,7 +74,6 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 {props.useCSR && (
                     <Javascript
-                        nonce={props.nonce}
                         isProduction={props.isProduction}
                     />
                 )}
