@@ -1,5 +1,5 @@
 {
-    "name": "@cohbrgr/shell",
+    "name": "@cohbrgr/content",
     "version": "1.0.3",
     "author": "Christian Oberhamberger",
     "license": "ISC",
@@ -11,7 +11,6 @@
         "prestart": "npm run lint && npm run prettier",
         "prettier": "prettier --write .",
         "build": "NODE_ENV=production build",
-        "build:ssg": "NODE_ENV=production build --generator",
         "build:analyze": "NODE_ENV=production build --analyze",
         "start": "NODE_ENV=development build -w",
         "test": "jest"

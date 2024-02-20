@@ -1,14 +1,14 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
 import getWebpackClientConfig from 'src/configs/webpack.client.config';
 import getWebpackServerConfig from 'src/configs/webpack.server.config';
-import { isWatch, isSSG } from 'src/utils/constants';
+import { isWatch, isSSG, isShell } from 'src/utils/constants';
 import staticSiteGenerator from 'src/ssg';
 import { Logger } from '@cohbrgr/utils';
 
 const configs: [Configuration[]?] = [];
 configs.push([getWebpackClientConfig(), getWebpackServerConfig()]);
 
-console.log('thihhi2');
+console.log('isShell: ', isShell);
 
 configs.forEach((config) => {
     if (!config) {
