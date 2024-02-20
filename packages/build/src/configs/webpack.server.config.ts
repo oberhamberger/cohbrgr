@@ -9,8 +9,10 @@ import {
     regexSource,
     Mode,
     CWD,
+    isShell
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
+import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 
 export default (): Configuration => {
     return {
@@ -56,6 +58,7 @@ export default (): Configuration => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
+            ...moduleFederationPlugin(false, isShell),
             new NodemonPlugin(),
         ],
         output: {
@@ -66,6 +69,9 @@ export default (): Configuration => {
         },
         externals: {
             express: "require('express')",
+        },
+        stats: {
+            colors: true,
         },
     };
 };

@@ -1,37 +1,46 @@
-import { container } from 'webpack';
+import { UniversalFederationPlugin } from '@module-federation/node';
 import { dependencies } from '../../../../package.json';
 
-export default {
-    shell: new container.ModuleFederationPlugin({
-        name: 'shell',
-        filename: 'container.js',
+const serverLibraryConfig = {
+    library: { type: 'commonjs-module' },
+}
+
+export default (isServer: boolean, isShell: boolean) => {
+    const remoteEntryLocation = isServer ? 'server' : 'client';
+    const filename = isServer || !isShell ? 'remoteEntry.js' : 'container.js';
+
+    const baseUniversalFederationOptions = {
+        name: isShell ? 'shell' : 'content',
+        filename: filename,
+        isServer: isServer,
+        ...(isServer ? serverLibraryConfig : {}),
+        // shared: {
+        //     ...(isShell ? dependencies : {}),
+        //     react: {
+        //         ...(isShell ? {} : {singleton: true}),
+        //         requiredVersion: dependencies.react,
+        //     },
+        //     'react-dom': {
+        //         ...(isShell ? {} : {singleton: true}),
+        //         requiredVersion: dependencies['react-dom'],
+        //     },
+        // },
+    };
+
+    const universalFederationOptions = isShell ? {
+        ...baseUniversalFederationOptions,
         remotes: {
-            remote1: 'remote1@http://localhost:3001/shell/remoteEntry.js',
+            content: `content@http://localhost:3001/${remoteEntryLocation}/remoteEntry.js`,
         },
-        shared: [
-            {
-                react: dependencies.react,
-                'react-dom': dependencies['react-dom'],
-            },
-        ],
-    }),
-    content: new container.ModuleFederationPlugin({
-        name: 'remote2',
-        filename: 'remoteEntry.js',
-        remotes: {},
+    } : {
+        ...baseUniversalFederationOptions,
         exposes: {
-            './content': './content',
+            './Content': 'src/client/components/Content',
         },
-        shared: {
-            ...dependencies,
-            react: {
-                singleton: true,
-                requiredVersion: dependencies.react,
-            },
-            'react-dom': {
-                singleton: true,
-                requiredVersion: dependencies['react-dom'],
-            },
-        },
-    }),
+    };
+
+
+    return [
+            new UniversalFederationPlugin(universalFederationOptions, {}),
+        ]
 };

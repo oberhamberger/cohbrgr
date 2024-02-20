@@ -1,19 +1,26 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import 'src/client/styles/index.scss';
 
 import Layout from 'src/client/components/layout';
-import Content from 'src/client/pages/content';
 import Offline from 'src/client/pages/offline';
 import NotFound from 'src/client/pages/not-found';
 import routes from 'src/client/routes';
+
+const Content = lazy(
+    () => import('content/Content') as Promise<{ default: FunctionComponent }>,
+);
 
 const App: FunctionComponent = () => {
     return (
         <Layout>
             <Routes>
-                <Route path={routes.start} element={<Content />} />
+                <Route path={routes.start} element={(
+                    <Suspense fallback={<h1>Loading....</h1>}>
+                        <Content />
+                    </Suspense>
+                )} />
                 <Route path={routes.offline} element={<Offline />} />
                 <Route path={routes.notFound} element={<NotFound />} />
             </Routes>
