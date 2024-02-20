@@ -4,7 +4,7 @@ import { resolve, extname } from 'path';
 import { Logger } from '@cohbrgr/utils';
 
 interface IStylesheetProps {
-    nonce: string;
+    // nonce: string;
     isProduction: boolean;
 }
 export type StylesheetProps = IStylesheetProps;
@@ -41,7 +41,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                 {styleFiles.map((file) => (
                     <link
                         key={file}
-                        nonce={props.nonce}
+                        // nonce={props.nonce}
                         rel="stylesheet"
                         href={`/css/${file}`}
                     />
@@ -52,7 +52,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
 
     return (
         <style
-            nonce={props.nonce}
+            // nonce={props.nonce}
             dangerouslySetInnerHTML={{ __html: styleFileContents }}
         ></style>
     );
