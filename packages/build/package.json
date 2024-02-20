@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/build",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "bin/index.js",
