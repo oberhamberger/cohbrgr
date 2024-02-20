@@ -9,12 +9,9 @@ const options = {
     bundle: true,
 
     platform: 'node',
-    outfile: 'bin/index.js',
+    outfile: 'dist/index.js',
     sourcemap: false,
     minify: true,
-    banner: {
-        js: '#!/usr/bin/env node',
-    },
     external: [
         ...Object.keys(packageJson.dependencies),
         './worker',
