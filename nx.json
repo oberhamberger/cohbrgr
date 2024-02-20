@@ -15,12 +15,12 @@
         "start": {
             "cache": false,
             "dependsOn": ["^build", "prestart"],
-            "outputs": ["{projectRoot}/bin", "{projectRoot}/dist"]
+            "outputs": ["{projectRoot}/dist"]
         },
         "build": {
-            "cache": false,
+            "cache": true,
             "dependsOn": ["^build", "prebuild"],
-            "outputs": ["{projectRoot}/bin", "{projectRoot}/dist"]
+            "outputs": ["{projectRoot}/dist"]
         },
         "postbuild": {
             "dependsOn": ["^postbuild"]
