@@ -9,15 +9,29 @@ import {
     regexSource,
     Mode,
     CWD,
-    isShell
+    isShell,
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 
+console.log(
+    [
+        join(CWD, ''),
+        join(CWD, 'node_modules'),
+        join(
+            dirname(require.main?.filename || ''),
+            '../../..',
+            'node_modules',
+        ),
+        join(dirname(require.main?.filename || ''), 'node_modules'),
+        'node_modules',
+    ]
+);
+
 export default (): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-        devtool: isProduction ? false : 'inline-source-map',
+        devtool: isProduction ? false : 'source-map',
         context: resolve(CWD, `./src/server`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
@@ -26,14 +40,10 @@ export default (): Configuration => {
                 join(CWD, 'node_modules'),
                 join(
                     dirname(require.main?.filename || ''),
-                    '..',
+                    '../../..',
                     'node_modules',
-                ),
-                join(dirname(require.main?.filename || ''), 'node_modules'),
-                'node_modules',
-                'node_modules',
+                )
             ],
-            alias: { packages: 'packages/' },
         },
         entry: {
             server: `src/server`,
@@ -41,6 +51,13 @@ export default (): Configuration => {
         target: 'node',
         module: {
             rules: [
+                {
+                    test: /\.m?js$/,
+                    type: 'javascript/auto',
+                    resolve: {
+                      fullySpecified: false,
+                    },
+                  },
                 {
                     test: regexSource,
                     loader: 'ts-loader',
@@ -63,7 +80,7 @@ export default (): Configuration => {
         ],
         output: {
             path: resolve(CWD, './dist/server'),
-            filename: 'index.js',
+            filename: '[name].js',
             clean: true,
             publicPath: '/',
         },
