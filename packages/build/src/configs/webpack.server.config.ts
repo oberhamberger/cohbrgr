@@ -58,11 +58,11 @@ export default (): Configuration => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
-            ...moduleFederationPlugin(false, isShell),
+            ...moduleFederationPlugin(true, isShell),
             new NodemonPlugin(),
         ],
         output: {
-            path: resolve(CWD, './dist/server/'),
+            path: resolve(CWD, './dist/server'),
             filename: 'index.js',
             clean: true,
             publicPath: '/',

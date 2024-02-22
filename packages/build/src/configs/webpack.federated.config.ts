@@ -28,7 +28,7 @@ export default (isServer: boolean, isShell: boolean) => {
     const universalFederationOptions = isShell
         ? {
               remotes: {
-                  content: `content@http://localhost:3001/${remoteEntryLocation}/remoteEntry.js`,
+                  content: `content@http://localhost:3031/${remoteEntryLocation}/remoteEntry.js`,
               },
           }
         : {
