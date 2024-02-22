@@ -25,7 +25,8 @@
         "build:shell": "lerna run build --scope=@cohbrgr/shell",
         "build:content": "lerna run build --scope=@cohbrgr/content",
         "build": "lerna run build",
-        "start": "lerna run start --scope=@cohbrgr/shell",
+        "start:shell": "lerna run start --scope=@cohbrgr/shell",
+        "start:content": "lerna run start --scope=@cohbrgr/content",
         "version": "lerna version"
     },
     "repository": {

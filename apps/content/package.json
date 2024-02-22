@@ -8,7 +8,6 @@
     ],
     "scripts": {
         "lint": "eslint src",
-        "prestart": "npm run lint && npm run prettier",
         "prettier": "prettier --write .",
         "build": "NODE_ENV=production build",
         "build:analyze": "NODE_ENV=production build --analyze",
