@@ -33,24 +33,27 @@ export default (isServer: boolean, isShell: boolean) => {
           }
         : {
               exposes: {
-                  './Content': 'src/client/components/Content',
+                  './Content': 'src/client/components/content',
               },
           };
 
+    const serverFederationConfig = {
+        ...getServerFederationConfig(isShell),
+        filename: filename,
+        ...universalFederationOptions
+    };
+
+    const clientFederationConfig = {
+        ...getClientFederationConfig(isShell),
+        filename: filename,
+        ...universalFederationOptions
+    };
+
+    isServer ? console.log(serverFederationConfig) : console.log(clientFederationConfig);
+
     return [
         isServer
-            ? new UniversalFederationPlugin(
-                  {
-                    ...getServerFederationConfig(isShell),
-                    filename: filename,
-                    ...universalFederationOptions
-                },
-                  {},
-              )
-            : new container.ModuleFederationPlugin( {
-                ...getClientFederationConfig(isShell),
-                filename: filename,
-                ...universalFederationOptions
-            },),
+            ? new UniversalFederationPlugin(serverFederationConfig, {})
+            : new container.ModuleFederationPlugin(clientFederationConfig),
     ];
 };

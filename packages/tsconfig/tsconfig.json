@@ -2,9 +2,6 @@
     "extends": "@tsconfig/node21/tsconfig.json",
     "compilerOptions": {
         "baseUrl": ".",
-        "paths": {
-            "@cohbrgr/Content/*": ["./apps/content/src/*"],
-        },
         "sourceMap": true,
         "incremental": true,
         "allowJs": false,
