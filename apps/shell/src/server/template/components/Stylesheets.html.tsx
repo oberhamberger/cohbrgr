@@ -13,14 +13,14 @@ let styleFiles: string[] = [];
 let styleFileContents = '';
 
 try {
-    styleFiles = readdirSync(resolve(__dirname + '/../client/css')).filter(
+    styleFiles = readdirSync(resolve(process.cwd() + '/dist/client/css')).filter(
         (fileName) => extname(fileName) === '.css',
     );
     if (styleFiles.length) {
         try {
             styleFiles.forEach((file) => {
                 styleFileContents += readFileSync(
-                    resolve(__dirname + '/../client/css/' + file),
+                    resolve(process.cwd() + '/dist/client/css' + file),
                     'utf8',
                 );
             });

@@ -68,7 +68,7 @@ export default (): Configuration => {
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
             }),
-            ...moduleFederationPlugin(false, isShell),
+            moduleFederationPlugin(false, isShell).client,
             ...(isShell ? [new CopyPlugin({
                 patterns: [{ from: '../../src/client/assets', to: './' }],
             })] : []),

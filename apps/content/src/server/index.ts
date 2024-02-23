@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit';
 import { Logger } from '@cohbrgr/utils';
 import logging from 'src/server/middleware/logging';
 import methodDetermination from 'src/server/middleware/methodDetermination';
+// import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 import { findProcessArgs } from 'src/server/utils/findProcessArgs';
@@ -15,7 +16,7 @@ import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3001 : 3031;
 const port = process.env.PORT || defaultPort;
-const staticPath = join(__dirname, '../');
+const staticPath = join(process.cwd(), 'dist/client');
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
@@ -69,6 +70,7 @@ app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 //     }),
 // );
 
+// app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));
 
 // starting the server
