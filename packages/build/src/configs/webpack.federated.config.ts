@@ -1,26 +1,21 @@
 import {
     UniversalFederationPlugin,
-    NodeFederationPlugin,
 } from '@module-federation/node';
 import { container } from 'webpack';
 import { dependencies } from '../../../../package.json';
 
-const serverLibraryConfig = {
-    isServer: true,
-    library: { type: 'commonjs-module' },
-};
-
 const getServerFederationConfig = (isShell: boolean) => {
     return {
         name: isShell ? 'shell' : 'content',
-        //isServer: true,
-        //library: { type: 'commonjs-module' },
+        isServer: true,
+        // library: { type: 'commonjs-module' },
     }
 }
 
 const getClientFederationConfig = (isShell: boolean) => {
     return {
         name: isShell ? 'shell' : 'content',
+        isServer: false,
     }
 }
 
@@ -54,7 +49,7 @@ export default (isServer: boolean, isShell: boolean) => {
     };
 
     return {
-        server: new NodeFederationPlugin(serverFederationConfig, {}),
-        client: new container.ModuleFederationPlugin(clientFederationConfig),
+        server: new UniversalFederationPlugin(serverFederationConfig, {}),
+        client: new UniversalFederationPlugin(clientFederationConfig, {}),
     };
 };
