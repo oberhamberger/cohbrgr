@@ -18,7 +18,8 @@ configs.forEach((config) => {
 
     const compilerCallback = (err?: Error | null, result?: MultiStats) => {
         if (err) {
-            Logger.error(err);
+            Logger.error(err.stack);
+            console.log(JSON.stringify(err.stack));
         }
         if (!result) {
             Logger.warn('Compiler returned no result.');
@@ -28,13 +29,13 @@ configs.forEach((config) => {
         const rawMessages = result.toJson();
         if (rawMessages.errors?.length) {
             rawMessages.errors.forEach((e) => {
-                return Logger.error(e);
+                Logger.error(JSON.stringify(e));
             });
             Logger.error(JSON.stringify(rawMessages.errors));
         }
         if (rawMessages.warnings?.length) {
             rawMessages.warnings.forEach((w) => {
-                return Logger.warn(w);
+                Logger.warn(JSON.stringify(w));
             });
             Logger.warn(JSON.stringify(rawMessages.warnings));
         }
@@ -43,7 +44,7 @@ configs.forEach((config) => {
         }
 
         if (isSSG) {
-            staticSiteGenerator();
+            // staticSiteGenerator();
         }
     };
 

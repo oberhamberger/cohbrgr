@@ -14,50 +14,28 @@ import {
 import getStyleLoader from 'src/loader/style.loader';
 import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 
-console.log(
-    [
-        join(CWD, ''),
-        join(CWD, 'node_modules'),
-        join(
-            dirname(require.main?.filename || ''),
-            '../../..',
-            'node_modules',
-        ),
-        join(dirname(require.main?.filename || ''), 'node_modules'),
-        'node_modules',
-    ]
-);
-
 export default (): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
-        context: resolve(CWD, `./src/server`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
             modules: [
                 join(CWD, ''),
                 join(CWD, 'node_modules'),
                 join(
-                    dirname(require.main?.filename || ''),
-                    '../../..',
+                    CWD,
+                    '../..',
                     'node_modules',
-                )
+                ),
             ],
+            alias: { src: 'src/' },
         },
-        entry: {
-            server: `src/server`,
-        },
+        context: resolve(CWD, `./src`),
+        entry: './server/index.ts',
         target: 'node',
         module: {
             rules: [
-                {
-                    test: /\.m?js$/,
-                    type: 'javascript/auto',
-                    resolve: {
-                      fullySpecified: false,
-                    },
-                  },
                 {
                     test: regexSource,
                     loader: 'ts-loader',
@@ -75,7 +53,7 @@ export default (): Configuration => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
-            ...moduleFederationPlugin(true, isShell),
+            moduleFederationPlugin(true, isShell).server,
             new NodemonPlugin(),
         ],
         output: {
