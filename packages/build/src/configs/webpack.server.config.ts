@@ -20,15 +20,6 @@ export default (): Configuration => {
         devtool: isProduction ? false : 'source-map',
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            modules: [
-                join(CWD, ''),
-                join(CWD, 'node_modules'),
-                join(
-                    CWD,
-                    '../..',
-                    'node_modules',
-                ),
-            ],
             alias: { src: 'src/' },
         },
         context: resolve(CWD, `./src`),

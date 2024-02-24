@@ -48,8 +48,12 @@ export default (isServer: boolean, isShell: boolean) => {
         ...universalFederationOptions,
     };
 
+    console.log('isShell: ', isShell);
+    console.log(serverFederationConfig);
+    console.log(clientFederationConfig);
+
     return {
-        server: new UniversalFederationPlugin(serverFederationConfig, {}),
+        server: new UniversalFederationPlugin(serverFederationConfig, container),
         client: new UniversalFederationPlugin(clientFederationConfig, {}),
     };
 };
