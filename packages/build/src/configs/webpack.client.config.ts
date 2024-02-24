@@ -22,22 +22,10 @@ import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 export default (): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-        devtool: isProduction ? false : 'inline-source-map',
+        devtool: isProduction ? false : 'source-map',
         context: resolve(CWD, `./src/client`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            modules: [
-                join(CWD, ''),
-                join(CWD, 'node_modules'),
-                join(
-                    dirname(require.main?.filename || ''),
-                    '../..',
-                    'node_modules',
-                ),
-                join(dirname(require.main?.filename || ''), 'node_modules'),
-                'node_modules',
-                'node_modules',
-            ],
             alias: { src: 'src/' },
         },
         entry: {
