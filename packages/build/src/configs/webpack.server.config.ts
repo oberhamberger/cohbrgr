@@ -1,5 +1,5 @@
-import { resolve, join, dirname } from 'path';
-import { Configuration } from 'webpack';
+import { resolve, join } from 'path';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
@@ -9,22 +9,29 @@ import {
     regexSource,
     Mode,
     CWD,
-    isShell,
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
-import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 
-export default (): Configuration => {
+export default (federationPlugin: WebpackPluginInstance): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
+        context: resolve(CWD, `./src`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            alias: { src: 'src/' },
+            modules: [
+                join(CWD, ''),
+                join(
+                    CWD,
+                    '../..',
+                    'node_modules',
+                ),
+            ],
         },
-        context: resolve(CWD, `./src`),
-        entry: './server/index.ts',
-        target: 'node',
+        entry: {
+            index: './server/index.ts'
+        },
+        target: false,
         module: {
             rules: [
                 {
@@ -44,12 +51,12 @@ export default (): Configuration => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
-            moduleFederationPlugin(true, isShell).server,
+            federationPlugin,
             new NodemonPlugin(),
         ],
         output: {
             path: resolve(CWD, './dist/server'),
-            filename: '[name].js',
+            filename: 'index.js',
             clean: true,
             publicPath: '/',
         },
