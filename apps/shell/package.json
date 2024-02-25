@@ -3,14 +3,10 @@
     "version": "1.0.3",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "workspaces": [
-        "src/*"
-    ],
     "scripts": {
         "serve": "node dist/server",
         "lint": "eslint src",
         "prettier": "prettier --write .",
-        "prestart": "rm -rf dist",
         "build": "NODE_ENV=production build",
         "build:ssg": "NODE_ENV=production build --generator",
         "build:analyze": "NODE_ENV=production build --analyze",

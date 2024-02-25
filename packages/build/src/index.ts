@@ -1,50 +1,54 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
+import { Logger } from '@cohbrgr/utils';
 import getWebpackClientConfig from 'src/configs/webpack.client.config';
 import getWebpackServerConfig from 'src/configs/webpack.server.config';
-import { isWatch, isSSG, isShell } from 'src/utils/constants';
+import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 import staticSiteGenerator from 'src/ssg';
-import { Logger } from '@cohbrgr/utils';
+import { isWatch, isSSG, isShell } from 'src/utils/constants';
 
+const federationPlugins = moduleFederationPlugin(isShell);
 const configs: [Configuration[]?] = [];
-configs.push([getWebpackClientConfig(), getWebpackServerConfig()]);
 
-console.log('isShell: ', isShell);
+configs.push([
+    getWebpackClientConfig(federationPlugins.client),
+    getWebpackServerConfig(federationPlugins.server)
+]);
 
 configs.forEach((config) => {
     if (!config) {
-        return;
+        Logger.error('No Config');
+        throw('No Config');
     }
-    const compiler = webpack(config);
 
+    const compiler = webpack(config);
     const compilerCallback = (err?: Error | null, result?: MultiStats) => {
+
         if (err) {
             Logger.error(err.stack);
-            console.log(JSON.stringify(err.stack));
         }
         if (!result) {
             Logger.warn('Compiler returned no result.');
-            return;
+            throw('No Result from Compiler');
         }
 
         const rawMessages = result.toJson();
         if (rawMessages.errors?.length) {
             rawMessages.errors.forEach((e) => {
-                Logger.error(JSON.stringify(e));
+                Logger.error(e);
             });
-            Logger.error(JSON.stringify(rawMessages.errors));
+            throw(rawMessages.errors);
         }
         if (rawMessages.warnings?.length) {
             rawMessages.warnings.forEach((w) => {
-                Logger.warn(JSON.stringify(w));
+                Logger.warn(w);
             });
-            Logger.warn(JSON.stringify(rawMessages.warnings));
         }
         if (!rawMessages.errors?.length && !rawMessages.warnings?.length) {
             Logger.info(`compiled successfully.`);
         }
 
         if (isSSG) {
-            // staticSiteGenerator();
+            staticSiteGenerator();
         }
     };
 

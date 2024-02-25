@@ -2,7 +2,6 @@ import { FunctionComponent } from 'react';
 
 const Content: FunctionComponent = () => {
     return (
-        <>
             <main>
                 <h1>Hi!</h1>
                 <h2>My name is Christian</h2>
@@ -12,7 +11,6 @@ const Content: FunctionComponent = () => {
                     work with React and Node.js on online commerce platforms.
                 </p>
             </main>
-        </>
     );
 };
 

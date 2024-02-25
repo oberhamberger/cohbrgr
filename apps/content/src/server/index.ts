@@ -1,48 +1,20 @@
 import { join } from 'path';
-import express, { Response } from 'express';
-import helmet from 'helmet';
-import nocache from 'nocache';
-import compression from 'compression';
-import rateLimit from 'express-rate-limit';
-
+import express from 'express';
 import { Logger } from '@cohbrgr/utils';
 import logging from 'src/server/middleware/logging';
 import methodDetermination from 'src/server/middleware/methodDetermination';
-import { randomBytes } from 'crypto';
-import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3001 : 3031;
 const port = process.env.PORT || defaultPort;
 const staticPath = join(process.cwd(), 'dist');
-const useClientSideRendering = true;
-const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
 
-if (isProduction) {
-    app.use(
-        rateLimit({
-            windowMs: 10 * 60 * 1000, // 10 minutes
-            max: 500, // limit each IP to 500 requests per window
-            handler: (request, response, next, options) => {
-                Logger.log(
-                    'warn',
-                    `Restricted request from ${request.ip} for ${request.path}`,
-                );
-                return response
-                    .status(options.statusCode)
-                    .send(options.message);
-            },
-        }),
-    );
-}
-
-app.use(nocache());
 app.use(logging(isProduction));
 app.use(methodDetermination);
-app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
+
 // app.use((req, res, next) => {
 //     res.locals.cspNonce = isGenerator
 //         ? '!CSPNONCE_PLACEHOLDER!'
@@ -67,7 +39,6 @@ app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 //         },
 //     }),
 // );
-
 
 // starting the server
 const server = app.listen(port, () => {

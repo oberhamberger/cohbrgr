@@ -1,5 +1,5 @@
-import { resolve, dirname, join } from 'path';
-import { Configuration } from 'webpack';
+import { resolve, join } from 'path';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -17,19 +17,25 @@ import {
     isShell
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
-import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 
-export default (): Configuration => {
+export default (federationPlugin: WebpackPluginInstance): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
-        context: resolve(CWD, `./src/client`),
+        context: resolve(CWD, `./src`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            alias: { src: 'src/' },
+            modules: [
+                join(CWD, ''),
+                join(
+                    CWD,
+                    '../..',
+                    'node_modules',
+                ),
+            ],
         },
         entry: {
-            bundle: `src/client`,
+            bundle: './client/index.tsx'
         },
         target: 'web',
         module: {
@@ -56,14 +62,14 @@ export default (): Configuration => {
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
             }),
-            moduleFederationPlugin(false, isShell).client,
+            federationPlugin,
             ...(isShell ? [new CopyPlugin({
-                patterns: [{ from: '../../src/client/assets', to: './' }],
+                patterns: [{ from: './client/assets', to: './' }],
             })] : []),
             ...(isProduction && isShell
                 ? [
                       new InjectManifest({
-                          swSrc: './service-worker',
+                          swSrc: './client/service-worker',
                           swDest: serviceWorker,
                           include: [/\.js$/],
                       }),
@@ -82,30 +88,29 @@ export default (): Configuration => {
         optimization: {
             chunkIds: isProduction ? 'natural' : 'named',
             minimize: isProduction,
-            // runtimeChunk: { name: 'webpack' },
-            // splitChunks: {
-            //     cacheGroups: {
-            //         react: {
-            //             name: 'react',
-            //             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-            //             chunks: 'all',
-            //             priority: 40,
-            //             enforce: true,
-            //         },
-            //         workbox: {
-            //             name: 'workbox',
-            //             test: /[\\/]node_modules[\\/](workbox-window)[\\/]/,
-            //             chunks: 'all',
-            //             priority: 40,
-            //             enforce: true,
-            //         },
-            //         vendor: {
-            //             test: /[\\/]node_modules[\\/]/,
-            //             name: 'vendor',
-            //             chunks: 'all',
-            //         },
-            //     },
-            // },
+            splitChunks: {
+                cacheGroups: {
+                    react: {
+                        name: 'react',
+                        test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                        chunks: 'all',
+                        priority: 40,
+                        enforce: true,
+                    },
+                    workbox: {
+                        name: 'workbox',
+                        test: /[\\/]node_modules[\\/](workbox-window)[\\/]/,
+                        chunks: 'all',
+                        priority: 40,
+                        enforce: true,
+                    },
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendor',
+                        chunks: 'all',
+                    },
+                },
+            },
         },
         output: {
             path: resolve(CWD, './dist/client'),
