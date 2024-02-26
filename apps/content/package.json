@@ -3,8 +3,9 @@
     "version": "1.0.3",
     "author": "Christian Oberhamberger",
     "license": "ISC",
+    "main": "dist/server",
     "scripts": {
-        "serve": "node dist/server",
+        "serve": "node .",
         "lint": "eslint src",
         "prettier": "prettier --write .",
         "build": "NODE_ENV=production build",

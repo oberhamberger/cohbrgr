@@ -89,35 +89,15 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
             chunkIds: isProduction ? 'natural' : 'named',
             minimize: isProduction,
             splitChunks: {
-                cacheGroups: {
-                    react: {
-                        name: 'react',
-                        test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-                        chunks: 'all',
-                        priority: 40,
-                        enforce: true,
-                    },
-                    workbox: {
-                        name: 'workbox',
-                        test: /[\\/]node_modules[\\/](workbox-window)[\\/]/,
-                        chunks: 'all',
-                        priority: 40,
-                        enforce: true,
-                    },
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'vendor',
-                        chunks: 'all',
-                    },
-                },
-            },
+                chunks: 'all',
+              },
         },
         output: {
             path: resolve(CWD, './dist/client'),
             clean: true,
             filename: isProduction
-                ? 'js/[name].[contenthash].js'
-                : 'js/[name].js',
+                ? `${isShell ? 'js/' : ''}[name].[contenthash].js`
+                : `${isShell ? 'js/' : ''}[name].js`,
         },
     };
 };

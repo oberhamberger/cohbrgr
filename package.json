@@ -20,13 +20,17 @@
     "scripts": {
         "bootstrap": "git clean -xfd && npm install && lerna run build",
         "prettier": "prettier --write .",
+        "lint": "lerna run lint",
+        "build": "lerna run build",
+        "start": "lerna run start",
+        "serve": "lerna run serve",
         "build:compiler": "lerna run build --scope=@cohbrgr/build",
-        "lint:shell": "lerna run lint --scope=@cohbrgr/shell",
         "build:shell": "lerna run build --scope=@cohbrgr/shell",
         "build:content": "lerna run build --scope=@cohbrgr/content",
-        "build": "lerna run build",
         "start:shell": "lerna run start --scope=@cohbrgr/shell",
         "start:content": "lerna run start --scope=@cohbrgr/content",
+        "serve:shell": "lerna run serve --scope=@cohbrgr/shell",
+        "serve:content": "lerna run serve --scope=@cohbrgr/content",
         "version": "lerna version"
     },
     "repository": {

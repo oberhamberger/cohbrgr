@@ -11,16 +11,17 @@ export type StylesheetProps = IStylesheetProps;
 
 let styleFiles: string[] = [];
 let styleFileContents = '';
+const cssDirectoryPath = resolve(process.cwd() + '/dist/client/css');
 
 try {
-    styleFiles = readdirSync(resolve(process.cwd() + '/dist/client/css')).filter(
+    styleFiles = readdirSync(cssDirectoryPath).filter(
         (fileName) => extname(fileName) === '.css',
     );
     if (styleFiles.length) {
         try {
             styleFiles.forEach((file) => {
                 styleFileContents += readFileSync(
-                    resolve(process.cwd() + '/dist/client/css' + file),
+                    resolve(cssDirectoryPath, file),
                     'utf8',
                 );
             });
