@@ -73,7 +73,7 @@ const render =
                 );
                 setTimeout(abort, 5000);
             } catch (error) {
-                console.error(error)
+                Logger.error(error);
             }
         });
 
