@@ -1,6 +1,4 @@
-import {
-    UniversalFederationPlugin,
-} from '@module-federation/node';
+import { UniversalFederationPlugin } from '@module-federation/node';
 import { dependencies } from '../../../../package.json';
 import { isProduction } from 'src/utils/constants';
 
@@ -12,7 +10,7 @@ const getContainerOptions = (isServer: boolean) => {
             content: `content@http://localhost:${remotePort}/${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
         // shared: [{ react: dependencies.react, 'react-dom': dependencies['react-dom'] }]
-    }
+    };
 };
 
 const getRemoteOptions = () => {
@@ -21,17 +19,17 @@ const getRemoteOptions = () => {
             './Content': 'src/client/components/content',
         },
         shared: {
-          ...dependencies,
-          react: {
-            singleton: true,
-            requiredVersion: dependencies.react,
-          },
-          'react-dom': {
-            singleton: true,
-            requiredVersion: dependencies['react-dom'],
-          },
+            ...dependencies,
+            react: {
+                singleton: true,
+                requiredVersion: dependencies.react,
+            },
+            'react-dom': {
+                singleton: true,
+                requiredVersion: dependencies['react-dom'],
+            },
         },
-    }
+    };
 };
 
 const getServerFederationConfig = (isShell: boolean) => {
@@ -40,8 +38,8 @@ const getServerFederationConfig = (isShell: boolean) => {
         name: isShell ? 'shell' : 'content',
         isServer: true,
         library: { type: 'commonjs-module' },
-        ...(isShell ? getContainerOptions(true) : getRemoteOptions())
-    }
+        ...(isShell ? getContainerOptions(true) : getRemoteOptions()),
+    };
 };
 
 const getClientFederationConfig = (isShell: boolean) => {
@@ -49,8 +47,8 @@ const getClientFederationConfig = (isShell: boolean) => {
         filename: !isShell ? 'remoteEntry.js' : 'container.js',
         name: isShell ? 'shell' : 'content',
         isServer: false,
-        ...(isShell ? getContainerOptions(false) : getRemoteOptions())
-    }
+        ...(isShell ? getContainerOptions(false) : getRemoteOptions()),
+    };
 };
 
 export default (isShell: boolean) => {

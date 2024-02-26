@@ -19,17 +19,10 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
         context: resolve(CWD, `./src`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            modules: [
-                join(CWD, ''),
-                join(
-                    CWD,
-                    '../..',
-                    'node_modules',
-                ),
-            ],
+            modules: [join(CWD, ''), join(CWD, '../..', 'node_modules')],
         },
         entry: {
-            index: './server/index.ts'
+            index: './server/index.ts',
         },
         target: false,
         module: {

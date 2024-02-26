@@ -11,24 +11,23 @@ const configs: [Configuration[]?] = [];
 
 configs.push([
     getWebpackClientConfig(federationPlugins.client),
-    getWebpackServerConfig(federationPlugins.server)
+    getWebpackServerConfig(federationPlugins.server),
 ]);
 
 configs.forEach((config) => {
     if (!config) {
         Logger.error('No Config');
-        throw('No Config');
+        throw 'No Config';
     }
 
     const compiler = webpack(config);
     const compilerCallback = (err?: Error | null, result?: MultiStats) => {
-
         if (err) {
             Logger.error(err.stack);
         }
         if (!result) {
             Logger.warn('Compiler returned no result.');
-            throw('No Result from Compiler');
+            throw 'No Result from Compiler';
         }
 
         const rawMessages = result.toJson();
@@ -36,7 +35,7 @@ configs.forEach((config) => {
             rawMessages.errors.forEach((e) => {
                 Logger.error(e);
             });
-            throw(rawMessages.errors);
+            throw rawMessages.errors;
         }
         if (rawMessages.warnings?.length) {
             rawMessages.warnings.forEach((w) => {

@@ -14,7 +14,7 @@ import {
     regexSource,
     Mode,
     CWD,
-    isShell
+    isShell,
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 
@@ -25,17 +25,10 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
         context: resolve(CWD, `./src`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            modules: [
-                join(CWD, ''),
-                join(
-                    CWD,
-                    '../..',
-                    'node_modules',
-                ),
-            ],
+            modules: [join(CWD, ''), join(CWD, '../..', 'node_modules')],
         },
         entry: {
-            bundle: './client/index.tsx'
+            bundle: './client/index.tsx',
         },
         target: 'web',
         module: {
@@ -63,9 +56,13 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
                     : 'css/[name].css',
             }),
             federationPlugin,
-            ...(isShell ? [new CopyPlugin({
-                patterns: [{ from: './client/assets', to: './' }],
-            })] : []),
+            ...(isShell
+                ? [
+                      new CopyPlugin({
+                          patterns: [{ from: './client/assets', to: './' }],
+                      }),
+                  ]
+                : []),
             ...(isProduction && isShell
                 ? [
                       new InjectManifest({
@@ -90,7 +87,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
             minimize: isProduction,
             splitChunks: {
                 chunks: 'all',
-              },
+            },
         },
         output: {
             path: resolve(CWD, './dist/client'),

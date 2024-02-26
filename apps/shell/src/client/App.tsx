@@ -17,11 +17,14 @@ const App: FunctionComponent = () => {
     return (
         <Layout>
             <Routes>
-                <Route path={routes.start} element={(
-                    <Suspense fallback={<Spinner />}>
-                        <Content />
-                    </Suspense>
-                )} />
+                <Route
+                    path={routes.start}
+                    element={
+                        <Suspense fallback={<Spinner />}>
+                            <Content />
+                        </Suspense>
+                    }
+                />
                 <Route path={routes.offline} element={<Offline />} />
                 <Route path={routes.notFound} element={<NotFound />} />
             </Routes>
