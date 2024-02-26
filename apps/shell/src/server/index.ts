@@ -1,6 +1,6 @@
 import { join } from 'path';
-import express, { Response } from 'express';
-import helmet from 'helmet';
+import express from 'express';
+//import helmet from 'helmet';
 import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
@@ -10,15 +10,15 @@ import logging from 'src/server/middleware/logging';
 import methodDetermination from 'src/server/middleware/methodDetermination';
 import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
-import { randomBytes } from 'crypto';
-import { findProcessArgs } from 'src/server/utils/findProcessArgs';
+//import { randomBytes } from 'crypto';
+//import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3000 : 3030;
 const port = process.env.PORT || defaultPort;
 const staticPath = join(process.cwd(), 'dist/client');
 const useClientSideRendering = true;
-const isGenerator = findProcessArgs(['--generator']);
+//const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
 
