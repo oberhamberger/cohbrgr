@@ -24,6 +24,7 @@
         "build": "lerna run build",
         "start": "lerna run start",
         "serve": "lerna run serve",
+        "test": "lerna run test",
         "build:compiler": "lerna run build --scope=@cohbrgr/build",
         "build:shell": "lerna run build --scope=@cohbrgr/shell",
         "build:content": "lerna run build --scope=@cohbrgr/content",
