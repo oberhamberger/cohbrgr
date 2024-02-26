@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { resolve } from 'path';
 import express from 'express';
 import { Logger } from '@cohbrgr/utils';
 import logging from 'src/server/middleware/logging';
@@ -7,7 +7,7 @@ import methodDetermination from 'src/server/middleware/methodDetermination';
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3001 : 3031;
 const port = process.env.PORT || defaultPort;
-const staticPath = join(process.cwd(), 'dist');
+const staticPath = resolve(process.cwd(), 'dist');
 
 const app = express();
 

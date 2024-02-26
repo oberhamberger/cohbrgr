@@ -7,6 +7,7 @@ import Layout from 'src/client/components/layout';
 import Offline from 'src/client/pages/offline';
 import NotFound from 'src/client/pages/not-found';
 import routes from 'src/client/routes';
+import Spinner from 'src/client/components/spinner';
 
 const Content = lazy(
     () => import('content/Content') as Promise<{ default: FunctionComponent }>,
@@ -17,7 +18,7 @@ const App: FunctionComponent = () => {
         <Layout>
             <Routes>
                 <Route path={routes.start} element={(
-                    <Suspense fallback={<h1>Loading....</h1>}>
+                    <Suspense fallback={<Spinner />}>
                         <Content />
                     </Suspense>
                 )} />
