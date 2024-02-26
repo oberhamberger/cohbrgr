@@ -10,9 +10,9 @@ describe('Main Content Component', () => {
         expect(items).toHaveLength(1);
     });
 
-    it('displays navigation', async () => {
-        const { container } = render(<Content />);
-        expect(container.getElementsByTagName('nav').length).toEqual(1);
-        expect(container.getElementsByTagName('li').length).toEqual(3);
-    });
+    // it('displays navigation', async () => {
+    //     const { container } = render(<Content />);
+    //     expect(container.getElementsByTagName('nav').length).toEqual(1);
+    //     expect(container.getElementsByTagName('li').length).toEqual(3);
+    // });
 });

@@ -9,8 +9,7 @@
     },
     "scripts": {
         "lint": "eslint src",
-        "build": "node esbuild.config.mjs",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "node esbuild.config.mjs"
     },
     "dependencies": {
         "@module-federation/node": "1.0.7",
