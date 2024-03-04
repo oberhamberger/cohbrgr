@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Logger } from '@cohbrgr/utils';
 
-const logging =
+export const logging =
     (isProduction: boolean) =>
     (req: Request, res: Response, next: NextFunction) => {
         if (!isProduction) {
@@ -11,5 +11,3 @@ const logging =
         }
         next();
     };
-
-export default logging;

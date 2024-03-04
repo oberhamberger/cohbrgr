@@ -13,7 +13,7 @@ export enum HttpMethod {
     PATCH = 'PATCH',
 }
 
-const methodDetermination = (
+export const methodDetermination = (
     req: Request,
     res: Response,
     next: NextFunction,
@@ -27,5 +27,3 @@ const methodDetermination = (
     }
     next();
 };
-
-export default methodDetermination;

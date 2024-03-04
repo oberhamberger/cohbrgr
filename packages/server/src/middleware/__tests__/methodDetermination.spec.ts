@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import methodDetermination, {
+import {
+    methodDetermination,
     HttpMethod,
-} from 'src/server/middleware/methodDetermination';
+} from 'src/middleware/methodDetermination';
 
 describe('methodDetermination middleware', () => {
     let mockRequest: Partial<Request>;

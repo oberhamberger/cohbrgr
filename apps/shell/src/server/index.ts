@@ -1,24 +1,22 @@
 import { join } from 'path';
-import express from 'express';
-//import helmet from 'helmet';
+import express, { Response } from 'express';
+import helmet from 'helmet';
 import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
-import { Logger } from '@cohbrgr/utils';
-import logging from 'src/server/middleware/logging';
-import methodDetermination from 'src/server/middleware/methodDetermination';
+import { Logger, findProcessArgs } from '@cohbrgr/utils';
+import { logging, methodDetermination } from '@cohbrgr/server';
 import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
-//import { randomBytes } from 'crypto';
-//import { findProcessArgs } from 'src/server/utils/findProcessArgs';
+import { randomBytes } from 'crypto';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3000 : 3030;
 const port = process.env.PORT || defaultPort;
 const staticPath = join(process.cwd(), 'dist/client');
 const useClientSideRendering = true;
-//const isGenerator = findProcessArgs(['--generator']);
+const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
 
@@ -45,30 +43,30 @@ app.use(logging(isProduction));
 app.use(methodDetermination);
 app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
-// app.use((req, res, next) => {
-//     res.locals.cspNonce = isGenerator
-//         ? '!CSPNONCE_PLACEHOLDER!'
-//         : randomBytes(16).toString('hex');
-//     next();
-// });
-// app.use(
-//     helmet({
-//         contentSecurityPolicy: {
-//             useDefaults: true,
-//             directives: {
-//                 'script-src': [
-//                     (req, res) =>
-//                         `'nonce-${(res as Response).locals.cspNonce}'`,
-//                 ],
-//                 'manifest-src': ["'self'"],
-//                 'connect-src': ["'self'"],
-//                 'worker-src': ["'self'"],
-//                 'form-action': ["'none'"],
-//                 'default-src': ["'none'"],
-//             },
-//         },
-//     }),
-// );
+app.use((req, res, next) => {
+    res.locals.cspNonce = isGenerator
+        ? '!CSPNONCE_PLACEHOLDER!'
+        : randomBytes(16).toString('hex');
+    next();
+});
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            useDefaults: true,
+            directives: {
+                'script-src': [
+                    (req, res) =>
+                        `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
+                ],
+                'manifest-src': ["'self'"],
+                'connect-src': ["'self'"],
+                'worker-src': ["'self'"],
+                'form-action': ["'none'"],
+                'default-src': ["'none'"],
+            },
+        },
+    }),
+);
 
 app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));

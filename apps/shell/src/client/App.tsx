@@ -6,7 +6,7 @@ import 'src/client/styles/index.scss';
 import Layout from 'src/client/components/layout';
 import Offline from 'src/client/pages/offline';
 import NotFound from 'src/client/pages/not-found';
-import routes from 'src/client/routes';
+import AppRoutes from 'src/client/routes';
 import Spinner from 'src/client/components/spinner';
 
 const Content = lazy(
@@ -18,15 +18,15 @@ const App: FunctionComponent = () => {
         <Layout>
             <Routes>
                 <Route
-                    path={routes.start}
+                    path={AppRoutes.start}
                     element={
                         <Suspense fallback={<Spinner />}>
                             <Content />
                         </Suspense>
                     }
                 />
-                <Route path={routes.offline} element={<Offline />} />
-                <Route path={routes.notFound} element={<NotFound />} />
+                <Route path={AppRoutes.offline} element={<Offline />} />
+                <Route path={AppRoutes.notFound} element={<NotFound />} />
             </Routes>
         </Layout>
     );

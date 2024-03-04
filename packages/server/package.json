@@ -1,0 +1,15 @@
+{
+    "name": "@cohbrgr/server",
+    "version": "1.0.3",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "main": "index.ts",
+    "devDependencies": {
+        "@cohbrgr/eslint": "*",
+        "@cohbrgr/jest": "*",
+        "@testing-library/jest-dom": "^6.1.5",
+        "@testing-library/react": "^14.1.2",
+        "@types/compression": "^1.7.5",
+        "@types/express": "^4.17.21"
+    }
+}

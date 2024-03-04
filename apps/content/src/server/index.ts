@@ -1,8 +1,7 @@
 import { resolve } from 'path';
 import express from 'express';
 import { Logger } from '@cohbrgr/utils';
-import logging from 'src/server/middleware/logging';
-import methodDetermination from 'src/server/middleware/methodDetermination';
+import { logging, methodDetermination } from '@cohbrgr/server';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? 3001 : 3031;
