@@ -1,3 +1,3 @@
 declare module 'content/Content' {
-    export * from '@cohbrgr/content-client/client/components/content';
+    export * from '@cohbrgr/content/src/client/components/content';
 }

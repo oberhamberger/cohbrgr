@@ -1,5 +1,4 @@
-import { FunctionComponent, useContext } from 'react';
-import { AppStateContext } from 'src/client/contexts/app-state';
+import { FunctionComponent } from 'react';
 
 const buildJsonLd = () => {
     return JSON.stringify({
@@ -14,8 +13,11 @@ const buildJsonLd = () => {
 
 const jsonLd = buildJsonLd();
 
-const StructuredData: FunctionComponent = () => {
-    const { nonce } = useContext(AppStateContext);
+interface IStructureData {
+    nonce?: string;
+}
+
+const StructuredData: FunctionComponent<IStructureData> = ({nonce}) => {
     return (
         <script
             nonce={nonce}

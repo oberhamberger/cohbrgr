@@ -1,3 +1,3 @@
-import Content from 'src/client/components/content/Content';
+import Content from './Content';
 
 export default Content;
