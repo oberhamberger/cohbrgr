@@ -4,7 +4,7 @@ import { renderToPipeableStream } from 'react-dom/server';
 
 import Index from 'src/server/template/Index.html';
 import { Logger } from '@cohbrgr/utils';
-import { HttpMethod } from 'src/server/middleware/methodDetermination';
+import { HttpMethod } from '@cohbrgr/server';
 import { HttpContextData } from 'src/client/contexts/http';
 
 const streamToString = (stream: Stream): Promise<string> => {

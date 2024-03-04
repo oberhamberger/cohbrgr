@@ -1,0 +1,11 @@
+{
+    "extends": "@cohbrgr/tsconfig",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"]
+        },
+        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
+    }
+}
