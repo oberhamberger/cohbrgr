@@ -1,13 +1,14 @@
+import { Config } from '@cohbrgr/config';
 import { UniversalFederationPlugin } from '@module-federation/node';
 import { dependencies } from '../../../../package.json';
 import { isProduction } from 'src/utils/constants';
 
-const remotePort = isProduction ? 3001 : 3031;
+const contentPort = isProduction ? Config.content.port : Config.content.port + 30;
 
 const getContainerOptions = (isServer: boolean) => {
     return {
         remotes: {
-            content: `content@http://localhost:${remotePort}/${isServer ? 'server' : 'client'}/remoteEntry.js`,
+            content: `content@http://localhost:${contentPort}/${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
         // shared: [{ react: dependencies.react, 'react-dom': dependencies['react-dom'] }]
     };

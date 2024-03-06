@@ -2,9 +2,10 @@ import { resolve } from 'path';
 import express from 'express';
 import { Logger } from '@cohbrgr/utils';
 import { logging, methodDetermination } from '@cohbrgr/server';
+import { Config } from '@cohbrgr/config';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultPort = isProduction ? 3001 : 3031;
+const defaultPort = isProduction ? Config.content.port : Config.content.port + 30;
 const port = process.env.PORT || defaultPort;
 const staticPath = resolve(process.cwd(), 'dist');
 
