@@ -12,6 +12,7 @@
         "build": "node esbuild.config.mjs"
     },
     "dependencies": {
+        "@cohbrgr/build": "*",
         "@module-federation/node": "1.0.7",
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.6.3",

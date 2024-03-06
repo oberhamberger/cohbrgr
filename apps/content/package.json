@@ -16,7 +16,8 @@
         "express": "^4.18.3"
     },
     "devDependencies": {
-        "@cohbrgr/build": "^1.0.3",
+        "@cohbrgr/build": "*",
+        "@cohbrgr/config": "*",
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
         "@testing-library/jest-dom": "^6.1.5",
