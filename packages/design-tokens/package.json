@@ -1,0 +1,13 @@
+{
+  "name": "@cohbrgr/design-tokens",
+  "version": "1.0.1",
+  "author": "Christian Oberhamberger",
+  "license": "ISC",
+  "main": "dist/css/_variables.css",
+  "scripts": {
+    "build": "style-dictionary build"
+  },
+  "dependencies": {
+      "style-dictionary": "^3.9.2"
+  }
+}
