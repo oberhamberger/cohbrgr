@@ -21,6 +21,7 @@
         "bootstrap": "git clean -xfd && npm install && lerna run build",
         "prettier": "prettier --write .",
         "build:compiler": "lerna run build --scope=@cohbrgr/build",
+        "build:tokens": "lerna run build --scope=@cohbrgr/design-tokens",
         "postbuild:compiler": "npm ci",
         "lint:shell": "lerna run lint --scope=@cohbrgr/shell",
         "build:shell": "lerna run build --scope=@cohbrgr/shell",
