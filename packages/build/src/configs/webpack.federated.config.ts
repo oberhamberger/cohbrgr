@@ -1,9 +1,9 @@
-import { Config } from '@cohbrgr/config';
+import { EnvironmentConfig } from '@cohbrgr/environments';
 import { UniversalFederationPlugin } from '@module-federation/node';
 import { dependencies } from '../../../../package.json';
 import { isProduction } from 'src/utils/constants';
 
-const contentPort = isProduction ? Config.content.port : Config.content.port + 30;
+const contentPort = isProduction ? EnvironmentConfig.content.port : EnvironmentConfig.content.port + 30;
 
 const getContainerOptions = (isServer: boolean) => {
     return {

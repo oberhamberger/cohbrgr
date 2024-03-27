@@ -1,4 +1,4 @@
-export const Config = {
+export const EnvironmentConfig = {
     shell: {
         port: 3000,
     },
