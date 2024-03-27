@@ -31,6 +31,9 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
                     test: regexSource,
                     loader: 'ts-loader',
                     exclude: /node_modules/,
+                    options: {
+                        projectReferences: true
+                    }
                 },
                 {
                     test: regexStyle,

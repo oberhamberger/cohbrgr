@@ -1,6 +1,5 @@
 import { FunctionComponent, lazy, Suspense, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
 import { AppStateContext } from 'src/client/contexts/app-state';
 
 import 'src/client/styles/index.scss';
@@ -12,7 +11,7 @@ import AppRoutes from 'src/client/routes';
 import { Spinner } from '@cohbrgr/components';
 
 const Content = lazy(
-    () => import('content/Content') as Promise<{ default: FunctionComponent<IContent> }>,
+    () => import('content/Content') as Promise<{ default: FunctionComponent<any> }>,
 );
 
 const App: FunctionComponent = () => {

@@ -12,7 +12,8 @@
         "build": "node esbuild.config.mjs"
     },
     "dependencies": {
-        "@cohbrgr/build": "*",
+        "@cohbrgr/config": "*",
+        "@cohbrgr/utils": "*",
         "@module-federation/node": "1.0.7",
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.6.3",
@@ -34,6 +35,7 @@
         "workbox-webpack-plugin": "^7.0.0"
     },
     "devDependencies": {
+        "@cohbrgr/tsconfig": "*",
         "esbuild": "^0.20.1"
     }
 }

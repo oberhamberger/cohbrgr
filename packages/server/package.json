@@ -7,6 +7,7 @@
     "devDependencies": {
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
+        "@cohbrgr/tsconfig": "*",
         "@testing-library/jest-dom": "^6.1.5",
         "@testing-library/react": "^14.1.2",
         "@types/compression": "^1.7.5",
