@@ -17,7 +17,7 @@
     },
     "devDependencies": {
         "@cohbrgr/build": "*",
-        "@cohbrgr/config": "*",
+        "@cohbrgr/environments": "*",
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
         "@testing-library/jest-dom": "^6.1.5",
