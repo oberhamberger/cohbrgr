@@ -5,7 +5,7 @@ import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
-import { Config } from '@cohbrgr/config';
+import { EnvironmentConfig } from '@cohbrgr/environments';
 import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { logging, methodDetermination } from '@cohbrgr/server';
 import jam from 'src/server/middleware/jam';
@@ -13,7 +13,7 @@ import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultPort = isProduction ? Config.shell.port : Config.shell.port + 30;
+const defaultPort = isProduction ? EnvironmentConfig.shell.port : EnvironmentConfig.shell.port + 30;
 const port = process.env.PORT || defaultPort;
 const staticPath = join(process.cwd(), 'dist/client');
 const useClientSideRendering = true;
