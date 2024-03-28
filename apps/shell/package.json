@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/shell",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "workspaces": [
@@ -17,6 +17,6 @@
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/build": "^1.0.2"
+        "@cohbrgr/build": "^1.0.3"
     }
 }
