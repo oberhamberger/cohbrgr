@@ -15,7 +15,7 @@ import { randomBytes } from 'crypto';
 const isProduction = process.env.NODE_ENV === 'production';
 const defaultPort = isProduction ? EnvironmentConfig.shell.port : EnvironmentConfig.shell.port + 30;
 const port = process.env.PORT || defaultPort;
-const staticPath = join(process.cwd(), 'dist/client');
+const staticPath = join(process.cwd(), 'apps/shell/dist/client');
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 

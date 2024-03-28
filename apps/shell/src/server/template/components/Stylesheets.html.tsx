@@ -11,7 +11,7 @@ export type StylesheetProps = IStylesheetProps;
 
 let styleFiles: string[] = [];
 let styleFileContents = '';
-const cssDirectoryPath = resolve(process.cwd() + '/dist/client/css');
+const cssDirectoryPath = resolve(process.cwd() + '/apps/shell/dist/client/css');
 
 try {
     styleFiles = readdirSync(cssDirectoryPath).filter(
