@@ -4,11 +4,12 @@ import { dependencies } from '../../../../package.json';
 import { isProduction } from 'src/utils/constants';
 
 const contentPort = isProduction ? EnvironmentConfig.content.port : EnvironmentConfig.content.port + 30;
+const contentUrl = process.env?.ENV === 'prod' ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/' : `http://localhost:${contentPort}/`;
 
 const getContainerOptions = (isServer: boolean) => {
     return {
         remotes: {
-            content: `content@http://localhost:${contentPort}/${isServer ? 'server' : 'client'}/remoteEntry.js`,
+            content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
         // shared: [{ react: dependencies.react, 'react-dom': dependencies['react-dom'] }]
     };
