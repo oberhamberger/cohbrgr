@@ -5,7 +5,7 @@ USER node
 COPY --chown=node:node . /usr/app
 WORKDIR /usr/app
 
-RUN npm ci --ignore-scripts
-RUN npm run build
+RUN npm i
+RUN npm run build:content
 
-ENTRYPOINT ["node", "."]
+ENTRYPOINT ["node", "apps/content"]
