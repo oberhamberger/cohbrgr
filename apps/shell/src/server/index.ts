@@ -59,7 +59,7 @@ app.use(
                 //     (req, res) =>
                 //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
                 // ],
-                "script-src": ["'self'", "cohbrgr-content-o44imzpega-oa.a.run.app"],
+                "script-src": ["'self'", "unsafe-inline", "cohbrgr-content-o44imzpega-oa.a.run.app"],
                 'manifest-src': ["'self'"],
                 'connect-src': ["'self'"],
                 'worker-src': ["'self'"],
