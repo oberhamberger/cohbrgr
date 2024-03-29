@@ -13,7 +13,9 @@ import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultPort = isProduction ? EnvironmentConfig.shell.port : EnvironmentConfig.shell.port + 30;
+const defaultPort = isProduction
+    ? EnvironmentConfig.shell.port
+    : EnvironmentConfig.shell.port + 30;
 const port = process.env.PORT || defaultPort;
 const staticPath = join(process.cwd(), 'apps/shell/dist/client');
 const useClientSideRendering = true;
@@ -59,7 +61,11 @@ app.use(
                 //     (req, res) =>
                 //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
                 // ],
-                "script-src": ["'self'", "'unsafe-inline'", "cohbrgr-content-o44imzpega-oa.a.run.app"],
+                'script-src': [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'cohbrgr-content-o44imzpega-oa.a.run.app',
+                ],
                 'manifest-src': ["'self'"],
                 'connect-src': ["'self'"],
                 'worker-src': ["'self'"],

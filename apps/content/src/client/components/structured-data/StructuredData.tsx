@@ -17,7 +17,7 @@ interface IStructureData {
     nonce?: string;
 }
 
-const StructuredData: FunctionComponent<IStructureData> = ({nonce}) => {
+const StructuredData: FunctionComponent<IStructureData> = ({ nonce }) => {
     return (
         <script
             nonce={nonce}

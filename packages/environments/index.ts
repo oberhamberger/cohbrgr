@@ -6,8 +6,7 @@ export const EnvironmentConfig = {
         port: 3001,
         location: {
             local: 'localhost',
-            production: ''
-        }
+            production: '',
+        },
     },
-
-}
+};
