@@ -8,7 +8,7 @@
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
         "@testing-library/jest-dom": "^6.1.5",
-        "@testing-library/react": "^14.1.2",
+        "@testing-library/react": "^14.2.2",
         "@types/compression": "^1.7.5",
         "@types/express": "^4.17.21"
     }
