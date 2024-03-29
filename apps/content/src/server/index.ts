@@ -5,7 +5,9 @@ import { logging, methodDetermination } from '@cohbrgr/server';
 import { EnvironmentConfig } from '@cohbrgr/environments';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultPort = isProduction ? EnvironmentConfig.content.port : EnvironmentConfig.content.port + 30;
+const defaultPort = isProduction
+    ? EnvironmentConfig.content.port
+    : EnvironmentConfig.content.port + 30;
 const port = process.env.PORT || defaultPort;
 const staticPath = resolve(process.cwd(), 'apps/content/dist');
 console.log(staticPath);

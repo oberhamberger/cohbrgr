@@ -6,6 +6,6 @@
         "paths": {
             "src/*": ["./src/*"]
         },
-        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
+        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"]
     }
 }

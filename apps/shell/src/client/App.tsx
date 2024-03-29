@@ -12,7 +12,10 @@ import AppRoutes from 'src/client/routes';
 import { Spinner } from '@cohbrgr/components';
 
 const Content = lazy(
-    () => import('content/Content') as Promise<{ default: FunctionComponent<IContent> }>,
+    () =>
+        import('content/Content') as Promise<{
+            default: FunctionComponent<IContent>;
+        }>,
 );
 
 const App: FunctionComponent = () => {
@@ -24,7 +27,7 @@ const App: FunctionComponent = () => {
                     path={AppRoutes.start}
                     element={
                         <Suspense fallback={<Spinner />}>
-                            <Content nonce={nonce}/>
+                            <Content nonce={nonce} />
                         </Suspense>
                     }
                 />

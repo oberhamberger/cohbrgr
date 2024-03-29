@@ -6,7 +6,7 @@ export interface IContent {
     nonce?: string;
 }
 
-const Content: FunctionComponent<IContent> = ({nonce}) => {
+const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <>
             <main>
@@ -23,7 +23,7 @@ const Content: FunctionComponent<IContent> = ({nonce}) => {
                 <a href="https://www.instagram.com/cohbrgr">Instagram</a>
                 <a href="https://www.linkedin.com/in/oberhamberger">LinkedIn</a>
             </Navigation>
-            <StructuredData nonce={nonce}/>
+            <StructuredData nonce={nonce} />
         </>
     );
 };

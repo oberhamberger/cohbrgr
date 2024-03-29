@@ -1,17 +1,17 @@
 version: '3'
 services:
-  shell:
-    build:
-      context: .
-      dockerfile: ./Dockerfile.shell
-    ports:
-      - "3000:3000"
-    depends_on:
-      - content
+    shell:
+        build:
+            context: .
+            dockerfile: ./Dockerfile.shell
+        ports:
+            - '3000:3000'
+        depends_on:
+            - content
 
-  content:
-    build:
-      context: .
-      dockerfile: ./Dockerfile.content
-    ports:
-      - "3001:3001"
+    content:
+        build:
+            context: .
+            dockerfile: ./Dockerfile.content
+        ports:
+            - '3001:3001'
