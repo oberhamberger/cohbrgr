@@ -55,10 +55,10 @@ app.use(
         contentSecurityPolicy: {
             useDefaults: true,
             directives: {
-                'script-src': [
-                    (req, res) =>
-                        `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
-                ],
+                // 'script-src': [
+                //     (req, res) =>
+                //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
+                // ],
                 'manifest-src': ["'self'"],
                 'connect-src': ["'self'"],
                 'worker-src': ["'self'"],
