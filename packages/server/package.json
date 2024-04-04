@@ -3,7 +3,10 @@
     "version": "1.0.3",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "index.ts",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc"
+    },
     "devDependencies": {
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
