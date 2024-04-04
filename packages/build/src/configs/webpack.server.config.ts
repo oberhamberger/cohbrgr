@@ -29,7 +29,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
             rules: [
                 {
                     test: regexSource,
-                    loader: 'ts-loader',
+                    loader: 'esbuild-loader',
                     exclude: /node_modules/,
                 },
                 {

@@ -10,3 +10,5 @@ export const EnvironmentConfig = {
         },
     },
 };
+
+export default EnvironmentConfig;

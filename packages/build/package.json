@@ -12,7 +12,6 @@
         "build": "node esbuild.config.mjs"
     },
     "dependencies": {
-        "@cohbrgr/build": "*",
         "@module-federation/node": "1.0.7",
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.6.3",
@@ -25,8 +24,6 @@
         "raw-loader": "^4.0.2",
         "sass": "^1.72.0",
         "sass-loader": "^14.1.0",
-        "ts-loader": "^9.5.1",
-        "ts-node": "^10.9.2",
         "webpack": "^5.91.0",
         "webpack-bundle-analyzer": "^4.10.1",
         "webpack-cli": "^5.1.4",
@@ -34,6 +31,7 @@
         "workbox-webpack-plugin": "^7.0.0"
     },
     "devDependencies": {
-        "esbuild": "^0.20.2"
+        "esbuild": "^0.20.2",
+        "esbuild-loader": "^4.1.0"
     }
 }

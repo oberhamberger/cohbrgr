@@ -1,3 +1,6 @@
 {
-    "extends": "@cohbrgr/tsconfig"
+    "extends": "@cohbrgr/tsconfig",
+    "compilerOptions": {
+        "outDir": "dist"
+    }
 }
