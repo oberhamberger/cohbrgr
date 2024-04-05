@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { resolve } from 'path';
 import express, { Response } from 'express';
 import helmet from 'helmet';
 import nocache from 'nocache';
@@ -17,7 +17,8 @@ const defaultPort = isProduction
     ? EnvironmentConfig.shell.port
     : EnvironmentConfig.shell.port + 30;
 const port = process.env.PORT || defaultPort;
-const staticPath = join(process.cwd(), 'apps/shell/dist/client');
+const staticPath = resolve(process.cwd() + EnvironmentConfig.shell.staticPath + '/client');
+console.log(staticPath);
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
@@ -52,29 +53,30 @@ app.use((req, res, next) => {
         : randomBytes(16).toString('hex');
     next();
 });
-app.use(
-    helmet({
-        contentSecurityPolicy: {
-            useDefaults: true,
-            directives: {
-                // 'script-src': [
-                //     (req, res) =>
-                //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
-                // ],
-                'script-src': [
-                    "'self'",
-                    "'unsafe-inline'",
-                    'cohbrgr-content-o44imzpega-oa.a.run.app',
-                ],
-                'manifest-src': ["'self'"],
-                'connect-src': ["'self'"],
-                'worker-src': ["'self'"],
-                'form-action': ["'none'"],
-                'default-src': ["'none'"],
-            },
-        },
-    }),
-);
+// app.use(
+//     helmet({
+//         contentSecurityPolicy: {
+//             useDefaults: true,
+//             directives: {
+//                 // 'script-src': [
+//                 //     (req, res) =>
+//                 //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
+//                 // ],
+//                 'script-src': [
+//                     "'self'",
+//                     "'unsafe-inline'",
+//                     'http://localhost:3031',
+//                     'cohbrgr-content-o44imzpega-oa.a.run.app',
+//                 ],
+//                 'manifest-src': ["'self'"],
+//                 'connect-src': ["'self'"],
+//                 'worker-src': ["'self'"],
+//                 'form-action': ["'none'"],
+//                 'default-src': ["'none'"],
+//             },
+//         },
+//     }),
+// );
 
 app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));
