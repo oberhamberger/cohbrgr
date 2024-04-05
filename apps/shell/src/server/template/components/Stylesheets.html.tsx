@@ -2,6 +2,7 @@ import { FunctionComponent } from 'react';
 import { readFileSync, readdirSync } from 'fs';
 import { resolve, extname } from 'path';
 import { Logger } from '@cohbrgr/utils';
+import EnvironmentConfig from '@cohbrgr/environments';
 
 interface IStylesheetProps {
     // nonce: string;
@@ -11,7 +12,7 @@ export type StylesheetProps = IStylesheetProps;
 
 let styleFiles: string[] = [];
 let styleFileContents = '';
-const cssDirectoryPath = resolve(process.cwd() + '/apps/shell/dist/client/css');
+const cssDirectoryPath = resolve(process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/css`);
 
 try {
     styleFiles = readdirSync(cssDirectoryPath).filter(
