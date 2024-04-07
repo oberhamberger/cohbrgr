@@ -10,7 +10,7 @@ const Config = {
         },
         staticPath: {
             local: '/dist',
-            production: 'apps/shell/dist',
+            production: '/apps/shell/dist',
         },
     },
     content: {
@@ -21,7 +21,7 @@ const Config = {
         },
         staticPath: {
             local: '/dist',
-            production: 'apps/content/dist',
+            production: '/apps/content/dist',
         },
     },
 };
