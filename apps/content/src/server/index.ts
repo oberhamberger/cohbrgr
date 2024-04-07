@@ -10,7 +10,9 @@ const defaultPort = isProduction
     : EnvironmentConfig.content.port + 30;
 const port = process.env.PORT || defaultPort;
 
-const staticPath = resolve(process.cwd() + EnvironmentConfig.content.staticPath);
+const staticPath = resolve(
+    process.cwd() + EnvironmentConfig.content.staticPath,
+);
 console.log(staticPath);
 
 const app = express();

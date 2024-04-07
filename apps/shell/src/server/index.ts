@@ -1,6 +1,5 @@
 import { resolve } from 'path';
-import express, { Response } from 'express';
-import helmet from 'helmet';
+import express from 'express';
 import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
@@ -17,7 +16,9 @@ const defaultPort = isProduction
     ? EnvironmentConfig.shell.port
     : EnvironmentConfig.shell.port + 30;
 const port = process.env.PORT || defaultPort;
-const staticPath = resolve(process.cwd() + EnvironmentConfig.shell.staticPath + '/client');
+const staticPath = resolve(
+    process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
+);
 console.log(staticPath);
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
