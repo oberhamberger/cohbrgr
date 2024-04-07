@@ -8,7 +8,7 @@ USER node
 COPY --chown=node:node . /usr/app
 WORKDIR /usr/app
 
-RUN npm ci --ignore-scripts
+RUN npm i
 RUN npm run build:shell
 
 ENTRYPOINT ["node", "apps/shell"]
