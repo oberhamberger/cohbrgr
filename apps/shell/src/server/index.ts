@@ -19,7 +19,6 @@ const port = process.env.PORT || defaultPort;
 const staticPath = resolve(
     process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
 );
-console.log(staticPath);
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 

@@ -12,8 +12,6 @@ const contentUrl =
         ? EnvironmentConfig.content.location
         : `${EnvironmentConfig.content.location}:${contentPort}/`;
 
-console.log(contentUrl);
-
 const getContainerOptions = (isServer: boolean) => {
     return {
         remotes: {
