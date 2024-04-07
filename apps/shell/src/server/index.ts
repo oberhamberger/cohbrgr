@@ -1,22 +1,25 @@
-import { join } from 'path';
-import express, { Response } from 'express';
-import helmet from 'helmet';
+import { resolve } from 'path';
+import express from 'express';
 import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
-import { Logger } from '@cohbrgr/utils';
-import logging from 'src/server/middleware/logging';
-import methodDetermination from 'src/server/middleware/methodDetermination';
+import { EnvironmentConfig } from '@cohbrgr/environments';
+import { Logger, findProcessArgs } from '@cohbrgr/utils';
+import { logging, methodDetermination } from '@cohbrgr/server';
 import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
-import { findProcessArgs } from 'src/server/utils/findProcessArgs';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultPort = isProduction ? 3000 : 3030;
+const defaultPort = isProduction
+    ? EnvironmentConfig.shell.port
+    : EnvironmentConfig.shell.port + 30;
 const port = process.env.PORT || defaultPort;
-const staticPath = join(__dirname, '../client');
+const staticPath = resolve(
+    process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
+);
+console.log(staticPath);
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
@@ -51,24 +54,30 @@ app.use((req, res, next) => {
         : randomBytes(16).toString('hex');
     next();
 });
-app.use(
-    helmet({
-        contentSecurityPolicy: {
-            useDefaults: true,
-            directives: {
-                'script-src': [
-                    (req, res) =>
-                        `'nonce-${(res as Response).locals.cspNonce}'`,
-                ],
-                'manifest-src': ["'self'"],
-                'connect-src': ["'self'"],
-                'worker-src': ["'self'"],
-                'form-action': ["'none'"],
-                'default-src': ["'none'"],
-            },
-        },
-    }),
-);
+// app.use(
+//     helmet({
+//         contentSecurityPolicy: {
+//             useDefaults: true,
+//             directives: {
+//                 // 'script-src': [
+//                 //     (req, res) =>
+//                 //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
+//                 // ],
+//                 'script-src': [
+//                     "'self'",
+//                     "'unsafe-inline'",
+//                     'http://localhost:3031',
+//                     'cohbrgr-content-o44imzpega-oa.a.run.app',
+//                 ],
+//                 'manifest-src': ["'self'"],
+//                 'connect-src': ["'self'"],
+//                 'worker-src': ["'self'"],
+//                 'form-action': ["'none'"],
+//                 'default-src': ["'none'"],
+//             },
+//         },
+//     }),
+// );
 
 app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));

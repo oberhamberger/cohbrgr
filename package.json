@@ -7,7 +7,7 @@
     "private": true,
     "license": "ISC",
     "workspaces": [
-        "apps/**/*",
+        "apps/*",
         "packages/*"
     ],
     "keywords": [
@@ -20,12 +20,18 @@
     "scripts": {
         "bootstrap": "git clean -xfd && npm install && lerna run build",
         "prettier": "prettier --write .",
-        "build:compiler": "lerna run build --scope=@cohbrgr/build",
-        "postbuild:compiler": "npm ci",
-        "lint:shell": "lerna run lint --scope=@cohbrgr/shell",
-        "build:shell": "lerna run build --scope=@cohbrgr/shell",
+        "lint": "lerna run lint",
         "build": "lerna run build",
-        "start": "lerna run start --scope=@cohbrgr/shell",
+        "start": "lerna run start",
+        "serve": "lerna run serve",
+        "test": "lerna run test",
+        "build:compiler": "lerna run build --scope=@cohbrgr/build",
+        "build:shell": "lerna run build --scope=@cohbrgr/shell",
+        "build:content": "lerna run build --scope=@cohbrgr/content",
+        "start:shell": "lerna run start --scope=@cohbrgr/shell",
+        "start:content": "lerna run start --scope=@cohbrgr/content",
+        "serve:shell": "lerna run serve --scope=@cohbrgr/shell",
+        "serve:content": "lerna run serve --scope=@cohbrgr/content",
         "version": "lerna version"
     },
     "repository": {
@@ -39,16 +45,16 @@
     "dependencies": {
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router": "^6.22.1",
-        "react-router-dom": "^6.22.1"
+        "react-router": "^6.22.3",
+        "react-router-dom": "^6.22.3"
     },
     "devDependencies": {
-        "@types/node": "^20.11.19",
-        "@types/react": "^18.2.56",
-        "@types/react-dom": "^18.2.17",
+        "@types/node": "^20.11.30",
+        "@types/react": "^18.2.73",
+        "@types/react-dom": "^18.2.23",
         "@types/react-router": "^5.1.20",
         "@types/react-router-dom": "^5.3.3",
         "lerna": "^8.1.2",
-        "typescript": "^5.3.3"
+        "typescript": "^5.4.3"
     }
 }

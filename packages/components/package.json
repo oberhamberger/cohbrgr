@@ -1,0 +1,7 @@
+{
+    "name": "@cohbrgr/components",
+    "version": "1.0.3",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "main": "index.ts"
+}

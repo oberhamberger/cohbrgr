@@ -4,10 +4,11 @@
         "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
-            "src/*": ["./src/*"]
+            "src/*": ["./src/*"],
+            "@cohbrgr/content/*": ["../content/*"]
         },
         "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
-    "exclude": ["./dist"]
+    "exclude": ["./node_modules"]
 }
