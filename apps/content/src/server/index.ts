@@ -13,8 +13,6 @@ const port = process.env.PORT || defaultPort;
 const staticPath = resolve(
     process.cwd() + EnvironmentConfig.content.staticPath,
 );
-console.log(staticPath);
-
 const app = express();
 
 app.use(logging(isProduction));
