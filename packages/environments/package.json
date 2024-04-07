@@ -1,0 +1,10 @@
+{
+    "name": "@cohbrgr/environments",
+    "version": "1.0.3",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc"
+    }
+}

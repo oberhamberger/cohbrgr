@@ -1,0 +1,13 @@
+{
+    "extends": "@cohbrgr/tsconfig",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"]
+        },
+        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
+        "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
+    },
+    "exclude": ["./node_modules"]
+}

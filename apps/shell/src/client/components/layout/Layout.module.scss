@@ -1,8 +1,9 @@
 .layout {
     display: grid;
     align-content: space-between;
-    justify-content: start;
+    justify-content: space-evenly;
     height: 100vh;
+    justify-items: center;
 
     /* Avoid Chrome to see Safari hack */
     @supports (-webkit-touch-callout: none) {

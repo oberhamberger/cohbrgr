@@ -1,5 +1,5 @@
-import { resolve, join, dirname } from 'path';
-import { Configuration } from 'webpack';
+import { resolve, join } from 'path';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
@@ -12,36 +12,24 @@ import {
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 
-export default (): Configuration => {
+export default (federationPlugin: WebpackPluginInstance): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-        devtool: isProduction ? false : 'inline-source-map',
-        context: resolve(CWD, `./src/server`),
+        devtool: isProduction ? false : 'source-map',
+        context: resolve(CWD, `./src`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            modules: [
-                join(CWD, ''),
-                join(CWD, 'node_modules'),
-                join(
-                    dirname(require.main?.filename || ''),
-                    '..',
-                    'node_modules',
-                ),
-                join(dirname(require.main?.filename || ''), 'node_modules'),
-                'node_modules',
-                'node_modules',
-            ],
-            alias: { packages: 'packages/' },
+            modules: [join(CWD, ''), join(CWD, '../..', 'node_modules')],
         },
         entry: {
-            server: `src/server`,
+            index: './server/index.ts',
         },
-        target: 'node',
+        target: false,
         module: {
             rules: [
                 {
                     test: regexSource,
-                    loader: 'ts-loader',
+                    loader: 'esbuild-loader',
                     exclude: /node_modules/,
                 },
                 {
@@ -56,16 +44,20 @@ export default (): Configuration => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
+            federationPlugin,
             new NodemonPlugin(),
         ],
         output: {
-            path: resolve(CWD, './dist/server/'),
+            path: resolve(CWD, './dist/server'),
             filename: 'index.js',
             clean: true,
             publicPath: '/',
         },
         externals: {
             express: "require('express')",
+        },
+        stats: {
+            colors: true,
         },
     };
 };

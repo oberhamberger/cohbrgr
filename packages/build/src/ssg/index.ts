@@ -1,9 +1,9 @@
 import { writeFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { fork } from 'child_process';
-import routes from '@cohbrgr/shell-client/routes';
-import { Logger } from '@cohbrgr/utils';
 import { port } from 'src/utils/constants';
+import routes from '@cohbrgr/shell/src/client/routes';
+import { Logger } from '@cohbrgr/utils';
 
 const serverAddress = `http://localhost:${port}`;
 const staticOutputPath = 'dist/client/static';
