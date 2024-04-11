@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/server",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/index.js",
@@ -8,8 +8,8 @@
         "build": "tsc"
     },
     "devDependencies": {
-        "@cohbrgr/eslint": "*",
-        "@cohbrgr/jest": "*",
+        "@cohbrgr/eslint": "^1.1.0",
+        "@cohbrgr/jest": "^1.1.0",
         "@testing-library/jest-dom": "^6.1.5",
         "@testing-library/react": "^14.2.2",
         "@types/compression": "^1.7.5",
