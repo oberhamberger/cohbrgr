@@ -5,7 +5,7 @@
     "license": "ISC",
     "main": "index.js",
     "dependencies": {
-        "eslint": "^8.57.0",
+        "eslint": "^9.0.0",
         "typescript-eslint": "^7.6.0"
     }
 }
