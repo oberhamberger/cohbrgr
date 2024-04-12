@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import styles from './Spinner.module.scss';
+import * as styles from './Spinner.module.scss';
 
 export const Spinner: FunctionComponent = () => {
     return (
