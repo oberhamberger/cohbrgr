@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@cohbrgr/environments": "^1.1.0",
-        "@module-federation/node": "1.0.7",
+        "@module-federation/node": "2.1.3",
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.6.3",
         "@types/webpack-env": "^1.18.4",

@@ -12,9 +12,8 @@ import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultPort = isProduction
-    ? EnvironmentConfig.shell.port
-    : EnvironmentConfig.shell.port + 30;
+const defaultPort = EnvironmentConfig.shell.port
+    
 const port = process.env.PORT || defaultPort;
 const staticPath = resolve(
     process.cwd() + EnvironmentConfig.shell.staticPath + '/client',

@@ -3,7 +3,7 @@ const isDocker = process.env.DOCKER === 'true';
 
 const Config = {
     shell: {
-        port: 3000,
+        port: isProduction ? 3000 : 3030,
         location: {
             local: 'http://localhost',
             production: 'https://cohbrgr-shell-o44imzpega-oa.a.run.app/',
@@ -14,7 +14,7 @@ const Config = {
         },
     },
     content: {
-        port: 3001,
+        port: isProduction ? 3001 : 3031,
         location: {
             local: 'http://localhost',
             production: 'https://cohbrgr-content-o44imzpega-oa.a.run.app/',

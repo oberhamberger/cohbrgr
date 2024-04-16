@@ -1,5 +1,6 @@
 import { resolve, join } from 'path';
 import { Configuration, WebpackPluginInstance } from 'webpack';
+import Config from '@cohbrgr/environments';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -91,6 +92,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
         },
         output: {
             path: resolve(CWD, './dist/client'),
+            publicPath: `http://localhost:${isShell ? Config.shell.port : Config.content.port}/`,
             clean: true,
             filename: isProduction
                 ? `${isShell ? 'js/' : ''}[name].[contenthash].js`
