@@ -2,6 +2,7 @@ import { resolve, join } from 'path';
 import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { InjectManifest } from 'workbox-webpack-plugin';
@@ -54,6 +55,9 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
                 filename: isProduction
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
+            }),
+            new HtmlWebpackPlugin({
+                title: 'cohbrgr',
             }),
             federationPlugin,
             ...(isShell
