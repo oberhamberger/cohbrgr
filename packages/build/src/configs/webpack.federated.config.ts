@@ -1,26 +1,30 @@
-import { container } from 'webpack';
+import EnvironmentConfig from '@cohbrgr/environments';
+import { UniversalFederationPlugin } from '@module-federation/node';
 import { dependencies } from '../../../../package.json';
+import { isProduction } from 'src/utils/constants';
 
-export default {
-    shell: new container.ModuleFederationPlugin({
-        name: 'shell',
-        filename: 'container.js',
+const contentPort = isProduction
+    ? EnvironmentConfig.content.port
+    : EnvironmentConfig.content.port + 30;
+
+const contentUrl =
+    process.env?.DOCKER === 'true'
+        ? EnvironmentConfig.content.location
+        : `${EnvironmentConfig.content.location}:${contentPort}/`;
+
+const getContainerOptions = (isServer: boolean) => {
+    return {
         remotes: {
-            remote1: 'remote1@http://localhost:3001/shell/remoteEntry.js',
+            content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
-        shared: [
-            {
-                react: dependencies.react,
-                'react-dom': dependencies['react-dom'],
-            },
-        ],
-    }),
-    content: new container.ModuleFederationPlugin({
-        name: 'remote2',
-        filename: 'remoteEntry.js',
-        remotes: {},
+        // shared: [{ react: dependencies.react, 'react-dom': dependencies['react-dom'] }]
+    };
+};
+
+const getRemoteOptions = () => {
+    return {
         exposes: {
-            './content': './content',
+            './Content': 'src/client/components/content',
         },
         shared: {
             ...dependencies,
@@ -33,5 +37,34 @@ export default {
                 requiredVersion: dependencies['react-dom'],
             },
         },
-    }),
+    };
+};
+
+const getServerFederationConfig = (isShell: boolean) => {
+    return {
+        filename: 'remoteEntry.js',
+        name: isShell ? 'shell' : 'content',
+        isServer: true,
+        library: { type: 'commonjs-module' },
+        ...(isShell ? getContainerOptions(true) : getRemoteOptions()),
+    };
+};
+
+const getClientFederationConfig = (isShell: boolean) => {
+    return {
+        filename: !isShell ? 'remoteEntry.js' : 'container.js',
+        name: isShell ? 'shell' : 'content',
+        isServer: false,
+        ...(isShell ? getContainerOptions(false) : getRemoteOptions()),
+    };
+};
+
+export default (isShell: boolean) => {
+    const clientFederationConfig = getClientFederationConfig(isShell);
+    const serverFederationConfig = getServerFederationConfig(isShell);
+
+    return {
+        client: new UniversalFederationPlugin(clientFederationConfig, {}),
+        server: new UniversalFederationPlugin(serverFederationConfig, {}),
+    };
 };

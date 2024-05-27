@@ -1,0 +1,27 @@
+{
+    "name": "@cohbrgr/content",
+    "version": "1.1.0",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "main": "dist/server",
+    "scripts": {
+        "serve": "node .",
+        "lint": "eslint src",
+        "prettier": "prettier --write .",
+        "build": "NODE_ENV=production build",
+        "start": "NODE_ENV=development build -w",
+        "test": "jest"
+    },
+    "dependencies": {
+        "express": "^4.19.2"
+    },
+    "devDependencies": {
+        "@cohbrgr/build": "^1.1.0",
+        "@cohbrgr/environments": "^1.1.0",
+        "@cohbrgr/eslint": "^1.1.0",
+        "@cohbrgr/jest": "^1.1.0",
+        "@testing-library/jest-dom": "^6.4.5",
+        "@testing-library/react": "^15.0.7",
+        "@types/express": "^4.17.21"
+    }
+}

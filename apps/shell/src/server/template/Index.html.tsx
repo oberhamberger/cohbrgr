@@ -12,7 +12,7 @@ interface IIndexProps {
     isProduction: boolean;
     location: string;
     useCSR: boolean;
-    nonce: string;
+    // nonce: string;
     httpContextData: HttpContextData;
 }
 
@@ -69,14 +69,14 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 <Stylesheets
                     isProduction={props.isProduction}
-                    nonce={props.nonce}
+                    // nonce={props.nonce}
                 />
             </head>
             <body>
                 <div id="root">
                     <AppStateProvider
                         context={{
-                            nonce: props.nonce,
+                            // nonce: props.nonce,
                             isProduction: props.isProduction,
                         }}
                     >
@@ -90,7 +90,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 {props.useCSR && props.location !== routes.offline && (
                     <Javascript
-                        nonce={props.nonce}
+                        // nonce={props.nonce}
                         isProduction={props.isProduction}
                     />
                 )}
