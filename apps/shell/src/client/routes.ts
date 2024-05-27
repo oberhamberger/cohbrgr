@@ -1,7 +1,7 @@
-enum routes {
+enum AppRoutes {
     start = '/',
     offline = '/offline',
     notFound = '*',
 }
 
-export default routes;
+export default AppRoutes;

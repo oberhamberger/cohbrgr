@@ -1,5 +1,5 @@
-import { resolve, dirname, join } from 'path';
-import { Configuration } from 'webpack';
+import { resolve, join } from 'path';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -14,41 +14,28 @@ import {
     regexSource,
     Mode,
     CWD,
+    isShell,
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 
-// import moduleFederationPlugin from 'build/configs/webpack.federated.config';
-
-export default (): Configuration => {
+export default (federationPlugin: WebpackPluginInstance): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
-        devtool: isProduction ? false : 'inline-source-map',
-        context: resolve(CWD, `./src/client`),
+        devtool: isProduction ? false : 'source-map',
+        context: resolve(CWD, `./src`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            modules: [
-                join(CWD, ''),
-                join(CWD, 'node_modules'),
-                join(
-                    dirname(require.main?.filename || ''),
-                    '../..',
-                    'node_modules',
-                ),
-                join(dirname(require.main?.filename || ''), 'node_modules'),
-                'node_modules',
-                'node_modules',
-            ],
-            alias: { src: 'src/' },
+            modules: [join(CWD, ''), join(CWD, '../..', 'node_modules')],
         },
         entry: {
-            bundle: `src/client`,
+            bundle: './client/index.tsx',
         },
         target: 'web',
         module: {
             rules: [
                 {
                     test: regexSource,
-                    loader: 'ts-loader',
+                    loader: 'esbuild-loader',
                     exclude: /node_modules/,
                 },
                 {
@@ -68,14 +55,18 @@ export default (): Configuration => {
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
             }),
-            new CopyPlugin({
-                patterns: [{ from: '../../src/client/assets', to: './' }],
-            }),
-            // moduleFederationPlugin.shell,
-            ...(isProduction
+            federationPlugin,
+            ...(isShell
+                ? [
+                      new CopyPlugin({
+                          patterns: [{ from: './client/assets', to: './' }],
+                      }),
+                  ]
+                : []),
+            ...(isProduction && isShell
                 ? [
                       new InjectManifest({
-                          swSrc: './service-worker',
+                          swSrc: './client/service-worker',
                           swDest: serviceWorker,
                           include: [/\.js$/],
                       }),
@@ -94,37 +85,16 @@ export default (): Configuration => {
         optimization: {
             chunkIds: isProduction ? 'natural' : 'named',
             minimize: isProduction,
-            runtimeChunk: { name: 'webpack' },
             splitChunks: {
-                cacheGroups: {
-                    react: {
-                        name: 'react',
-                        test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-                        chunks: 'all',
-                        priority: 40,
-                        enforce: true,
-                    },
-                    workbox: {
-                        name: 'workbox',
-                        test: /[\\/]node_modules[\\/](workbox-window)[\\/]/,
-                        chunks: 'all',
-                        priority: 40,
-                        enforce: true,
-                    },
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'vendor',
-                        chunks: 'all',
-                    },
-                },
+                chunks: 'all',
             },
         },
         output: {
             path: resolve(CWD, './dist/client'),
             clean: true,
             filename: isProduction
-                ? 'js/[name].[contenthash].js'
-                : 'js/[name].js',
+                ? `${isShell ? 'js/' : ''}[name].[contenthash].js`
+                : `${isShell ? 'js/' : ''}[name].js`,
         },
     };
 };

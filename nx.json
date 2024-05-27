@@ -13,7 +13,7 @@
         },
 
         "start": {
-            "cache": false,
+            "cache": true,
             "dependsOn": ["^build", "prestart"],
             "outputs": ["{projectRoot}/dist"]
         },

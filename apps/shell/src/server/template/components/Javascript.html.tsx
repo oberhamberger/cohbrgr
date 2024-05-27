@@ -2,17 +2,21 @@ import { FunctionComponent } from 'react';
 import { readdirSync } from 'fs';
 import { resolve, extname } from 'path';
 import { Logger } from '@cohbrgr/utils';
+import EnvironmentConfig from '@cohbrgr/environments';
 import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
-    nonce: string;
+    // nonce: string;
     isProduction: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
+const jsDirectoryPath = resolve(
+    process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/js`,
+);
 let scriptFiles: string[] = [];
 try {
-    scriptFiles = readdirSync(resolve(__dirname + '/../client/js')).filter(
+    scriptFiles = readdirSync(jsDirectoryPath).filter(
         (fileName) => extname(fileName) === '.js',
     );
 } catch (err) {
@@ -31,7 +35,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
             {
                 <script
                     id="initial-state"
-                    nonce={props.nonce}
+                    // nonce={props.nonce}
                     dangerouslySetInnerHTML={{
                         __html: `__initial_state__ = JSON.parse('${JSON.stringify(
                             __initial_state__,
@@ -45,7 +49,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     async
                     type="module"
                     crossOrigin="use-credentials"
-                    nonce={props.nonce}
+                    // nonce={props.nonce}
                     src={`/js/${file}`}
                 ></script>
             ))}
