@@ -5,16 +5,13 @@
 // blush pink: #f9f3f4
 
 :root {
-    --color-background-light: #fff;
-    --gradient-background-light: linear-gradient(to right, #005d56, #8c7e59);
-    --color-font-light: #000;
+    --color-background-light: var(--cohbrgr-styles-color-background-light);
+    --gradient-background-light: linear-gradient(to right, var(--cohbrgr-styles-color-background-gradient-left-light), var(--cohbrgr-styles-color-background-gradient-right-light));
+    --color-font-light: var(--cohbrgr-styles-color-font-light);
 
-    --color-background-dark: #000;
-    --gradient-background-dark: linear-gradient(to right, #004d55, #f9bdd5);
-    --color-font-dark: #fff;
-
-    --color-highlight-light: #217c84;
-    --color-highlight-dark: aquamarine;
+    --color-background-dark: var(--cohbrgr-styles-color-background-dark);
+    --gradient-background-dark: linear-gradient(to right, var(--cohbrgr-styles-color-background-gradient-left-dark), var(--cohbrgr-styles-color-background-gradient-right-dark));
+    --color-font-dark: var(--cohbrgr-styles-color-font-dark);
 
     --color-background: var(--color-background-light);
     --gradient-background: var(--gradient-background-light);
@@ -28,6 +25,5 @@
         --color-highlight: var(--color-highlight-dark);
     }
 
-    --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    --font-system: var(--cohbrgr-styles-font-system)
 }
