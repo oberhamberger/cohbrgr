@@ -30,7 +30,7 @@
     },
     "devDependencies": {
         "@cohbrgr/build": "^1.1.0",
-        "@cohbrgr/design-tokens": "^1.0.1",
+        "@cohbrgr/figma": "^1.0.1",
         "@cohbrgr/environments": "^1.1.0",
         "@cohbrgr/eslint": "^1.1.0",
         "@cohbrgr/jest": "^1.1.0",
