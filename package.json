@@ -27,7 +27,7 @@
         "test": "lerna run test",
         "build:compiler": "lerna run build --scope=@cohbrgr/build",
         "build:shell": "lerna run build --scope=@cohbrgr/shell",
-        "build:tokens": "lerna run build --scope=@cohbrgr/design-tokens",
+        "build:figma": "lerna run build --scope=@cohbrgr/figma",
         "build:content": "lerna run build --scope=@cohbrgr/content",
         "start:shell": "lerna run start --scope=@cohbrgr/shell",
         "start:content": "lerna run start --scope=@cohbrgr/content",
