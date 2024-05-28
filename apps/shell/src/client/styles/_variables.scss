@@ -6,11 +6,19 @@
 
 :root {
     --color-background-light: var(--cohbrgr-styles-color-background-light);
-    --gradient-background-light: linear-gradient(to right, var(--cohbrgr-styles-color-background-gradient-left-light), var(--cohbrgr-styles-color-background-gradient-right-light));
+    --gradient-background-light: linear-gradient(
+        to right,
+        var(--cohbrgr-styles-color-background-gradient-left-light),
+        var(--cohbrgr-styles-color-background-gradient-right-light)
+    );
     --color-font-light: var(--cohbrgr-styles-color-font-light);
 
     --color-background-dark: var(--cohbrgr-styles-color-background-dark);
-    --gradient-background-dark: linear-gradient(to right, var(--cohbrgr-styles-color-background-gradient-left-dark), var(--cohbrgr-styles-color-background-gradient-right-dark));
+    --gradient-background-dark: linear-gradient(
+        to right,
+        var(--cohbrgr-styles-color-background-gradient-left-dark),
+        var(--cohbrgr-styles-color-background-gradient-right-dark)
+    );
     --color-font-dark: var(--cohbrgr-styles-color-font-dark);
 
     --color-background: var(--color-background-light);
@@ -25,5 +33,5 @@
         --color-highlight: var(--color-highlight-dark);
     }
 
-    --font-system: var(--cohbrgr-styles-font-system)
+    --font-system: var(--cohbrgr-styles-font-system);
 }
