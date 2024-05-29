@@ -5,7 +5,6 @@
         "baseUrl": ".",
         "paths": {
             "src/*": ["../src/*"],
-            "@cohbrgr/content/*": ["../../content/*"]
         },
         "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]

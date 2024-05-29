@@ -11,6 +11,8 @@ import {
     CWD,
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
+import EnvironmentConfig from '@cohbrgr/environments';
+import { isShell } from 'src/utils/constants';
 
 export default (federationPlugin: WebpackPluginInstance): Configuration => {
     return {
@@ -51,7 +53,11 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
             path: resolve(CWD, './dist/server'),
             filename: 'index.js',
             clean: true,
-            publicPath: '/',
+            publicPath: `localhost:${isShell ? EnvironmentConfig.shell.port : EnvironmentConfig.content.port}/`,
+
+            environment: {
+                asyncFunction: true
+            }
         },
         externals: {
             express: "require('express')",

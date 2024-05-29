@@ -58,16 +58,14 @@ const render =
                             resolve(body);
                         },
                         onShellError(error) {
-                            Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
-                            reject(new Error('Something went wrong'));
+                            reject(error);
                         },
                         onError(error) {
-                            Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
-                            reject(new Error('Something went wrong'));
+                            reject(error);
                         },
                     },
                 );

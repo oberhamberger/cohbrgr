@@ -11,12 +11,9 @@ import NotFound from 'src/client/pages/not-found';
 import AppRoutes from 'src/client/routes';
 import { Spinner } from '@cohbrgr/components';
 
-const Content = lazy(
-    () =>
-        import('content/Content') as Promise<{
+const Content = lazy(() => import('@cohbrgr/content') as Promise<{
             default: FunctionComponent<IContent>;
-        }>,
-);
+        }>);
 
 const App: FunctionComponent = () => {
     const { nonce } = useContext(AppStateContext);

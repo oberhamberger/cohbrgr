@@ -12,7 +12,7 @@ const contentUrl =
 const getContainerOptions = (isServer: boolean) => {
     return {
         remotes: {
-            content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
+            '@cohbrgr/content': `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         }
     };
 };
@@ -20,7 +20,7 @@ const getContainerOptions = (isServer: boolean) => {
 const getRemoteOptions = () => {
     return {
         exposes: {
-            './Content': 'src/client/components/content',
+            'content': 'src/client/components/content',
         },
     };
 };
