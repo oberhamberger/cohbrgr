@@ -111,3 +111,6 @@ dist
 # project specific
 
 .nx
+
+# not using intellij for this project
+.idea
