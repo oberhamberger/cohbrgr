@@ -110,4 +110,4 @@ dist
 
 # project specific
 
-.nx/cache
+.nx
