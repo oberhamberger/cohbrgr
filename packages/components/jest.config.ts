@@ -3,9 +3,9 @@ import baseConfig from '@cohbrgr/jest';
 
 const config: JestConfigWithTsJest = {
     ...baseConfig,
-    displayName: 'server',
-    testEnvironment: 'node',
-    rootDir: '.',
+    displayName: 'components',
+    testEnvironment: 'jsdom',
+    rootDir: './',
     modulePaths: ['node_modules', '<rootDir>'],
     testMatch: [
         '**/__tests__/**/*.+(ts|tsx|js)',
@@ -13,6 +13,4 @@ const config: JestConfigWithTsJest = {
     ],
 };
 
-export default {
-    projects: [config],
-};
+export default config;
