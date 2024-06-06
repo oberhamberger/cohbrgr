@@ -3,5 +3,11 @@
     "version": "1.2.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "index.ts"
+    "main": "index.ts",
+    "scripts": {
+        "serve": "node .",
+        "lint": "eslint src",
+        "prettier": "prettier --write .",
+        "test": "jest"
+    }
 }
