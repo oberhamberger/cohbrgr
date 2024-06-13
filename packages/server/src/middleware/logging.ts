@@ -3,7 +3,7 @@ import { Logger } from '@cohbrgr/utils';
 
 export const logging =
     (isProduction: boolean) =>
-    (req: Request, res: Response, next: NextFunction) => {
+    (req: Request, _res: Response, next: NextFunction) => {
         if (!isProduction) {
             Logger.info(`Requesting: ${req.url}`);
         } else {
