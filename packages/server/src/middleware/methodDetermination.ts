@@ -26,4 +26,5 @@ export const methodDetermination = (
         return res.send('Method Not allowed');
     }
     next();
+    return;
 };
