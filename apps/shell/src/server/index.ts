@@ -11,11 +11,11 @@ import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction
     ? EnvironmentConfig.shell.port
     : EnvironmentConfig.shell.port + 30;
-const port = process.env.PORT || defaultPort;
+const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(
     process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
 );
@@ -40,6 +40,8 @@ if (isProduction) {
             },
         }),
     );
+    app.set('trust proxy', 1)
+    app.get('/ip', (request, response) => response.send(request.ip))
 }
 
 app.use(nocache());
@@ -47,8 +49,8 @@ app.use(logging(isProduction));
 app.use(methodDetermination);
 app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
-app.use((req, res, next) => {
-    res.locals.cspNonce = isGenerator
+app.use((_req, res, next) => {
+    res.locals['cspNonce'] = isGenerator
         ? '!CSPNONCE_PLACEHOLDER!'
         : randomBytes(16).toString('hex');
     next();

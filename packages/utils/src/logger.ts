@@ -8,7 +8,7 @@ export const Logger = winston.createLogger({
         }),
         winston.format.printf(
             (info) =>
-                `${info.timestamp} ${info.level.toUpperCase()}: ${
+                `${info['timestamp']} ${info.level.toUpperCase()}: ${
                     info.message
                 }`,
         ),

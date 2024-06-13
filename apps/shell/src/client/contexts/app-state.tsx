@@ -3,6 +3,7 @@ import { State } from 'src/client/store/state';
 
 const initialAppStateContext: State = {
     isProduction: false,
+    nonce: ''
 };
 
 type ProviderProps = {
