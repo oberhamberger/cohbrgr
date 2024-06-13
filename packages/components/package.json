@@ -6,7 +6,7 @@
     "main": "index.ts",
     "scripts": {
         "serve": "node .",
-        "lint": "eslint src",
+        "lint": "eslint",
         "prettier": "prettier --write .",
         "test": "jest"
     }

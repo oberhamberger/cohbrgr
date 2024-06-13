@@ -1,5 +1,4 @@
-const isProduction = process.env.NODE_ENV === 'production';
-const isDocker = process.env.DOCKER === 'true';
+const isDocker = process.env['DOCKER'] === 'true';
 
 const Config = {
     shell: {
