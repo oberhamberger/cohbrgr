@@ -25,6 +25,7 @@ const isGenerator = findProcessArgs(['--generator']);
 const app = express();
 
 if (isProduction) {
+    app.set('trust proxy', 1);
     app.use(
         rateLimit({
             windowMs: 10 * 60 * 1000, // 10 minutes
@@ -40,8 +41,6 @@ if (isProduction) {
             },
         }),
     );
-    app.set('trust proxy', 2);
-    app.get('/ip', (request, response) => response.send(request.ip));
 }
 
 app.use(nocache());
