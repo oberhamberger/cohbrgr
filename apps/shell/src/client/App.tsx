@@ -1,4 +1,10 @@
-import { FunctionComponent, lazy, Suspense, useContext, useEffect } from 'react';
+import {
+    FunctionComponent,
+    lazy,
+    Suspense,
+    useContext,
+    useEffect,
+} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
 import { AppStateContext } from 'src/client/contexts/app-state';
@@ -20,13 +26,10 @@ const Content = lazy(
 );
 
 const App: FunctionComponent = () => {
-
     useEffect(() => {
-
         onCLS(console.log);
         onINP(console.log);
         onLCP(console.log);
-
     }, []);
 
     const { nonce } = useContext(AppStateContext);
