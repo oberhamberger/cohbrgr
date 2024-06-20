@@ -30,7 +30,7 @@ if (isProduction) {
         rateLimit({
             windowMs: 10 * 60 * 1000, // 10 minutes
             max: 500, // limit each IP to 500 requests per window
-            handler: (request, response, next, options) => {
+            handler: (request, response, _next, options) => {
                 Logger.log(
                     'warn',
                     `Restricted request from ${request.ip} for ${request.path}`,
