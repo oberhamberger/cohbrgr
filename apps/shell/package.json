@@ -21,7 +21,7 @@
         "helmet": "^7.1.0",
         "html-validate": "^8.20.1",
         "nocache": "^4.0.0",
-        "node-mocks-http": "^1.13.0",
+        "node-mocks-http": "^1.15.0",
         "workbox-core": "^7.1.0",
         "workbox-expiration": "^7.1.0",
         "workbox-routing": "^7.1.0",
