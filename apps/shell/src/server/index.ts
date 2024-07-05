@@ -11,10 +11,11 @@ import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const defaultPort = EnvironmentConfig.shell.port
-    
-const port = process.env.PORT || defaultPort;
+const isProduction = process.env['NODE_ENV'] === 'production';
+const defaultPort = isProduction
+    ? EnvironmentConfig.shell.port
+    : EnvironmentConfig.shell.port + 30;
+const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(
     process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
 );
@@ -24,11 +25,12 @@ const isGenerator = findProcessArgs(['--generator']);
 const app = express();
 
 if (isProduction) {
+    app.set('trust proxy', 1);
     app.use(
         rateLimit({
             windowMs: 10 * 60 * 1000, // 10 minutes
             max: 500, // limit each IP to 500 requests per window
-            handler: (request, response, next, options) => {
+            handler: (request, response, _next, options) => {
                 Logger.log(
                     'warn',
                     `Restricted request from ${request.ip} for ${request.path}`,
@@ -46,8 +48,8 @@ app.use(logging(isProduction));
 app.use(methodDetermination);
 app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
-app.use((req, res, next) => {
-    res.locals.cspNonce = isGenerator
+app.use((_req, res, next) => {
+    res.locals['cspNonce'] = isGenerator
         ? '!CSPNONCE_PLACEHOLDER!'
         : randomBytes(16).toString('hex');
     next();

@@ -110,4 +110,7 @@ dist
 
 # project specific
 
-.nx/cache
+.nx
+
+# not using intellij for this project
+.idea

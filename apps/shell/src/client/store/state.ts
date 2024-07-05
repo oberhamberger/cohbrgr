@@ -1,4 +1,4 @@
 export type State = {
     isProduction: boolean;
-    nonce?: string;
+    nonce: string;
 };

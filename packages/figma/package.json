@@ -1,0 +1,13 @@
+{
+    "name": "@cohbrgr/figma",
+    "version": "1.2.1",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "main": "dist/css/_variables.css",
+    "scripts": {
+        "build": "style-dictionary build"
+    },
+    "dependencies": {
+        "style-dictionary": "^4.0.0"
+    }
+}
