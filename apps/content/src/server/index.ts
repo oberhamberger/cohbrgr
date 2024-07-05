@@ -4,9 +4,9 @@ import { Logger } from '@cohbrgr/utils';
 import { logging, methodDetermination } from '@cohbrgr/server';
 import EnvironmentConfig from '@cohbrgr/environments';
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = EnvironmentConfig.content.port;
-const port = process.env.PORT || defaultPort;
+const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(
     process.cwd() + EnvironmentConfig.content.staticPath,
 );
