@@ -8,6 +8,6 @@
         "build": "style-dictionary build"
     },
     "dependencies": {
-        "style-dictionary": "^4.0.0"
+        "style-dictionary": "^4.0.1"
     }
 }
