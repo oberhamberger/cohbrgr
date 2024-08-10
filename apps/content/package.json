@@ -6,7 +6,7 @@
     "main": "dist/server",
     "scripts": {
         "serve": "node .",
-        "lint": "eslint src",
+        "lint": "eslint",
         "prettier": "prettier --write .",
         "build": "NODE_ENV=production build",
         "start": "NODE_ENV=development build -w",
