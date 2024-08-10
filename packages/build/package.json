@@ -8,7 +8,7 @@
         "build": "bin/index.js"
     },
     "scripts": {
-        "lint": "eslint src",
+        "lint": "eslint",
         "build": "node esbuild.config.mjs"
     },
     "dependencies": {

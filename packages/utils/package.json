@@ -5,6 +5,6 @@
     "license": "ISC",
     "main": "index.ts",
     "dependencies": {
-        "winston": "^3.13.1"
+        "winston": "^3.14.1"
     }
 }
