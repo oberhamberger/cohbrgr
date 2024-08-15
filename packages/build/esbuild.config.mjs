@@ -7,11 +7,9 @@ const packageJson = JSON.parse(rawPackageJson);
 const options = {
     entryPoints: ['./src/index.ts'],
     bundle: true,
-
     platform: 'node',
+    // format: 'esm',
     outfile: 'dist/index.js',
-    sourcemap: false,
-    minify: true,
     external: [
         ...Object.keys(packageJson.dependencies),
         './worker',

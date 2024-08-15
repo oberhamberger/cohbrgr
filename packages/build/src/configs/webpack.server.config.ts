@@ -1,5 +1,5 @@
 import { resolve, join } from 'path';
-import { Configuration, WebpackPluginInstance } from 'webpack';
+import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
@@ -10,11 +10,15 @@ import {
     Mode,
     CWD,
 } from 'src/utils/constants';
+import { UniversalFederationPlugin } from '@module-federation/node';
 import getStyleLoader from 'src/loader/style.loader';
 import EnvironmentConfig from '@cohbrgr/environments';
 import { isShell } from 'src/utils/constants';
 
-export default (federationPlugin: WebpackPluginInstance): Configuration => {
+export default async (): Promise<Configuration> => {
+    const federationPlugin = await import(CWD + '/build.cjs');
+    const federationOptions = federationPlugin.default.default();
+    
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
@@ -26,7 +30,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
         entry: {
             index: './server/index.ts',
         },
-        target: false,
+        target: 'node',
         module: {
             rules: [
                 {
@@ -46,7 +50,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
-            federationPlugin,
+            new UniversalFederationPlugin(federationOptions.server, {}),
             new NodemonPlugin(),
         ],
         output: {

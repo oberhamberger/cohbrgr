@@ -1,9 +1,10 @@
 import { resolve, join } from 'path';
-import { Configuration, WebpackPluginInstance } from 'webpack';
+import { Configuration } from 'webpack';
 import Config from '@cohbrgr/environments';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { UniversalFederationPlugin } from '@module-federation/node';
 import CopyPlugin from 'copy-webpack-plugin';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -19,7 +20,10 @@ import {
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 
-export default (federationPlugin: WebpackPluginInstance): Configuration => {
+export default async (): Promise<Configuration> => {
+    const federationPlugin = await import(CWD + '/build.cjs');
+    const federationOptions = federationPlugin.default.default();
+
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
@@ -56,7 +60,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
             }),
-            federationPlugin,
+            new UniversalFederationPlugin(federationOptions.client, {}),,
             ...(isShell
                 ? [
                       new CopyPlugin({

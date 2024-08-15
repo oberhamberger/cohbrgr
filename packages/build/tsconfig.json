@@ -1,11 +1,16 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "allowJs": true,
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]
         },
         "typeRoots": ["node_modules/@types", "/src/@types/*"]
     },
+    "include": ["src/**/*"],
     "exclude": ["./bin"]
 }

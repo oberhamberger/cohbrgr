@@ -1,61 +1,65 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
+
 import { Logger } from '@cohbrgr/utils';
+
 import getWebpackClientConfig from 'src/configs/webpack.client.config';
 import getWebpackServerConfig from 'src/configs/webpack.server.config';
-import moduleFederationPlugin from 'src/configs/webpack.federated.config';
 import staticSiteGenerator from 'src/ssg';
-import { isWatch, isSSG, isShell } from 'src/utils/constants';
+import { isWatch, isSSG } from 'src/utils/constants';
 
-const federationPlugins = moduleFederationPlugin(isShell);
-const configs: [Configuration[]?] = [];
+const webpackconfigs = (async () => {
 
-configs.push([
-    getWebpackClientConfig(federationPlugins.client),
-    getWebpackServerConfig(federationPlugins.server),
-]);
+    const configs: [Configuration[]?] = [];
 
-configs.forEach((config) => {
-    if (!config) {
-        Logger.error('No Config');
-        throw 'No Config';
-    }
+    configs.push([
+        await getWebpackClientConfig(),
+        await getWebpackServerConfig(),
+    ]);
 
-    const compiler = webpack(config);
-    const compilerCallback = (err?: Error | null, result?: MultiStats) => {
-        if (err) {
-            Logger.error(err.stack);
-        }
-        if (!result) {
-            Logger.warn('Compiler returned no result.');
-            throw 'No Result from Compiler';
+    return configs.forEach((config) => {
+        if (!config) {
+            Logger.error('No Config');
+            throw 'No Config';
         }
 
-        const rawMessages = result.toJson();
-        if (rawMessages.errors?.length) {
-            rawMessages.errors.forEach((e) => {
-                Logger.error(e);
-            });
-            throw rawMessages.errors;
-        }
-        if (rawMessages.warnings?.length) {
-            rawMessages.warnings.forEach((w) => {
-                Logger.warn(w);
-            });
-        }
-        if (!rawMessages.errors?.length && !rawMessages.warnings?.length) {
-            Logger.info(`compiled successfully.`);
-        }
+        const compiler = webpack(config);
+        const compilerCallback = (err?: Error | null, result?: MultiStats) => {
+            if (err) {
+                Logger.error(err.stack);
+            }
+            if (!result) {
+                Logger.warn('Compiler returned no result.');
+                throw 'No Result from Compiler';
+            }
 
-        if (isSSG) {
-            staticSiteGenerator();
+            const rawMessages = result.toJson();
+            if (rawMessages.errors?.length) {
+                rawMessages.errors.forEach((e) => {
+                    Logger.error(e);
+                });
+                throw rawMessages.errors;
+            }
+            if (rawMessages.warnings?.length) {
+                rawMessages.warnings.forEach((w) => {
+                    Logger.warn(w);
+                });
+            }
+            if (!rawMessages.errors?.length && !rawMessages.warnings?.length) {
+                Logger.info(`compiled successfully.`);
+            }
+
+            if (isSSG) {
+                staticSiteGenerator();
+            }
+        };
+
+        if (isWatch) {
+            compiler.watch({}, compilerCallback);
+        } else {
+            compiler.run(compilerCallback);
         }
-    };
+    });
+})();
 
-    if (isWatch) {
-        compiler.watch({}, compilerCallback);
-    } else {
-        compiler.run(compilerCallback);
-    }
-});
 
-export default configs;
+export default webpackconfigs;
