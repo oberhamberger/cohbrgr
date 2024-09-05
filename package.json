@@ -47,16 +47,16 @@
     "dependencies": {
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-router": "^6.26.0",
-        "react-router-dom": "^6.26.0",
+        "react-router": "^6.26.1",
+        "react-router-dom": "^6.26.1",
         "web-vitals": "^4.2.3"
     },
     "devDependencies": {
-        "@testing-library/jest-dom": "^6.4.8",
-        "@testing-library/react": "^16.0.0",
+        "@testing-library/jest-dom": "^6.5.0",
+        "@testing-library/react": "^16.0.1",
         "@types/jest": "^29.5.11",
-        "@types/node": "^22.3.0",
-        "@types/react": "^18.3.3",
+        "@types/node": "^22.5.4",
+        "@types/react": "^18.3.5",
         "@types/react-dom": "^18.3.0",
         "@types/react-router": "^5.1.20",
         "@types/react-router-dom": "^5.3.3",
@@ -64,7 +64,7 @@
         "jest-environment-jsdom": "^29.7.0",
         "jest-transform-stub": "^2.0.0",
         "lerna": "^8.1.8",
-        "ts-jest": "^29.2.4",
+        "ts-jest": "^29.2.5",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.4"
     }
