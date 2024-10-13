@@ -13,7 +13,7 @@
         "test": "jest"
     },
     "dependencies": {
-        "express": "^4.19.2"
+        "express": "^4.21.1"
     },
     "devDependencies": {
         "@cohbrgr/build": "^1.2.0",
