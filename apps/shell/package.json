@@ -19,7 +19,7 @@
         "express": "^4.21.1",
         "express-rate-limit": "^7.4.1",
         "helmet": "^8.0.0",
-        "html-validate": "^8.24.1",
+        "html-validate": "^8.24.2",
         "nocache": "^4.0.0",
         "node-mocks-http": "^1.16.1",
         "workbox-core": "^7.1.0",
