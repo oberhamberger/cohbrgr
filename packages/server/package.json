@@ -8,12 +8,14 @@
         ".": "./dist/index.js"
     },
     "scripts": {
-        "build": "tsc"
+        "build": "swc src -d dist"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
         "@cohbrgr/utils": "*",
+        "@swc/cli": "^0.4.1-nightly.20240914",
+        "@swc/core": "^1.7.40",
         "@types/compression": "^1.7.5",
         "@types/express": "^5.0.0"
     }

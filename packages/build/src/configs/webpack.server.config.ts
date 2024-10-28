@@ -3,20 +3,23 @@ import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
+import NodeModuleFederation from '@module-federation/node';
+
 import {
     isProduction,
     regexStyle,
     regexSource,
     Mode,
     CWD,
+    isShell
 } from 'src/utils/constants';
-import { UniversalFederationPlugin } from '@module-federation/node';
 import getStyleLoader from 'src/loader/style.loader';
 import EnvironmentConfig from '@cohbrgr/environments';
-import { isShell } from 'src/utils/constants';
+
+const { UniversalFederationPlugin } = NodeModuleFederation;
 
 export default async (): Promise<Configuration> => {
-    const federationPlugin = await import(CWD + '/build.cjs');
+    const federationPlugin = await import(CWD + '/build.js');
     const federationOptions = federationPlugin.default.default();
     
     return {

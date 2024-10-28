@@ -4,7 +4,6 @@
     "author": "Christian Oberhamberger",
     "type": "module",
     "license": "ISC",
-    "main": "dist/server",
     "scripts": {
         "serve": "node .",
         "lint": "eslint",

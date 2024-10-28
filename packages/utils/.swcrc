@@ -1,10 +1,10 @@
 {
     "$schema": "https://json.schemastore.org/swcrc",
     "module": {
-      "type": "es6"
+      "type": "es6",
+      "resolveFully": true
     },
     "sourceMaps": true,
-    "exclude": ".*\\.stories\\..*$",
     "jsc": {
       "baseUrl": ".",
       "paths": {

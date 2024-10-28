@@ -4,7 +4,9 @@
     "author": "Christian Oberhamberger",
     "type": "module",
     "license": "ISC",
-    "main": "dist/server",
+    "exports": {
+        ".": "./src/client/routes.ts"
+    },
     "scripts": {
         "serve": "node .",
         "lint": "eslint",

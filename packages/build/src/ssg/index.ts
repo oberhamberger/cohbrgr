@@ -2,8 +2,13 @@ import { writeFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { fork } from 'child_process';
 import { port } from 'src/utils/constants';
-import routes from '@cohbrgr/shell/src/client/routes';
 import { Logger } from '@cohbrgr/utils';
+
+enum AppRoutes {
+    start = '/',
+    offline = '/offline',
+    notFound = '*',
+}
 
 const serverAddress = `http://localhost:${port}`;
 const staticOutputPath = 'dist/client/static';
@@ -16,7 +21,7 @@ const staticSiteGenerator = async () => {
     const safeHTMLtoFile = (html: string, index: number) => {
         const outputPath = join(
             staticOutputPath,
-            `${Object.keys(routes)[index]}.html`,
+            `${Object.keys(AppRoutes)[index]}.html`,
         );
         writeFile(outputPath, html, (err) => {
             if (err) {
@@ -25,7 +30,7 @@ const staticSiteGenerator = async () => {
                 Logger.info(`Data has been saved to the file: ${outputPath}`);
             }
         });
-        Logger.info(`Generated ${Object.values(routes)[index]}`);
+        Logger.info(`Generated ${Object.values(AppRoutes)[index]}`);
     };
 
     runningServer.on('exit', (code, signal) => {
@@ -36,8 +41,8 @@ const staticSiteGenerator = async () => {
         if (message === 'server-ready') {
             const fetchPromises: Promise<Response>[] = [];
 
-            Object.values(routes).forEach((route) => {
-                fetchPromises.push(fetch(new URL(route, serverAddress)));
+            Object.values(AppRoutes).forEach((route) => {
+                fetchPromises.push(fetch(new URL(AppRoutes, serverAddress)));
             });
             Promise.all(fetchPromises).then((responses) => {
                 const htmlPromises: Promise<string>[] = [];

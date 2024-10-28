@@ -1,9 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
 const getServerFederationConfig = () => {
   return {
     filename: 'remoteEntry.js',
@@ -15,6 +9,7 @@ const getServerFederationConfig = () => {
     }
   };
 };
+
 const getClientFederationConfig = () => {
   return {
     filename: 'remoteEntry.js',
@@ -26,7 +21,8 @@ const getClientFederationConfig = () => {
     }
   };
 };
-var _default = () => {
+
+export default () => {
   const clientFederationConfig = getClientFederationConfig();
   const serverFederationConfig = getServerFederationConfig();
   return {
@@ -34,4 +30,3 @@ var _default = () => {
     server: serverFederationConfig
   };
 };
-exports.default = _default;
