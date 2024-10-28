@@ -20,7 +20,7 @@ const { UniversalFederationPlugin } = NodeModuleFederation;
 
 export default async (): Promise<Configuration> => {
     const federationPlugin = await import(CWD + '/build.js');
-    const federationOptions = federationPlugin.default.default();
+    const federationOptions = federationPlugin.default();
     
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,

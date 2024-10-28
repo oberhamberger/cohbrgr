@@ -1,6 +1,10 @@
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { RuleSetUseItem } from 'webpack';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = dirname(__filename);
 
 export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {
     const loaders: RuleSetUseItem[] = [

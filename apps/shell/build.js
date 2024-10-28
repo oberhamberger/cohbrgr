@@ -1,7 +1,7 @@
 import environments from '@cohbrgr/environments';
 
-const contentPort = environments.default.content.port;
-const contentUrl = process.env['DOCKER'] === 'true' ? environments.default.content.location : `${environments.default.content.location}:${contentPort}`;
+const contentPort = environments.content.port;
+const contentUrl = process.env['DOCKER'] === 'true' ? environments.content.location : `${environments.content.location}:${contentPort}`;
 
 const getServerFederationConfig = () => {
   return {
