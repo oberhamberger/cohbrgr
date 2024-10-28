@@ -2,17 +2,21 @@
     "name": "@cohbrgr/build",
     "version": "1.2.0",
     "author": "Christian Oberhamberger",
+    "type": "module",
     "license": "ISC",
-    "main": "bin/index.js",
+    "exports": {
+        ".": "./dist/index.js"
+    },
     "bin": {
         "build": "bin/index.js"
     },
     "scripts": {
         "lint": "eslint",
-        "build": "node esbuild.config.mjs"
+        "build": "swc src -d dist"
     },
     "dependencies": {
         "@cohbrgr/environments": "^1.2.0",
+        "@cohbrgr/utils": "*",
         "@module-federation/node": "^2.5.8",
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.6.3",
@@ -32,7 +36,7 @@
         "workbox-webpack-plugin": "^7.1.0"
     },
     "devDependencies": {
-        "esbuild": "^0.24.0",
-        "esbuild-loader": "^4.2.2"
+        "@swc/cli": "^0.4.1-nightly.20240914",
+        "@swc/core": "^1.7.40"
     }
 }

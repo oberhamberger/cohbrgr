@@ -8,7 +8,7 @@ const options = {
     entryPoints: ['./src/index.ts'],
     bundle: true,
     platform: 'node',
-    // format: 'esm',
+    format: 'esm',
     outfile: 'dist/index.js',
     external: [
         ...Object.keys(packageJson.dependencies),

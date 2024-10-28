@@ -1,10 +1,8 @@
 import { resolve, join } from 'path';
-import { Configuration } from 'webpack';
-import Config from '@cohbrgr/environments';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { UniversalFederationPlugin } from '@module-federation/node';
 import CopyPlugin from 'copy-webpack-plugin';
 import { InjectManifest } from 'workbox-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -20,10 +18,7 @@ import {
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 
-export default async (): Promise<Configuration> => {
-    const federationPlugin = await import(CWD + '/build.cjs');
-    const federationOptions = federationPlugin.default.default();
-
+export default (federationPlugin?: WebpackPluginInstance): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
@@ -60,7 +55,7 @@ export default async (): Promise<Configuration> => {
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
             }),
-            new UniversalFederationPlugin(federationOptions.client, {}),,
+            federationPlugin,
             ...(isShell
                 ? [
                       new CopyPlugin({
@@ -96,7 +91,6 @@ export default async (): Promise<Configuration> => {
         },
         output: {
             path: resolve(CWD, './dist/client'),
-            publicPath: `http://localhost:${isShell ? Config.shell.port : Config.content.port}/`,
             clean: true,
             filename: isProduction
                 ? `${isShell ? 'js/' : ''}[name].[contenthash].js`

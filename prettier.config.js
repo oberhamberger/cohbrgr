@@ -1,3 +1,3 @@
 const config = require('@cohbrgr/prettier');
 
-module.exports = config;
+export default config;

@@ -1,9 +1,12 @@
 {
     "name": "@cohbrgr/prettier",
     "version": "1.2.0",
+    "type": "module",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "index.js",
+    "exports": {
+        ".": "./prettier.config.js"
+    },
     "dependencies": {
         "prettier": "^3.3.3"
     }

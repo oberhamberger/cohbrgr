@@ -1,8 +1,11 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
+        "jsx": "react-jsx",
         "outDir": "dist",
-        "lib": ["ES2022"],
-        "typeRoots": ["../../node_modules/@types"]
-    }
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "typeRoots": ["../../node_modules/@types", "node_modules/@types"]
+    },
+    "exclude": ["node_modules", "dist"]
 }

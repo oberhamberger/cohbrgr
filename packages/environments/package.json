@@ -2,8 +2,11 @@
     "name": "@cohbrgr/environments",
     "version": "1.2.0",
     "author": "Christian Oberhamberger",
+    "type": "module",
     "license": "ISC",
-    "main": "dist/index.js",
+    "exports": {
+        ".": "./dist/index.js"
+    },
     "scripts": {
         "build": "tsc"
     }

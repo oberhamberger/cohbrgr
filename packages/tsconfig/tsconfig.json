@@ -4,8 +4,6 @@
         "jsx": "react-jsx",
         "sourceMap": true,
         "incremental": true,
-        "allowJs": false,
-        "checkJs": false,
         "resolveJsonModule": true,
         "typeRoots": ["node_modules/@types"]
     }

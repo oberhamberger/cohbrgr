@@ -2,6 +2,7 @@
     "name": "@cohbrgr/shell",
     "version": "1.2.1",
     "author": "Christian Oberhamberger",
+    "type": "module",
     "license": "ISC",
     "main": "dist/server",
     "scripts": {
@@ -15,6 +16,7 @@
         "test": "jest"
     },
     "dependencies": {
+        "@cohbrgr/utils": "*",
         "compression": "^1.7.4",
         "express": "^4.21.1",
         "express-rate-limit": "^7.4.1",
@@ -29,7 +31,7 @@
         "workbox-window": "^7.1.0"
     },
     "devDependencies": {
-        "@cohbrgr/build": "^1.2.0",
+        "@cohbrgr/build": "*",
         "@cohbrgr/environments": "^1.2.0",
         "@cohbrgr/eslint": "^1.2.1",
         "@cohbrgr/figma": "^1.2.1",
