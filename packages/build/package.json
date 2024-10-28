@@ -37,6 +37,7 @@
     },
     "devDependencies": {
         "@swc/cli": "^0.4.1-nightly.20240914",
-        "@swc/core": "^1.7.40"
+        "@swc/core": "^1.7.40",
+        "@swc/helpers": "^0.5.13"
     }
 }

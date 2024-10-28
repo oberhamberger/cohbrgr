@@ -8,20 +8,23 @@
         ".": {
             "import": {
               "types": "./dist/index.d.ts",
-              "default": "./dist/index.js"
+              "default": "./dist/src/index.js"
             }
         }
     },
+    "types": "./dist/index.d.ts",
     "typesVersions": {
         "*": {
             "*": [
-                "dist/*",
-                "dist/index.d.ts"
+                "./dist/*",
+                "./dist/index.d.ts"
             ]
         }
     },
     "scripts": {
-        "build": "swc src -d dist"
+        "build": "swc src -d dist",
+        "types": "tsc --emitDeclarationOnly",
+        "prebuild": "npm run types"
     },
     "dependencies": {
         "winston": "^3.15.0"
