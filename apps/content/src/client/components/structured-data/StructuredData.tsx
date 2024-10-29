@@ -14,7 +14,7 @@ const buildJsonLd = () => {
 const jsonLd = buildJsonLd();
 
 interface IStructureData {
-    nonce?: string;
+    nonce?: string | undefined;
 }
 
 const StructuredData: FunctionComponent<IStructureData> = ({ nonce }) => {

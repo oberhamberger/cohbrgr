@@ -1,12 +1,8 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
-
-import * as Utils from '@cohbrgr/utils';
-
 import getWebpackClientConfig from 'src/configs/webpack.client.config';
 import getWebpackServerConfig from 'src/configs/webpack.server.config';
 import staticSiteGenerator from 'src/ssg';
 import { isWatch, isSSG } from 'src/utils/constants';
-const { Logger } = Utils;
 
 const webpackconfigs = (async () => {
 

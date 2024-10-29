@@ -5,7 +5,6 @@ import {
     useContext,
 } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
 import { AppStateContext } from 'src/client/contexts/app-state';
 
 import 'src/client/styles/index.scss';
@@ -15,6 +14,7 @@ import Offline from 'src/client/pages/offline';
 import NotFound from 'src/client/pages/not-found';
 import AppRoutes from 'src/client/routes';
 import { Spinner } from '@cohbrgr/components';
+import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
 
 const Content = lazy(() => import('@cohbrgr/content') as Promise<{
             default: FunctionComponent<IContent>;

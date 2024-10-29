@@ -2,9 +2,13 @@
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
         "baseUrl": ".",
+        "declaration": true,
+        "declarationMap": true,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "paths": {
             "src/*": ["./src/*"],
-            "@cohbrgr/content/*": ["../content/*"]
+            "@cohbrgr/content/*": ["../content/src/*"]
         },
         "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]

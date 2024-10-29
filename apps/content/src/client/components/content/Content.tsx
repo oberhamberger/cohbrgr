@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Navigation } from '@cohbrgr/components';
-import StructuredData from '../structured-data';
+import StructuredData from 'src/client/components/structured-data';
 
 export interface IContent {
     nonce?: string;
