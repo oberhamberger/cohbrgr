@@ -36,6 +36,15 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
                 {
                     test: regexSource,
                     loader: 'swc-loader',
+                    options: {
+                        jsc: {
+                            transform: {
+                                react: {
+                                    runtime: 'automatic'
+                                }
+                            }
+                        }
+                    },
                     exclude: /node_modules/,
                 },
                 {
