@@ -6,15 +6,15 @@
     "type": "module",
     "exports": {
         ".": {
-          "types": "./dist/index.d.ts",
-          "import": "./dist/index.js"
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
         }
-      },
-      "module": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "files": [
+    },
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
         "dist"
-      ],
+    ],
     "scripts": {
         "build": "rslib build",
         "lint": "eslint",
@@ -25,5 +25,8 @@
         "@rsbuild/plugin-sass": "^1.0.4",
         "@rslib/core": "^0.0.15",
         "globals": "^15.11.0"
-      }
+    },
+    "dependencies": {
+        "@rsbuild/plugin-react": "^1.0.6"
+    }
 }

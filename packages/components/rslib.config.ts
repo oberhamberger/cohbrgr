@@ -1,6 +1,6 @@
 import { defineConfig } from '@rslib/core';
 import { pluginSass } from '@rsbuild/plugin-sass';
-
+import { pluginReact } from '@rsbuild/plugin-react';
 
 export default defineConfig({
   lib: [
@@ -10,6 +10,6 @@ export default defineConfig({
       dts: true,
     },
   ],
-  plugins: [ pluginSass(), ],
+  plugins: [ pluginReact(), pluginSass(), ],
   output: { target: 'node' },
 });

@@ -3,7 +3,7 @@ import { Navigation } from '@cohbrgr/components';
 import StructuredData from 'src/client/components/structured-data';
 
 export interface IContent {
-    nonce?: string;
+    nonce?: string | undefined;
 }
 
 const Content: FunctionComponent<IContent> = ({ nonce }) => {
