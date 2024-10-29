@@ -2,15 +2,12 @@
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
         "jsx": "react-jsx",
-        "outDir": "dist",
         "declaration": true,
         "declarationMap": true,
+        "noEmit": true,
+        "incremental": false,
         "module": "ESNext",
         "moduleResolution": "Bundler",
-        "baseUrl": ".",
-        "paths": {
-            "src/*": ["./src/*"]
-        },
         "typeRoots": ["../../node_modules/@types", "node_modules/@types"]
     },
     "include": ["src/**/*"],

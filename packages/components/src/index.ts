@@ -1,2 +1,2 @@
-export * from 'src/navigation/Navigation';
-export * from 'src/spinner/Spinner';
+export * from './navigation/Navigation';
+export * from './spinner/Spinner';

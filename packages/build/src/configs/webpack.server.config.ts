@@ -14,7 +14,7 @@ import {
     isShell
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
-import EnvironmentConfig from '../../../environments/dist/src';
+import EnvironmentConfig from '@cohbrgr/environments';
 
 const { UniversalFederationPlugin } = NodeModuleFederation;
 

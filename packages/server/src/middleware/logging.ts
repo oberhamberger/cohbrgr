@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { Logger } from '@cohbrgr/utils';
+import * as Utils from '@cohbrgr/utils';
+
+const { Logger } = Utils;
 
 export const logging =
     (isProduction: boolean) =>
