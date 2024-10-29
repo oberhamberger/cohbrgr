@@ -35,7 +35,7 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
             rules: [
                 {
                     test: regexSource,
-                    loader: 'esbuild-loader',
+                    loader: 'swc-loader',
                     exclude: /node_modules/,
                 },
                 {

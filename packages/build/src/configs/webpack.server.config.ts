@@ -14,7 +14,7 @@ import {
     isShell
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
-import EnvironmentConfig from '@cohbrgr/environments';
+import EnvironmentConfig from '../../../environments/dist/src';
 
 const { UniversalFederationPlugin } = NodeModuleFederation;
 
@@ -38,7 +38,7 @@ export default async (): Promise<Configuration> => {
             rules: [
                 {
                     test: regexSource,
-                    loader: 'esbuild-loader',
+                    loader: 'swc-loader',
                     exclude: /node_modules/,
                 },
                 {

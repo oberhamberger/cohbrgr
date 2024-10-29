@@ -1,11 +1,12 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
 
-import { Logger } from '@cohbrgr/utils';
+import * as Utils from '@cohbrgr/utils';
 
 import getWebpackClientConfig from 'src/configs/webpack.client.config';
 import getWebpackServerConfig from 'src/configs/webpack.server.config';
 import staticSiteGenerator from 'src/ssg';
 import { isWatch, isSSG } from 'src/utils/constants';
+const { Logger } = Utils;
 
 const webpackconfigs = (async () => {
 
@@ -18,34 +19,34 @@ const webpackconfigs = (async () => {
 
     return configs.forEach((config) => {
         if (!config) {
-            Logger.error('No Config');
+            console.error('No Config');
             throw 'No Config';
         }
 
         const compiler = webpack(config);
         const compilerCallback = (err?: Error | null, result?: MultiStats) => {
             if (err) {
-                Logger.error(err.stack);
+                console.error(err.stack);
             }
             if (!result) {
-                Logger.warn('Compiler returned no result.');
+                console.warn('Compiler returned no result.');
                 throw 'No Result from Compiler';
             }
 
             const rawMessages = result.toJson();
             if (rawMessages.errors?.length) {
                 rawMessages.errors.forEach((e) => {
-                    Logger.error(e);
+                    console.error(e);
                 });
                 throw rawMessages.errors;
             }
             if (rawMessages.warnings?.length) {
                 rawMessages.warnings.forEach((w) => {
-                    Logger.warn(w);
+                    console.warn(w);
                 });
             }
             if (!rawMessages.errors?.length && !rawMessages.warnings?.length) {
-                Logger.info(`compiled successfully.`);
+                console.info(`compiled successfully.`);
             }
 
             if (isSSG) {

@@ -3,6 +3,8 @@
     "compilerOptions": {
         "jsx": "react-jsx",
         "outDir": "dist",
+        "declaration": true,
+        "declarationMap": true,
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "baseUrl": ".",
