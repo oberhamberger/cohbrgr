@@ -5,9 +5,8 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 
 import { EnvironmentConfig } from '@cohbrgr/environments';
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { logging, methodDetermination } from '@cohbrgr/server';
-import jam from 'src/server/middleware/jam';
+// import jam from 'src/server/middleware/jam';
 import render from 'src/server/middleware/render';
 import { randomBytes } from 'crypto';
 
@@ -18,7 +17,6 @@ const staticPath = resolve(
     process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
 );
 const useClientSideRendering = true;
-const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
 
@@ -29,7 +27,7 @@ if (isProduction) {
             windowMs: 10 * 60 * 1000, // 10 minutes
             max: 500, // limit each IP to 500 requests per window
             handler: (request, response, _next, options) => {
-                Logger.log(
+                console.log(
                     'warn',
                     `Restricted request from ${request.ip} for ${request.path}`,
                 );
@@ -47,9 +45,8 @@ app.use(methodDetermination);
 app.use(compression());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 app.use((_req, res, next) => {
-    res.locals['cspNonce'] = isGenerator
-        ? '!CSPNONCE_PLACEHOLDER!'
-        : randomBytes(16).toString('hex');
+    // isGenerator =>     res.locals['cspNonce'] = '!CSPNONCE_PLACEHOLDER!'
+    res.locals['cspNonce'] = randomBytes(16).toString('hex');
     next();
 });
 // app.use(
@@ -77,12 +74,12 @@ app.use((_req, res, next) => {
 //     }),
 // );
 
-app.use(jam(isProduction));
+// app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));
 
 // starting the server
 const server = app.listen(port, () => {
-    Logger.info(
+    console.info(
         `Server started at http://localhost:${port} in ${
             isProduction ? 'production' : 'development'
         } mode`,
@@ -95,7 +92,7 @@ const server = app.listen(port, () => {
 // stopping the server correctly
 const closeGracefully = async () => {
     await server.close();
-    Logger.log('info', `Server closed.`);
+    console.log('info', `Server closed.`);
     process.exit();
 };
 process.on('SIGTERM', closeGracefully);

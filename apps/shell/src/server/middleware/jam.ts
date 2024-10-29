@@ -1,10 +1,9 @@
 import { readFileSync, access, constants } from 'fs';
 import { resolve } from 'path';
 import { NextFunction, Request, Response } from 'express';
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import routes from 'src/client/routes';
 
-const isGenerator = findProcessArgs(['--generator']);
+const isGenerator = false;
 const routeKeys = Object.keys(routes);
 const routeValues = Object.values(routes);
 const noncePlaceHolder = /!CSPNONCE_PLACEHOLDER!/g;
@@ -45,7 +44,7 @@ const jam =
                 checkFileExists(matchedHTMLFileName),
             );
             if (fileExists) {
-                Logger.info(
+                console.info(
                     `Found generated file for ${req.path} on route ${matchedRequestRoute}`,
                 );
                 const matchedHTMLFile = readFileSync(
@@ -54,7 +53,7 @@ const jam =
                 );
                 const matchedHTMLFileWithNonce = matchedHTMLFile.replaceAll(
                     noncePlaceHolder,
-                    res.locals.cspNonce,
+                    res.locals["cspNonce"],
                 );
                 res.statusCode = 200;
                 return res.send(matchedHTMLFileWithNonce);

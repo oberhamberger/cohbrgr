@@ -3,8 +3,6 @@ import { Request, Response } from 'express';
 import { renderToPipeableStream } from 'react-dom/server';
 
 import Index from 'src/server/template/Index.html';
-import { Logger } from '@cohbrgr/utils';
-import { HttpMethod } from '@cohbrgr/server';
 import { HttpContextData } from 'src/client/contexts/http';
 
 const streamToString = (stream: Stream): Promise<string> => {
@@ -35,15 +33,15 @@ const render =
                             const renderStatusCode =
                                 httpContext.statusCode || 200;
                             if (renderStatusCode < 300) {
-                                Logger.info(
+                                console.info(
                                     `Rendered App with path: ${req.url}`,
                                 );
                             } else if (renderStatusCode < 400) {
-                                Logger.warn(`Redirected: ${req.url}`);
+                                console.warn(`Redirected: ${req.url}`);
                             } else if (renderStatusCode < 500) {
-                                Logger.warn(`Not found: ${req.url}`);
+                                console.warn(`Not found: ${req.url}`);
                             } else {
-                                Logger.error(
+                                console.error(
                                     `Major Server Error while rendering: ${req.url}`,
                                 );
                             }
@@ -71,16 +69,16 @@ const render =
                 );
                 setTimeout(abort, 5000);
             } catch (error) {
-                Logger.error(error);
+                console.error(error);
             }
         });
 
         const awaitedStream = await stream;
         const markup = await streamToString(awaitedStream);
 
-        if (req.method === HttpMethod.GET) {
+        if (req.method === "GET") {
             res.send(markup);
-        } else if (req.method === HttpMethod.HEAD) {
+        } else if (req.method === "HEAD") {
             res.send();
         }
         res.end();

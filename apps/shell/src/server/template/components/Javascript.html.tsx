@@ -1,12 +1,11 @@
 import { FunctionComponent } from 'react';
 import { readdirSync } from 'fs';
 import { resolve, extname } from 'path';
-import { Logger } from '@cohbrgr/utils';
 import EnvironmentConfig from '@cohbrgr/environments';
 import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
-    // nonce: string;
+    nonce?: string | undefined;
     isProduction: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
@@ -20,13 +19,14 @@ try {
         (fileName) => extname(fileName) === '.js',
     );
 } catch (err) {
-    Logger.warn(`HTML-Template: error loading js files for SSR: ${err}`);
+    console.warn(`HTML-Template: error loading js files for SSR: ${err}`);
 }
 
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     props: JavascriptHTMLProps,
 ) => {
     const __initial_state__: State = {
+        nonce: props.nonce,
         isProduction: props.isProduction,
     };
 

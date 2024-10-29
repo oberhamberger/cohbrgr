@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 import { readFileSync, readdirSync } from 'fs';
 import { resolve, extname } from 'path';
-import { Logger } from '@cohbrgr/utils';
 import EnvironmentConfig from '@cohbrgr/environments';
 
 interface IStylesheetProps {
@@ -29,11 +28,11 @@ try {
                 );
             });
         } catch (singleFileError) {
-            Logger.warn('HTML-Template: error reading css file');
+            console.warn('HTML-Template: error reading css file');
         }
     }
 } catch (allFilesError) {
-    Logger.warn('HTML-Template: no css files found in current context');
+    console.warn('HTML-Template: no css files found in current context');
 }
 
 const Stylesheets: FunctionComponent<StylesheetProps> = (

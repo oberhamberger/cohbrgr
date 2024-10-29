@@ -2,7 +2,6 @@ import { writeFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { fork } from 'child_process';
 import { port } from 'src/utils/constants';
-import { Logger } from '@cohbrgr/utils';
 
 enum AppRoutes {
     start = '/',
@@ -25,16 +24,16 @@ const staticSiteGenerator = async () => {
         );
         writeFile(outputPath, html, (err) => {
             if (err) {
-                Logger.error('Error writing to file:', err);
+                console.error('Error writing to file:', err);
             } else {
-                Logger.info(`Data has been saved to the file: ${outputPath}`);
+                console.info(`Data has been saved to the file: ${outputPath}`);
             }
         });
-        Logger.info(`Generated ${Object.values(AppRoutes)[index]}`);
+        console.info(`Generated ${Object.values(AppRoutes)[index]}`);
     };
 
     runningServer.on('exit', (code, signal) => {
-        Logger.info(`Exited Server with code ${code} and signal ${signal}`);
+        console.info(`Exited Server with code ${code} and signal ${signal}`);
     });
 
     runningServer.on('message', async (message) => {
@@ -57,7 +56,7 @@ const staticSiteGenerator = async () => {
                         runningServer.kill();
                     })
                     .catch(function (err) {
-                        Logger.error(
+                        console.error(
                             `Failed to generate Route with error: ${err}`,
                         );
                         runningServer.kill();

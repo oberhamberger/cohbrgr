@@ -90,7 +90,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 {props.useCSR && props.location !== routes.offline && (
                     <Javascript
-                        // nonce={props.nonce}
+                        nonce={undefined}
                         isProduction={props.isProduction}
                     />
                 )}

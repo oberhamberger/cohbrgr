@@ -1,9 +1,8 @@
 import { resolve, join } from 'path';
-import { Configuration } from 'webpack';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-import NodeModuleFederation from '@module-federation/node';
 
 import {
     isProduction,
@@ -16,12 +15,8 @@ import {
 import getStyleLoader from 'src/loader/style.loader';
 import EnvironmentConfig from '@cohbrgr/environments';
 
-const { UniversalFederationPlugin } = NodeModuleFederation;
+export default (federationPlugin?: WebpackPluginInstance): Configuration => {
 
-export default async (): Promise<Configuration> => {
-    const federationPlugin = await import(CWD + '/build.js');
-    const federationOptions = federationPlugin.default();
-    
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
@@ -34,6 +29,9 @@ export default async (): Promise<Configuration> => {
             index: './server/index.ts',
         },
         target: 'node',
+        experiments: {
+            outputModule: true,
+        },
         module: {
             rules: [
                 {
@@ -53,21 +51,18 @@ export default async (): Promise<Configuration> => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
-            new UniversalFederationPlugin(federationOptions.server, {}),
+            federationPlugin,
             new NodemonPlugin(),
         ],
         output: {
             path: resolve(CWD, './dist/server'),
             filename: 'index.js',
             clean: true,
-            publicPath: `localhost:${isShell ? EnvironmentConfig.shell.port : EnvironmentConfig.content.port}/`,
-
-            environment: {
-                asyncFunction: true
-            }
+            module: true,
+            publicPath: `localhost:${isShell ? EnvironmentConfig.shell.port : EnvironmentConfig.content.port}/`
         },
         externals: {
-            express: "require('express')",
+            express: "import express",
         },
         stats: {
             colors: true,

@@ -1,15 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import * as Utils from '@cohbrgr/utils';
-
-const { Logger } = Utils;
 
 export const logging =
     (isProduction: boolean) =>
     (req: Request, _res: Response, next: NextFunction) => {
         if (!isProduction) {
-            Logger.info(`Requesting: ${req.url}`);
+            console.info(`Requesting: ${req.url}`);
         } else {
-            Logger.info(`${req.ip} requests: ${req.url}`);
+            console.info(`${req.ip} requests: ${req.url}`);
         }
         next();
     };

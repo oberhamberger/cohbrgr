@@ -1,16 +1,23 @@
 import webpack, { Configuration, MultiStats } from 'webpack';
+import ModuleFederationNode from '@module-federation/node';
 import getWebpackClientConfig from 'src/configs/webpack.client.config';
 import getWebpackServerConfig from 'src/configs/webpack.server.config';
 import staticSiteGenerator from 'src/ssg';
-import { isWatch, isSSG } from 'src/utils/constants';
+import { isWatch, isSSG, CWD } from 'src/utils/constants';
+
+const { UniversalFederationPlugin } = ModuleFederationNode;
 
 const webpackconfigs = (async () => {
+
+
+    const federationPlugin = await import(CWD + '/build.js');
+    const federationOptions = federationPlugin.default();
 
     const configs: [Configuration[]?] = [];
 
     configs.push([
-        await getWebpackClientConfig(),
-        await getWebpackServerConfig(),
+        await getWebpackClientConfig(new UniversalFederationPlugin(federationOptions.client, {})),
+        await getWebpackServerConfig(new UniversalFederationPlugin(federationOptions.server, {})),
     ]);
 
     return configs.forEach((config) => {

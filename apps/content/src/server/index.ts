@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 import express from 'express';
-import { Logger } from '@cohbrgr/utils';
 import { logging, methodDetermination } from '@cohbrgr/server';
 import EnvironmentConfig from '@cohbrgr/environments';
 
@@ -19,7 +18,7 @@ app.use(express.static(staticPath, { dotfiles: 'ignore' }));
 
 // starting the server
 const server = app.listen(port, () => {
-    Logger.info(
+    console.info(
         `Server started at http://localhost:${port} in ${
             isProduction ? 'production' : 'development'
         } mode`,
@@ -32,7 +31,7 @@ const server = app.listen(port, () => {
 // stopping the server correctly
 const closeGracefully = async () => {
     await server.close();
-    Logger.log('info', `Server closed.`);
+    console.log('info', `Server closed.`);
     process.exit();
 };
 process.on('SIGTERM', closeGracefully);
