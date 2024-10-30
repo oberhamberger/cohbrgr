@@ -26,13 +26,14 @@
     --gradient-background: var(--gradient-background-light);
     --color-font: var(--color-font-light);
     --color-highlight: var(--color-highlight-light);
-
-    @media (prefers-color-scheme: dark) {
-        --color-background: var(--color-background-dark);
-        --gradient-background: var(--gradient-background-dark);
-        --color-font: var(--color-font-dark);
-        --color-highlight: var(--color-highlight-dark);
-    }
-
     --font-system: var(--cohbrgr-styles-font-system);
+
+    & {
+        @media (prefers-color-scheme: dark) {
+            --color-background: var(--color-background-dark);
+            --gradient-background: var(--gradient-background-dark);
+            --color-font: var(--color-font-dark);
+            --color-highlight: var(--color-highlight-dark);
+        }
+    }
 }
