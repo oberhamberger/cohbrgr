@@ -60,7 +60,7 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
                 name: `Server`,
                 color: '#0a9c6c',
             }),
-            federationPlugin,
+            ...(federationPlugin ? [federationPlugin] : []),
             new NodemonPlugin(),
         ],
         output: {

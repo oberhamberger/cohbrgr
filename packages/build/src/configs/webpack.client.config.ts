@@ -64,7 +64,7 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
             }),
-            federationPlugin,
+            ...(federationPlugin ? [federationPlugin] : []),
             ...(isShell
                 ? [
                       new CopyPlugin({
