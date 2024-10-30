@@ -30,7 +30,7 @@
         "winston": "^3.15.0"
     },
     "devDependencies": {
-        "@swc/cli": "^0.4.1-nightly.20240914",
+        "@swc/cli": "^0.5.0",
         "@swc/core": "^1.7.40"
     }
 }
