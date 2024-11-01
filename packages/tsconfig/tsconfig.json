@@ -7,6 +7,9 @@
         "allowJs": false,
         "checkJs": false,
         "resolveJsonModule": true,
+        "module": "ESNext",
+        "target": "ES2020",
+        "moduleResolution": "Bundler",
         "typeRoots": ["node_modules/@types"]
     }
 }

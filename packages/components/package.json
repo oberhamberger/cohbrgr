@@ -3,11 +3,34 @@
     "version": "1.2.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "index.ts",
+    "type": "module",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/esm/src/index.d.ts",
+				"default": "./dist/esm/index.js"
+			},
+			"require": {
+				"types": "./dist/cjs/src/index.d.ts",
+				"default": "./dist/cjs/index.cjs"
+			},
+            "sass": {
+                "default": "./dist/cjs/static/css/index.css"
+            }
+		},
+        "./styles": {
+            "default": "./dist/cjs/static/css/index.css"
+        }
+	},
     "scripts": {
-        "serve": "node .",
         "lint": "eslint",
         "prettier": "prettier --write .",
-        "test": "jest"
-    }
+        "test": "jest",
+        "build": "rslib build"
+    },
+    "devDependencies": {
+        "@rsbuild/plugin-react": "^1.0.6",
+        "@rsbuild/plugin-sass": "^1.1.0",
+        "@rslib/core": "^0.0.15"
+	}
 }

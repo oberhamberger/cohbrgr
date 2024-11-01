@@ -6,6 +6,10 @@
         "paths": {
             "src/*": ["./src/*"]
         },
+        "incremental": false,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "isolatedModules": true,
         "typeRoots": ["../../node_modules/@types", "./src/@types/*"]
     }
 }

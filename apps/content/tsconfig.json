@@ -1,6 +1,7 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
+        "moduleResolution": "Bundler",
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]

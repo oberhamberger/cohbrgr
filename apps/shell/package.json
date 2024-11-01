@@ -15,6 +15,7 @@
         "test": "jest"
     },
     "dependencies": {
+        "@cohbrgr/components": "^1.2.0",
         "compression": "^1.7.4",
         "express": "^4.21.1",
         "express-rate-limit": "^7.4.1",

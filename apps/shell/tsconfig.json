@@ -1,7 +1,7 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
-        "moduleResolution": "Node",
+        "moduleResolution": "Bundler",
         "module": "ES2022",
         "baseUrl": ".",
         "paths": {
@@ -9,7 +9,7 @@
             "@cohbrgr/content/*": ["../content/*"]
         },
         "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
-        "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
+        "lib": ["ES2022", "dom", "dom.iterable", "webworker"],
     },
     "exclude": ["../../node_modules"]
 }
