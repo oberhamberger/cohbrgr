@@ -48,6 +48,6 @@ export default defineConfig({
 		}
 	],
     output: {
-        injectStyles: true,
+        minify: false
     },
 });

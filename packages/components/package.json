@@ -14,13 +14,13 @@
 				"types": "./dist/cjs/src/index.d.ts",
 				"default": "./dist/cjs/index.cjs"
 			},
+            "style": {
+                "default": "./dist/esm/static/css/index.css"
+            },
             "sass": {
-                "default": "./dist/cjs/static/css/index.css"
+                "default": "./dist/esm/static/css/index.css"
             }
-		},
-        "./styles": {
-            "default": "./dist/cjs/static/css/index.css"
-        }
+		}
 	},
     "scripts": {
         "lint": "eslint",
