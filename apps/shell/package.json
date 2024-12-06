@@ -16,10 +16,10 @@
     },
     "dependencies": {
         "compression": "^1.7.5",
-        "express": "^4.21.1",
+        "express": "^4.21.2",
         "express-rate-limit": "^7.4.1",
         "helmet": "^8.0.0",
-        "html-validate": "^8.25.0",
+        "html-validate": "^8.27.0",
         "nocache": "^4.0.0",
         "node-mocks-http": "^1.16.1",
         "workbox-core": "^7.3.0",
