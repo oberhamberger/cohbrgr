@@ -17,6 +17,7 @@ import {
     isShell,
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
+import EnvironmentConfig from '@cohbrgr/environments';
 
 export default (federationPlugin?: WebpackPluginInstance): Configuration => {
     return {
@@ -104,6 +105,7 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
             filename: isProduction
                 ? `${isShell ? 'js/' : ''}[name].[contenthash].js`
                 : `${isShell ? 'js/' : ''}[name].js`,
+            publicPath: `localhost:${isShell ? EnvironmentConfig.shell.port : EnvironmentConfig.content.port}/`
         },
     };
 };

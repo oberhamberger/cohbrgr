@@ -12,15 +12,6 @@
             }
         }
     },
-    "types": "./dist/index.d.ts",
-    "typesVersions": {
-        "*": {
-            "*": [
-                "./dist/*",
-                "./dist/index.d.ts"
-            ]
-        }
-    },
     "scripts": {
         "build": "swc src -d dist",
         "types": "tsc --emitDeclarationOnly",
