@@ -1,2 +1,2 @@
-export * as Logger from 'src/logger';
-export * as findProcessArgs from 'src/findProcessArgs';
+export { Logger } from 'src/logger';
+export { findProcessArgs } from 'src/findProcessArgs';
