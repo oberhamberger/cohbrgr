@@ -18,10 +18,10 @@
         "express": "^4.21.2"
     },
     "devDependencies": {
-        "@cohbrgr/build": "^1.2.0",
-        "@cohbrgr/environments": "^1.2.0",
-        "@cohbrgr/eslint": "^1.2.1",
-        "@cohbrgr/jest": "^1.2.0",
+        "@cohbrgr/build": "*",
+        "@cohbrgr/environments": "*",
+        "@cohbrgr/eslint": "*",
+        "@cohbrgr/jest": "*",
         "@types/express": "^5.0.0"
     }
 }
