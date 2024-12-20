@@ -17,7 +17,6 @@
     "dependencies": {
         "@cohbrgr/environments": "*",
         "@cohbrgr/utils": "*",
-        "@module-federation/node": "^2.6.18",
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.6.3",
         "@types/webpack-env": "^1.18.5",

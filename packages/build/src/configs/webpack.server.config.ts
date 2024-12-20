@@ -29,9 +29,6 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
             index: './server/index.ts',
         },
         target: 'node',
-        experiments: {
-            outputModule: true,
-        },
         module: {
             rules: [
                 {
@@ -63,8 +60,12 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
             ...(federationPlugin ? [federationPlugin] : []),
             new NodemonPlugin(),
         ],
+        experiments: {
+            outputModule: true,
+        },
         output: {
             path: resolve(CWD, './dist/server'),
+            chunkFormat: 'module',
             filename: 'index.js',
             clean: true,
             module: true,

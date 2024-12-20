@@ -99,8 +99,13 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
                 chunks: 'all',
             },
         },
+        experiments: {
+            outputModule: true,
+        },
         output: {
             path: resolve(CWD, './dist/client'),
+            chunkFormat: 'module',
+            module: true,
             clean: true,
             filename: isProduction
                 ? `${isShell ? 'js/' : ''}[name].[contenthash].js`
