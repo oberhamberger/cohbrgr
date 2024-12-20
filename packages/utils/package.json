@@ -18,10 +18,10 @@
         "prebuild": "npm run types"
     },
     "dependencies": {
-        "winston": "^3.15.0"
+        "winston": "^3.17.0"
     },
     "devDependencies": {
-        "@swc/cli": "^0.5.0",
-        "@swc/core": "^1.7.40"
+        "@swc/cli": "^0.5.2",
+        "@swc/core": "^1.10.1"
     }
 }

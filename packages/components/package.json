@@ -22,11 +22,9 @@
         "test": "jest"
     },
     "devDependencies": {
-        "@rsbuild/plugin-sass": "^1.0.4",
-        "@rslib/core": "^0.0.15",
-        "globals": "^15.11.0"
-    },
-    "dependencies": {
-        "@rsbuild/plugin-react": "^1.0.6"
+        "@rsbuild/plugin-react": "^1.1.0",
+        "@rsbuild/plugin-sass": "^1.1.2",
+        "@rslib/core": "^0.1.5",
+        "globals": "^15.14.0"
     }
 }

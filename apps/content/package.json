@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "@cohbrgr/utils": "*",
-        "express": "^4.21.1"
+        "express": "^4.21.2"
     },
     "devDependencies": {
         "@cohbrgr/build": "^1.2.0",
