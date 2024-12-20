@@ -1,8 +1,8 @@
 {
     "name": "@cohbrgr/shell",
     "version": "1.2.1",
-    "author": "Christian Oberhamberger",
     "type": "module",
+    "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/server",
     "exports": {

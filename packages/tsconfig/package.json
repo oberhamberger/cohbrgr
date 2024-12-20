@@ -1,6 +1,7 @@
 {
     "name": "@cohbrgr/tsconfig",
     "version": "1.2.1",
+    "type": "module",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "exports": {
