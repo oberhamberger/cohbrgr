@@ -20,7 +20,7 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
             </main>
             <Navigation>
                 <a href="https://github.com/oberhamberger">Github</a>
-                <a href="https://www.instagram.com/cohbrgr">Instagram</a>
+                <a href="https://bsky.app/profile/cohbrgr.bsky.social">Bluesky</a>
                 <a href="https://www.linkedin.com/in/oberhamberger">LinkedIn</a>
             </Navigation>
             <StructuredData nonce={nonce} />
