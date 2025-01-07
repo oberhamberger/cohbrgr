@@ -53,7 +53,7 @@
         "web-vitals": "^4.2.4"
     },
     "devDependencies": {
-        "@module-federation/node": "^2.6.18",
+        "@module-federation/node": "^2.6.21",
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.1.0",
         "@types/jest": "^29.5.14",
