@@ -5,11 +5,15 @@ import { pluginReact } from '@rsbuild/plugin-react';
 export default defineConfig({
   lib: [
     {
+      bundle: false,
       format: 'esm',
       syntax: 'es2021',
       dts: true,
     },
   ],
-  plugins: [ pluginReact(), pluginSass(), ],
-  output: { target: 'node' },
+  plugins: [pluginReact(), pluginSass(),],
+  output: {
+    target: 'web',
+    cleanDistPath: true
+  }
 });
