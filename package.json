@@ -1,7 +1,6 @@
 {
     "name": "cohbrgr",
     "version": "1.0.0",
-    "type": "module",
     "main": "apps/shell/dist/server",
     "author": "Christian Oberhamberger",
     "description": "temporary website gone mad",
