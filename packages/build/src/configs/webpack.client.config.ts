@@ -46,11 +46,11 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
                             }
                         }
                     },
-                    exclude: /node_modules/,
+                    exclude: /node_modules/
                 },
                 {
                     test: regexStyle,
-                    use: getStyleLoader(false, isProduction),
+                    use: getStyleLoader(false, isProduction)
                 },
             ],
         },
@@ -68,28 +68,28 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
             ...(federationPlugin ? [federationPlugin] : []),
             ...(isShell
                 ? [
-                      new CopyPlugin({
-                          patterns: [{ from: './client/assets', to: './' }],
-                      }),
-                  ]
+                    new CopyPlugin({
+                        patterns: [{ from: './client/assets', to: './' }],
+                    }),
+                ]
                 : []),
             ...(isProduction && isShell
                 ? [
-                      new InjectManifest({
-                          swSrc: './client/service-worker',
-                          swDest: serviceWorker,
-                          include: [/\.js$/],
-                      }),
-                  ]
+                    new InjectManifest({
+                        swSrc: './client/service-worker',
+                        swDest: serviceWorker,
+                        include: [/\.js$/],
+                    }),
+                ]
                 : []),
             ...(isAnalyze
                 ? [
-                      new BundleAnalyzerPlugin({
-                          generateStatsFile: true,
-                          openAnalyzer: true,
-                          analyzerPort: 0,
-                      }),
-                  ]
+                    new BundleAnalyzerPlugin({
+                        generateStatsFile: true,
+                        openAnalyzer: true,
+                        analyzerPort: 0,
+                    }),
+                ]
                 : []),
         ],
         optimization: {

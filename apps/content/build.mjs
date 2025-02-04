@@ -2,6 +2,7 @@ const getServerFederationConfig = () => {
   return {
     filename: 'remoteEntry.js',
     name: 'content',
+    moduleName: 'content',
     isServer: true,
     dts: false,
     exposes: {
@@ -14,6 +15,7 @@ const getClientFederationConfig = () => {
   return {
     filename: 'remoteEntry.js',
     name: 'content',
+    moduleName: 'content',
     isServer: false,
     dts: false,
     exposes: {

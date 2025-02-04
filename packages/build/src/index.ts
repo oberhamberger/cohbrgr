@@ -10,7 +10,7 @@ const { UniversalFederationPlugin } = ModuleFederationNode;
 const webpackconfigs = (async () => {
 
 
-    const federationPlugin = await import(CWD + '/build.js');
+    const federationPlugin = await import(CWD + '/build.mjs');
     const federationOptions = federationPlugin.default();
 
     const configs: [Configuration[]?] = [];

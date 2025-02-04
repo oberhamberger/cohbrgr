@@ -7,6 +7,7 @@ const getServerFederationConfig = () => {
   return {
     filename: 'remoteEntry.js',
     name: 'shell',
+    moduleName: 'shell',
     isServer: true,
     dts: false,
     remotes: {
@@ -19,6 +20,7 @@ const getClientFederationConfig = () => {
   return {
     filename: 'container.js',
     name: 'shell',
+    moduleName: 'shell',
     isServer: false,
     dts: false,
     remotes: {

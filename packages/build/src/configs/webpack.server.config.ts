@@ -60,15 +60,10 @@ export default (federationPlugin?: WebpackPluginInstance): Configuration => {
             ...(federationPlugin ? [federationPlugin] : []),
             new NodemonPlugin(),
         ],
-        experiments: {
-            outputModule: true,
-        },
         output: {
             path: resolve(CWD, './dist/server'),
-            chunkFormat: 'module',
             filename: 'index.js',
             clean: true,
-            module: true,
             publicPath: `localhost:${isShell ? EnvironmentConfig.shell.port : EnvironmentConfig.content.port}/`
         },
         externals: {

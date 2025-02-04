@@ -13,5 +13,5 @@
         "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
-    "exclude": ["../../node_modules", "./build.js", "./dist", "./eslint.config.js"]
+    "exclude": ["../../node_modules", "./build.js", "./dist", "./eslint.config.js", "./build.mjs"]
 }

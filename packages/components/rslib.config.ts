@@ -8,10 +8,10 @@ export default defineConfig({
       bundle: false,
       format: 'esm',
       syntax: 'es2021',
-      dts: true,
+      dts: true
     },
   ],
-  plugins: [pluginReact(), pluginSass(),],
+  plugins: [pluginReact(), pluginSass()],
   output: {
     target: 'web',
     cleanDistPath: true
