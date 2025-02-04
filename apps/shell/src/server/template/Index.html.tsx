@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { StaticRouter } from 'react-router-dom/server';
+import { StaticRouter } from 'react-router-dom';
 
 import App from 'src/client/App';
 import routes from 'src/client/routes';
