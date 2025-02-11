@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import { Navigation } from '@cohbrgr/components';
 import StructuredData from 'src/client/components/structured-data';
 
 export interface IContent {
@@ -18,11 +17,6 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
                     work with React and Node.js on online commerce platforms.
                 </p>
             </main>
-            <Navigation>
-                <a href="https://github.com/oberhamberger">Github</a>
-                <a href="https://bsky.app/profile/cohbrgr.bsky.social">Bluesky</a>
-                <a href="https://www.linkedin.com/in/oberhamberger">LinkedIn</a>
-            </Navigation>
             <StructuredData nonce={nonce} />
         </>
     );

@@ -1,26 +1,31 @@
 {
-    "name": "@cohbrgr/content",
-    "version": "1.2.1",
-    "author": "Christian Oberhamberger",
-    "main": "dist/server",
-    "license": "ISC",
-    "scripts": {
-        "serve": "node .",
-        "lint": "eslint",
-        "prettier": "prettier --write .",
-        "build": "build",
-        "start": "NODE_ENV=development build -w",
-        "test": "jest"
-    },
-    "dependencies": {
-        "@cohbrgr/utils": "*",
-        "express": "^4.21.2"
-    },
-    "devDependencies": {
-        "@cohbrgr/build": "*",
-        "@cohbrgr/environments": "*",
-        "@cohbrgr/eslint": "*",
-        "@cohbrgr/jest": "*",
-        "@types/express": "^5.0.0"
-    }
+  "name": "@cohbrgr/content",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "node dist/server",
+    "build": "rsbuild build",
+    "dev": "rsbuild dev --open",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "@cohbrgr/environments": "*",
+    "@cohbrgr/server": "*",
+    "express": "^4.21.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@cohbrgr/eslint": "*",
+    "@cohbrgr/tsconfig": "*",
+    "@module-federation/rsbuild-plugin": "^0.8.11",
+    "@rsbuild/core": "^1.2.4",
+    "@rsbuild/plugin-react": "^1.1.0",
+    "@rsbuild/plugin-sass": "^1.2.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "globals": "^15.14.0"
+  }
 }

@@ -1,16 +1,16 @@
 {
-    "extends": "@cohbrgr/tsconfig",
-    "compilerOptions": {
-        "baseUrl": ".",
-        "declaration": true,
-        "declarationMap": true,
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "paths": {
-            "src/*": ["./src/*"],
-        },
-        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
-        "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
-    },
-    "exclude": ["../../node_modules", "./build.js", "./dist", "./eslint.config.js", "./build.mjs"]
+  "extends": "@cohbrgr/tsconfig",
+  "compilerOptions": {
+      "baseUrl": ".",
+      "declaration": true,
+      "declarationMap": true,
+      "module": "ESNext",
+      "moduleResolution": "Bundler",
+      "paths": {
+          "src/*": ["./src/*"],
+      },
+      "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
+      "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
+  },
+  "exclude": ["../../node_modules", "./dist", "./eslint.config.mjs"]
 }

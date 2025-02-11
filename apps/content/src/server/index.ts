@@ -7,7 +7,7 @@ const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = EnvironmentConfig.content.port;
 const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(
-    process.cwd() + EnvironmentConfig.content.staticPath,
+    process.cwd() + EnvironmentConfig.content.staticPath + '/client',
 );
 
 const app = express();

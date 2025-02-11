@@ -1,14 +1,14 @@
 import { StrictMode } from 'react';
-import { hydrateRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from 'src/client/App';
 
-const root = document.getElementById('content');
+const rootNode = document.getElementById('root');
 
-if (root) {
-    hydrateRoot(
-        root,
+if (rootNode) { 
+    const root = createRoot(rootNode);
+    root.render(
         <StrictMode>
             <App />
-        </StrictMode>,
+        </StrictMode>
     );
 }
