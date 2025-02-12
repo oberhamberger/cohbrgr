@@ -1,14 +1,12 @@
 {
     "name": "@cohbrgr/build",
     "version": "1.2.1",
-    "type": "module",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "exports": {
-        ".": "./dist/index.js"
-    },
-    "bin": {
-        "build": "bin/index.js"
+        ".": {    
+            "default": "./dist/src/index.js"
+        }
     },
     "scripts": {
         "lint": "eslint",
@@ -16,28 +14,13 @@
     },
     "dependencies": {
         "@cohbrgr/environments": "*",
-        "@cohbrgr/utils": "*",
-        "@types/webpack": "^5.28.5",
-        "@types/webpack-bundle-analyzer": "^4.6.3",
-        "copy-webpack-plugin": "^12.0.2",
-        "css-loader": "^7.1.2",
-        "eslint-webpack-plugin": "^4.2.0",
-        "mini-css-extract-plugin": "^2.9.2",
-        "nodemon-webpack-plugin": "^4.8.2",
-        "raw-loader": "^4.0.2",
-        "sass": "^1.83.4",
-        "sass-loader": "^16.0.4",
-        "swc-loader": "^0.2.6",
-        "webpack": "^5.97.1",
-        "webpack-bundle-analyzer": "^4.10.2",
-        "webpack-cli": "^6.0.1",
-        "webpackbar": "^7.0.0",
-        "workbox-webpack-plugin": "^7.3.0"
+        "@cohbrgr/utils": "*"
     },
     "devDependencies": {
+        "@rspack/cli": "^1.2.3",
+        "@rspack/core": "^1.2.3",
         "@swc/cli": "^0.6.0",
-        "@types/webpack-env": "^1.18.8",
-        "esbuild": "^0.24.2",
-        "esbuild-loader": "^4.2.2"
+        "sass-embedded": "^1.83.4",
+        "sass-loader": "^16.0.4"
     }
 }

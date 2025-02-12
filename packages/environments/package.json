@@ -5,20 +5,9 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "exports": {
-        ".": {
-            "import": {
-              "types": "./dist/index.d.ts",
-              "default": "./dist/src/index.js"
-            }
-        }
-    },
-    "types": "./dist/index.d.ts",
-    "typesVersions": {
-        "*": {
-            "*": [
-                "./dist/*",
-                "./dist/index.d.ts"
-            ]
+        ".": {    
+            "types": "./dist/index.d.ts",
+            "default": "./dist/src/index.js"
         }
     },
     "scripts": {

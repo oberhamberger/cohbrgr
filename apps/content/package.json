@@ -8,7 +8,7 @@
         "serve": "node .",
         "lint": "eslint",
         "prettier": "prettier --write .",
-        "build": "build",
+        "build": "rspack",
         "start": "NODE_ENV=development build -w",
         "test": "jest"
     },
@@ -21,6 +21,8 @@
         "@cohbrgr/environments": "*",
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
+        "@rspack/cli": "^1.2.3",
+        "@rspack/core": "^1.2.3",
         "@types/express": "^5.0.0"
     }
 }
