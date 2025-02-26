@@ -10,8 +10,8 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <>
             <main>
-                <h1>Hi!</h1>
-                <h2>My name is Christian</h2>
+                <h5>C.F.K.O</h5>
+                <h1>My name is Christian</h1>
                 <p>
                     I am a Frontend Developer at{' '}
                     <a href="https://www.netconomy.net/">Netconomy</a>. I mainly
