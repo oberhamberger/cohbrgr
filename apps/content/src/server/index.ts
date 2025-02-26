@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import express from 'express';
+import cors from 'cors';
 import { logging, methodDetermination } from '@cohbrgr/server';
 import EnvironmentConfig from '@cohbrgr/environments';
 
@@ -7,14 +8,17 @@ const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = EnvironmentConfig.content.port;
 const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(
-    process.cwd() + EnvironmentConfig.content.staticPath + '/client',
+    process.cwd() + EnvironmentConfig.content.staticPath,
 );
 
 const app = express();
 
 app.use(logging(isProduction));
 app.use(methodDetermination);
+app.use(cors());
 app.use(express.static(staticPath, { dotfiles: 'ignore' }));
+
+console.log('staticPath: ', staticPath)
 
 // starting the server
 const server = app.listen(port, () => {

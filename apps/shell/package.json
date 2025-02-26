@@ -1,44 +1,38 @@
 {
-    "name": "@cohbrgr/shell",
-    "version": "1.2.1",
-    "author": "Christian Oberhamberger",
-    "license": "ISC",
-    "main": "dist/server",
-    "exports": {
-        ".": "./src/client/routes.ts"
-    },
-    "scripts": {
-        "serve": "node .",
-        "lint": "eslint",
-        "prettier": "prettier --write .",
-        "build": "build",
-        "build:ssg": "NODE_ENV=production build --generator",
-        "build:analyze": "NODE_ENV=production build --analyze",
-        "start": "NODE_ENV=development build -w",
-        "test": "jest"
-    },
-    "dependencies": {
-        "@cohbrgr/utils": "*",
-        "compression": "^1.7.5",
-        "express": "^4.21.2",
-        "express-rate-limit": "^7.5.0",
-        "helmet": "^8.0.0",
-        "html-validate": "^9.2.0",
-        "nocache": "^4.0.0",
-        "node-mocks-http": "^1.16.2",
-        "workbox-core": "^7.3.0",
-        "workbox-expiration": "^7.3.0",
-        "workbox-routing": "^7.3.0",
-        "workbox-strategies": "^7.3.0",
-        "workbox-window": "^7.3.0"
-    },
-    "devDependencies": {
-        "@cohbrgr/build": "*",
-        "@cohbrgr/environments": "*",
-        "@cohbrgr/eslint": "*",
-        "@cohbrgr/figma": "*",
-        "@cohbrgr/jest": "*",
-        "@types/compression": "^1.7.5",
-        "@types/express": "^5.0.0"
-    }
+  "name": "@cohbrgr/shell",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "node dist/server",
+    "build": "rsbuild build",
+    "dev": "rsbuild dev --open",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "compression": "^1.7.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "html-validate": "^9.2.0",
+    "nocache": "^4.0.0",
+    "node-mocks-http": "^1.16.2",
+    "workbox-core": "^7.3.0",
+    "workbox-expiration": "^7.3.0",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0",
+    "workbox-window": "^7.3.0"
+  },
+  "devDependencies": {
+    "@cohbrgr/build": "^1.2.0",
+    "@cohbrgr/environments": "^1.2.0",
+    "@cohbrgr/eslint": "^1.2.1",
+    "@cohbrgr/figma": "^1.2.1",
+    "@cohbrgr/jest": "^1.2.0",
+    "@module-federation/enhanced": "^0.8.11",
+    "@module-federation/node": "^2.6.24",
+    "@types/compression": "^1.7.5",
+    "@types/express": "^5.0.0"
+  }
 }

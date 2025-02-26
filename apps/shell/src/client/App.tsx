@@ -1,11 +1,10 @@
 import {
     FunctionComponent,
     lazy,
-    Suspense,
-    useContext,
+    Suspense
 } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { AppStateContext } from 'src/client/contexts/app-state';
+//import { AppStateContext } from 'src/client/contexts/app-state';
 
 import 'src/client/styles/index.scss';
 
@@ -13,24 +12,20 @@ import Layout from 'src/client/components/layout';
 import Offline from 'src/client/pages/offline';
 import NotFound from 'src/client/pages/not-found';
 import AppRoutes from 'src/client/routes';
-import { Spinner } from '@cohbrgr/components';
-import type { IContent } from '@cohbrgr/content/client/components/content/Content';
 
-const Content = lazy(() => import('@cohbrgr/content') as Promise<{
-            default: FunctionComponent<IContent>;
-        }>);
+const Content = lazy(() => import('content/content'));
 
 const App: FunctionComponent = () => {
 
-    const { nonce } = useContext(AppStateContext);
+    // const { nonce } = useContext(AppStateContext);
     return (
         <Layout>
             <Routes>
                 <Route
                     path={AppRoutes.start}
                     element={
-                        <Suspense fallback={<Spinner />}>
-                            <Content nonce={nonce} />
+                        <Suspense>
+                            <Content nonce=''/>
                         </Suspense>
                     }
                 />

@@ -12,7 +12,7 @@ export type StylesheetProps = IStylesheetProps;
 let styleFiles: string[] = [];
 let styleFileContents = '';
 const cssDirectoryPath = resolve(
-    process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/css`,
+    process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/static/css`,
 );
 
 try {
@@ -28,11 +28,11 @@ try {
                 );
             });
         } catch (singleFileError) {
-            console.warn('HTML-Template: error reading css file');
+            console.warn('HTML-Template: error reading css file', singleFileError);
         }
     }
 } catch (allFilesError) {
-    console.warn('HTML-Template: no css files found in current context');
+    console.warn('HTML-Template: no css files found in current context', allFilesError);
 }
 
 const Stylesheets: FunctionComponent<StylesheetProps> = (

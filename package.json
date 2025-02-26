@@ -21,6 +21,7 @@
         "bootstrap": "git clean -xfd && npm install && lerna run build",
         "prettier": "prettier --write .",
         "lint": "lerna run lint",
+        "dev": "lerna run dev",
         "build": "lerna run build",
         "start": "lerna run start",
         "serve": "lerna run serve",

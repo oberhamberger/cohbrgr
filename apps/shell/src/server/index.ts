@@ -3,6 +3,7 @@ import express from 'express';
 import nocache from 'nocache';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 
 import { EnvironmentConfig } from '@cohbrgr/environments';
 import { logging, methodDetermination } from '@cohbrgr/server';
@@ -14,7 +15,7 @@ const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = EnvironmentConfig.shell.port;
 const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(
-    process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
+    process.cwd() + EnvironmentConfig.shell.staticPath + '/client/static',
 );
 const useClientSideRendering = true;
 
@@ -49,30 +50,35 @@ app.use((_req, res, next) => {
     res.locals['cspNonce'] = randomBytes(16).toString('hex');
     next();
 });
-// app.use(
-//     helmet({
-//         contentSecurityPolicy: {
-//             useDefaults: true,
-//             directives: {
-//                 // 'script-src': [
-//                 //     (req, res) =>
-//                 //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
-//                 // ],
-//                 'script-src': [
-//                     "'self'",
-//                     "'unsafe-inline'",
-//                     'http://localhost:3031',
-//                     'cohbrgr-content-o44imzpega-oa.a.run.app',
-//                 ],
-//                 'manifest-src': ["'self'"],
-//                 'connect-src': ["'self'"],
-//                 'worker-src': ["'self'"],
-//                 'form-action': ["'none'"],
-//                 'default-src': ["'none'"],
-//             },
-//         },
-//     }),
-// );
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            useDefaults: true,
+            directives: {
+                // 'script-src': [
+                //     (req, res) =>
+                //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
+                // ],
+                'script-src': [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'http://localhost:3001',
+                    'cohbrgr-content-o44imzpega-oa.a.run.app',
+                ],
+                'manifest-src': ["'self'"],
+                'connect-src':  [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'http://localhost:3001',
+                    'cohbrgr-content-o44imzpega-oa.a.run.app',
+                ],
+                'worker-src': ["'self'"],
+                'form-action': ["'none'"],
+                'default-src': ["'none'"],
+            },
+        },
+    }),
+);
 
 // app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));

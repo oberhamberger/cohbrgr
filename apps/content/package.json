@@ -13,6 +13,7 @@
   "dependencies": {
     "@cohbrgr/environments": "*",
     "@cohbrgr/server": "*",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -20,7 +21,8 @@
   "devDependencies": {
     "@cohbrgr/eslint": "*",
     "@cohbrgr/tsconfig": "*",
-    "@module-federation/rsbuild-plugin": "^0.8.11",
+    "@module-federation/enhanced": "^0.8.11",
+    "@module-federation/node": "^2.6.24",
     "@rsbuild/core": "^1.2.4",
     "@rsbuild/plugin-react": "^1.1.0",
     "@rsbuild/plugin-sass": "^1.2.1",
