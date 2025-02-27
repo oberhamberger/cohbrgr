@@ -26,7 +26,7 @@ html::after {
 }
 
 main {
-    padding: 2rem;
+    padding: 8rem 2rem 0 2rem;
     @media screen and (orientation: landscape) and (min-width: 420px) {
         padding: 4rem;
         min-width: calc(400px - 2rem);
