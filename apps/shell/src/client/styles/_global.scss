@@ -13,17 +13,17 @@ body {
 html {
     background-color: var(--color-background);
 }
-html::after {
-    content: '';
-    position: fixed;
-    top: 15vh;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--gradient-background);
-    mask: linear-gradient(transparent, #fff);
-    z-index: -1;
-}
+// html::after {
+//     content: '';
+//     position: fixed;
+//     top: 15vh;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: var(--gradient-background);
+//     mask: linear-gradient(transparent, #fff);
+//     z-index: -1;
+// }
 
 main {
     padding: 8rem 2rem 0 2rem;
