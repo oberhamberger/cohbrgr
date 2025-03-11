@@ -3,5 +3,7 @@
     "version": "1.2.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "index.ts"
+    "exports": {
+        ".": "./index.ts"
+    }
 }
