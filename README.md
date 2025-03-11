@@ -47,20 +47,20 @@ docker run -d -p 3000:3000 node-[APP]
 
 ## Messed Around With
 
--   Minimal React Single Page Application
--   NodeJS Express Server providing SSR
--   Module Federation
--   Static Site Generation
--   SCSS Modules Styles
--   Typescript
--   Webpack Bundling
--   Monorepositories
--   Serviceworker using Workbox (for offline-Mode)
--   Linting
--   Prettier
--   Jest + React Testing Library
--   and of course: dark mode
+- Minimal React Single Page Application
+- NodeJS Express Server providing SSR
+- Module Federation
+- Static Site Generation
+- SCSS Modules Styles
+- Typescript
+- Webpack Bundling
+- Monorepositories
+- Serviceworker using Workbox (for offline-Mode)
+- Linting
+- Prettier
+- Jest + React Testing Library
+- and of course: dark mode
 
 ## forever ignored
 
--   Internet Explorer Support
+- Internet Explorer Support

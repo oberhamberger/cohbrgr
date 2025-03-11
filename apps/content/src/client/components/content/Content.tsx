@@ -10,7 +10,10 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <>
             <main>
-                <p role="doc-subtitle">C.F.K.O.<br/></p>
+                <p role="doc-subtitle">
+                    C.F.K.O.
+                    <br />
+                </p>
                 <h1>My name is Christian</h1>
                 <p>
                     I am a Frontend Developer at{' '}
@@ -20,7 +23,9 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
             </main>
             <Navigation>
                 <a href="https://github.com/oberhamberger">Github</a>
-                <a href="https://bsky.app/profile/cohbrgr.bsky.social">Bluesky</a>
+                <a href="https://bsky.app/profile/cohbrgr.bsky.social">
+                    Bluesky
+                </a>
                 <a href="https://www.linkedin.com/in/oberhamberger">LinkedIn</a>
             </Navigation>
             <StructuredData nonce={nonce} />

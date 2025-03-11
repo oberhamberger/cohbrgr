@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
+import type { RequestHandler } from 'express';
+
 import { Logger } from '@cohbrgr/utils';
 
 export enum HttpMethod {
@@ -13,7 +15,7 @@ export enum HttpMethod {
     PATCH = 'PATCH',
 }
 
-export const methodDetermination = (
+export const methodDetermination: RequestHandler = (
     req: Request,
     res: Response,
     next: NextFunction,
@@ -22,9 +24,8 @@ export const methodDetermination = (
         Logger.warn(
             `Unexpected Request with Method: ${req.method} on ${req.originalUrl}`,
         );
-        res.statusCode = 405;
-        return res.send('Method Not allowed');
+        res.status(405).send('Method Not allowed');
+        return;
     }
     next();
-    return;
 };
