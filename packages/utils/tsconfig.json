@@ -1,3 +1,13 @@
 {
-    "extends": "@cohbrgr/tsconfig"
+    "extends": "@cohbrgr/tsconfig",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"]
+        },
+        "outDir": "dist",
+        "lib": ["ES2022"],
+        "typeRoots": ["../../node_modules/@types"]
+    }
 }

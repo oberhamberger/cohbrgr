@@ -5,9 +5,13 @@
     "license": "ISC",
     "main": "index.ts",
     "scripts": {
-        "serve": "node .",
         "lint": "eslint",
         "prettier": "prettier --write .",
         "test": "jest"
+    },
+    "devDependencies": {
+        "@cohbrgr/jest": "*",
+        "@cohbrgr/tsconfig": "*",
+        "@cohbrgr/utils": "*"
     }
 }
