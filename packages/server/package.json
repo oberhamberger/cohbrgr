@@ -5,11 +5,13 @@
     "license": "ISC",
     "main": "dist/index.js",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "lint": "eslint"
     },
     "devDependencies": {
-        "@cohbrgr/eslint": "^1.2.1",
-        "@cohbrgr/jest": "^1.2.0",
+        "@cohbrgr/eslint": "*",
+        "@cohbrgr/tsconfig": "*",
+        "@cohbrgr/utils": "*",
         "@types/compression": "^1.7.5",
         "@types/express": "^5.0.0"
     }

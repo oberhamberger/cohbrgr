@@ -4,6 +4,9 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/server",
+    "nx": {
+        "projectType": "application"
+    },
     "scripts": {
         "serve": "node .",
         "lint": "eslint",
@@ -15,6 +18,9 @@
         "test": "jest"
     },
     "dependencies": {
+        "@cohbrgr/components": "*",
+        "@cohbrgr/utils": "*",
+        "@cohbrgr/server": "*",
         "compression": "^1.7.5",
         "express": "^4.21.2",
         "express-rate-limit": "^7.5.0",
@@ -29,11 +35,12 @@
         "workbox-window": "^7.3.0"
     },
     "devDependencies": {
-        "@cohbrgr/build": "^1.2.0",
-        "@cohbrgr/environments": "^1.2.0",
-        "@cohbrgr/eslint": "^1.2.1",
-        "@cohbrgr/figma": "^1.2.1",
-        "@cohbrgr/jest": "^1.2.0",
+        "@cohbrgr/build": "*",
+        "@cohbrgr/environments": "*",
+        "@cohbrgr/eslint": "*",
+        "@cohbrgr/figma": "*",
+        "@cohbrgr/jest": "*",
+        "@cohbrgr/tsconfig": "*",
         "@types/compression": "^1.7.5",
         "@types/express": "^5.0.0"
     }
