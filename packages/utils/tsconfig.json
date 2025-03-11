@@ -7,6 +7,7 @@
             "src/*": ["./src/*"]
         },
         "outDir": "dist",
+        "declaration": true,
         "lib": ["ES2022"],
         "typeRoots": ["../../node_modules/@types"]
     }
