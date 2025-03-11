@@ -25,6 +25,7 @@
         "start": "nx run-many -t start",
         "serve": "nx run-many -t serve",
         "test": "nx run-many -t test",
+        "graph": "nx graph",
         "build:compiler": "nx build @cohbrgr/build",
         "build:shell": "nx build @cohbrgr/shell",
         "build:figma": "nx build @cohbrgr/figma",
