@@ -1,17 +1,6 @@
 {
-    "tasksRunnerOptions": {
-        "default": {
-            "runner": "nx/tasks-runners/default",
-            "options": {
-                "cacheableOperations": ["test", "build", "lint"]
-            }
-        }
-    },
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
     "targetDefaults": {
-        "clean": {
-            "dependsOn": ["^clean"]
-        },
-
         "start": {
             "cache": true,
             "dependsOn": ["^build", "prestart"],
