@@ -3,11 +3,13 @@
     "version": "1.2.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "dist/css/_variables.css",
+    "exports": {
+        ".": "./dist/css/_variables.css"
+    },
     "scripts": {
         "build": "style-dictionary build"
     },
     "dependencies": {
-        "style-dictionary": "^4.3.2"
+        "style-dictionary": "^4.3.3"
     }
 }

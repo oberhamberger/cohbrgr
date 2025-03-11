@@ -3,8 +3,10 @@
     "version": "1.2.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
-    "main": "index.js",
+    "exports": {
+        ".": "./index.js"
+    },
     "dependencies": {
-        "prettier": "^3.4.2"
+        "prettier": "^3.5.3"
     }
 }
