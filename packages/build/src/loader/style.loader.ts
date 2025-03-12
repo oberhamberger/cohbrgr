@@ -1,6 +1,6 @@
 import { resolve } from 'path';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { RuleSetUseItem } from 'webpack';
+
+import  { type RuleSetUseItem, rspack } from '@rspack/core';
 
 export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {
     const loaders: RuleSetUseItem[] = [
@@ -27,7 +27,7 @@ export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {
     ];
 
     const clientLoader = {
-        loader: MiniCssExtractPlugin.loader,
+        loader: rspack.CssExtractRspackPlugin.loader,
         options: {
             esModule: true,
         },

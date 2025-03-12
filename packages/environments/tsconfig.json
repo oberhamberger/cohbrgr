@@ -3,6 +3,7 @@
     "compilerOptions": {
         "outDir": "dist",
         "lib": ["ES2022"],
+        "declaration": true,
         "typeRoots": ["../../node_modules/@types"]
     }
 }
