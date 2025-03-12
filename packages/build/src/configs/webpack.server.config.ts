@@ -1,8 +1,5 @@
 import { resolve, join } from 'path';
-import { Configuration, WebpackPluginInstance } from 'webpack';
-import WebpackBar from 'webpackbar';
-import NodemonPlugin from 'nodemon-webpack-plugin';
-import ESLintPlugin from 'eslint-webpack-plugin';
+import  { type Configuration, ProgressPlugin, type RspackPluginInstance} from '@rspack/core';
 import {
     isProduction,
     regexStyle,
@@ -12,7 +9,7 @@ import {
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 
-export default (federationPlugin: WebpackPluginInstance): Configuration => {
+export default (): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
@@ -24,7 +21,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
         entry: {
             index: './server/index.ts',
         },
-        target: false,
+        target: 'node',
         module: {
             rules: [
                 {
@@ -39,13 +36,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
             ],
         },
         plugins: [
-            new ESLintPlugin(),
-            new WebpackBar({
-                name: `Server`,
-                color: '#0a9c6c',
-            }),
-            federationPlugin,
-            new NodemonPlugin(),
+            new ProgressPlugin(),
         ],
         output: {
             path: resolve(CWD, './dist/server'),

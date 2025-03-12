@@ -1,4 +1,5 @@
 import EnvironmentConfig from '@cohbrgr/environments';
+import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import { UniversalFederationPlugin } from '@module-federation/node';
 import { dependencies } from '../../../../package.json';
 import { isProduction } from 'src/utils/constants';
@@ -8,7 +9,7 @@ const contentPort = isProduction
     : EnvironmentConfig.content.port + 30;
 
 const contentUrl =
-    process.env?.DOCKER === 'true'
+    process.env['DOCKER'] === 'true'
         ? EnvironmentConfig.content.location
         : `${EnvironmentConfig.content.location}:${contentPort}/`;
 
@@ -17,7 +18,7 @@ const getContainerOptions = (isServer: boolean) => {
         remotes: {
             content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
-        // shared: [{ react: dependencies.react, 'react-dom': dependencies['react-dom'] }]
+        shared: [{ react: dependencies.react, 'react-dom': dependencies['react-dom'] }]
     };
 };
 
@@ -45,6 +46,7 @@ const getServerFederationConfig = (isShell: boolean) => {
         filename: 'remoteEntry.js',
         name: isShell ? 'shell' : 'content',
         isServer: true,
+        
         library: { type: 'commonjs-module' },
         ...(isShell ? getContainerOptions(true) : getRemoteOptions()),
     };
@@ -64,7 +66,7 @@ export default (isShell: boolean) => {
     const serverFederationConfig = getServerFederationConfig(isShell);
 
     return {
-        client: new UniversalFederationPlugin(clientFederationConfig, {}),
+        client: new ModuleFederationPlugin(clientFederationConfig),
         server: new UniversalFederationPlugin(serverFederationConfig, {}),
     };
 };

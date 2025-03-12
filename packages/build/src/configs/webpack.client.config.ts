@@ -1,11 +1,6 @@
 import { resolve, join } from 'path';
-import { Configuration, WebpackPluginInstance } from 'webpack';
-import WebpackBar from 'webpackbar';
-import ESLintPlugin from 'eslint-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CopyPlugin from 'copy-webpack-plugin';
-import { InjectManifest } from 'workbox-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import  { type Configuration, rspack, ProgressPlugin, type RspackPluginInstance, CopyRspackPlugin} from '@rspack/core';
+
 import {
     isAnalyze,
     isProduction,
@@ -18,7 +13,7 @@ import {
 } from 'src/utils/constants';
 import getStyleLoader from 'src/loader/style.loader';
 
-export default (federationPlugin: WebpackPluginInstance): Configuration => {
+export default (): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
@@ -45,40 +40,27 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
             ],
         },
         plugins: [
-            new ESLintPlugin(),
-            new WebpackBar({
-                name: `Client`,
-                color: '#fff1ee',
-            }),
-            new MiniCssExtractPlugin({
+            new ProgressPlugin(),
+            new rspack.CssExtractRspackPlugin({
                 filename: isProduction
                     ? 'css/[name].[contenthash].css'
                     : 'css/[name].css',
             }),
-            federationPlugin,
             ...(isShell
                 ? [
-                      new CopyPlugin({
+                      new CopyRspackPlugin({
                           patterns: [{ from: './client/assets', to: './' }],
                       }),
                   ]
                 : []),
             ...(isProduction && isShell
                 ? [
-                      new InjectManifest({
-                          swSrc: './client/service-worker',
-                          swDest: serviceWorker,
-                          include: [/\.js$/],
-                      }),
+
                   ]
                 : []),
             ...(isAnalyze
                 ? [
-                      new BundleAnalyzerPlugin({
-                          generateStatsFile: true,
-                          openAnalyzer: true,
-                          analyzerPort: 0,
-                      }),
+
                   ]
                 : []),
         ],
@@ -92,6 +74,7 @@ export default (federationPlugin: WebpackPluginInstance): Configuration => {
         output: {
             path: resolve(CWD, './dist/client'),
             clean: true,
+            publicPath: '/',
             filename: isProduction
                 ? `${isShell ? 'js/' : ''}[name].[contenthash].js`
                 : `${isShell ? 'js/' : ''}[name].js`,
