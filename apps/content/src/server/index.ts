@@ -1,8 +1,8 @@
-import { resolve } from 'path';
-import express from 'express';
-import { Logger } from '@cohbrgr/utils';
-import { logging, methodDetermination } from '@cohbrgr/server';
 import EnvironmentConfig from '@cohbrgr/environments';
+import { logging, methodDetermination } from '@cohbrgr/server';
+import { Logger } from '@cohbrgr/utils';
+import express from 'express';
+import { resolve } from 'path';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction

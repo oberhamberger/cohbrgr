@@ -1,5 +1,5 @@
-import { FunctionComponent } from 'react';
 import { Navigation } from '@cohbrgr/components';
+import { FunctionComponent } from 'react';
 
 const Offline: FunctionComponent = () => {
     return (

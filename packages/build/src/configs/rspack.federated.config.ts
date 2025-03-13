@@ -1,8 +1,8 @@
 import EnvironmentConfig from '@cohbrgr/environments';
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import { UniversalFederationPlugin } from '@module-federation/node';
-import { dependencies } from '../../../../package.json';
 import { isProduction } from 'src/utils/constants';
+import { dependencies } from '../../../../package.json';
 
 const contentPort = isProduction
     ? EnvironmentConfig.content.port

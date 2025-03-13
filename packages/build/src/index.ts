@@ -5,7 +5,7 @@ import getRspackClientConfig from 'src/configs/rspack.client.config';
 import getRspackServerConfig from 'src/configs/rspack.server.config';
 //import moduleFederationPlugin from 'src/configs/rspack.federated.config';
 import staticSiteGenerator from 'src/ssg';
-import { isWatch, isSSG } from 'src/utils/constants';
+import { isSSG, isWatch } from 'src/utils/constants';
 
 // const federationPlugins = moduleFederationPlugin(isShell);
 const configs: [Configuration[]?] = [];
