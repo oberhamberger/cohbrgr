@@ -27,13 +27,13 @@
     --color-font: var(--color-font-light);
     --color-highlight: var(--color-highlight-light);
 
+    --font-system: var(--cohbrgr-styles-font-system);
+    --font-serif: var(--cohbrgr-styles-font-serif);
+
     @media (prefers-color-scheme: dark) {
         --color-background: var(--color-background-dark);
         --gradient-background: var(--gradient-background-dark);
         --color-font: var(--color-font-dark);
         --color-highlight: var(--color-highlight-dark);
     }
-
-    --font-system: var(--cohbrgr-styles-font-system);
-    --font-serif: var(--cohbrgr-styles-font-serif);
 }
