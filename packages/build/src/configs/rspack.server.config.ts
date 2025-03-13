@@ -1,5 +1,5 @@
 import { resolve, join } from 'path';
-import  { type Configuration, ProgressPlugin, type RspackPluginInstance} from '@rspack/core';
+import  { type Configuration, ProgressPlugin} from '@rspack/core';
 import {
     isProduction,
     regexStyle,
