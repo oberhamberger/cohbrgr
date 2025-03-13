@@ -1,18 +1,18 @@
 import { type Configuration, type MultiStats, rspack } from '@rspack/core';
 
 import { Logger } from '@cohbrgr/utils';
-import getWebpackClientConfig from 'src/configs/webpack.client.config';
-import getWebpackServerConfig from 'src/configs/webpack.server.config';
-import moduleFederationPlugin from 'src/configs/webpack.federated.config';
+import getRspackClientConfig from 'src/configs/rspack.client.config';
+import getRspackServerConfig from 'src/configs/rspack.server.config';
+//import moduleFederationPlugin from 'src/configs/rspack.federated.config';
 import staticSiteGenerator from 'src/ssg';
-import { isWatch, isSSG, isShell } from 'src/utils/constants';
+import { isWatch, isSSG } from 'src/utils/constants';
 
 // const federationPlugins = moduleFederationPlugin(isShell);
 const configs: [Configuration[]?] = [];
 
 configs.push([
-    getWebpackClientConfig(),
-    getWebpackServerConfig(),
+    getRspackClientConfig(),
+    getRspackServerConfig(),
 ]);
 
 

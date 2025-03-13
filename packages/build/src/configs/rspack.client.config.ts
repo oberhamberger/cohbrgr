@@ -1,10 +1,9 @@
 import { resolve, join } from 'path';
-import  { type Configuration, rspack, ProgressPlugin, type RspackPluginInstance, CopyRspackPlugin} from '@rspack/core';
+import  { type Configuration, rspack, ProgressPlugin, CopyRspackPlugin} from '@rspack/core';
 
 import {
     isAnalyze,
     isProduction,
-    serviceWorker,
     regexStyle,
     regexSource,
     Mode,
