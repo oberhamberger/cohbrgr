@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import  { type RuleSetUseItem, rspack } from '@rspack/core';
+import { type RuleSetUseItem, rspack } from '@rspack/core';
 
 export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {
     const loaders: RuleSetUseItem[] = [

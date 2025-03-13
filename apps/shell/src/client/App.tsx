@@ -1,3 +1,4 @@
+import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
 import {
     FunctionComponent,
     lazy,
@@ -5,18 +6,17 @@ import {
     useContext,
     useEffect,
 } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
+import { Route, Routes } from 'react-router-dom';
 import { AppStateContext } from 'src/client/contexts/app-state';
-import { onLCP, onINP, onCLS } from 'web-vitals/attribution';
+import { onCLS, onINP, onLCP } from 'web-vitals/attribution';
 
 import 'src/client/styles/index.scss';
 
-import Layout from 'src/client/components/layout';
-import Offline from 'src/client/pages/offline';
-import NotFound from 'src/client/pages/not-found';
-import AppRoutes from 'src/client/routes';
 import { Spinner } from '@cohbrgr/components';
+import Layout from 'src/client/components/layout';
+import NotFound from 'src/client/pages/not-found';
+import Offline from 'src/client/pages/offline';
+import AppRoutes from 'src/client/routes';
 
 const App: FunctionComponent = () => {
     useEffect(() => {

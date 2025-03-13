@@ -1,15 +1,16 @@
-import { resolve, join } from 'path';
-import  { type Configuration, rspack, ProgressPlugin, CopyRspackPlugin} from '@rspack/core';
+import { type Configuration, CopyRspackPlugin, ProgressPlugin, rspack } from '@rspack/core';
+import { join, resolve } from 'path';
 
 import {
+    CWD,
     isAnalyze,
     isProduction,
-    regexStyle,
-    regexSource,
-    Mode,
-    CWD,
     isShell,
+    Mode,
+    regexSource,
+    regexStyle
 } from 'src/utils/constants';
+
 import getStyleLoader from 'src/loader/style.loader';
 
 export default (): Configuration => {

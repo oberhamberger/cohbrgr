@@ -1,12 +1,13 @@
-import { resolve, join } from 'path';
-import  { type Configuration, ProgressPlugin} from '@rspack/core';
+import { type Configuration, ProgressPlugin } from '@rspack/core';
+import { join, resolve } from 'path';
 import {
-    isProduction,
-    regexStyle,
-    regexSource,
-    Mode,
     CWD,
+    isProduction,
+    Mode,
+    regexSource,
+    regexStyle,
 } from 'src/utils/constants';
+
 import getStyleLoader from 'src/loader/style.loader';
 
 export default (): Configuration => {
