@@ -1,7 +1,7 @@
 import { RouteMatchCallback } from 'workbox-core';
+import { ExpirationPlugin } from 'workbox-expiration';
 import { Route } from 'workbox-routing';
 import { CacheFirst } from 'workbox-strategies';
-import { ExpirationPlugin } from 'workbox-expiration';
 
 const resourceCacheFirst = new CacheFirst({
     cacheName: 'resources',
