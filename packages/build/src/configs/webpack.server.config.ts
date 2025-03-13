@@ -1,16 +1,16 @@
-import { resolve, join } from 'path';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import NodemonPlugin from 'nodemon-webpack-plugin';
+import { join, resolve } from 'path';
+import getStyleLoader from 'src/loader/style.loader';
+import {
+    CWD,
+    isProduction,
+    Mode,
+    regexSource,
+    regexStyle,
+} from 'src/utils/constants';
 import { Configuration, WebpackPluginInstance } from 'webpack';
 import WebpackBar from 'webpackbar';
-import NodemonPlugin from 'nodemon-webpack-plugin';
-import ESLintPlugin from 'eslint-webpack-plugin';
-import {
-    isProduction,
-    regexStyle,
-    regexSource,
-    Mode,
-    CWD,
-} from 'src/utils/constants';
-import getStyleLoader from 'src/loader/style.loader';
 
 export default (federationPlugin: WebpackPluginInstance): Configuration => {
     return {

@@ -1,10 +1,10 @@
-import webpack, { Configuration, MultiStats } from 'webpack';
 import { Logger } from '@cohbrgr/utils';
 import getWebpackClientConfig from 'src/configs/webpack.client.config';
-import getWebpackServerConfig from 'src/configs/webpack.server.config';
 import moduleFederationPlugin from 'src/configs/webpack.federated.config';
+import getWebpackServerConfig from 'src/configs/webpack.server.config';
 import staticSiteGenerator from 'src/ssg';
-import { isWatch, isSSG, isShell } from 'src/utils/constants';
+import { isSSG, isShell, isWatch } from 'src/utils/constants';
+import webpack, { Configuration, MultiStats } from 'webpack';
 
 const federationPlugins = moduleFederationPlugin(isShell);
 const configs: [Configuration[]?] = [];

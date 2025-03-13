@@ -1,22 +1,22 @@
-import { resolve, join } from 'path';
-import { Configuration, WebpackPluginInstance } from 'webpack';
-import WebpackBar from 'webpackbar';
+import CopyPlugin from 'copy-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CopyPlugin from 'copy-webpack-plugin';
-import { InjectManifest } from 'workbox-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { join, resolve } from 'path';
+import getStyleLoader from 'src/loader/style.loader';
 import {
+    CWD,
     isAnalyze,
     isProduction,
-    serviceWorker,
-    regexStyle,
-    regexSource,
-    Mode,
-    CWD,
     isShell,
+    Mode,
+    regexSource,
+    regexStyle,
+    serviceWorker,
 } from 'src/utils/constants';
-import getStyleLoader from 'src/loader/style.loader';
+import { Configuration, WebpackPluginInstance } from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import WebpackBar from 'webpackbar';
+import { InjectManifest } from 'workbox-webpack-plugin';
 
 export default (federationPlugin: WebpackPluginInstance): Configuration => {
     return {

@@ -1,5 +1,5 @@
-import { resolve } from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { resolve } from 'path';
 import { RuleSetUseItem } from 'webpack';
 
 export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {

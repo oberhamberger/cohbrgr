@@ -1,7 +1,7 @@
 import EnvironmentConfig from '@cohbrgr/environments';
 import { UniversalFederationPlugin } from '@module-federation/node';
-import { dependencies } from '../../../../package.json';
 import { isProduction } from 'src/utils/constants';
+import { dependencies } from '../../../../package.json';
 
 const contentPort = isProduction
     ? EnvironmentConfig.content.port
