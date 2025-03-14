@@ -1,4 +1,4 @@
-import { type Configuration, CopyRspackPlugin, ProgressPlugin, rspack } from '@rspack/core';
+import { type Configuration, CopyRspackPlugin, ProgressPlugin, rspack, type RspackPluginInstance } from '@rspack/core';
 import { join, resolve } from 'path';
 
 import {
@@ -13,7 +13,7 @@ import {
 
 import getStyleLoader from 'src/loader/style.loader';
 
-export default (): Configuration => {
+export default (federationPlugin: RspackPluginInstance): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
@@ -63,6 +63,7 @@ export default (): Configuration => {
 
                   ]
                 : []),
+                federationPlugin,
         ],
         optimization: {
             chunkIds: isProduction ? 'natural' : 'named',

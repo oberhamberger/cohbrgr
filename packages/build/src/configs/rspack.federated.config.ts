@@ -1,6 +1,5 @@
 import EnvironmentConfig from '@cohbrgr/environments';
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
-import { UniversalFederationPlugin } from '@module-federation/node';
 import { isProduction } from 'src/utils/constants';
 import { dependencies } from '../../../../package.json';
 
@@ -13,7 +12,7 @@ const contentUrl =
         ? EnvironmentConfig.content.location
         : `${EnvironmentConfig.content.location}:${contentPort}/`;
 
-const getContainerOptions = (isServer: boolean) => {
+const getHostOptions = (isServer: boolean) => {
     return {
         remotes: {
             content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
@@ -45,19 +44,19 @@ const getServerFederationConfig = (isShell: boolean) => {
     return {
         filename: 'remoteEntry.js',
         name: isShell ? 'shell' : 'content',
-        isServer: true,
+        // isServer: true,
         
-        library: { type: 'commonjs-module' },
-        ...(isShell ? getContainerOptions(true) : getRemoteOptions()),
+        library: { type: 'commonjs2' },
+        ...(isShell ? getHostOptions(true) : getRemoteOptions()),
     };
 };
 
 const getClientFederationConfig = (isShell: boolean) => {
     return {
-        filename: !isShell ? 'remoteEntry.js' : 'container.js',
+        filename: isShell ? 'container.js': 'remoteEntry.js',
         name: isShell ? 'shell' : 'content',
-        isServer: false,
-        ...(isShell ? getContainerOptions(false) : getRemoteOptions()),
+        bundlerRuntime: false,
+        ...(isShell ? getHostOptions(false) : getRemoteOptions()),
     };
 };
 
@@ -67,6 +66,6 @@ export default (isShell: boolean) => {
 
     return {
         client: new ModuleFederationPlugin(clientFederationConfig),
-        server: new UniversalFederationPlugin(serverFederationConfig, {}),
+        server: new ModuleFederationPlugin(serverFederationConfig),
     };
 };
