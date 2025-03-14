@@ -10,8 +10,8 @@ const options = {
 
     platform: 'node',
     outfile: 'dist/index.js',
-    sourcemap: false,
-    minify: true,
+    sourcemap: true,
+    minify: false,
     external: [
         ...Object.keys(packageJson.dependencies),
         './worker',

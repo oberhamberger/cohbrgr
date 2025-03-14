@@ -37,7 +37,7 @@ export default (): Configuration => {
             ],
         },
         plugins: [
-            new ProgressPlugin(),
+            new ProgressPlugin()
         ],
         output: {
             path: resolve(CWD, './dist/server'),

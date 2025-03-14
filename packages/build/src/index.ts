@@ -3,15 +3,15 @@ import { type Configuration, type MultiStats, rspack } from '@rspack/core';
 import { Logger } from '@cohbrgr/utils';
 import getRspackClientConfig from 'src/configs/rspack.client.config';
 import getRspackServerConfig from 'src/configs/rspack.server.config';
-//import moduleFederationPlugin from 'src/configs/rspack.federated.config';
+import moduleFederationPlugin from 'src/configs/rspack.federated.config';
 import staticSiteGenerator from 'src/ssg';
-import { isSSG, isWatch } from 'src/utils/constants';
+import { isSSG, isWatch, isShell } from 'src/utils/constants';
 
-// const federationPlugins = moduleFederationPlugin(isShell);
+const federationPlugins = moduleFederationPlugin(isShell);
 const configs: [Configuration[]?] = [];
 
 configs.push([
-    getRspackClientConfig(),
+    getRspackClientConfig(federationPlugins.client),
     getRspackServerConfig(),
 ]);
 
