@@ -1,4 +1,4 @@
-import { baseConfig, CWD, isProduction, isShell } from '@cohbrgr/build';
+import { baseConfig, CWD, getModuleFederationPlugins, isProduction, isShell } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import { CopyRspackPlugin, ProgressPlugin, rspack, type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
@@ -22,7 +22,7 @@ const config: RspackOptions = {
         new CopyRspackPlugin({
             patterns: [{ from: './client/assets', to: './' }],
         }),
-        // getModuleFederationPlugins(isShell).client,
+        getModuleFederationPlugins(true).client,
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
