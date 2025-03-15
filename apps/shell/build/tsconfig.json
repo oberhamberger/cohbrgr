@@ -1,0 +1,17 @@
+{
+    "extends": "@cohbrgr/tsconfig",
+    "compilerOptions": {
+        "module": "ES2015",
+        "moduleResolution": "bundler",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
+        "lib": ["ES2022", "dom", "dom.iterable", "webworker"],
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"]
+        },
+        "rewriteRelativeImportExtensions": true,
+    },
+    "exclude": ["../../node_modules"]
+}

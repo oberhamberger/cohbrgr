@@ -6,39 +6,22 @@ import {
     isAnalyze,
     isProduction,
     isShell,
-    Mode,
-    regexSource,
-    regexStyle
-} from 'src/utils/constants';
+    Mode
+} from '../utils/constants';
 
-import getStyleLoader from 'src/loader/style.loader';
 
-export default (federationPlugin: RspackPluginInstance): Configuration => {
+export const getRspackClientConfig = (federationPlugin: RspackPluginInstance): Configuration => {
     return {
         mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
         devtool: isProduction ? false : 'source-map',
         context: resolve(CWD, `./src`),
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.scss'],
-            modules: [join(CWD, ''), join(CWD, '../..', 'node_modules')],
+            modules: [join(CWD, ''), join(CWD, '..', 'node_modules')],
         },
-        entry: {
-            bundle: './client/index.tsx',
-        },
+        entry: './client/index.tsx',
         target: 'web',
-        module: {
-            rules: [
-                {
-                    test: regexSource,
-                    loader: 'esbuild-loader',
-                    exclude: /node_modules/,
-                },
-                {
-                    test: regexStyle,
-                    use: getStyleLoader(false, isProduction),
-                },
-            ],
-        },
+        
         plugins: [
             new ProgressPlugin(),
             new rspack.CssExtractRspackPlugin({
