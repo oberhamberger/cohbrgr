@@ -3,7 +3,7 @@ import { Logger } from '@cohbrgr/utils';
 import { fork } from 'child_process';
 import { mkdirSync, writeFile } from 'fs';
 import { join } from 'path';
-import { port } from 'src/utils/constants';
+import { port } from '../utils/constants';
 
 const serverAddress = `http://localhost:${port}`;
 const staticOutputPath = 'dist/client/static';

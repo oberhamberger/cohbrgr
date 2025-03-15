@@ -1,6 +1,8 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
+        "jsx": "react-jsx",
+
         "moduleResolution": "Node",
         "module": "ES2022",
         "baseUrl": ".",

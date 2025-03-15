@@ -1,7 +1,7 @@
 import EnvironmentConfig from '@cohbrgr/environments';
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
-import { isProduction } from 'src/utils/constants';
 import { dependencies } from '../../../../package.json';
+import { isProduction } from '../utils/constants';
 
 const contentPort = isProduction
     ? EnvironmentConfig.content.port
@@ -60,7 +60,7 @@ const getClientFederationConfig = (isShell: boolean) => {
     };
 };
 
-export default (isShell: boolean) => {
+export const getModuleFederationPlugins = (isShell: boolean) => {
     const clientFederationConfig = getClientFederationConfig(isShell);
     const serverFederationConfig = getServerFederationConfig(isShell);
 

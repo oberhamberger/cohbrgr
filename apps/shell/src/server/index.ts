@@ -1,15 +1,14 @@
-import { resolve } from 'path';
-import express from 'express';
-import nocache from 'nocache';
 import compression from 'compression';
+import express from 'express';
 import rateLimit from 'express-rate-limit';
+import nocache from 'nocache';
+import { resolve } from 'path';
 
 import { EnvironmentConfig } from '@cohbrgr/environments';
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { logging, methodDetermination } from '@cohbrgr/server';
-import jam from 'src/server/middleware/jam';
-import render from 'src/server/middleware/render';
+import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { randomBytes } from 'crypto';
+import render from 'src/server/middleware/render';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction
@@ -79,7 +78,7 @@ app.use((_req, res, next) => {
 //     }),
 // );
 
-app.use(jam(isProduction));
+// app.use(jam(isProduction));
 app.use(render(isProduction, useClientSideRendering));
 
 // starting the server
