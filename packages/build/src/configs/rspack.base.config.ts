@@ -43,4 +43,7 @@ export const baseConfig: RspackOptions = {
     experiments: {
         css: true,
     },
+    stats: {
+        colors: true,
+    },
 }

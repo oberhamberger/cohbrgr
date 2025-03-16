@@ -11,7 +11,7 @@
         "serve": "node .",
         "lint": "eslint",
         "prettier": "prettier --write .",
-        "build": "NODE_ENV=production build",
+        "build": "NODE_ENV=production rspack build --config ./build/index.ts",
         "start": "NODE_ENV=development build -w",
         "test": "jest"
     },
