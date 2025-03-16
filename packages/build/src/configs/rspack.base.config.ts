@@ -1,7 +1,7 @@
 import { type RspackOptions } from '@rspack/core';
 import { join, resolve } from 'path';
 import { getStyleLoader } from '../loader/style.loader';
-import { CWD, isProduction, Mode, regexSource, regexStyle } from '../utils/constants';
+import { CWD, isProduction, isWatch, Mode, regexSource, regexStyle } from '../utils/constants';
 
 export const baseConfig: RspackOptions = {
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
@@ -11,6 +11,7 @@ export const baseConfig: RspackOptions = {
         extensions: ['.tsx', '.ts', '.js', '.scss'],
         modules: [join(CWD, ''), join(CWD, '..', 'node_modules'), join(CWD, '../..', 'node_modules')],
     },
+    watch: isWatch,
 
     module: {
         rules: [

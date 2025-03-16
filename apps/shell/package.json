@@ -11,10 +11,10 @@
         "serve": "node .",
         "lint": "eslint",
         "prettier": "prettier --write .",
+        "dev": "NODE_ENV=development rspack build --config ./build/index.ts",
         "build": "NODE_ENV=production rspack build --config ./build/index.ts",
-        "build:ssg": "NODE_ENV=production build --generator",
-        "build:analyze": "NODE_ENV=production build --analyze",
-        "start": "NODE_ENV=development build -w",
+        "build:analyze": "npm run build -- --analyze",
+        "start": "npm run dev",
         "test": "jest"
     },
     "dependencies": {
