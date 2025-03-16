@@ -9,7 +9,7 @@ const config: RspackOptions = {
         bundle: './client/index.tsx',
     },
     target: 'web',
-
+    
     plugins: [
         new ProgressPlugin({
             template: '{spinner:.blue} {elapsed_precise:.dim.bold} {bar:50.cyan/blue.dim} {bytes_per_sec:.dim} {pos:.bold}/{len:.bold} {msg:.dim}'
