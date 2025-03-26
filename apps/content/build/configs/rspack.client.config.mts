@@ -1,7 +1,8 @@
-import { baseConfig, CWD, getModuleFederationPlugins, isProduction } from '@cohbrgr/build';
+import { baseConfig, CWD, isProduction } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import { CssExtractRspackPlugin, ProgressPlugin, type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
+import getModuleFederationPlugins from './rspack.federated.config.mts';
 
 const config: RspackOptions = {
     ...baseConfig,
@@ -19,7 +20,7 @@ const config: RspackOptions = {
                 ? 'css/[name].[contenthash].css'
                 : 'css/[name].css',
         }),
-        getModuleFederationPlugins(true).client,
+        getModuleFederationPlugins().client,
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
