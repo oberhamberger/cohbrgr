@@ -14,7 +14,7 @@
         height: unset;
         margin: 0 auto 0 auto;
         width: calc(768px - 2rem);
-        
+
         @supports (-webkit-touch-callout: none) {
             height: unset;
         }

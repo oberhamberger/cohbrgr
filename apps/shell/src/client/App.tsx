@@ -33,7 +33,7 @@ const App: FunctionComponent = () => {
                     path={AppRoutes.start}
                     element={
                         <Suspense fallback={<Spinner />}>
-                           <>hi</>
+                            <>hi</>
                         </Suspense>
                     }
                 />

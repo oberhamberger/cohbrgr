@@ -17,24 +17,28 @@ const getHostOptions = (isServer: boolean) => {
         remotes: {
             content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
-        shared: [{ react: dependencies.react, 'react-dom': dependencies['react-dom'] }]
+        shared: [
+            {
+                react: dependencies.react,
+                'react-dom': dependencies['react-dom'],
+            },
+        ],
     };
 };
 
 export default () => {
-
     const clientFederationConfig = {
         filename: 'container.js',
         name: 'shell',
         bundlerRuntime: false,
-        ...(getHostOptions(false)),
+        ...getHostOptions(false),
     };
 
     const serverFederationConfig = {
         filename: 'remoteEntry.js',
-        name:'shell',        
+        name: 'shell',
         library: { type: 'commonjs2' },
-        ...(getHostOptions(true)),
+        ...getHostOptions(true),
     };
 
     return {
