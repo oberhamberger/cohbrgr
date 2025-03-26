@@ -1,4 +1,3 @@
-
 import { type RuleSetUseItem } from '@rspack/core';
 
 export const getStyleLoader = (): RuleSetUseItem[] => {

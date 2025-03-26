@@ -11,7 +11,7 @@
         "paths": {
             "src/*": ["./src/*"]
         },
-        "rewriteRelativeImportExtensions": true,
+        "rewriteRelativeImportExtensions": true
     },
     "exclude": ["../../node_modules"]
 }

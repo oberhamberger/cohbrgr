@@ -13,7 +13,8 @@ const config: RspackOptions = {
 
     plugins: [
         new ProgressPlugin({
-            template: '{spinner:.yellow} {elapsed_precise:.dim.bold} {bar:50.yellow/red.dim} {bytes_per_sec:.dim} {pos:.bold}/{len:.bold} {msg:.dim}'
+            template:
+                '{spinner:.yellow} {elapsed_precise:.dim.bold} {bar:50.yellow/red.dim} {bytes_per_sec:.dim} {pos:.bold}/{len:.bold} {msg:.dim}',
         }),
         getModuleFederationPlugins().server,
     ],
@@ -25,7 +26,7 @@ const config: RspackOptions = {
     },
     externals: {
         express: "require('express')",
-    }
+    },
 };
 
 export default defineConfig(config);

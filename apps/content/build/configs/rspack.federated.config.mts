@@ -1,7 +1,6 @@
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import { dependencies } from '../../../../package.json';
 
-
 const getRemoteOptions = () => {
     return {
         exposes: {
@@ -22,20 +21,19 @@ const getRemoteOptions = () => {
 };
 
 export default () => {
-    
     const clientFederationConfig = {
         filename: 'remoteEntry.js',
         name: 'content',
         bundlerRuntime: false,
-        ...(getRemoteOptions()),
+        ...getRemoteOptions(),
     };
 
     const serverFederationConfig = {
         filename: 'remoteEntry.js',
         name: 'content',
-        
+
         library: { type: 'commonjs2' },
-        ...(getRemoteOptions()),
+        ...getRemoteOptions(),
     };
 
     return {

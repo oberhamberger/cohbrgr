@@ -1,7 +1,14 @@
 import { type RspackOptions } from '@rspack/core';
 import { join, resolve } from 'path';
 import { getStyleLoader } from '../loader/style.loader';
-import { CWD, isProduction, isWatch, Mode, regexSource, regexStyle } from '../utils/constants';
+import {
+    CWD,
+    isProduction,
+    isWatch,
+    Mode,
+    regexSource,
+    regexStyle,
+} from '../utils/constants';
 
 export const baseConfig: RspackOptions = {
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
@@ -9,7 +16,11 @@ export const baseConfig: RspackOptions = {
     context: resolve(CWD, `./src`),
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.scss'],
-        modules: [join(CWD, ''), join(CWD, '..', 'node_modules'), join(CWD, '../..', 'node_modules')],
+        modules: [
+            join(CWD, ''),
+            join(CWD, '..', 'node_modules'),
+            join(CWD, '../..', 'node_modules'),
+        ],
     },
     watch: isWatch,
 
@@ -47,4 +58,4 @@ export const baseConfig: RspackOptions = {
     stats: {
         colors: true,
     },
-}
+};
