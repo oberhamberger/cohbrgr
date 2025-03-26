@@ -1,7 +1,8 @@
-import { baseConfig, CWD, getModuleFederationPlugins, isProduction } from '@cohbrgr/build';
+import { baseConfig, CWD, isProduction } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
-import { CopyRspackPlugin, ProgressPlugin, rspack, type RspackOptions } from '@rspack/core';
+import { CopyRspackPlugin, CssExtractRspackPlugin, ProgressPlugin, type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
+import getModuleFederationPlugins from './rspack.federated.config.mts';
 
 const config: RspackOptions = {
     ...baseConfig,
@@ -14,7 +15,7 @@ const config: RspackOptions = {
         new ProgressPlugin({
             template: '{spinner:.blue} {elapsed_precise:.dim.bold} {bar:50.cyan/blue.dim} {bytes_per_sec:.dim} {pos:.bold}/{len:.bold} {msg:.dim}'
         }),
-        new rspack.CssExtractRspackPlugin({
+        new CssExtractRspackPlugin({
             filename: isProduction
                 ? 'css/[name].[contenthash].css'
                 : 'css/[name].css',
@@ -22,7 +23,7 @@ const config: RspackOptions = {
         new CopyRspackPlugin({
             patterns: [{ from: './client/assets', to: './' }],
         }),
-        getModuleFederationPlugins(true).client,
+        getModuleFederationPlugins().client,
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
