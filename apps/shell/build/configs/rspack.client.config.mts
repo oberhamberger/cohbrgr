@@ -12,7 +12,7 @@ import getModuleFederationPlugins from './rspack.federated.config.mts';
 const config: RspackOptions = {
     ...baseConfig,
     entry: {
-        bundle: './client/index.tsx',
+        bundle: './client/index.ts',
     },
     target: 'web',
 
