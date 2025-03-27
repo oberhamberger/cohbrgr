@@ -1,5 +1,7 @@
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
-import { dependencies } from '../../../../package.json';
+import packageJson from '../../../../package.json' with { type: "json" };
+
+const { dependencies } = packageJson;
 
 const getRemoteOptions = () => {
     return {
