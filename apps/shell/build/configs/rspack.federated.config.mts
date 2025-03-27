@@ -1,7 +1,9 @@
 import { isProduction } from '@cohbrgr/build';
-import EnvironmentConfig from '@cohbrgr/environments';
+import { EnvironmentConfig } from '@cohbrgr/environments';
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
-import { dependencies } from '../../../../package.json';
+import packageJson from '../../../../package.json' with { type: "json" };
+
+const { dependencies } = packageJson;
 
 const contentPort = isProduction
     ? EnvironmentConfig.content.port

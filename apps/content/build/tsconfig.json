@@ -1,8 +1,8 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
-        "module": "ES2015",
-        "moduleResolution": "bundler",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"],
@@ -11,7 +11,8 @@
         "paths": {
             "src/*": ["./src/*"]
         },
-        "rewriteRelativeImportExtensions": true
+        "rewriteRelativeImportExtensions": true,
+        "resolveJsonModule": true
     },
     "exclude": ["../../node_modules"]
 }
