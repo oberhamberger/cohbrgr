@@ -1,6 +1,8 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]
