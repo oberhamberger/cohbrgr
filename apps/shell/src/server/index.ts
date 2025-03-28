@@ -79,7 +79,9 @@ app.use((_req, res, next) => {
 // );
 
 // app.use(jam(isProduction));
-app.use(render(isProduction, useClientSideRendering));
+const renderThunk = require('./server-entry').default
+const serverRender = renderThunk();
+app.use(serverRender);
 
 // starting the server
 const server = app.listen(port, () => {

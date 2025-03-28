@@ -40,7 +40,7 @@ const config: RspackOptions = {
     output: {
         path: resolve(CWD, './dist/client'),
         clean: true,
-        publicPath: '/',
+        publicPath: 'http://localhost:3001/client/',
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };
