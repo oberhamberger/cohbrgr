@@ -1,18 +1,18 @@
 import { isProduction } from '@cohbrgr/build';
-import { EnvironmentConfig } from '@cohbrgr/environments';
+import { Config } from '@cohbrgr/content/env';
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import packageJson from '../../../../package.json' with { type: "json" };
 
 const { dependencies } = packageJson;
 
 const contentPort = isProduction
-    ? EnvironmentConfig.content.port
-    : EnvironmentConfig.content.port + 30;
+    ? Config.local.port
+    : Config.local.port + 30;
 
 const contentUrl =
     process.env['DOCKER'] === 'true'
-        ? EnvironmentConfig.content.location
-        : `${EnvironmentConfig.content.location}:${contentPort}/`;
+        ? Config.docker.location
+        : `${Config.local.location}:${contentPort}/`;
 
 const getHostOptions = (isServer: boolean) => {
     return {
@@ -37,9 +37,10 @@ export default () => {
     };
 
     const serverFederationConfig = {
-        filename: 'remoteEntry.js',
         name: 'shell',
-        library: { type: 'commonjs2' },
+        filename: 'remoteEntry.js',
+        isServer: true,
+        library: { type: 'commonjs-module' },
         ...getHostOptions(true),
     };
 
