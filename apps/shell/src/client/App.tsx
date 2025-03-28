@@ -18,6 +18,12 @@ import NotFound from 'src/client/pages/not-found';
 import Offline from 'src/client/pages/offline';
 import AppRoutes from 'src/client/routes';
 
+const Content = lazy(
+    () =>
+        import('content/Content') as Promise<{
+            default: FunctionComponent<IContent>;
+        }>,
+);
 const App: FunctionComponent = () => {
     useEffect(() => {
         onCLS(console.log);
@@ -33,7 +39,7 @@ const App: FunctionComponent = () => {
                     path={AppRoutes.start}
                     element={
                         <Suspense fallback={<Spinner />}>
-                            <>hi</>
+                            <Content/>
                         </Suspense>
                     }
                 />
