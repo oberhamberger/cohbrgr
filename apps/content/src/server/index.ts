@@ -1,12 +1,12 @@
-import EnvironmentConfig from '@cohbrgr/environments';
+import { Config } from '@cohbrgr/content/env';
 import { Logger } from '@cohbrgr/utils';
 import Express from 'express';
 import initMiddleware from 'src/server/middleware';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction
-    ? EnvironmentConfig.content.port
-    : EnvironmentConfig.content.port + 30;
+    ? Config.local.port
+    : Config.docker.port + 30;
 const port = process.env['PORT'] || defaultPort;
 
 const app = Express();

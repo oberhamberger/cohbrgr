@@ -1,8 +1,8 @@
-import { FunctionComponent } from 'react';
-import { readFileSync, readdirSync } from 'fs';
-import { resolve, extname } from 'path';
+import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
-import EnvironmentConfig from '@cohbrgr/environments';
+import { readFileSync, readdirSync } from 'fs';
+import { extname, resolve } from 'path';
+import { FunctionComponent } from 'react';
 
 interface IStylesheetProps {
     // nonce: string;
@@ -13,7 +13,7 @@ export type StylesheetProps = IStylesheetProps;
 let styleFiles: string[] = [];
 let styleFileContents = '';
 const cssDirectoryPath = resolve(
-    process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/css`,
+    process.cwd() + `${Config.local.staticPath}/client/css`,
 );
 
 try {

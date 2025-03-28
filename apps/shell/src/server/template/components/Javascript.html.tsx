@@ -1,8 +1,8 @@
-import { FunctionComponent } from 'react';
-import { readdirSync } from 'fs';
-import { resolve, extname } from 'path';
+import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
-import EnvironmentConfig from '@cohbrgr/environments';
+import { readdirSync } from 'fs';
+import { extname, resolve } from 'path';
+import { FunctionComponent } from 'react';
 import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
@@ -12,7 +12,7 @@ interface IJavascriptHTMLProps {
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
 const jsDirectoryPath = resolve(
-    process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/js`,
+    process.cwd() + `${Config.local.staticPath}/client/js`,
 );
 let scriptFiles: string[] = [];
 try {
@@ -28,6 +28,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
 ) => {
     const __initial_state__: State = {
         isProduction: props.isProduction,
+        nonce: ''
     };
 
     return (

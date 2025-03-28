@@ -4,19 +4,18 @@ import rateLimit from 'express-rate-limit';
 import nocache from 'nocache';
 import { resolve } from 'path';
 
-import { EnvironmentConfig } from '@cohbrgr/environments';
 import { logging, methodDetermination } from '@cohbrgr/server';
+import { Config } from '@cohbrgr/shell/env';
 import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { randomBytes } from 'crypto';
-import render from 'src/server/middleware/render';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction
-    ? EnvironmentConfig.shell.port
-    : EnvironmentConfig.shell.port + 30;
+    ? Config.local.port
+    : Config.docker.port + 30;
 const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(
-    process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
+    process.cwd() + Config.local.staticPath + '/client',
 );
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
