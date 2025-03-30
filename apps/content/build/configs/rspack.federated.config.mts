@@ -1,7 +1,12 @@
-import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
+import { default as Enhanced } from '@module-federation/enhanced';
+import { default as NFP } from '@module-federation/node';
+import runtimePlugin from '@module-federation/node/runtimePlugin';
+
 import packageJson from '../../../../package.json' with { type: "json" };
 
 const { dependencies } = packageJson;
+const { ModuleFederationPlugin } = Enhanced;
+const { UniversalFederationPlugin } = NFP;
 
 const getRemoteOptions = () => {
     return {
@@ -33,13 +38,17 @@ export default () => {
     const serverFederationConfig = {
         filename: 'remoteEntry.js',
         name: 'content',
+        runtimePlugins: [runtimePlugin],
 
-        library: { type: 'commonjs2' },
+        isServer: true,
+        library: { type: 'commonjs-module' },
+        useRuntimePlugin: true,
+
         ...getRemoteOptions(),
     };
 
     return {
         client: new ModuleFederationPlugin(clientFederationConfig),
-        server: new ModuleFederationPlugin(serverFederationConfig),
+        server: new UniversalFederationPlugin(serverFederationConfig, {}),
     };
 };

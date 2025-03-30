@@ -6,10 +6,9 @@ import getModuleFederationPlugins from './rspack.federated.config.mts';
 
 const config: RspackOptions = {
     ...baseConfig,
-    entry: {
-        index: './server/index.ts',
-    },
-    target: 'node',
+    name: 'server',
+    entry: './server/index.ts',
+    target: 'async-node',
 
     plugins: [
         new ProgressPlugin({
@@ -20,9 +19,10 @@ const config: RspackOptions = {
     ],
     output: {
         path: resolve(CWD, './dist/server'),
-        filename: 'index.js',
+        filename: '[name].js',
         clean: true,
-        publicPath: '/',
+        publicPath: 'http://localhost:3000/',
+        libraryTarget: 'commonjs-module',
     },
     externals: {
         express: "require('express')",
