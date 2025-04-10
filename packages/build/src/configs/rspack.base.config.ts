@@ -1,5 +1,5 @@
 import { type RspackOptions } from '@rspack/core';
-import { join, resolve } from 'path';
+import { resolve } from 'path';
 import { getStyleLoader } from '../loader/style.loader';
 import {
     CWD,
@@ -15,12 +15,10 @@ export const baseConfig: RspackOptions = {
     devtool: isProduction ? false : 'source-map',
     context: resolve(CWD, `./src`),
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
-        modules: [
-            join(CWD, ''),
-            join(CWD, '..', 'node_modules'),
-            join(CWD, '../..', 'node_modules'),
-        ],
+        extensions: ['.tsx', '.ts', '.js', '.json', '.scss'],
+        alias: {
+            src: resolve(CWD, './src'),
+        },
     },
     watch: isWatch,
 
@@ -28,21 +26,25 @@ export const baseConfig: RspackOptions = {
         rules: [
             {
                 test: regexSource,
-                loader: 'builtin:swc-loader',
-                exclude: /node_modules/,
-                options: {
-                    jsc: {
-                        parser: {
-                            syntax: 'typescript',
-                            tsx: true,
-                        },
-                        transform: {
-                            react: {
-                                runtime: 'automatic',
+                exclude: [/node_modules/],
+                use: [
+                    {
+                        loader: 'builtin:swc-loader',
+                        options: {
+                            jsc: {
+                                parser: {
+                                    syntax: 'typescript',
+                                    tsx: true,
+                                },
+                                transform: {
+                                    react: {
+                                        runtime: 'automatic',
+                                    },
+                                },
                             },
                         },
                     },
-                },
+                ],
             },
             {
                 test: regexStyle,

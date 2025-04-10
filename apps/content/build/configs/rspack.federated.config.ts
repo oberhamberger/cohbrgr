@@ -1,15 +1,18 @@
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
-import packageJson from '../../../../package.json' with { type: "json" };
+
+import packageJson from '../../../../package.json';
 
 const { dependencies } = packageJson;
 
 const getRemoteOptions = () => {
     return {
+        name: 'content',
+        filename: 'remoteEntry.js',
+
         exposes: {
             './Content': 'src/client/components/content',
         },
         shared: {
-            ...dependencies,
             react: {
                 singleton: true,
                 requiredVersion: dependencies.react,
@@ -23,23 +26,16 @@ const getRemoteOptions = () => {
 };
 
 export default () => {
-    const clientFederationConfig = {
-        filename: 'remoteEntry.js',
-        name: 'content',
-        bundlerRuntime: false,
-        ...getRemoteOptions(),
-    };
-
-    const serverFederationConfig = {
-        filename: 'remoteEntry.js',
-        name: 'content',
-
-        library: { type: 'commonjs2' },
-        ...getRemoteOptions(),
-    };
-
     return {
-        client: new ModuleFederationPlugin(clientFederationConfig),
-        server: new ModuleFederationPlugin(serverFederationConfig),
+        client: new ModuleFederationPlugin(getRemoteOptions()),
+        server: new ModuleFederationPlugin({
+            remoteType: 'script',
+            library: { type: 'commonjs-module' },
+            runtimePlugins: [
+                require.resolve('@module-federation/node/runtimePlugin'),
+            ],
+
+            ...getRemoteOptions(),
+        }),
     };
 };
