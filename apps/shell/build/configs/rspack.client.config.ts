@@ -1,15 +1,16 @@
 import { baseConfig, CWD, isProduction } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import {
+    CopyRspackPlugin,
     CssExtractRspackPlugin,
     ProgressPlugin,
     type RspackOptions,
 } from '@rspack/core';
 import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config.mts';
+import getModuleFederationPlugins from './rspack.federated.config';
+import { merge } from 'webpack-merge';
 
 const config: RspackOptions = {
-    ...baseConfig,
     entry: {
         bundle: './client/index.ts',
     },
@@ -25,6 +26,9 @@ const config: RspackOptions = {
                 ? 'css/[name].[contenthash].css'
                 : 'css/[name].css',
         }),
+        new CopyRspackPlugin({
+            patterns: [{ from: './client/assets', to: './' }],
+        }),
         getModuleFederationPlugins().client,
     ],
     optimization: {
@@ -34,15 +38,13 @@ const config: RspackOptions = {
             chunks: 'all',
         },
     },
-    experiments: {
-        css: true,
-    },
     output: {
         path: resolve(CWD, './dist/client'),
         clean: true,
-        publicPath: 'http://localhost:3001/client/',
+        assetModuleFilename: 'assets/[hash][ext][query]',
+        publicPath: 'http://localhost:3000/',
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };
 
-export default defineConfig(config);
+export default defineConfig(merge(baseConfig, config));

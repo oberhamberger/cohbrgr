@@ -13,7 +13,7 @@ export type StylesheetProps = IStylesheetProps;
 let styleFiles: string[] = [];
 let styleFileContents = '';
 const cssDirectoryPath = resolve(
-    process.cwd() + `${Config.local.staticPath}/client/css`,
+    process.cwd() + `${Config.local.staticPath}/client`,
 );
 
 try {
@@ -47,7 +47,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                         key={file}
                         // nonce={props.nonce}
                         rel="stylesheet"
-                        href={`/css/${file}`}
+                        href={`/js/${file}`}
                     />
                 ))}
             </>

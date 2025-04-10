@@ -1,14 +1,11 @@
 import { isProduction } from '@cohbrgr/build';
 import { Config } from '@cohbrgr/content/env';
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
-import packageJson from '../../../../package.json' with { type: "json" };
+import packageJson from '../../../../package.json';
 
 const { dependencies } = packageJson;
 
-const contentPort = isProduction
-    ? Config.local.port
-    : Config.local.port + 30;
-
+const contentPort = isProduction ? Config.local.port : Config.local.port + 30;
 const contentUrl =
     process.env['DOCKER'] === 'true'
         ? Config.docker.location
@@ -16,6 +13,8 @@ const contentUrl =
 
 const getHostOptions = (isServer: boolean) => {
     return {
+        name: 'shell',
+
         remotes: {
             content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
@@ -29,23 +28,20 @@ const getHostOptions = (isServer: boolean) => {
 };
 
 export default () => {
-    const clientFederationConfig = {
-        filename: 'container.js',
-        name: 'shell',
-        bundlerRuntime: false,
-        ...getHostOptions(false),
-    };
-
-    const serverFederationConfig = {
-        name: 'shell',
-        filename: 'remoteEntry.js',
-        isServer: true,
-        library: { type: 'commonjs-module' },
-        ...getHostOptions(true),
-    };
-
     return {
-        client: new ModuleFederationPlugin(clientFederationConfig),
-        server: new ModuleFederationPlugin(serverFederationConfig),
+        client: new ModuleFederationPlugin({
+            filename: 'container.js',
+            ...getHostOptions(false),
+        }),
+        server: new ModuleFederationPlugin({
+            remoteType: 'script',
+            filename: 'remoteEntry.js',
+            library: { type: 'commonjs-module' },
+            runtimePlugins: [
+                require.resolve('@module-federation/node/runtimePlugin'),
+            ],
+
+            ...getHostOptions(true),
+        }),
     };
 };
