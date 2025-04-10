@@ -7,7 +7,7 @@ import packageJson from '../../../../package.json' with { type: "json" };
 
 const { dependencies } = packageJson;
 const { ModuleFederationPlugin } = Enhanced;
-const { NodeFederationPlugin } = NFP;
+const { UniversalFederationPlugin } = NFP;
 
 const runtimePlugin = NFRuntime.default()
 
@@ -22,6 +22,8 @@ const contentUrl =
 
 const getHostOptions = (isServer: boolean) => {
     return {
+        name: 'shell',
+
         remotes: {
             content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
@@ -38,17 +40,17 @@ export default () => {
     return {
         client: new ModuleFederationPlugin({
             filename: 'container.js',
-            name: 'shell',
             ...getHostOptions(false),
         }),
-        server: new NodeFederationPlugin({
-            name: 'shell',
+        //@ts-expect-error no example given for plugin context
+        server: new UniversalFederationPlugin({
             filename: 'remoteEntry.js',
             library: { type: 'commonjs-module' },
             remoteType: 'script',
             runtimePlugins: [runtimePlugin.name],
+            isServer: true,
 
             ...getHostOptions(true),
-        }, {}),
+        }),
     };
 };

@@ -34,9 +34,6 @@ const config: RspackOptions = {
             chunks: 'all',
         },
     },
-    experiments: {
-        css: true,
-    },
     output: {
         path: resolve(CWD, './dist/client'),
         clean: true,
