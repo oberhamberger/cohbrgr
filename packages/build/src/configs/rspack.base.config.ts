@@ -16,6 +16,9 @@ export const baseConfig: RspackOptions = {
     context: resolve(CWD, `./src`),
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json', '.scss'],
+        alias: {
+            src: resolve(CWD, './src'),
+        },
     },
     watch: isWatch,
 
@@ -24,21 +27,24 @@ export const baseConfig: RspackOptions = {
             {
                 test: regexSource,
                 exclude: [/node_modules/],
-                loader: 'builtin:swc-loader',
-                options: {
-                    jsc: {
-                        parser: {
-                            syntax: 'typescript',
-                            tsx: true,
-                        },
-                        transform: {
-                            react: {
-                                runtime: 'automatic',
+                use: [
+                    {
+                        loader: 'builtin:swc-loader',
+                        options: {
+                            jsc: {
+                                parser: {
+                                    syntax: 'typescript',
+                                    tsx: true,
+                                },
+                                transform: {
+                                    react: {
+                                        runtime: 'automatic',
+                                    },
+                                },
                             },
                         },
                     },
-                },
-                type: 'javascript/auto',
+                ],
             },
             {
                 test: regexStyle,

@@ -2,12 +2,15 @@ import { baseConfig, CWD } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import { ProgressPlugin, type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config.mts';
+import getModuleFederationPlugins from './rspack.federated.config.ts';
+import { merge } from 'webpack-merge';
 
 const config: RspackOptions = {
     ...baseConfig,
     name: 'server',
-    entry: './server/index.ts',
+    entry: {
+        index: './server/index.ts',
+    },
     target: 'async-node',
 
     plugins: [
@@ -21,11 +24,11 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/server'),
         filename: '[name].js',
         libraryTarget: 'commonjs-module',
+        publicPath: 'http://localhost:3001/server',
         clean: true,
     },
-    externals: {
-        express: "require('express')",
-    },
+    externalsPresets: { node: true },
+    externals: ['express'],
 };
 
-export default defineConfig(config);
+export default defineConfig(merge(baseConfig, config));
