@@ -23,23 +23,22 @@ export const baseConfig: RspackOptions = {
         rules: [
             {
                 test: regexSource,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'builtin:swc-loader',
-                    options: {
-                        jsc: {
-                            parser: {
-                                syntax: 'typescript',
-                                tsx: true
+                exclude: [/node_modules/],
+                loader: 'builtin:swc-loader',
+                options: {
+                    jsc: {
+                        parser: {
+                            syntax: 'typescript',
+                            tsx: true,
+                        },
+                        transform: {
+                            react: {
+                                runtime: 'automatic',
                             },
-                            transform: {
-                                react: {
-                                    runtime: 'automatic'
-                                }
-                            }
-                        }
-                    }
-                }
+                        },
+                    },
+                },
+                type: 'javascript/auto',
             },
             {
                 test: regexStyle,

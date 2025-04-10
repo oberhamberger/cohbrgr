@@ -38,13 +38,10 @@ const config: RspackOptions = {
             chunks: 'all',
         },
     },
-    experiments: {
-        css: true,
-    },
     output: {
         path: resolve(CWD, './dist/client'),
         clean: true,
-        publicPath: 'http://localhost:3000/',
+        publicPath: 'http://localhost:3000/client',
         filename: isProduction ? `js/[name].[contenthash].js` : `js/[name].js`,
     },
 };
