@@ -41,8 +41,9 @@ const config: RspackOptions = {
     output: {
         path: resolve(CWD, './dist/client'),
         clean: true,
-        publicPath: 'http://localhost:3000/client',
-        filename: isProduction ? `js/[name].[contenthash].js` : `js/[name].js`,
+        assetModuleFilename: 'assets/[hash][ext][query]',
+        publicPath: 'http://localhost:3000/',
+        filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };
 
