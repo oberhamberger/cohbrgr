@@ -7,10 +7,10 @@ import {
     type RspackOptions,
 } from '@rspack/core';
 import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config.mts';
+import getModuleFederationPlugins from './rspack.federated.config';
+import { merge } from 'webpack-merge';
 
 const config: RspackOptions = {
-    ...baseConfig,
     entry: {
         bundle: './client/index.ts',
     },
@@ -46,4 +46,4 @@ const config: RspackOptions = {
     },
 };
 
-export default defineConfig(config);
+export default defineConfig(merge(baseConfig, config));

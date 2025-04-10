@@ -1,11 +1,8 @@
-import { default as Enhanced } from '@module-federation/enhanced';
-import { default as NFP } from '@module-federation/node';
+import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 
-import packageJson from '../../../../package.json' with { type: "json" };
+import packageJson from '../../../../package.json';
 
 const { dependencies } = packageJson;
-const { ModuleFederationPlugin } = Enhanced;
-const { UniversalFederationPlugin } = NFP;
 
 const getRemoteOptions = () => {
     return {
@@ -31,11 +28,13 @@ const getRemoteOptions = () => {
 export default () => {
     return {
         client: new ModuleFederationPlugin(getRemoteOptions()),
-        //@ts-expect-error no example given for plugin context
-        server: new UniversalFederationPlugin({
+        server: new ModuleFederationPlugin({
+            remoteType: 'script',
             library: { type: 'commonjs-module' },
-            isServer: true,
-    
+            runtimePlugins: [
+                require.resolve('@module-federation/node/runtimePlugin'),
+            ],
+
             ...getRemoteOptions(),
         }),
     };
