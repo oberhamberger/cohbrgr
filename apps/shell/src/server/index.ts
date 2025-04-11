@@ -10,13 +10,9 @@ import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { randomBytes } from 'crypto';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
-const defaultPort = isProduction
-    ? Config.local.port
-    : Config.docker.port + 30;
+const defaultPort = isProduction ? Config.local.port : Config.docker.port + 30;
 const port = process.env['PORT'] || defaultPort;
-const staticPath = resolve(
-    process.cwd() + Config.local.staticPath + '/client',
-);
+const staticPath = resolve(process.cwd() + Config.local.staticPath + '/client');
 const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
@@ -78,7 +74,7 @@ app.use((_req, res, next) => {
 // );
 
 // app.use(jam(isProduction));
-const renderThunk = require('./server-entry').default
+const renderThunk = require('./server-entry').default;
 const serverRender = renderThunk();
 app.use(serverRender);
 

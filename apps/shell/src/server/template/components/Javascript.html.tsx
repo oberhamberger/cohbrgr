@@ -28,7 +28,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
 ) => {
     const __initial_state__: State = {
         isProduction: props.isProduction,
-        nonce: ''
+        nonce: '',
     };
 
     return (

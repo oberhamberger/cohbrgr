@@ -13,7 +13,11 @@
             "src/*": ["./src/*"],
             "@cohbrgr/content/*": ["../content/*"]
         },
-        "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./client/src/@types/*"],
+        "typeRoots": [
+            "../../node_modules/@types",
+            "./node_modules/@types",
+            "./client/src/@types/*"
+        ],
         "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
     },
     "exclude": ["../../node_modules", "node_modules"]
