@@ -1,4 +1,12 @@
-import { baseConfig, CWD, isProduction, serviceWorker } from '@cohbrgr/build';
+import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
+import {
+    baseConfig,
+    CWD,
+    isAnalyze,
+    isProduction,
+    serviceWorker,
+} from '@cohbrgr/build';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { defineConfig } from '@rspack/cli';
 import {
     CopyRspackPlugin,
@@ -7,9 +15,8 @@ import {
     type RspackOptions,
 } from '@rspack/core';
 import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config';
 import { merge } from 'webpack-merge';
-import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
+import getModuleFederationPlugins from './rspack.federated.config';
 
 const config: RspackOptions = {
     entry: {
@@ -40,6 +47,7 @@ const config: RspackOptions = {
                   }),
               ]
             : []),
+        ...(isAnalyze ? [new RsdoctorRspackPlugin()] : []),
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
