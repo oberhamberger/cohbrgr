@@ -13,7 +13,7 @@ const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction ? Config.local.port : Config.docker.port + 30;
 const port = process.env['PORT'] || defaultPort;
 const staticPath = resolve(process.cwd() + Config.local.staticPath + '/client');
-const useClientSideRendering = true;
+// const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
@@ -74,27 +74,33 @@ app.use((_req, res, next) => {
 // );
 
 // app.use(jam(isProduction));
-const renderThunk = require('./server-entry').default;
-const serverRender = renderThunk();
-app.use(serverRender);
 
-// starting the server
-const server = app.listen(port, () => {
-    Logger.info(
-        `Server started at http://localhost:${port} in ${
-            isProduction ? 'production' : 'development'
-        } mode`,
-    );
-    if (process.send) {
-        process.send('server-ready');
-    }
-});
+await (async () => {
+    const renderThunk = (await import('server-entry'))
+        .default as unknown as RenderThunk;
 
-// stopping the server correctly
-const closeGracefully = async () => {
-    await server.close();
-    Logger.log('info', `Server closed.`);
-    process.exit();
-};
-process.on('SIGTERM', closeGracefully);
-process.on('SIGINT', closeGracefully);
+    const serverRender = renderThunk();
+
+    app.use(serverRender);
+
+    // starting the server
+    const server = app.listen(port, () => {
+        Logger.info(
+            `Server started at http://localhost:${port} in ${
+                isProduction ? 'production' : 'development'
+            } mode`,
+        );
+        if (process.send) {
+            process.send('server-ready');
+        }
+    });
+
+    // stopping the server correctly
+    const closeGracefully = async () => {
+        await server.close();
+        Logger.log('info', `Server closed.`);
+        process.exit();
+    };
+    process.on('SIGTERM', closeGracefully);
+    process.on('SIGINT', closeGracefully);
+})();
