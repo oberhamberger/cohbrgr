@@ -1,4 +1,4 @@
-import { baseConfig, CWD, isProduction } from '@cohbrgr/build';
+import { baseConfig, CWD, isProduction, serviceWorker } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import {
     CopyRspackPlugin,
@@ -9,6 +9,7 @@ import {
 import { resolve } from 'path';
 import getModuleFederationPlugins from './rspack.federated.config';
 import { merge } from 'webpack-merge';
+import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
 
 const config: RspackOptions = {
     entry: {
@@ -30,6 +31,15 @@ const config: RspackOptions = {
             patterns: [{ from: './client/assets', to: './' }],
         }),
         getModuleFederationPlugins().client,
+        ...(isProduction
+            ? [
+                  new InjectManifest({
+                      swSrc: './client/service-worker',
+                      swDest: serviceWorker,
+                      include: [/\.js$/],
+                  }),
+              ]
+        : []),
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
