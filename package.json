@@ -30,6 +30,7 @@
         "build:compiler": "nx build @cohbrgr/build",
         "build:utils": "nx build @cohbrgr/utils",
         "build:shell": "nx build @cohbrgr/shell",
+        "build:shell:analyze": "nx build:analyze @cohbrgr/shell",
         "build:figma": "nx build @cohbrgr/figma",
         "build:content": "nx build @cohbrgr/content",
         "start:shell": "nx start @cohbrgr/shell",
