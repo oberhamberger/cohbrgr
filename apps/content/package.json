@@ -16,7 +16,7 @@
         "lint": "eslint",
         "prettier": "prettier --write .",
         "dev": "NODE_ENV=development rspack build",
-        "build": "NODE_ENV=production rspack build",
+        "build": "DEBUG=rspack:* NODE_ENV=production rspack build",
         "start": "npm run dev",
         "test": "jest"
     },
