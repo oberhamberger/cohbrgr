@@ -1,24 +1,24 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
-        "jsx": "react-jsx",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "rewriteRelativeImportExtensions": true,
-        "resolveJsonModule": true,
-        "moduleResolution": "nodenext",
-        "module": "NodeNext",
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"],
-            "@cohbrgr/content/*": ["../content/*"]
+            "@cohbrgr/content/*": ["../content/*"],
+            "server-entry": ["./src/server/server-entry"],
+            "renderMiddleware": ["./src/server/middleware/render"]
+
         },
         "typeRoots": [
             "../../node_modules/@types",
             "./node_modules/@types",
-            "./client/src/@types/*"
+            "./src/client/@types/*",
+            "./src/server/@types/*"
         ],
-        "lib": ["ES2022", "dom", "dom.iterable", "webworker"]
+        "lib": ["dom", "dom.iterable", "webworker"]
     },
     "exclude": ["../../node_modules", "node_modules"]
 }
