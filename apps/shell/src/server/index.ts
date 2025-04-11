@@ -76,7 +76,8 @@ app.use((_req, res, next) => {
 // app.use(jam(isProduction));
 
 await (async () => {
-    const renderThunk = (await import('server-entry'))
+    // @ts-expect-error
+    const renderThunk = (await import('./server-entry'))
         .default as unknown as RenderThunk;
 
     const serverRender = renderThunk();

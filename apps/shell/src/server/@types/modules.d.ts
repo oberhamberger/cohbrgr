@@ -8,15 +8,3 @@ declare global {
         useClientSideRendering: boolean,
     ) => (req: Request, res: Response) => Promise<void>;
 }
-
-
-
-declare module 'src/server/server-entry' {
-    const render: RenderThunk;
-    export default render;
-}
-
-declare module 'src/server/middleware/render' {
-    const renderMiddleware: RenderMiddlewareFactory;
-    export default renderMiddleware;
-}
