@@ -5,7 +5,7 @@ import { extname, resolve } from 'path';
 import { FunctionComponent } from 'react';
 
 interface IStylesheetProps {
-    // nonce: string;
+    nonce: string;
     isProduction: boolean;
 }
 export type StylesheetProps = IStylesheetProps;
@@ -45,7 +45,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                 {styleFiles.map((file) => (
                     <link
                         key={file}
-                        // nonce={props.nonce}
+                        nonce={props.nonce}
                         rel="stylesheet"
                         href={`/js/${file}`}
                     />

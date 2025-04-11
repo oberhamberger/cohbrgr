@@ -7,10 +7,7 @@
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"],
-            "@cohbrgr/content/*": ["../content/*"],
-            "server-entry": ["./src/server/server-entry"],
-            "renderMiddleware": ["./src/server/middleware/render"]
-
+            "@cohbrgr/content/*": ["../content/*"]
         },
         "typeRoots": [
             "../../node_modules/@types",

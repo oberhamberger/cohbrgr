@@ -6,7 +6,7 @@ import { FunctionComponent } from 'react';
 import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
-    // nonce: string;
+    nonce: string;
     isProduction: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
@@ -36,7 +36,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
             {
                 <script
                     id="initial-state"
-                    // nonce={props.nonce}
+                    nonce={props.nonce}
                     dangerouslySetInnerHTML={{
                         __html: `__initial_state__ = JSON.parse('${JSON.stringify(
                             __initial_state__,
@@ -50,7 +50,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     async
                     type="module"
                     crossOrigin="use-credentials"
-                    // nonce={props.nonce}
+                    nonce={props.nonce}
                     src={`/${file}`}
                 ></script>
             ))}
