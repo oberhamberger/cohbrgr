@@ -39,7 +39,7 @@ const App: FunctionComponent = () => {
                     path={AppRoutes.start}
                     element={
                         <Suspense fallback={<Spinner />}>
-                            <Content/>
+                            <Content />
                         </Suspense>
                     }
                 />

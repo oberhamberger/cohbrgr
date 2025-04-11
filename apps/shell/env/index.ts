@@ -9,4 +9,4 @@ export const Config = {
         location: 'https://cohbrgr-o44imzpega-oa.a.run.app/',
         staticPath: '/apps/shell/dist',
     },
-}
+};

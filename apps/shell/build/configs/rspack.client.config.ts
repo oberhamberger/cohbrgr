@@ -39,7 +39,7 @@ const config: RspackOptions = {
                       include: [/\.js$/],
                   }),
               ]
-        : []),
+            : []),
     ],
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
