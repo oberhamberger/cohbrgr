@@ -10,9 +10,9 @@ import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { randomBytes } from 'crypto';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
-const defaultPort = isProduction ? Config.local.port : Config.docker.port + 30;
+const defaultPort = isProduction ? Config.port : Config.port + 30;
 const port = process.env['PORT'] || defaultPort;
-const staticPath = resolve(process.cwd() + Config.local.staticPath + '/client');
+const staticPath = resolve(process.cwd() + Config.staticPath + '/client');
 // const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 

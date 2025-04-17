@@ -12,7 +12,7 @@ interface IJavascriptHTMLProps {
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
 const jsDirectoryPath = resolve(
-    process.cwd() + `${Config.local.staticPath}/client`,
+    process.cwd() + `${Config.staticPath}/client`,
 );
 let scriptFiles: string[] = [];
 try {

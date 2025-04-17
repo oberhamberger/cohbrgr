@@ -5,11 +5,11 @@ import packageJson from '../../../../package.json';
 
 const { dependencies } = packageJson;
 
-const contentPort = isProduction ? Config.local.port : Config.local.port + 30;
+const contentPort = isProduction ? Config.port : Config.port + 30;
 const contentUrl =
     process.env['DOCKER'] === 'true'
-        ? Config.docker.location
-        : `${Config.local.location}:${contentPort}/`;
+        ? Config.location
+        : `${Config.location}:${contentPort}/`;
 
 const getHostOptions = (isServer: boolean) => {
     return {
