@@ -4,7 +4,7 @@ import Express from 'express';
 import initMiddleware from 'src/server/middleware';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
-const defaultPort = isProduction ? Config.local.port : Config.docker.port + 30;
+const defaultPort = isProduction ? Config.port : Config.port + 30;
 const port = process.env['PORT'] || defaultPort;
 
 const app = Express();

@@ -1,4 +1,4 @@
-export const Config = {
+export const internalConfig = {
     local: {
         port: 3001,
         location: 'http://localhost',
@@ -10,3 +10,5 @@ export const Config = {
         staticPath: '/apps/content/dist',
     },
 };
+
+export const Config = process.env['DOCKER'] ? internalConfig.docker : internalConfig.local;

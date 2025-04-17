@@ -13,7 +13,7 @@ export type StylesheetProps = IStylesheetProps;
 let styleFiles: string[] = [];
 let styleFileContents = '';
 const cssDirectoryPath = resolve(
-    process.cwd() + `${Config.local.staticPath}/client`,
+    process.cwd() + `${Config.staticPath}/client`,
 );
 
 try {

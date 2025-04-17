@@ -4,7 +4,7 @@ import Express, { Application } from 'express';
 import { resolve } from 'path';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
-const staticPath = resolve(process.cwd() + Config.local.staticPath);
+const staticPath = resolve(process.cwd() + Config.staticPath);
 
 const middleware = (
     express: typeof Express,
