@@ -11,4 +11,6 @@ const internalConfig = {
     },
 };
 
-export const Config = process.env['DOCKER'] ? internalConfig.docker : internalConfig.local;
+export const Config = process.env['DOCKER']
+    ? internalConfig.docker
+    : internalConfig.local;
