@@ -11,9 +11,7 @@ interface IJavascriptHTMLProps {
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
-const jsDirectoryPath = resolve(
-    process.cwd() + `${Config.staticPath}/client`,
-);
+const jsDirectoryPath = resolve(process.cwd() + `${Config.staticPath}/client`);
 let scriptFiles: string[] = [];
 try {
     scriptFiles = readdirSync(jsDirectoryPath).filter(

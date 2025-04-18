@@ -12,9 +12,7 @@ export type StylesheetProps = IStylesheetProps;
 
 let styleFiles: string[] = [];
 let styleFileContents = '';
-const cssDirectoryPath = resolve(
-    process.cwd() + `${Config.staticPath}/client`,
-);
+const cssDirectoryPath = resolve(process.cwd() + `${Config.staticPath}/client`);
 
 try {
     styleFiles = readdirSync(cssDirectoryPath).filter(
