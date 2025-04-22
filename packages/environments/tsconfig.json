@@ -1,8 +1,0 @@
-{
-    "extends": "@cohbrgr/tsconfig",
-    "compilerOptions": {
-        "outDir": "dist",
-        "lib": ["ES2022"],
-        "typeRoots": ["../../node_modules/@types"]
-    }
-}
