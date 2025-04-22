@@ -1,9 +1,11 @@
-import { writeFile, mkdirSync } from 'fs';
-import { join } from 'path';
-import { fork } from 'child_process';
-import { port } from 'src/utils/constants';
-import routes from '@cohbrgr/shell/src/client/routes';
+//import routes from '@cohbrgr/shell/src/client/routes';
 import { Logger } from '@cohbrgr/utils';
+import { fork } from 'child_process';
+import { mkdirSync, writeFile } from 'fs';
+import { join } from 'path';
+import { port } from '../utils/constants';
+
+const routes = [''];
 
 const serverAddress = `http://localhost:${port}`;
 const staticOutputPath = 'dist/client/static';

@@ -1,19 +1,17 @@
-import { FunctionComponent } from 'react';
-import { readdirSync } from 'fs';
-import { resolve, extname } from 'path';
+import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
-import EnvironmentConfig from '@cohbrgr/environments';
+import { readdirSync } from 'fs';
+import { extname, resolve } from 'path';
+import { FunctionComponent } from 'react';
 import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
-    // nonce: string;
+    nonce: string;
     isProduction: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
-const jsDirectoryPath = resolve(
-    process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/js`,
-);
+const jsDirectoryPath = resolve(process.cwd() + `${Config.staticPath}/client`);
 let scriptFiles: string[] = [];
 try {
     scriptFiles = readdirSync(jsDirectoryPath).filter(
@@ -28,6 +26,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
 ) => {
     const __initial_state__: State = {
         isProduction: props.isProduction,
+        nonce: '',
     };
 
     return (
@@ -35,7 +34,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
             {
                 <script
                     id="initial-state"
-                    // nonce={props.nonce}
+                    nonce={props.nonce}
                     dangerouslySetInnerHTML={{
                         __html: `__initial_state__ = JSON.parse('${JSON.stringify(
                             __initial_state__,
@@ -49,8 +48,8 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     async
                     type="module"
                     crossOrigin="use-credentials"
-                    // nonce={props.nonce}
-                    src={`/js/${file}`}
+                    nonce={props.nonce}
+                    src={`/${file}`}
                 ></script>
             ))}
         </>

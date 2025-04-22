@@ -1,41 +1,35 @@
-import { resolve } from 'path';
-import express from 'express';
+import { Config } from '@cohbrgr/content/env';
 import { Logger } from '@cohbrgr/utils';
-import { logging, methodDetermination } from '@cohbrgr/server';
-import EnvironmentConfig from '@cohbrgr/environments';
+import Express from 'express';
+import initMiddleware from 'src/server/middleware';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
-const defaultPort = isProduction
-    ? EnvironmentConfig.content.port
-    : EnvironmentConfig.content.port + 30;
+const defaultPort = isProduction ? Config.port : Config.port + 30;
 const port = process.env['PORT'] || defaultPort;
-const staticPath = resolve(
-    process.cwd() + EnvironmentConfig.content.staticPath,
-);
 
-const app = express();
+const app = Express();
 
-app.use(logging(isProduction));
-app.use(methodDetermination);
-app.use(express.static(staticPath, { dotfiles: 'ignore' }));
+const done = () => {
+    // starting the server
+    const server = app.listen(port, () => {
+        Logger.info(
+            `Server started at http://localhost:${port} in ${
+                isProduction ? 'production' : 'development'
+            } mode`,
+        );
+        if (process.send) {
+            process.send('server-ready');
+        }
+    });
 
-// starting the server
-const server = app.listen(port, () => {
-    Logger.info(
-        `Server started at http://localhost:${port} in ${
-            isProduction ? 'production' : 'development'
-        } mode`,
-    );
-    if (process.send) {
-        process.send('server-ready');
-    }
-});
-
-// stopping the server correctly
-const closeGracefully = async () => {
-    await server.close();
-    Logger.log('info', `Server closed.`);
-    process.exit();
+    // stopping the server correctly
+    const closeGracefully = async () => {
+        await server.close();
+        Logger.log('info', `Server closed.`);
+        process.exit();
+    };
+    process.on('SIGTERM', closeGracefully);
+    process.on('SIGINT', closeGracefully);
 };
-process.on('SIGTERM', closeGracefully);
-process.on('SIGINT', closeGracefully);
+
+initMiddleware(Express, app, done);

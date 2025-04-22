@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-    methodDetermination,
     HttpMethod,
+    methodDetermination,
 } from 'src/middleware/methodDetermination';
 
 describe('methodDetermination middleware', () => {

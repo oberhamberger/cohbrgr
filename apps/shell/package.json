@@ -4,6 +4,10 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/server",
+    "exports": {
+        ".": "./dist/server/index.js",
+        "./env": "./env/index.ts"
+    },
     "nx": {
         "projectType": "application"
     },
@@ -11,21 +15,21 @@
         "serve": "node .",
         "lint": "eslint",
         "prettier": "prettier --write .",
-        "build": "NODE_ENV=production build",
-        "build:ssg": "NODE_ENV=production build --generator",
-        "build:analyze": "NODE_ENV=production build --analyze",
-        "start": "NODE_ENV=development build -w",
+        "dev": "NODE_ENV=development rspack build",
+        "build": "NODE_ENV=production rspack build",
+        "build:analyze": "npm run build -- --analyze",
+        "start": "npm run dev",
         "test": "jest"
     },
     "dependencies": {
         "@cohbrgr/components": "*",
-        "@cohbrgr/utils": "*",
+        "@cohbrgr/figma": "*",
         "@cohbrgr/server": "*",
+        "@cohbrgr/utils": "*",
         "compression": "^1.8.0",
-        "express": "^4.21.2",
         "express-rate-limit": "^7.5.0",
         "helmet": "^8.0.0",
-        "html-validate": "^9.5.0",
+        "html-validate": "^9.5.3",
         "nocache": "^4.0.0",
         "node-mocks-http": "^1.16.2",
         "workbox-core": "^7.3.0",
@@ -36,12 +40,9 @@
     },
     "devDependencies": {
         "@cohbrgr/build": "*",
-        "@cohbrgr/environments": "*",
         "@cohbrgr/eslint": "*",
-        "@cohbrgr/figma": "*",
         "@cohbrgr/jest": "*",
         "@cohbrgr/tsconfig": "*",
-        "@types/compression": "^1.7.5",
-        "@types/express": "^5.0.0"
+        "@types/compression": "^1.7.5"
     }
 }
