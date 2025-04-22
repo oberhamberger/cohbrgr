@@ -24,7 +24,6 @@ const Content = lazy(
             default: FunctionComponent<IContent>;
         }>,
 );
-
 const App: FunctionComponent = () => {
     useEffect(() => {
         onCLS(console.log);
@@ -40,7 +39,7 @@ const App: FunctionComponent = () => {
                     path={AppRoutes.start}
                     element={
                         <Suspense fallback={<Spinner />}>
-                            <Content nonce={nonce} />
+                            <Content />
                         </Suspense>
                     }
                 />

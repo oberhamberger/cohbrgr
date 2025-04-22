@@ -1,25 +1,19 @@
-import { resolve } from 'path';
-import express from 'express';
-import nocache from 'nocache';
 import compression from 'compression';
+import express from 'express';
 import rateLimit from 'express-rate-limit';
+import nocache from 'nocache';
+import { resolve } from 'path';
 
-import { EnvironmentConfig } from '@cohbrgr/environments';
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { logging, methodDetermination } from '@cohbrgr/server';
-import jam from 'src/server/middleware/jam';
-import render from 'src/server/middleware/render';
+import { Config } from '@cohbrgr/shell/env';
+import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { randomBytes } from 'crypto';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
-const defaultPort = isProduction
-    ? EnvironmentConfig.shell.port
-    : EnvironmentConfig.shell.port + 30;
+const defaultPort = isProduction ? Config.port : Config.port + 30;
 const port = process.env['PORT'] || defaultPort;
-const staticPath = resolve(
-    process.cwd() + EnvironmentConfig.shell.staticPath + '/client',
-);
-const useClientSideRendering = true;
+const staticPath = resolve(process.cwd() + Config.staticPath + '/client');
+// const useClientSideRendering = true;
 const isGenerator = findProcessArgs(['--generator']);
 
 const app = express();
@@ -79,26 +73,35 @@ app.use((_req, res, next) => {
 //     }),
 // );
 
-app.use(jam(isProduction));
-app.use(render(isProduction, useClientSideRendering));
+// app.use(jam(isProduction));
 
-// starting the server
-const server = app.listen(port, () => {
-    Logger.info(
-        `Server started at http://localhost:${port} in ${
-            isProduction ? 'production' : 'development'
-        } mode`,
-    );
-    if (process.send) {
-        process.send('server-ready');
-    }
-});
+await (async () => {
+    // @ts-expect-error
+    const renderThunk = (await import('./server-entry'))
+        .default as unknown as RenderThunk;
 
-// stopping the server correctly
-const closeGracefully = async () => {
-    await server.close();
-    Logger.log('info', `Server closed.`);
-    process.exit();
-};
-process.on('SIGTERM', closeGracefully);
-process.on('SIGINT', closeGracefully);
+    const serverRender = renderThunk();
+
+    app.use(serverRender);
+
+    // starting the server
+    const server = app.listen(port, () => {
+        Logger.info(
+            `Server started at http://localhost:${port} in ${
+                isProduction ? 'production' : 'development'
+            } mode`,
+        );
+        if (process.send) {
+            process.send('server-ready');
+        }
+    });
+
+    // stopping the server correctly
+    const closeGracefully = async () => {
+        await server.close();
+        Logger.log('info', `Server closed.`);
+        process.exit();
+    };
+    process.on('SIGTERM', closeGracefully);
+    process.on('SIGINT', closeGracefully);
+})();

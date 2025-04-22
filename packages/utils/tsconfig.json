@@ -2,6 +2,7 @@
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
         "jsx": "react-jsx",
+        "rewriteRelativeImportExtensions": true,
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"]
