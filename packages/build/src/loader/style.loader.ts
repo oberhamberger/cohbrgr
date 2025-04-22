@@ -1,39 +1,23 @@
-import { resolve } from 'path';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { RuleSetUseItem } from 'webpack';
+import { type RuleSetUseItem } from '@rspack/core';
 
-export default (isServer: boolean, isProduction: boolean): RuleSetUseItem[] => {
+export const getStyleLoader = (): RuleSetUseItem[] => {
     const loaders: RuleSetUseItem[] = [
         {
-            loader: 'css-loader',
+            loader: 'builtin:lightningcss-loader',
             options: {
                 modules: {
-                    exportOnlyLocals: isServer,
-                    exportLocalsConvention: 'camelCase',
-                    exportGlobals: true,
-                    localIdentContext: resolve(__dirname, 'src'),
-                    localIdentName: isProduction
-                        ? '[hash:base64:6]'
-                        : '[name]__[local]__[hash:base64:3]',
+                    localIdentName: '[name]__[local]___[hash:base64:5]', // Customize if needed
                 },
-                esModule: true,
-                importLoaders: 1,
-                sourceMap: !isProduction,
             },
         },
         {
             loader: 'sass-loader',
+            options: {
+                api: 'modern-compiler',
+                implementation: require.resolve('sass-embedded'),
+            },
         },
     ];
-
-    const clientLoader = {
-        loader: MiniCssExtractPlugin.loader,
-        options: {
-            esModule: true,
-        },
-    };
-
-    !isServer && loaders.unshift(clientLoader);
 
     return loaders;
 };

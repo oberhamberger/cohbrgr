@@ -6,6 +6,11 @@
             "dependsOn": ["^build", "prestart"],
             "outputs": ["{projectRoot}/dist"]
         },
+        "dev": {
+            "cache": true,
+            "dependsOn": ["^build", "prestart"],
+            "outputs": ["{projectRoot}/dist"]
+        },
         "build": {
             "cache": true,
             "dependsOn": ["^build", "prebuild"],

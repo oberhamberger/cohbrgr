@@ -1,11 +1,11 @@
-import { PassThrough, Stream } from 'stream';
 import { Request, Response } from 'express';
 import { renderToPipeableStream } from 'react-dom/server';
+import { PassThrough, Stream } from 'stream';
 
-import Index from 'src/server/template/Index.html';
-import { Logger } from '@cohbrgr/utils';
 import { HttpMethod } from '@cohbrgr/server';
+import { Logger } from '@cohbrgr/utils';
 import { HttpContextData } from 'src/client/contexts/http';
+import Index from 'src/server/template/Index.html';
 
 const streamToString = (stream: Stream): Promise<string> => {
     const chunks: Uint8Array[] = [];
@@ -27,7 +27,7 @@ const render =
                         isProduction={isProduction}
                         location={req.url}
                         useCSR={useClientSideRendering}
-                        // nonce={res.locals.cspNonce}
+                        nonce={res.locals['cspNonce']}
                         httpContextData={httpContext}
                     />,
                     {

@@ -1,20 +1,18 @@
-import { FunctionComponent } from 'react';
-import { readFileSync, readdirSync } from 'fs';
-import { resolve, extname } from 'path';
+import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
-import EnvironmentConfig from '@cohbrgr/environments';
+import { readFileSync, readdirSync } from 'fs';
+import { extname, resolve } from 'path';
+import { FunctionComponent } from 'react';
 
 interface IStylesheetProps {
-    // nonce: string;
+    nonce: string;
     isProduction: boolean;
 }
 export type StylesheetProps = IStylesheetProps;
 
 let styleFiles: string[] = [];
 let styleFileContents = '';
-const cssDirectoryPath = resolve(
-    process.cwd() + `${EnvironmentConfig.shell.staticPath}/client/css`,
-);
+const cssDirectoryPath = resolve(process.cwd() + `${Config.staticPath}/client`);
 
 try {
     styleFiles = readdirSync(cssDirectoryPath).filter(
@@ -45,9 +43,9 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                 {styleFiles.map((file) => (
                     <link
                         key={file}
-                        // nonce={props.nonce}
+                        nonce={props.nonce}
                         rel="stylesheet"
-                        href={`/css/${file}`}
+                        href={`/js/${file}`}
                     />
                 ))}
             </>

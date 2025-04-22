@@ -4,6 +4,10 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/server",
+    "exports": {
+        ".": "./dist/server/index.ts",
+        "./env": "./env/index.ts"
+    },
     "nx": {
         "projectType": "application"
     },
@@ -11,22 +15,21 @@
         "serve": "node .",
         "lint": "eslint",
         "prettier": "prettier --write .",
-        "build": "NODE_ENV=production build",
-        "start": "NODE_ENV=development build -w",
+        "dev": "NODE_ENV=development rspack build",
+        "build": "DEBUG=rspack:* NODE_ENV=production rspack build",
+        "start": "npm run dev",
         "test": "jest"
     },
     "dependencies": {
         "@cohbrgr/components": "*",
-        "@cohbrgr/utils": "*",
         "@cohbrgr/server": "*",
-        "express": "^4.21.2"
+        "@cohbrgr/utils": "*"
     },
     "devDependencies": {
         "@cohbrgr/build": "*",
-        "@cohbrgr/environments": "*",
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
         "@cohbrgr/tsconfig": "*",
-        "@types/express": "^5.0.0"
+        "@types/express": "^5.0.1"
     }
 }
