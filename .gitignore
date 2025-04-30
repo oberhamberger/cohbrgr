@@ -114,3 +114,6 @@ dist
 
 # not using intellij for this project
 .idea
+
+# lighthouse ci
+.lighthouseci

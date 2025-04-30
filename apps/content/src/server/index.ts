@@ -13,9 +13,9 @@ const done = () => {
     // starting the server
     const server = app.listen(port, () => {
         Logger.info(
-            `Server started at http://localhost:${port} in ${
-                isProduction ? 'production' : 'development'
-            } mode`,
+            `Listening on ${
+                isProduction ? port : `http://localhost:${port} in development mode`
+            }`,
         );
         if (process.send) {
             process.send('server-ready');
