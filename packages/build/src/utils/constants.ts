@@ -25,4 +25,4 @@ export const isAnalyze = findProcessArgs(['--analyze']);
 export const isSSG = findProcessArgs(['--generator']);
 export const port = process.env['PORT'] || isProduction ? 3000 : 3030;
 
-export const isCloudRun = !!process.env['K_SERVICE'];
+export const isCloudRun = !!process.env['GCLOUD_RUN'];
