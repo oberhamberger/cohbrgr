@@ -64,7 +64,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                     nonce={props.nonce}
                     rel="stylesheet"
                     href=''
-                    data-webpack={`:${file}`}
+                    data-webpack={`:chunk-${file.split('.')[0]}`}
                 />
             ))}
         </>
