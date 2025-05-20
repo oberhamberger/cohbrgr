@@ -9,7 +9,7 @@ RUN npm ci
 
 ENV NODE_ENV=production
 ENV DOCKER=true
-ENV GCLOUD_APP_VERSION=$PROJECT_ID
+ENV GCLOUD_RUN=${PROJECT_ID:+true}
 
 RUN npm run build:shell
 
