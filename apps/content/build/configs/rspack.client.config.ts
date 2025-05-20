@@ -1,4 +1,4 @@
-import { baseConfig, CWD, isProduction } from '@cohbrgr/build';
+import { baseConfig, CWD, isProduction, isCloudRun } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import {
     CssExtractRspackPlugin,
@@ -39,7 +39,7 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
-        publicPath: 'http://localhost:3001/client/',
+        publicPath: isCloudRun ? 'https://cohbrgr-content-944962437395.europe-west6.run.app/client' : 'http://localhost:3001/client',
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };
