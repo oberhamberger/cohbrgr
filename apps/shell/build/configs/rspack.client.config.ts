@@ -61,7 +61,7 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
-        publicPath: isCloudRun ? 'https://cohbrgr.com/client/' : 'http://localhost:3000/client/',
+        publicPath: isCloudRun ? 'https://cohbrgr.com/' : 'http://localhost:3000/',
 
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
