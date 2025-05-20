@@ -5,6 +5,7 @@ import {
     isAnalyze,
     isProduction,
     serviceWorker,
+    isCloudRun
 } from '@cohbrgr/build';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { defineConfig } from '@rspack/cli';
@@ -60,6 +61,8 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
+        publicPath: isCloudRun ? 'https://cohbrgr.com/client' : 'http://localhost:3000/client',
+
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };

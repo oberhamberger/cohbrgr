@@ -24,6 +24,7 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/server'),
         filename: '[name].js',
         clean: true,
+        publicPath: isCloudRun ? 'https://cohbrgr.com/server' : 'http://localhost:3000/server',
         library: { type: 'commonjs2' },
     },
     externalsPresets: { node: true },
