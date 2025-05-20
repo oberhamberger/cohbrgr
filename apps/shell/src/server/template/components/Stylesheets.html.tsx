@@ -45,7 +45,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                         key={file}
                         nonce={props.nonce}
                         rel="stylesheet"
-                        href={`/js/${file}`}
+                        href={`/${file}`}
                     />
                 ))}
             </>
@@ -53,10 +53,21 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
     }
 
     return (
-        <style
-            // nonce={props.nonce}
-            dangerouslySetInnerHTML={{ __html: styleFileContents }}
-        ></style>
+        <>
+            <style
+                // nonce={props.nonce}
+                dangerouslySetInnerHTML={{ __html: styleFileContents }}
+            ></style>
+            {styleFiles.map((file) => (
+                <link
+                    key={file}
+                    nonce={props.nonce}
+                    rel="stylesheet"
+                    href=''
+                    data-webpack={`:${file}`}
+                />
+            ))}
+        </>
     );
 };
 
