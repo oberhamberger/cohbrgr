@@ -1,4 +1,4 @@
-import { baseConfig, CWD } from '@cohbrgr/build';
+import { baseConfig, CWD, isCloudRun } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import { ProgressPlugin, type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
@@ -25,7 +25,6 @@ const config: RspackOptions = {
         filename: '[name].js',
         clean: true,
         library: { type: 'commonjs2' },
-        publicPath: 'http://localhost:3000/',
     },
     externalsPresets: { node: true },
     externals: ['express'],
