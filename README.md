@@ -49,7 +49,7 @@ docker run -d -p 3000:3000 node-[APP]
 
 - Minimal React Single Page Application
 - NodeJS Express Server providing SSR
-- Module Federation
+- Module Federation on Server and Client
 - Static Site Generation
 - SCSS Modules Styles
 - Typescript
