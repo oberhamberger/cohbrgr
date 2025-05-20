@@ -11,6 +11,16 @@ ENV NODE_ENV=production
 ENV DOCKER=true
 ENV GCLOUD_RUN=${PROJECT_ID:+true}
 
+RUN echo "Project ID inside Dockerfile: $PROJECT_ID"
+RUN if [ "${GCLOUD_RUN}" = "true" ]; then \
+    echo "Building inside Google Cloud Build, Project ID: $PROJECT_ID"; \
+    # Perform Cloud Build specific actions here
+    else \
+    echo "Building outside Google Cloud Build"; \
+    # Perform actions for local or other environments here
+    fi
+
+
 RUN npm run build:shell
 
 ENTRYPOINT ["node", "apps/shell"]
