@@ -5,6 +5,8 @@ import { resolve } from 'path';
 import getModuleFederationPlugins from './rspack.federated.config';
 import { merge } from 'webpack-merge';
 
+console.log('ISCLOUD RUN', isCloudRun);
+
 const config: RspackOptions = {
     ...baseConfig,
     name: 'server',
