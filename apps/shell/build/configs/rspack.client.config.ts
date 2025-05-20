@@ -19,6 +19,8 @@ import { resolve } from 'path';
 import { merge } from 'webpack-merge';
 import getModuleFederationPlugins from './rspack.federated.config';
 
+console.log('ISCLOUD RUN', isCloudRun);
+
 const config: RspackOptions = {
     entry: {
         bundle: './client/index.ts',
