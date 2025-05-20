@@ -11,13 +11,13 @@
         "lint": "eslint"
     },
     "dependencies": {
-        "@cohbrgr/utils": "2.0.0-0",
+        "@cohbrgr/utils": "*",
         "express": "^5.1.0"
     },
     "devDependencies": {
-        "@cohbrgr/eslint": "2.0.0-0",
-        "@cohbrgr/tsconfig": "2.0.0-0",
+        "@cohbrgr/eslint": "*",
+        "@cohbrgr/tsconfig": "*",
         "@types/compression": "^1.7.5",
-        "@types/express": "^5.0.1"
+        "@types/express": "^5.0.2"
     }
 }
