@@ -26,7 +26,3 @@ export const isSSG = findProcessArgs(['--generator']);
 export const port = process.env['PORT'] || isProduction ? 3000 : 3030;
 
 export const isCloudRun = !!process.env['GCLOUD_RUN'];
-
-
-console.log('ISCLOUD RUN from build', isCloudRun);
-console.log('other process env variables: ', process.env);

@@ -5,8 +5,6 @@ import { resolve } from 'path';
 import getModuleFederationPlugins from './rspack.federated.config';
 import { merge } from 'webpack-merge';
 
-console.log('ISCLOUD RUN', isCloudRun);
-
 const config: RspackOptions = {
     ...baseConfig,
     name: 'server',
@@ -26,7 +24,7 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/server'),
         filename: '[name].js',
         clean: true,
-        publicPath: isCloudRun ? 'https://cohbrgr.com/server' : 'http://localhost:3000/server',
+        publicPath: isCloudRun ? 'https://cohbrgr.com/server/' : 'http://localhost:3000/server/',
         library: { type: 'commonjs2' },
     },
     externalsPresets: { node: true },
