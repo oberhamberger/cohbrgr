@@ -30,6 +30,6 @@
         "@cohbrgr/eslint": "*",
         "@cohbrgr/jest": "*",
         "@cohbrgr/tsconfig": "*",
-        "@types/express": "^5.0.1"
+        "@types/express": "^5.0.2"
     }
 }
