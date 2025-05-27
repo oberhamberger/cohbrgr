@@ -38,6 +38,7 @@ const render =
                                 Logger.info(
                                     `Rendered App with path: ${req.url}`,
                                 );
+                                res.setHeader('Cache-Control', 'public, max-age=3600');
                             } else if (renderStatusCode < 400) {
                                 Logger.warn(`Redirected: ${req.url}`);
                             } else if (renderStatusCode < 500) {
