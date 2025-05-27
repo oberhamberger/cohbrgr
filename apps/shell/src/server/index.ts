@@ -41,7 +41,15 @@ app.use(nocache());
 app.use(logging(isProduction));
 app.use(methodDetermination);
 app.use(compression());
-app.use(express.static(staticPath, { dotfiles: 'ignore' }));
+app.use(
+    express.static(staticPath, {
+        dotfiles: 'ignore',
+        setHeaders: (res) => {
+            res.set('Cache-Control', 'public, max-age=3600');
+        }
+    }
+    )
+);
 app.use((_req, res, next) => {
     res.locals['cspNonce'] = isGenerator
         ? '!CSPNONCE_PLACEHOLDER!'
@@ -87,8 +95,7 @@ await (async () => {
     // starting the server
     const server = app.listen(port, () => {
         Logger.info(
-            `Server started at http://localhost:${port} in ${
-                isProduction ? 'production' : 'development'
+            `Server started at http://localhost:${port} in ${isProduction ? 'production' : 'development'
             } mode`,
         );
         if (process.send) {
