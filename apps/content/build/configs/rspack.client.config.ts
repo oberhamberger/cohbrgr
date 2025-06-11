@@ -1,4 +1,4 @@
-import { baseConfig, CWD, isProduction, isCloudRun } from '@cohbrgr/build';
+import { CWD, baseConfig, isCloudRun, isProduction } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import {
     CssExtractRspackPlugin,
@@ -6,8 +6,10 @@ import {
     type RspackOptions,
 } from '@rspack/core';
 import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config';
+
 import { merge } from 'webpack-merge';
+
+import getModuleFederationPlugins from './rspack.federated.config';
 
 const config: RspackOptions = {
     ...baseConfig,

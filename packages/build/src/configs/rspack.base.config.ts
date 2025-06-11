@@ -1,11 +1,12 @@
 import { type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
+
 import { getStyleLoader } from '../loader/style.loader';
 import {
     CWD,
+    Mode,
     isProduction,
     isWatch,
-    Mode,
     regexSource,
     regexStyle,
 } from '../utils/constants';

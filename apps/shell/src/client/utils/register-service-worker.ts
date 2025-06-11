@@ -1,4 +1,5 @@
 import { Workbox } from 'workbox-window';
+
 const serviceWorker = '/sw.js';
 const isProduction = window.__initial_state__?.isProduction;
 

@@ -1,9 +1,11 @@
-import { baseConfig, CWD, isCloudRun } from '@cohbrgr/build';
+import { CWD, baseConfig, isCloudRun } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import { ProgressPlugin, type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config.ts';
+
 import { merge } from 'webpack-merge';
+
+import getModuleFederationPlugins from './rspack.federated.config.ts';
 
 const config: RspackOptions = {
     ...baseConfig,

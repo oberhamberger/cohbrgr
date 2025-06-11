@@ -1,7 +1,7 @@
-import { readFileSync, access, constants } from 'fs';
-import { resolve } from 'path';
 import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import { NextFunction, Request, Response } from 'express';
+import { access, constants, readFileSync } from 'fs';
+import { resolve } from 'path';
 import routes from 'src/client/routes';
 
 const isGenerator = findProcessArgs(['--generator']);

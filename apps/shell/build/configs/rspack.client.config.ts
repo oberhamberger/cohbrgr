@@ -1,12 +1,11 @@
-import { resolve } from 'path';
 import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
 import {
-    baseConfig,
     CWD,
+    baseConfig,
     isAnalyze,
+    isCloudRun,
     isProduction,
     serviceWorker,
-    isCloudRun,
 } from '@cohbrgr/build';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { defineConfig } from '@rspack/cli';
@@ -16,7 +15,10 @@ import {
     ProgressPlugin,
     type RspackOptions,
 } from '@rspack/core';
+import { resolve } from 'path';
+
 import { merge } from 'webpack-merge';
+
 import getModuleFederationPlugins from './rspack.federated.config';
 
 const config: RspackOptions = {
