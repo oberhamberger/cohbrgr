@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/shell",
-    "version": "1.2.1",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/server",
@@ -22,10 +22,10 @@
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/components": "2.0.0",
-        "@cohbrgr/figma": "2.0.0",
-        "@cohbrgr/server": "2.0.0",
-        "@cohbrgr/utils": "2.0.0",
+        "@cohbrgr/components": "2.0.1",
+        "@cohbrgr/figma": "2.0.1",
+        "@cohbrgr/server": "2.0.1",
+        "@cohbrgr/utils": "2.0.1",
         "compression": "^1.8.0",
         "express-rate-limit": "^7.5.0",
         "helmet": "^8.0.0",
@@ -39,10 +39,10 @@
         "workbox-window": "^7.3.0"
     },
     "devDependencies": {
-        "@cohbrgr/build": "2.0.0",
-        "@cohbrgr/eslint": "2.0.0",
-        "@cohbrgr/jest": "2.0.0",
-        "@cohbrgr/tsconfig": "2.0.0",
+        "@cohbrgr/build": "2.0.1",
+        "@cohbrgr/eslint": "2.0.1",
+        "@cohbrgr/jest": "2.0.1",
+        "@cohbrgr/tsconfig": "2.0.1",
         "@types/compression": "^1.8.1"
     }
 }
