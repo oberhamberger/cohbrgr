@@ -1,10 +1,5 @@
 import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
-import {
-    FunctionComponent,
-    lazy,
-    Suspense,
-    useEffect,
-} from 'react';
+import { FunctionComponent, lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { onCLS, onINP, onLCP } from 'web-vitals/attribution';
 

@@ -4,10 +4,10 @@ import prettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 
 export const config = tseslint.config([
-      // Base ESLint + TS recommendations
+    // Base ESLint + TS recommendations
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
-      
+
     // Project-wide options
     {
         ignores: ['dist', 'node_modules'],
