@@ -63,7 +63,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                     key={file}
                     nonce={props.nonce}
                     rel="stylesheet"
-                    href=''
+                    href=""
                     data-webpack={`:chunk-${file.split('.')[0]}`}
                 />
             ))}

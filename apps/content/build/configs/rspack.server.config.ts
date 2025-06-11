@@ -24,7 +24,9 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/server'),
         filename: '[name].js',
         libraryTarget: 'commonjs-module',
-        publicPath: isCloudRun ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/server/' : 'http://localhost:3001/server/',
+        publicPath: isCloudRun
+            ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/server/'
+            : 'http://localhost:3001/server/',
         clean: true,
     },
     externalsPresets: { node: true },

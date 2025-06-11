@@ -46,9 +46,8 @@ app.use(
         dotfiles: 'ignore',
         setHeaders: (res) => {
             res.set('Cache-Control', 'public, max-age=3600');
-        }
-    }
-    )
+        },
+    }),
 );
 app.use((_req, res, next) => {
     res.locals['cspNonce'] = isGenerator
@@ -95,7 +94,8 @@ await (async () => {
     // starting the server
     const server = app.listen(port, () => {
         Logger.info(
-            `Server started at http://localhost:${port} in ${isProduction ? 'production' : 'development'
+            `Server started at http://localhost:${port} in ${
+                isProduction ? 'production' : 'development'
             } mode`,
         );
         if (process.send) {
