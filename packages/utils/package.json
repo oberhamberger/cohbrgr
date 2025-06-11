@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/utils",
-    "version": "2.0.0-0",
+    "version": "2.0.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "exports": {
@@ -14,7 +14,7 @@
         "winston": "^3.17.0"
     },
     "devDependencies": {
-        "@cohbrgr/eslint": "2.0.0-0",
-        "@cohbrgr/tsconfig": "2.0.0-0"
+        "@cohbrgr/eslint": "2.0.0",
+        "@cohbrgr/tsconfig": "2.0.0"
     }
 }
