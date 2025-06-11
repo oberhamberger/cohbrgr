@@ -3,11 +3,9 @@ import {
     FunctionComponent,
     lazy,
     Suspense,
-    useContext,
     useEffect,
 } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppStateContext } from 'src/client/contexts/app-state';
 import { onCLS, onINP, onLCP } from 'web-vitals/attribution';
 
 import 'src/client/styles/index.scss';
@@ -31,7 +29,6 @@ const App: FunctionComponent = () => {
         onLCP(console.log);
     }, []);
 
-    const { nonce } = useContext(AppStateContext);
     return (
         <Layout>
             <Routes>
