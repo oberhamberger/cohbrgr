@@ -22,10 +22,10 @@
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/components": "*",
-        "@cohbrgr/figma": "*",
-        "@cohbrgr/server": "*",
-        "@cohbrgr/utils": "*",
+        "@cohbrgr/components": "2.0.0",
+        "@cohbrgr/figma": "2.0.0",
+        "@cohbrgr/server": "2.0.0",
+        "@cohbrgr/utils": "2.0.0",
         "compression": "^1.8.0",
         "express-rate-limit": "^7.5.0",
         "helmet": "^8.0.0",
@@ -39,10 +39,10 @@
         "workbox-window": "^7.3.0"
     },
     "devDependencies": {
-        "@cohbrgr/build": "*",
-        "@cohbrgr/eslint": "*",
-        "@cohbrgr/jest": "*",
-        "@cohbrgr/tsconfig": "*",
+        "@cohbrgr/build": "2.0.0",
+        "@cohbrgr/eslint": "2.0.0",
+        "@cohbrgr/jest": "2.0.0",
+        "@cohbrgr/tsconfig": "2.0.0",
         "@types/compression": "^1.8.1"
     }
 }
