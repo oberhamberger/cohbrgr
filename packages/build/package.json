@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/build",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "exports": {
@@ -24,9 +24,9 @@
         "sass-loader": "^16.0.5"
     },
     "devDependencies": {
-        "@cohbrgr/eslint": "2.0.0",
-        "@cohbrgr/tsconfig": "2.0.0",
-        "@cohbrgr/utils": "2.0.0",
+        "@cohbrgr/eslint": "2.0.1",
+        "@cohbrgr/tsconfig": "2.0.1",
+        "@cohbrgr/utils": "2.0.1",
         "@swc/register": "^0.1.10",
         "@types/webpack-env": "^1.18.8"
     }
