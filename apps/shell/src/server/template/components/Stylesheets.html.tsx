@@ -1,7 +1,8 @@
-import { readdirSync, readFileSync } from 'fs';
-import { extname, resolve } from 'path';
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
+import { readFileSync, readdirSync } from 'fs';
+import { extname, resolve } from 'path';
+
 import { FunctionComponent } from 'react';
 
 interface IStylesheetProps {
