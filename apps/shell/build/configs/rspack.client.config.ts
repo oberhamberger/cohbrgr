@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
 import {
     baseConfig,
@@ -15,7 +16,6 @@ import {
     ProgressPlugin,
     type RspackOptions,
 } from '@rspack/core';
-import { resolve } from 'path';
 import { merge } from 'webpack-merge';
 import getModuleFederationPlugins from './rspack.federated.config';
 

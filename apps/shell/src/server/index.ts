@@ -84,7 +84,7 @@ app.use((_req, res, next) => {
 // app.use(jam(isProduction));
 
 await (async () => {
-    // @ts-expect-error
+    // @ts-expect-error: dynamic import of server-entry is required for SSR compatibility
     const renderThunk = (await import('./server-entry'))
         .default as unknown as RenderThunk;
 

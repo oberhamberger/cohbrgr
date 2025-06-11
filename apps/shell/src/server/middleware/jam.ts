@@ -1,7 +1,7 @@
 import { readFileSync, access, constants } from 'fs';
 import { resolve } from 'path';
-import { NextFunction, Request, Response } from 'express';
 import { Logger, findProcessArgs } from '@cohbrgr/utils';
+import { NextFunction, Request, Response } from 'express';
 import routes from 'src/client/routes';
 
 const isGenerator = findProcessArgs(['--generator']);
@@ -52,15 +52,15 @@ const jam =
                     matchedHTMLFileName,
                     'utf8',
                 );
-                const matchedHTMLFileWithNonce = matchedHTMLFile.replaceAll(
+                const matchedHTMLFileWithNonce = matchedHTMLFile.replace(
                     noncePlaceHolder,
-                    res.locals.cspNonce,
+                    res.locals['cspNonce'],
                 );
                 res.statusCode = 200;
                 return res.send(matchedHTMLFileWithNonce);
             }
         }
-        next();
+        return next();
     };
 
 export default jam;
