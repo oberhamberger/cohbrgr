@@ -1,22 +1,15 @@
-import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
-import {
-    FunctionComponent,
-    lazy,
-    Suspense,
-    useContext,
-    useEffect,
-} from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { AppStateContext } from 'src/client/contexts/app-state';
-import { onCLS, onINP, onLCP } from 'web-vitals/attribution';
-
-import 'src/client/styles/index.scss';
-
 import { Spinner } from '@cohbrgr/components';
+import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
+import { Route, Routes } from 'react-router-dom';
 import Layout from 'src/client/components/layout';
 import NotFound from 'src/client/pages/not-found';
 import Offline from 'src/client/pages/offline';
 import AppRoutes from 'src/client/routes';
+import 'src/client/styles/index.scss';
+
+import { FunctionComponent, Suspense, lazy, useEffect } from 'react';
+
+import { onCLS, onINP, onLCP } from 'web-vitals/attribution';
 
 const Content = lazy(
     () =>
@@ -31,7 +24,6 @@ const App: FunctionComponent = () => {
         onLCP(console.log);
     }, []);
 
-    const { nonce } = useContext(AppStateContext);
     return (
         <Layout>
             <Routes>
