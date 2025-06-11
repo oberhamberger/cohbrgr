@@ -1,13 +1,12 @@
+import { logging, methodDetermination } from '@cohbrgr/server';
+import { Config } from '@cohbrgr/shell/env';
+import { Logger, findProcessArgs } from '@cohbrgr/utils';
 import compression from 'compression';
+import { randomBytes } from 'crypto';
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import nocache from 'nocache';
 import { resolve } from 'path';
-
-import { logging, methodDetermination } from '@cohbrgr/server';
-import { Config } from '@cohbrgr/shell/env';
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
-import { randomBytes } from 'crypto';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction ? Config.port : Config.port + 30;
@@ -46,9 +45,8 @@ app.use(
         dotfiles: 'ignore',
         setHeaders: (res) => {
             res.set('Cache-Control', 'public, max-age=3600');
-        }
-    }
-    )
+        },
+    }),
 );
 app.use((_req, res, next) => {
     res.locals['cspNonce'] = isGenerator
@@ -84,7 +82,7 @@ app.use((_req, res, next) => {
 // app.use(jam(isProduction));
 
 await (async () => {
-    // @ts-expect-error
+    // @ts-expect-error: dynamic import of server-entry is required for SSR compatibility
     const renderThunk = (await import('./server-entry'))
         .default as unknown as RenderThunk;
 
@@ -95,7 +93,8 @@ await (async () => {
     // starting the server
     const server = app.listen(port, () => {
         Logger.info(
-            `Server started at http://localhost:${port} in ${isProduction ? 'production' : 'development'
+            `Server started at http://localhost:${port} in ${
+                isProduction ? 'production' : 'development'
             } mode`,
         );
         if (process.send) {

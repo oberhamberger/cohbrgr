@@ -1,7 +1,8 @@
 import { Navigation } from '@cohbrgr/components';
-import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { HttpStatus } from 'src/client/contexts/http';
+
+import { FunctionComponent } from 'react';
 
 const NotFound: FunctionComponent = () => {
     return (

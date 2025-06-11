@@ -1,11 +1,11 @@
 import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
 import {
-    baseConfig,
     CWD,
+    baseConfig,
     isAnalyze,
+    isCloudRun,
     isProduction,
     serviceWorker,
-    isCloudRun
 } from '@cohbrgr/build';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { defineConfig } from '@rspack/cli';
@@ -16,7 +16,9 @@ import {
     type RspackOptions,
 } from '@rspack/core';
 import { resolve } from 'path';
+
 import { merge } from 'webpack-merge';
+
 import getModuleFederationPlugins from './rspack.federated.config';
 
 const config: RspackOptions = {
@@ -61,7 +63,9 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
-        publicPath: isCloudRun ? 'https://cohbrgr.com/' : 'http://localhost:3000/',
+        publicPath: isCloudRun
+            ? 'https://cohbrgr.com/'
+            : 'http://localhost:3000/',
 
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
