@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 LC_ALL=C
 
+# Colors for terminal output
+YELLOW=$'\033[0;33m'  # Yellow color for warnings
+GREEN=$'\033[0;32m'   # Green color for success messages
+RED=$'\033[0;31m'     # Red color for error messages
+PURPLE=$'\033[0;35m'  # Purple color for prompts/questions
+RESET=$'\033[0m'      # Reset color to default
+BLUE=$'\033[0;34m'    # Blue color for info
+BLACK=$'\033[0;30m'   # Black color for additional styling
+CYAN=$'\033[0;36m'    # Cyan color for highlights
+BI_BLUE=$'\033[1;94m' # Bright blue for emphasis
+
 local_branch="$(git rev-parse --abbrev-ref HEAD)"
 
 valid_branch_regex="^(task|main|develop|qa|hotfix|bug|story|app|release|notask)[a-z0-9._-]{2,10}$"
@@ -9,7 +20,7 @@ message="This branch violates the branch naming rules. Please rename your branch
 
 if [[ ! $local_branch =~ $valid_branch_regex ]]
 then
-    echo "$message"
+    echo "${PURPLE}pre-push: $message"
     exit 1
 fi
 
