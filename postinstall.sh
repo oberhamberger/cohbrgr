@@ -11,5 +11,6 @@ fi
 
 # Update .git/config to use .githooks directory as hooks directory
 git config core.hooksPath "$GITHOOKS_DIR"
+git config --global color.ui auto  
 
 echo "Git hooks configured to use .githooks directory."
