@@ -8,5 +8,10 @@
         "checkJs": false,
         "resolveJsonModule": true,
         "typeRoots": ["node_modules/@types"]
-    }
+        
+    },
+    "exclude": [
+        "src/**/*.spec.ts",
+        "src/**/*.spec.tsx"
+    ]
 }
