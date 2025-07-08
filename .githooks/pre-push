@@ -14,7 +14,7 @@ BI_BLUE=$'\033[1;94m' # Bright blue for emphasis
 
 local_branch="$(git rev-parse --abbrev-ref HEAD)"
 
-valid_branch_regex="^(task|main|develop|qa|hotfix|bug|story|app|release|notask)[a-z0-9._-]{2,10}$"
+valid_branch_regex="^(task|main|develop|qa|hotfix|bug|story|app|release|notask)[a-z0-9._-]{2,42}$"
 
 message="This branch violates the branch naming rules. Please rename your branch."
 
