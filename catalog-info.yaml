@@ -2,18 +2,6 @@ apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
   name: cohbrgr-catalog
-  description: 'Cohbrgr application catalog containing components for the Cohbrgr shell and content.'
-  annotations:
-    github.com/project-repo: oberhamberger/cohbrgr
-  tags:
-    - cohbrgr
-    - catalog
-  links:
-    - url: https://cohbrgr.com/
-      title: Cohbrgr Private Website
-      icon: web
-  owner: Christian Oberhamberger
-  type: catalog
 spec:
   targets:
     - ./catalog/cohbrgr-shell.yaml
