@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: example-catalog
+  description: Example catalog for demonstration purposes
+spec:
+targets:
+  - ./catalog/cohbrgr-shell.yaml
+  - ./catalog/cohbrgr-content.yaml
