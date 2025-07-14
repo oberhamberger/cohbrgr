@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: cohbrgr-shell
+  description: 'The shell component for the Cohbrgr application, providing the main framework and
+    navigation for the application.'
+  annotations:
+    github.com/project-repo: oberhamberger/cohbrgr
+  tags:
+    - react
+    - nodejs
+    - frontend
+  links:
+    - url: https://cohbrgr.com/
+      title: Cohbrgr Private Website
+      icon: web
+spec:
+  system: cohbrgr
+  lifecycle: production
+  owner: Christian Oberhamberger
+  type: website
+  
