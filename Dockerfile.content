@@ -7,11 +7,11 @@ USER node
 COPY --chown=node:node . /usr/app
 WORKDIR /usr/app
 
-RUN npm ci
-
 ENV NODE_ENV=production
 ENV DOCKER=true
 ENV GCLOUD_RUN=$PROJECT_ID
+
+RUN npm ci
 
 RUN npm run build:content
 
