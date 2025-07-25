@@ -2,6 +2,7 @@ import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
 import { readFileSync, readdirSync } from 'fs';
 import { extname, resolve } from 'path';
+
 import { FunctionComponent } from 'react';
 
 interface IStylesheetProps {
@@ -26,11 +27,11 @@ try {
                     'utf8',
                 );
             });
-        } catch (singleFileError) {
+        } catch {
             Logger.warn('HTML-Template: error reading css file');
         }
     }
-} catch (allFilesError) {
+} catch {
     Logger.warn('HTML-Template: no css files found in current context');
 }
 
@@ -45,7 +46,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
                         key={file}
                         nonce={props.nonce}
                         rel="stylesheet"
-                        href={`/js/${file}`}
+                        href={`/${file}`}
                     />
                 ))}
             </>
@@ -53,10 +54,21 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
     }
 
     return (
-        <style
-            // nonce={props.nonce}
-            dangerouslySetInnerHTML={{ __html: styleFileContents }}
-        ></style>
+        <>
+            <style
+                // nonce={props.nonce}
+                dangerouslySetInnerHTML={{ __html: styleFileContents }}
+            ></style>
+            {styleFiles.map((file) => (
+                <link
+                    key={file}
+                    nonce={props.nonce}
+                    rel="stylesheet"
+                    href=""
+                    data-webpack={`:chunk-${file.split('.')[0]}`}
+                />
+            ))}
+        </>
     );
 };
 

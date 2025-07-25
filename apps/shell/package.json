@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/shell",
-    "version": "1.2.1",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/server",
@@ -22,16 +22,17 @@
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/components": "*",
-        "@cohbrgr/figma": "*",
-        "@cohbrgr/server": "*",
-        "@cohbrgr/utils": "*",
-        "compression": "^1.8.0",
-        "express-rate-limit": "^7.5.0",
+        "@cohbrgr/components": "2.0.1",
+        "@cohbrgr/figma": "2.0.1",
+        "@cohbrgr/server": "2.0.1",
+        "@cohbrgr/utils": "2.0.1",
+        "compression": "^1.8.1",
+        "express-rate-limit": "^8.0.1",
         "helmet": "^8.0.0",
-        "html-validate": "^9.5.3",
+        "html-validate": "^9.7.1",
         "nocache": "^4.0.0",
         "node-mocks-http": "^1.17.2",
+        "web-vitals": "^5.0.3",
         "workbox-core": "^7.3.0",
         "workbox-expiration": "^7.3.0",
         "workbox-routing": "^7.3.0",
@@ -39,10 +40,10 @@
         "workbox-window": "^7.3.0"
     },
     "devDependencies": {
-        "@cohbrgr/build": "*",
-        "@cohbrgr/eslint": "*",
-        "@cohbrgr/jest": "*",
-        "@cohbrgr/tsconfig": "*",
-        "@types/compression": "^1.7.5"
+        "@cohbrgr/build": "2.0.1",
+        "@cohbrgr/eslint": "2.0.1",
+        "@cohbrgr/jest": "2.0.1",
+        "@cohbrgr/tsconfig": "2.0.1",
+        "@types/compression": "^1.8.1"
     }
 }

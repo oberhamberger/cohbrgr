@@ -1,11 +1,10 @@
-import { Request, Response } from 'express';
-import { renderToPipeableStream } from 'react-dom/server';
-import { PassThrough, Stream } from 'stream';
-
 import { HttpMethod } from '@cohbrgr/server';
 import { Logger } from '@cohbrgr/utils';
+import { Request, Response } from 'express';
+import { renderToPipeableStream } from 'react-dom/server';
 import { HttpContextData } from 'src/client/contexts/http';
 import Index from 'src/server/template/Index.html';
+import { PassThrough, Stream } from 'stream';
 
 const streamToString = (stream: Stream): Promise<string> => {
     const chunks: Uint8Array[] = [];
@@ -37,6 +36,10 @@ const render =
                             if (renderStatusCode < 300) {
                                 Logger.info(
                                     `Rendered App with path: ${req.url}`,
+                                );
+                                res.setHeader(
+                                    'Cache-Control',
+                                    'public, max-age=3600',
                                 );
                             } else if (renderStatusCode < 400) {
                                 Logger.warn(`Redirected: ${req.url}`);
