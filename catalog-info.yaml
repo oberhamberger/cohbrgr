@@ -1,8 +1,0 @@
-apiVersion: backstage.io/v1alpha1
-kind: Location
-metadata:
-  name: cohbrgr-catalog
-spec:
-  targets:
-    - ./catalog/cohbrgr-shell.yaml
-    - ./catalog/cohbrgr-content.yaml
