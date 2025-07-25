@@ -9,8 +9,8 @@
     "dependencies": {
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.3.0",
-        "jest": "^30.0.3",
-        "jest-environment-jsdom": "^30.0.2",
+        "jest": "^30.0.5",
+        "jest-environment-jsdom": "^30.0.5",
         "jest-transform-stub": "^2.0.0",
         "ts-jest": "^29.4.0"
     },
