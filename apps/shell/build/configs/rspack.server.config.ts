@@ -1,9 +1,11 @@
-import { baseConfig, CWD } from '@cohbrgr/build';
+import { CWD, baseConfig, isCloudRun } from '@cohbrgr/build';
 import { defineConfig } from '@rspack/cli';
 import { ProgressPlugin, type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config';
+
 import { merge } from 'webpack-merge';
+
+import getModuleFederationPlugins from './rspack.federated.config';
 
 const config: RspackOptions = {
     ...baseConfig,
@@ -24,8 +26,10 @@ const config: RspackOptions = {
         path: resolve(CWD, './dist/server'),
         filename: '[name].js',
         clean: true,
+        publicPath: isCloudRun
+            ? 'https://cohbrgr.com/server/'
+            : 'http://localhost:3000/server/',
         library: { type: 'commonjs2' },
-        publicPath: 'http://localhost:3000/',
     },
     externalsPresets: { node: true },
     externals: ['express'],

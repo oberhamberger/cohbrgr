@@ -1,6 +1,6 @@
 {
     "name": "@cohbrgr/content",
-    "version": "1.2.1",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "main": "dist/server",
@@ -21,15 +21,15 @@
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/components": "*",
-        "@cohbrgr/server": "*",
-        "@cohbrgr/utils": "*"
+        "@cohbrgr/components": "2.0.1",
+        "@cohbrgr/server": "2.0.1",
+        "@cohbrgr/utils": "2.0.1"
     },
     "devDependencies": {
-        "@cohbrgr/build": "*",
-        "@cohbrgr/eslint": "*",
-        "@cohbrgr/jest": "*",
-        "@cohbrgr/tsconfig": "*",
-        "@types/express": "^5.0.1"
+        "@cohbrgr/build": "2.0.1",
+        "@cohbrgr/eslint": "2.0.1",
+        "@cohbrgr/jest": "2.0.1",
+        "@cohbrgr/tsconfig": "2.0.1",
+        "@types/express": "^5.0.2"
     }
 }

@@ -1,5 +1,7 @@
 import { Navigation } from '@cohbrgr/components';
+
 import { FunctionComponent } from 'react';
+
 import StructuredData from '../structured-data';
 
 export interface IContent {

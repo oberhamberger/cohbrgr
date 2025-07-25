@@ -1,4 +1,5 @@
 import { Navigation } from '@cohbrgr/components';
+
 import { FunctionComponent } from 'react';
 
 const Offline: FunctionComponent = () => {
