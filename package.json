@@ -19,7 +19,7 @@
     ],
     "scripts": {
         "bootstrap": "git clean -xfd && npm install && npm run build",
-        "postinstall": "bash postinstall.sh",
+        "postinstall": "if [ \"$DOCKER\" != \"true\" ]; then bash postinstall.sh; fi",
         "prettier": "prettier --write .",
         "lint": "nx run-many -t lint",
         "build": "nx run-many -t build",
