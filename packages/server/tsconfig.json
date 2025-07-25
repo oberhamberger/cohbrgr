@@ -3,10 +3,24 @@
     "compilerOptions": {
         "jsx": "react-jsx",
         "baseUrl": ".",
+        "rootDir": "./src",
         "paths": {
             "src/*": ["./src/*"]
         },
-        "outDir": "./dist",
+        "outDir": "dist",
         "declaration": true,
-    }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "**/*.spec.ts",
+        "**/*.spec.tsx",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/__tests__/**",
+        "**/dist",
+        "node_modules",
+        "dist"
+    ]
 }

@@ -11,17 +11,8 @@
         "checkJs": false,
         "resolveJsonModule": true,
         "typeRoots": [
-            "**/node_modules/@types",
-            "**/@types",
+            "../../node_modules/@types",
+            "../../@types",
         ]
-    },
-    "exclude": [
-        "**/*.spec.ts",
-        "**/*.spec.tsx",
-        "**/*.test.ts",
-        "**/*.test.tsx",
-        "**/__tests__/**",
-        "**/jest.config.ts",
-        "**/dist"
-    ]
+    }
 }
