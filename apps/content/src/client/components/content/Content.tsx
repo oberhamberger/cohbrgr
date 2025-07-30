@@ -5,7 +5,7 @@ import { FunctionComponent } from 'react';
 import StructuredData from '../structured-data';
 
 export interface IContent {
-    nonce?: string;
+    nonce?: string | undefined;
 }
 
 const Content: FunctionComponent<IContent> = ({ nonce }) => {
