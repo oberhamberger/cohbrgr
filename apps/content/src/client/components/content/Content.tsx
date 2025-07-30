@@ -18,7 +18,7 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
                 </p>
                 <h1>My name is Christian</h1>
                 <p>
-                    I am a Frontend Developer at{' '}
+                    I am a Frontend Architect at{' '}
                     <a href="https://www.netconomy.net/">Netconomy</a>. I mainly
                     work with React and Node.js on online commerce platforms.
                 </p>
