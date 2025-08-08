@@ -32,7 +32,7 @@
         "html-validate": "^9.7.1",
         "nocache": "^4.0.0",
         "node-mocks-http": "^1.17.2",
-        "web-vitals": "^5.0.3",
+        "web-vitals": "^5.1.0",
         "workbox-core": "^7.3.0",
         "workbox-expiration": "^7.3.0",
         "workbox-routing": "^7.3.0",
