@@ -55,9 +55,9 @@ const config: RspackOptions = {
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
         minimize: isProduction,
-        splitChunks: {
-            chunks: 'all',
-        },
+        ...(isProduction ? {splitChunks: {
+             chunks: 'all',
+        }} : {}),
     },
     output: {
         path: resolve(CWD, './dist/client'),
