@@ -1,8 +1,10 @@
 //import routes from '@cohbrgr/shell/src/client/routes';
-import { Logger } from '@cohbrgr/utils';
+import { join } from 'path';
+
 import { fork } from 'child_process';
 import { mkdirSync, writeFile } from 'fs';
-import { join } from 'path';
+
+import { Logger } from '@cohbrgr/utils';
 
 import { port } from '../utils/constants';
 

@@ -3,10 +3,17 @@ const config = {
     tabWidth: 4,
     semi: true,
     singleQuote: true,
-    importOrder: ['^react$', '^react-dom$', '^@?\w', '^[./]'],
+    plugins: ['@trivago/prettier-plugin-sort-imports'],
+    importOrder: [
+        '^node:(.*)$',
+        'path',
+        '^react(.*)',
+        '<THIRD_PARTY_MODULES>',
+        '@cohbrgr/(.*)',
+        '^[./]',
+    ],
     importOrderSeparation: true,
     importOrderSortSpecifiers: true,
-    plugins: ['@trivago/prettier-plugin-sort-imports'],
 };
 
 module.exports = config;

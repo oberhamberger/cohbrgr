@@ -1,16 +1,14 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
-        "tsBuildInfoFile": "./dist/cache/my-tsbuildinfo-file",
-        "rootDir": "./src",
-        "declaration": true,
         "baseUrl": ".",
+        "rootDir": "./",
         "paths": {
             "src/*": ["./src/*"]
         },
-        "typeRoots": ["../../node_modules/@types", "./src/@types/*"],
-        "outDir": "dist"
+        "outDir": "dist",
+        "declaration": true
     },
-    "include": ["src/**/*"],
-    "exclude": ["./bin", "./dist"]
+    "include": ["./", "src/**/*"],
+    "exclude": ["**/dist", "node_modules", "dist"]
 }
