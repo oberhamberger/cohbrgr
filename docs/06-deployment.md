@@ -6,8 +6,8 @@ This section provides information on how the applications are deployed.
 
 The applications are designed to be deployed as Docker containers. The project contains two Dockerfiles:
 
--   `Dockerfile.shell`: This Dockerfile is used to build the Docker image for the `shell` application.
--   `Dockerfile.content`: This Dockerfile is used to build the Docker image for the `content` application.
+- `Dockerfile.shell`: This Dockerfile is used to build the Docker image for the `shell` application.
+- `Dockerfile.content`: This Dockerfile is used to build the Docker image for the `content` application.
 
 To build a Docker image for an application, run the following command:
 

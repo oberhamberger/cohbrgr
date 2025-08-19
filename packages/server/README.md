@@ -12,9 +12,9 @@ This package centralizes common server-side concerns such as logging and HTTP me
 
 A middleware function that logs incoming HTTP requests.
 
--   **`isProduction`**: A boolean flag that determines the logging behavior:
-    -   If `false` (development environment), it logs the requested URL (e.g., `Requesting: /api/data`).
-    -   If `true` (production environment), it logs the client's IP address and the requested URL (e.g., `192.168.1.100 requests: /api/data`).
+- **`isProduction`**: A boolean flag that determines the logging behavior:
+    - If `false` (development environment), it logs the requested URL (e.g., `Requesting: /api/data`).
+    - If `true` (production environment), it logs the client's IP address and the requested URL (e.g., `192.168.1.100 requests: /api/data`).
 
 #### Usage
 
@@ -34,7 +34,7 @@ app.use(logging(isProduction));
 
 A middleware function that enforces allowed HTTP methods for incoming requests. It currently only permits `GET` and `HEAD` requests.
 
--   If an incoming request uses any method other than `GET` or `HEAD`, it logs a warning, sends a `405 Method Not Allowed` HTTP status code, and terminates the request processing.
+- If an incoming request uses any method other than `GET` or `HEAD`, it logs a warning, sends a `405 Method Not Allowed` HTTP status code, and terminates the request processing.
 
 #### Usage
 
