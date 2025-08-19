@@ -30,9 +30,9 @@ describe('methodDetermination middleware', () => {
             mockNext as NextFunction,
         );
         expect(mockResponse.statusCode).toBe(405);
-        expect(mockResponse.send).toBeCalled();
-        expect(mockResponse.send).toReturn();
-        expect(mockResponse.send).toBeCalledWith(expectedResponse.error);
+        expect(mockResponse.send).toHaveBeenCalled();
+        expect(mockResponse.send).toHaveReturned();
+        expect(mockResponse.send).toHaveBeenCalledWith(expectedResponse.error);
     });
 
     it('should return 405 for POST Requests', async () => {
@@ -44,9 +44,9 @@ describe('methodDetermination middleware', () => {
             mockNext as NextFunction,
         );
         expect(mockResponse.statusCode).toBe(405);
-        expect(mockResponse.send).toBeCalled();
-        expect(mockResponse.send).toReturn();
-        expect(mockResponse.send).toBeCalledWith(expectedResponse.error);
+        expect(mockResponse.send).toHaveBeenCalled();
+        expect(mockResponse.send).toHaveReturned();
+        expect(mockResponse.send).toHaveBeenCalledWith(expectedResponse.error);
     });
 
     it('should call next() for HEAD Requests', async () => {
@@ -57,7 +57,7 @@ describe('methodDetermination middleware', () => {
             mockResponse as Response,
             mockNext as NextFunction,
         );
-        expect(mockNext).toBeCalled();
+        expect(mockNext).toHaveBeenCalled();
     });
 
     it('should call next() for GET Requests', async () => {
@@ -68,6 +68,6 @@ describe('methodDetermination middleware', () => {
             mockResponse as Response,
             mockNext as NextFunction,
         );
-        expect(mockNext).toBeCalled();
+        expect(mockNext).toHaveBeenCalled();
     });
 });

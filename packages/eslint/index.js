@@ -17,7 +17,6 @@ export const config = tseslint.config([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsconfigRootDir: process.cwd(),
             },
         },
         plugins: {
@@ -40,7 +39,6 @@ export const config = tseslint.config([
             ],
         },
     },
-    // Prettier override to avoid conflicts
     prettier,
 ]);
 

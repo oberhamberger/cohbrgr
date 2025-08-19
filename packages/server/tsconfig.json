@@ -1,22 +1,16 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
-        "jsx": "react-jsx",
         "baseUrl": ".",
-        "rootDir": "./src",
+        "rootDir": "./",
         "paths": {
             "src/*": ["./src/*"]
         },
         "outDir": "dist",
         "declaration": true
     },
-    "include": ["src/**/*"],
+    "include": ["./", "src/**/*"],
     "exclude": [
-        "**/*.spec.ts",
-        "**/*.spec.tsx",
-        "**/*.test.ts",
-        "**/*.test.tsx",
-        "**/__tests__/**",
         "**/dist",
         "node_modules",
         "dist"
