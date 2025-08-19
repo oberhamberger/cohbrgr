@@ -1,6 +1,7 @@
-import { Logger } from '@cohbrgr/utils';
 import type { RequestHandler } from 'express';
 import { NextFunction, Request, Response } from 'express';
+
+import { Logger } from '@cohbrgr/utils';
 
 export enum HttpMethod {
     GET = 'GET',

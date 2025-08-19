@@ -7,7 +7,6 @@ export const config = tseslint.config([
     // Base ESLint + TS recommendations
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
-
     // Project-wide options
     {
         ignores: ['dist', 'node_modules'],
@@ -17,7 +16,6 @@ export const config = tseslint.config([
         languageOptions: {
             parserOptions: {
                 project: './tsconfig.json',
-                tsconfigRootDir: process.cwd(),
             },
         },
         plugins: {
@@ -34,13 +32,28 @@ export const config = tseslint.config([
                         'parent',
                         'sibling',
                         'index',
+                        'object',
+                        'type',
                     ],
-                    alphabetize: { order: 'asc', caseInsensitive: true },
+                    pathGroups: [
+                        {
+                            pattern: 'react**',
+                            group: 'builtin',
+                            position: 'after',
+                        },
+                        {
+                            pattern: '@cohbrgr/**',
+                            group: 'external',
+                            position: 'before',
+                        },
+                    ],
+                    alphabetize: {
+                        caseInsensitive: true,
+                    },
                 },
             ],
         },
     },
-    // Prettier override to avoid conflicts
     prettier,
 ]);
 

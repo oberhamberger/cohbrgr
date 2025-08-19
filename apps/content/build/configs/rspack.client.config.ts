@@ -1,13 +1,14 @@
-import { CWD, baseConfig, isCloudRun, isProduction } from '@cohbrgr/build';
+import { resolve } from 'path';
+
 import { defineConfig } from '@rspack/cli';
 import {
     CssExtractRspackPlugin,
     ProgressPlugin,
     type RspackOptions,
 } from '@rspack/core';
-import { resolve } from 'path';
-
 import { merge } from 'webpack-merge';
+
+import { CWD, baseConfig, isCloudRun, isProduction } from '@cohbrgr/build';
 
 import getModuleFederationPlugins from './rspack.federated.config';
 

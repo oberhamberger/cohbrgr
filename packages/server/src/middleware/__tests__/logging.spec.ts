@@ -27,6 +27,6 @@ describe('logging middleware', () => {
             mockResponse as Response,
             mockNext as NextFunction,
         );
-        expect(mockNext).toBeCalled();
+        expect(mockNext).toHaveBeenCalled();
     });
 });

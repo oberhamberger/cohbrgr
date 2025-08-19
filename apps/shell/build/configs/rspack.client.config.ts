@@ -1,12 +1,6 @@
+import { resolve } from 'path';
+
 import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
-import {
-    CWD,
-    baseConfig,
-    isAnalyze,
-    isCloudRun,
-    isProduction,
-    serviceWorker,
-} from '@cohbrgr/build';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { defineConfig } from '@rspack/cli';
 import {
@@ -15,9 +9,16 @@ import {
     ProgressPlugin,
     type RspackOptions,
 } from '@rspack/core';
-import { resolve } from 'path';
-
 import { merge } from 'webpack-merge';
+
+import {
+    CWD,
+    baseConfig,
+    isAnalyze,
+    isCloudRun,
+    isProduction,
+    serviceWorker,
+} from '@cohbrgr/build';
 
 import getModuleFederationPlugins from './rspack.federated.config';
 
@@ -55,9 +56,13 @@ const config: RspackOptions = {
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
         minimize: isProduction,
-        splitChunks: {
-            chunks: 'all',
-        },
+        ...(isProduction
+            ? {
+                  splitChunks: {
+                      chunks: 'all',
+                  },
+              }
+            : {}),
     },
     output: {
         path: resolve(CWD, './dist/client'),

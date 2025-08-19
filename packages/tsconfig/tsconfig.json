@@ -1,8 +1,5 @@
 {
-    "extends": [
-        "@tsconfig/strictest/tsconfig",
-        "@tsconfig/node22/tsconfig"
-    ],
+    "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node22/tsconfig"],
     "compilerOptions": {
         "jsx": "react-jsx",
         "sourceMap": true,
@@ -10,9 +7,6 @@
         "allowJs": false,
         "checkJs": false,
         "resolveJsonModule": true,
-        "typeRoots": [
-            "../../node_modules/@types",
-            "../../@types",
-        ]
+        "typeRoots": ["../../node_modules/@types", "../../@types"]
     }
 }

@@ -1,6 +1,6 @@
-import * as styles from 'src/client/components/layout/Layout.module.scss';
-
 import { FunctionComponent, ReactNode } from 'react';
+
+import * as styles from 'src/client/components/layout/Layout.module.scss';
 
 interface ILayout {
     children: ReactNode;
