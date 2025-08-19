@@ -40,16 +40,16 @@ In addition to its primary role as a host application, the `shell` application p
 
 The `shell` application includes several security features to protect against common web vulnerabilities:
 
--   **Helmet:** The `helmet` middleware is used to set various HTTP headers to secure the application.
--   **Express Rate Limit:** The `express-rate-limit` middleware is used to limit repeated requests to public APIs and/or endpoints.
--   **NoCache:** The `nocache` middleware is used to disable browser caching.
+- **Helmet:** The `helmet` middleware is used to set various HTTP headers to secure the application.
+- **Express Rate Limit:** The `express-rate-limit` middleware is used to limit repeated requests to public APIs and/or endpoints.
+- **NoCache:** The `nocache` middleware is used to disable browser caching.
 
 ### Performance
 
 The `shell` application is optimized for performance:
 
--   **Compression:** The `compression` middleware is used to compress response bodies for all requests that traverse through the middleware.
--   **Web Vitals:** The `web-vitals` library is used to measure and log key performance metrics (CLS, INP, LCP) to the console.
+- **Compression:** The `compression` middleware is used to compress response bodies for all requests that traverse through the middleware.
+- **Web Vitals:** The `web-vitals` library is used to measure and log key performance metrics (CLS, INP, LCP) to the console.
 
 ### Offline Support
 

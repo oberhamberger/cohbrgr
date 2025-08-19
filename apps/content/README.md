@@ -12,7 +12,7 @@ Module federation is configured using the `@cohbrgr/build` package, which provid
 
 The `content` application exposes the following component:
 
--   `./Content`: The main content component, located at `apps/content/src/client/components/content/Content.tsx`.
+- `./Content`: The main content component, located at `apps/content/src/client/components/content/Content.tsx`.
 
 ### Exposed Component
 

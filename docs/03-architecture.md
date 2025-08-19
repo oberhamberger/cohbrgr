@@ -6,15 +6,15 @@ This project follows a micro-frontend architecture using Module Federation. This
 
 The project is structured as a monorepo, containing two main directories:
 
--   `/apps`: Contains the applications, which are the deployable units of the project.
--   `/packages`: Contains shared packages that are used by the applications.
+- `/apps`: Contains the applications, which are the deployable units of the project.
+- `/packages`: Contains shared packages that are used by the applications.
 
 ## Micro-frontends with Module Federation
 
 The application is split into two main parts:
 
--   **`@cohbrgr/shell`**: The host application that renders the main layout and navigation.
--   **`@cohbrgr/content`**: A remote application that exposes a `Content` component.
+- **`@cohbrgr/shell`**: The host application that renders the main layout and navigation.
+- **`@cohbrgr/content`**: A remote application that exposes a `Content` component.
 
 The `shell` application consumes the `Content` component from the `content` application at runtime using Module Federation. This allows the two applications to be developed, deployed, and scaled independently.
 

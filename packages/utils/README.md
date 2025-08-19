@@ -12,8 +12,8 @@ This package aims to centralize common helper functions, making them easily reus
 
 A utility function to check if specific arguments are present in the Node.js `process.argv` array.
 
--   **`searchArgs`**: A string or an array of strings representing the arguments to search for.
--   **Returns**: `true` if any of the `searchArgs` are found in `process.argv`, `false` otherwise.
+- **`searchArgs`**: A string or an array of strings representing the arguments to search for.
+- **Returns**: `true` if any of the `searchArgs` are found in `process.argv`, `false` otherwise.
 
 #### Usage
 
@@ -35,18 +35,18 @@ if (findProcessArgs(['--verbose', '-v'])) {
 
 A pre-configured Winston logger instance for consistent logging across applications.
 
--   **Level**: `info` - Logs messages at `info` level and above (i.e., `info`, `warn`, `error`).
--   **Format**: Includes timestamp, log level (uppercase), and message. Output is colorized for better readability in the console.
--   **Transports**: Currently configured to log to the console.
+- **Level**: `info` - Logs messages at `info` level and above (i.e., `info`, `warn`, `error`).
+- **Format**: Includes timestamp, log level (uppercase), and message. Output is colorized for better readability in the console.
+- **Transports**: Currently configured to log to the console.
 
 #### Available Log Levels (from Winston):
 
--   `error` (0)
--   `warn` (1)
--   `info` (2)
--   `verbose` (3)
--   `debug` (4)
--   `silly` (5)
+- `error` (0)
+- `warn` (1)
+- `info` (2)
+- `verbose` (3)
+- `debug` (4)
+- `silly` (5)
 
 #### Usage
 

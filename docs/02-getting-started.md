@@ -6,9 +6,9 @@ This guide will walk you through the process of setting up your development envi
 
 Before you begin, make sure you have the following installed:
 
--   [Node.js](https://nodejs.org/) (version specified in `.nvmrc`)
--   [npm](https://www.npmjs.com/)
--   [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/) (version specified in `.nvmrc`)
+- [npm](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/)
 
 ## Installation
 
