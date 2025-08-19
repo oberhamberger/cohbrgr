@@ -19,8 +19,9 @@ A middleware function that logs incoming HTTP requests.
 #### Usage
 
 ```typescript
-import { logging } from '@cohbrgr/server';
 import express from 'express';
+
+import { logging } from '@cohbrgr/server';
 
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -39,8 +40,9 @@ A middleware function that enforces allowed HTTP methods for incoming requests. 
 #### Usage
 
 ```typescript
-import { methodDetermination } from '@cohbrgr/server';
 import express from 'express';
+
+import { methodDetermination } from '@cohbrgr/server';
 
 const app = express();
 

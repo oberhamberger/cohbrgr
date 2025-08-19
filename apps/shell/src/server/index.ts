@@ -1,12 +1,14 @@
-import { logging, methodDetermination } from '@cohbrgr/server';
-import { Config } from '@cohbrgr/shell/env';
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
+import { resolve } from 'path';
+
 import compression from 'compression';
 import { randomBytes } from 'crypto';
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import nocache from 'nocache';
-import { resolve } from 'path';
+
+import { logging, methodDetermination } from '@cohbrgr/server';
+import { Config } from '@cohbrgr/shell/env';
+import { Logger, findProcessArgs } from '@cohbrgr/utils';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 const defaultPort = isProduction ? Config.port : Config.port + 30;

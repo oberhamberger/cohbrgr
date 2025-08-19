@@ -1,5 +1,6 @@
-import { type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
+
+import { type RspackOptions } from '@rspack/core';
 
 import { getStyleLoader } from '../loader/style.loader';
 import {

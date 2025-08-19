@@ -4,7 +4,6 @@ import offlineNavigationHandler, {
     OFFLINE_CACHE_NAME,
 } from 'src/client/service-worker/routes/offline';
 import resourceRoute from 'src/client/service-worker/routes/resources';
-
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
 import { registerRoute, setCatchHandler } from 'workbox-routing';
 

@@ -17,9 +17,9 @@ This package is intended to be used as a dependency in other packages within the
 ### Example
 
 ```typescript
-import { baseConfig } from '@cohbrgr/build';
-
 import { merge } from 'webpack-merge';
+
+import { baseConfig } from '@cohbrgr/build';
 
 const myConfig = merge(baseConfig, {
     // my custom config
