@@ -1,10 +1,12 @@
-import { HttpMethod } from '@cohbrgr/server';
-import { Logger } from '@cohbrgr/utils';
-import { Request, Response } from 'express';
 import { renderToPipeableStream } from 'react-dom/server';
+
+import { Request, Response } from 'express';
 import { HttpContextData } from 'src/client/contexts/http';
 import Index from 'src/server/template/Index.html';
 import { PassThrough, Stream } from 'stream';
+
+import { HttpMethod } from '@cohbrgr/server';
+import { Logger } from '@cohbrgr/utils';
 
 const streamToString = (stream: Stream): Promise<string> => {
     const chunks: Uint8Array[] = [];

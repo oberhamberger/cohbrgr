@@ -17,8 +17,9 @@ This configuration is designed to work seamlessly with TypeScript and handle var
 To use this Jest configuration in a project, extend it in your project's `jest.config.ts` file:
 
 ```typescript
-import baseConfig from '@cohbrgr/jest';
 import type { JestConfigWithTsJest } from 'ts-jest';
+
+import baseConfig from '@cohbrgr/jest';
 
 const jestConfig: JestConfigWithTsJest = {
     ...baseConfig,

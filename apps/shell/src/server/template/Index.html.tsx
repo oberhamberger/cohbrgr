@@ -1,12 +1,12 @@
+import { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom';
+
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
 import routes from 'src/client/routes';
 import Javascript from 'src/server/template/components/Javascript.html';
 import Stylesheets from 'src/server/template/components/Stylesheets.html';
-
-import { FunctionComponent } from 'react';
 
 interface IIndexProps {
     isProduction: boolean;
