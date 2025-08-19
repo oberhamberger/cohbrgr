@@ -4,7 +4,7 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "exports": {
-        ".": "./dist/index.js"
+        ".": "./dist/src/index.js"
     },
     "scripts": {
         "lint": "eslint",
