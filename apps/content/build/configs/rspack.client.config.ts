@@ -39,12 +39,15 @@ const config: RspackOptions = {
         },
     },
     output: {
+        uniqueName: 'content',
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
         publicPath: isCloudRun
             ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/client/'
-            : 'http://localhost:3001/client/',
+            : isProduction
+              ? 'http://localhost:3001/client/'
+              : 'http://localhost:3031/client/',
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };

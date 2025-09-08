@@ -65,12 +65,15 @@ const config: RspackOptions = {
             : {}),
     },
     output: {
+        uniqueName: 'shell',
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
         publicPath: isCloudRun
             ? 'https://cohbrgr.com/'
-            : 'http://localhost:3000/',
+            : isProduction
+              ? 'http://localhost:3000/'
+              : 'http://localhost:3030/',
 
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
