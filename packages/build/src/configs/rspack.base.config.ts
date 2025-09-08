@@ -7,7 +7,6 @@ import {
     CWD,
     Mode,
     isProduction,
-    isWatch,
     regexSource,
     regexStyle,
 } from '../utils/constants';
@@ -22,7 +21,7 @@ export const baseConfig: RspackOptions = {
             src: resolve(CWD, './src'),
         },
     },
-    watch: isWatch,
+    watch: false,
 
     module: {
         rules: [
@@ -54,6 +53,11 @@ export const baseConfig: RspackOptions = {
                 type: 'css/auto',
             },
         ],
+        generator: {
+            'css/auto': {
+                localIdentName: '[local]-[hash:base64:6]',
+            },
+        },
     },
 
     experiments: {

@@ -4,7 +4,7 @@ import { defineConfig } from '@rspack/cli';
 import { ProgressPlugin, type RspackOptions } from '@rspack/core';
 import { merge } from 'webpack-merge';
 
-import { CWD, baseConfig, isCloudRun } from '@cohbrgr/build';
+import { CWD, baseConfig, isCloudRun, isProduction } from '@cohbrgr/build';
 
 import getModuleFederationPlugins from './rspack.federated.config.ts';
 
@@ -24,12 +24,15 @@ const config: RspackOptions = {
         getModuleFederationPlugins().server,
     ],
     output: {
+        uniqueName: 'content',
         path: resolve(CWD, './dist/server'),
         filename: '[name].js',
         libraryTarget: 'commonjs-module',
         publicPath: isCloudRun
             ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/server/'
-            : 'http://localhost:3001/server/',
+            : isProduction
+              ? 'http://localhost:3001/server/'
+              : 'http://localhost:3031/server/',
         clean: true,
     },
     externalsPresets: { node: true },

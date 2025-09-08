@@ -4,11 +4,6 @@ export const getStyleLoader = (): RuleSetUseItem[] => {
     const loaders: RuleSetUseItem[] = [
         {
             loader: 'builtin:lightningcss-loader',
-            options: {
-                modules: {
-                    localIdentName: '[name]__[local]___[hash:base64:5]', // Customize if needed
-                },
-            },
         },
         {
             loader: 'sass-loader',
