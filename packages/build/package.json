@@ -12,8 +12,8 @@
     },
     "dependencies": {
         "@aaroon/workbox-rspack-plugin": "^0.3.2",
-        "@module-federation/enhanced": "^0.18.4",
-        "@module-federation/node": "^2.7.15",
+        "@module-federation/enhanced": "^0.19.1",
+        "@module-federation/node": "^2.7.17",
         "@rsdoctor/rspack-plugin": "^1.2.3",
         "@rspack/cli": "^1.5.2",
         "@rspack/core": "^1.5.2",
