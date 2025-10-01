@@ -10,6 +10,6 @@
         "build": "style-dictionary build"
     },
     "dependencies": {
-        "style-dictionary": "^5.0.4"
+        "style-dictionary": "^5.1.0"
     }
 }
