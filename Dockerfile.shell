@@ -9,8 +9,6 @@ WORKDIR /usr/app
 
 ENV DOCKER=true
 
-RUN npm install -g npm
-
 RUN npm ci
 
 ENV NODE_ENV=production
