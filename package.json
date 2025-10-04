@@ -57,11 +57,11 @@
         "react-router-dom": "^7.9.3"
     },
     "devDependencies": {
-        "@nx/js": "^21.6.2",
+        "@nx/js": "^21.6.3",
         "@types/node": "^24.6.2",
         "@types/react": "^19.2.0",
         "@types/react-dom": "^19.2.0",
-        "nx": "^21.6.2",
+        "nx": "^21.6.3",
         "typescript": "^5.9.3"
     }
 }
