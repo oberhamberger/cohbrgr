@@ -29,7 +29,7 @@
         "compression": "^1.8.1",
         "express-rate-limit": "^8.1.0",
         "helmet": "^8.0.0",
-        "html-validate": "^10.1.0",
+        "html-validate": "^10.1.1",
         "nocache": "^4.0.0",
         "node-mocks-http": "^1.17.2",
         "web-vitals": "^5.1.0",
