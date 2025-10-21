@@ -5,9 +5,9 @@ import Content from 'src/client/components/content/Content';
 const nonce = '123456789';
 
 describe('Main Content Component', () => {
-    it('displays greeting', async () => {
+    it('displays my initials', async () => {
         render(<Content nonce={nonce} />);
-        const items = await screen.findAllByText('Hi!');
+        const items = await screen.findAllByText('C.F.K.O.');
         expect(items).toHaveLength(1);
     });
 
