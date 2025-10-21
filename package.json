@@ -19,7 +19,6 @@
     ],
     "scripts": {
         "bootstrap": "git clean -xfd && npm install && npm run build",
-        "postinstall": "if [ \"$DOCKER\" != \"true\" ]; then bash postinstall.sh; fi",
         "prettier": "prettier --write .",
         "lint": "nx run-many -t lint",
         "build": "nx run-many -t build",
@@ -40,7 +39,8 @@
         "dev:content": "nx dev @cohbrgr/content",
         "serve:shell": "nx serve @cohbrgr/shell",
         "serve:content": "nx serve @cohbrgr/content",
-        "test:components": "nx test @cohbrgr/components"
+        "test:components": "nx test @cohbrgr/components",
+        "prepare": "husky"
     },
     "repository": {
         "type": "git",
@@ -61,6 +61,7 @@
         "@types/node": "^24.9.1",
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",
+        "husky": "^9.1.7",
         "nx": "^21.6.5",
         "typescript": "^5.9.3"
     }
