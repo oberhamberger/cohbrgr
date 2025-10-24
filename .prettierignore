@@ -1,2 +1,4 @@
 lerna.json
 packages/figma/src/tokens.json
+/.nx/cache
+/.nx/workspace-data
