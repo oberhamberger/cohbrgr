@@ -1,39 +1,68 @@
 // library
-// lake green: #001e26;
-// natural grey: #bbb5a9;
-// dark red: #630f0b
-// blush pink: #f9f3f4
-// dark blue to #041d91 nice peach #fd7f7a
+:root {
+    --stone-700: #737371;
+    --sand-300: #d5d2cc;
+    --moss-600: #5b6a4f;
+    --charcoal-900: #2c2c2c;
+    --olive-500: #8c9565;
+    --terracotta-500: #c27b58;
+    --oak-400: #a69e8c;
+    --lake-green: #22464f;
+    --natural-grey: #bbb5a9;
+    --dark-red: #630f0b;
+    --blush-pink: #f9f3f4;
+    --dark-blue-to-nice-peach: linear-gradient(to right, #041d91, #fd7f7a);
+}
+
+// :root {
+//     --font-system: var(--cohbrgr-styles-font-system);
+//     --font-serif: var(--cohbrgr-styles-font-serif);
+
+//     --color-background-light: var(--cohbrgr-styles-color-background-light);
+//     --gradient-background-light: linear-gradient(
+//         to right,
+//         var(--cohbrgr-styles-color-background-gradient-left-light),
+//         var(--cohbrgr-styles-color-background-gradient-right-light)
+//     );
+//     --color-font-light: var(--cohbrgr-styles-color-font-light);
+
+//     --color-background-dark: var(--cohbrgr-styles-color-background-dark);
+//     --gradient-background-dark: linear-gradient(
+//         to right,
+//         var(--cohbrgr-styles-color-background-gradient-left-dark),
+//         var(--cohbrgr-styles-color-background-gradient-right-dark)
+//     );
+//     --color-font-dark: var(--cohbrgr-styles-color-font-dark);
+
+//     --color-background: var(--color-background-light);
+//     --gradient-background: var(--gradient-background-light);
+//     --color-font: var(--color-font-light);
+//     --color-highlight: var(--color-highlight-light);
+
+//     @media (prefers-color-scheme: dark) {
+//         --color-background: var(--color-background-dark);
+//         --gradient-background: var(--gradient-background-dark);
+//         --color-font: var(--color-font-dark);
+//         --color-highlight: var(--color-highlight-dark);
+//     }
+// }
 
 :root {
-    --color-background-light: var(--cohbrgr-styles-color-background-light);
-    --gradient-background-light: linear-gradient(
-        to right,
-        var(--cohbrgr-styles-color-background-gradient-left-light),
-        var(--cohbrgr-styles-color-background-gradient-right-light)
-    );
-    --color-font-light: var(--cohbrgr-styles-color-font-light);
-
-    --color-background-dark: var(--cohbrgr-styles-color-background-dark);
-    --gradient-background-dark: linear-gradient(
-        to right,
-        var(--cohbrgr-styles-color-background-gradient-left-dark),
-        var(--cohbrgr-styles-color-background-gradient-right-dark)
-    );
-    --color-font-dark: var(--cohbrgr-styles-color-font-dark);
-
-    --color-background: var(--color-background-light);
-    --gradient-background: var(--gradient-background-light);
-    --color-font: var(--color-font-light);
-    --color-highlight: var(--color-highlight-light);
-
     --font-system: var(--cohbrgr-styles-font-system);
     --font-serif: var(--cohbrgr-styles-font-serif);
+
+    --color-background-light: var(--sand-300);
+    --color-font-light: var(--lake-green);
+
+    --color-background-dark: var(--charcoal-900);
+    --color-font-dark: var(--natural-grey);
+
+    --color-background: var(--color-background-light);
+    --color-font: var(--color-font-light);
 
     @media (prefers-color-scheme: dark) {
         --color-background: var(--color-background-dark);
         --gradient-background: var(--gradient-background-dark);
         --color-font: var(--color-font-dark);
-        --color-highlight: var(--color-highlight-dark);
     }
 }
