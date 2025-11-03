@@ -53,16 +53,16 @@
     "dependencies": {
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
-        "react-router": "^7.9.4",
-        "react-router-dom": "^7.9.4"
+        "react-router": "^7.9.5",
+        "react-router-dom": "^7.9.5"
     },
     "devDependencies": {
-        "@nx/js": "^22.0.1",
+        "@nx/js": "^22.0.2",
         "@types/node": "^24.9.1",
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",
         "husky": "^9.1.7",
-        "nx": "^22.0.1",
+        "nx": "^22.0.2",
         "typescript": "^5.9.3"
     }
 }
