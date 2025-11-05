@@ -2,9 +2,16 @@ import { resolve } from 'path';
 
 import { defineConfig } from '@rspack/cli';
 import { ProgressPlugin, type RspackOptions } from '@rspack/core';
+import NodemonPlugin from 'nodemon-webpack-plugin';
 import { merge } from 'webpack-merge';
 
-import { CWD, baseConfig, isCloudRun, isProduction } from '@cohbrgr/build';
+import {
+    CWD,
+    baseConfig,
+    isCloudRun,
+    isDevelopment,
+    isProduction,
+} from '@cohbrgr/build';
 
 import getModuleFederationPlugins from './rspack.federated.config';
 
@@ -21,6 +28,15 @@ const config: RspackOptions = {
             template:
                 '{spinner:.yellow} {elapsed_precise:.dim.bold} {bar:50.yellow/red.dim} {bytes_per_sec:.dim} {pos:.bold}/{len:.bold} {msg:.dim}',
         }),
+        ...(isDevelopment
+            ? [
+                  new NodemonPlugin({
+                      watch: [resolve('./dist'), resolve('../content/dist')],
+                      script: './dist/server/index.js',
+                      args: ['NODE_ENV=development'],
+                  }),
+              ]
+            : []),
         getModuleFederationPlugins().server,
     ],
     output: {
