@@ -6,6 +6,7 @@ import { getStyleLoader } from '../loader/style.loader';
 import {
     CWD,
     Mode,
+    isDevelopment,
     isProduction,
     regexSource,
     regexStyle,
@@ -21,7 +22,7 @@ export const baseConfig: RspackOptions = {
             src: resolve(CWD, './src'),
         },
     },
-    watch: false,
+    watch: isDevelopment,
 
     module: {
         rules: [
