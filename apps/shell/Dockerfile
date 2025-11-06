@@ -1,19 +1,31 @@
-FROM node:24-alpine
-# source image info: https://hub.docker.com/_/node/
+# syntax=docker/dockerfile:1.6
 
-ARG PROJECT_ID
-
-USER node
-COPY --chown=node:node ../.. /usr/app
+# ---------- builder ----------
+FROM node:24-alpine AS builder
 WORKDIR /usr/app
 
-ENV DOCKER=true
+COPY . .
 
+ENV DOCKER=true
 RUN npm ci
 
-ENV NODE_ENV=production
+ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
-
 RUN npm run build:shell
+
+# Keep only prod deps
+RUN npm prune --omit=dev
+
+# ---------- runtime ----------
+FROM node:24-alpine AS runtime
+WORKDIR /usr/app
+
+COPY --from=builder /usr/app /usr/app
+
+USER node
+
+ENV NODE_ENV=production
+ENV DOCKER=true
+ENV GCLOUD_RUN=$PROJECT_ID
 
 ENTRYPOINT ["node", "apps/shell"]
