@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import {
-    HttpMethod,
-    methodDetermination,
-} from 'src/middleware/methodDetermination';
+
+import { HttpMethod, methodDetermination } from '../methodDetermination';
 
 describe('methodDetermination middleware', () => {
     let mockRequest: Partial<Request>;
@@ -19,6 +17,10 @@ describe('methodDetermination middleware', () => {
             statusCode: 0,
             json: jest.fn(),
             send: jest.fn(),
+            status: jest.fn(function (code) {
+                this.statusCode = code;
+                return this;
+            }),
         };
         mockNext = jest.fn();
     });

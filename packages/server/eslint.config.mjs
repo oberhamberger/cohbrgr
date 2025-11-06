@@ -1,3 +1,13 @@
-import config from '@cohbrgr/eslint';
+import baseConfig from '@cohbrgr/eslint';
 
-export default config;
+export default [
+    ...baseConfig,
+    {
+        files: ['**/*.ts', '**/*.tsx'],
+        languageOptions: {
+            parserOptions: {
+                project: './tsconfig.spec.json',
+            },
+        },
+    },
+];
