@@ -10,9 +10,11 @@ body {
     max-width: 100vw;
     overflow-x: hidden;
 }
+
 html {
     background-color: var(--color-background);
 }
+
 // html::after {
 //     content: '';
 //     position: fixed;
@@ -26,13 +28,10 @@ html {
 // }
 
 main {
-    padding: 6rem 2rem 0 2rem;
-    @media screen and (orientation: landscape) and (min-width: 420px) {
-        padding: 4rem;
-        min-width: calc(400px - 2rem);
-    }
-    @media screen and (orientation: portrait) and (min-width: 768px) {
-        padding: 4rem 0;
+    padding: 6rem 2rem 0;
+
+    @media screen and (min-width: 1024px) {
+        padding: 4rem 4rem 6rem 4rem;
     }
 }
 
@@ -51,24 +50,18 @@ h6,
 
 [role='doc-subtitle'] {
     font-weight: 700;
-    font-size: 1rem;
 }
 
 h1 {
-    font-size: 1.75rem;
-    @media screen and (orientation: portrait) and (min-width: 420px) {
-        font-size: 2rem;
-    }
-    @media screen and (orientation: landscape) and (min-width: 768px) {
+    font-size: 1.8rem;
+    @media screen and (min-width: 1025px) {
         font-size: 2rem;
     }
 }
 
 p {
-    @media screen and (orientation: portrait) and (min-width: 420px) {
-        font-size: 1.25rem;
-    }
-    @media screen and (orientation: landscape) and (min-width: 933px) {
+    font-size: 1.125rem;
+    @media screen and (min-width: 1025px) {
         font-size: 1.25rem;
     }
 }
