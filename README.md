@@ -36,7 +36,7 @@ Since the application is split into multiple microfrontends, you will need to ru
 build a Docker-Container:
 
 ```
-docker build --tag node-[APP] -f Dockerfile.[APP] .
+docker build --tag node-[APP] -f ./[APP]/Dockerfile .
 ```
 
 run as Docker-Container:
