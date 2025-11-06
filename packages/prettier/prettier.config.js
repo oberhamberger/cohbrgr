@@ -8,6 +8,7 @@ const config = {
         '^node:(.*)$',
         'path',
         '^react(.*)',
+        '(.*).scss',
         '<THIRD_PARTY_MODULES>',
         '@cohbrgr/(.*)',
         '^[./]',

@@ -31,7 +31,7 @@ const config: RspackOptions = {
         ...(isDevelopment
             ? [
                   new NodemonPlugin({
-                      watch: [resolve('./dist'), resolve('../content/dist')],
+                      watch: [resolve('./dist/*'), resolve('../content/dist/*')],
                       script: './dist/server/index.js',
                       args: ['NODE_ENV=development'],
                   }),
