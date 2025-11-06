@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { logging } from 'src/middleware/logging';
+
+import { logging } from '../logging';
 
 describe('logging middleware', () => {
     let mockRequest: Partial<Request>;
