@@ -17,7 +17,7 @@ export const baseConfig: RspackOptions = {
     devtool: isProduction ? false : 'source-map',
     context: resolve(CWD, `./src`),
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.json', '.scss'],
+        extensions: ['.tsx', '.ts', '.js', '.json', '.scss', 'css'],
         alias: {
             src: resolve(CWD, './src'),
         },

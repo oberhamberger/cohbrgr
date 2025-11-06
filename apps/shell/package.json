@@ -30,6 +30,7 @@
         "express-rate-limit": "^8.2.1",
         "helmet": "^8.0.0",
         "nocache": "^4.0.0",
+        "normalize.css": "^8.0.1",
         "web-vitals": "^5.1.0",
         "workbox-core": "^7.3.0",
         "workbox-expiration": "^7.3.0",
