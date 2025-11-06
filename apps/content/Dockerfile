@@ -11,6 +11,9 @@ USER node
 
 RUN npm ci
 
+ARG PROJECT_ID
+ENV GCLOUD_RUN=$PROJECT_ID
+
 # Build the content app
 RUN npm run build:content
 
@@ -28,5 +31,7 @@ USER node
 
 ENV NODE_ENV=production
 ENV DOCKER=true
+ARG PROJECT_ID
+ENV GCLOUD_RUN=$PROJECT_ID
 
 ENTRYPOINT ["node", "apps/content"]
