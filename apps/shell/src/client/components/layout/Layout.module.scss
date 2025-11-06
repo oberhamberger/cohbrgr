@@ -4,7 +4,16 @@
     align-content: space-between;
     max-width: calc(768px - 2rem);
 
+    /* Avoid Chrome to see Safari hack */
+    @supports (-webkit-touch-callout: none) {
+        height: -webkit-fill-available;
+    }
+
     @media screen and (min-width: 1024px) {
         height: unset;
+
+        @supports (-webkit-touch-callout: none) {
+            height: unset;
+        }
     }
 }
