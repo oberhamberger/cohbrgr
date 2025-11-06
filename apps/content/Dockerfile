@@ -4,17 +4,13 @@
 FROM node:24-alpine AS builder
 WORKDIR /usr/app
 
-COPY --chown=node:node . .
+COPY . .
 
 ENV DOCKER=true
-USER node
-
 RUN npm ci
 
 ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
-
-# Build the content app
 RUN npm run build:content
 
 # Keep only production deps for the runtime image

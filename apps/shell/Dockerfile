@@ -4,11 +4,9 @@
 FROM node:24-alpine AS builder
 WORKDIR /usr/app
 
-COPY --chown=node:node . .
+COPY . .
 
 ENV DOCKER=true
-USER node
-
 RUN npm ci
 
 ARG PROJECT_ID
