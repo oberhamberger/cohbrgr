@@ -1,18 +1,10 @@
 .layout {
     display: grid;
     height: 100vh;
+    align-content: space-between;
+    max-width: calc(768px - 2rem);
 
-    /* Avoid Chrome to see Safari hack */
-    @supports (-webkit-touch-callout: none) {
-        height: -webkit-fill-available;
-    }
-
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 1024px) {
         height: unset;
-        width: calc(768px - 2rem);
-
-        @supports (-webkit-touch-callout: none) {
-            height: unset;
-        }
     }
 }
