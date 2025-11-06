@@ -4,7 +4,7 @@ FROM node:24-alpine
 ARG PROJECT_ID
 
 USER node
-COPY --chown=node:node . /usr/app
+COPY --chown=node:node ../.. /usr/app
 WORKDIR /usr/app
 
 ENV DOCKER=true
@@ -14,6 +14,6 @@ RUN npm ci
 ENV NODE_ENV=production
 ENV GCLOUD_RUN=$PROJECT_ID
 
-RUN npm run build:content
+RUN npm run build:shell
 
-ENTRYPOINT ["node", "apps/content"]
+ENTRYPOINT ["node", "apps/shell"]
