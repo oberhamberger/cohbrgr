@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:24-alpine
+
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting
+      run: npm run lint
+      
+    - name: Build
+      run: npm run build
+      
+    - name: Run tests
+      run: npm run test
