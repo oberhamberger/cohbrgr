@@ -19,6 +19,5 @@ self.addEventListener('install', async (event) => {
     );
 });
 
-registerRoute(navigationRoute);
 registerRoute(resourceRoute);
 setCatchHandler(offlineNavigationHandler);
