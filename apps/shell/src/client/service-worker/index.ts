@@ -1,4 +1,3 @@
-import navigationRoute from 'src/client/service-worker/routes/navigation';
 import offlineNavigationHandler, {
     FALLBACK_HTML_URL,
     OFFLINE_CACHE_NAME,
