@@ -70,6 +70,7 @@ This project uses GitHub Actions for continuous integration. The following check
 - Tests: Runs the test suite
 
 The CI pipeline runs on:
+
 - Push to `main` and `develop` branches
 - Pull requests to `main` and `develop` branches
 
