@@ -58,7 +58,7 @@
     },
     "devDependencies": {
         "@nx/js": "^22.0.2",
-        "@types/node": "^24.9.1",
+        "@types/node": "^24.10.0",
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",
         "husky": "^9.1.7",

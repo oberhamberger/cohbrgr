@@ -61,6 +61,19 @@ docker run -d -p 3000:3000 node-[APP]
 - Jest + React Testing Library
 - and of course: dark mode
 
+## CI/CD
+
+This project uses GitHub Actions for continuous integration. The following checks run automatically:
+
+- Linting: Ensures code style consistency
+- Build: Verifies the project builds successfully
+- Tests: Runs the test suite
+
+The CI pipeline runs on:
+
+- Push to `main` and `develop` branches
+- Pull requests to `main` and `develop` branches
+
 ## forever ignored
 
 - Internet Explorer Support
