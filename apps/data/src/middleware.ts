@@ -4,10 +4,7 @@ import { logging, methodDetermination } from '@cohbrgr/server';
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 
-const middleware = (
-    app: Application,
-    done: () => void,
-) => {
+const middleware = (app: Application, done: () => void) => {
     app.use(logging(isProduction));
     app.use(methodDetermination);
 

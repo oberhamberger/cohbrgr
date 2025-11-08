@@ -5,12 +5,7 @@ import { ProgressPlugin, type RspackOptions } from '@rspack/core';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import { merge } from 'webpack-merge';
 
-import {
-    CWD,
-    baseConfig,
-    isDevelopment
-} from '@cohbrgr/build';
-
+import { CWD, baseConfig, isDevelopment } from '@cohbrgr/build';
 
 const config: RspackOptions = {
     ...baseConfig,
