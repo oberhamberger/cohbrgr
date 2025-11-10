@@ -8,7 +8,7 @@
         "dist"
     ],
     "exports": {
-        ".": "./dist/src/index.js"
+        ".": "./dist/index.js"
     },
     "scripts": {
         "lint": "eslint",
