@@ -31,7 +31,7 @@ const config: RspackOptions = {
             : []),
     ],
     output: {
-        uniqueName: 'data',
+        uniqueName: 'api',
         path: resolve(CWD, './dist'),
         filename: '[name].js',
         libraryTarget: 'commonjs-module',
