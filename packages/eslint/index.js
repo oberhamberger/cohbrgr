@@ -14,13 +14,18 @@ export const config = tseslint.config([
     },
     // Jest specific configuration
     {
-        files: ['**/*.spec.ts', '**/*.spec.tsx', '**/__tests__/**/*.ts'],
+        files: [
+            '**/*.spec.ts',
+            '**/*.spec.tsx',
+            '**/__tests__/**/*.ts',
+            '**/__tests__/**/*.tsx',
+        ],
         plugins: {
             jest: jestPlugin,
         },
         languageOptions: {
             parserOptions: {
-                project: ['./tsconfig.json', './tsconfig.spec.json'],
+                project: ['./tsconfig.spec.json'],
             },
         },
         rules: {

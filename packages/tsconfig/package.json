@@ -4,6 +4,9 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
+    "files": [
+        "tsconfig.json"
+    ],
     "exports": {
         ".": "./tsconfig.json"
     },

@@ -4,8 +4,11 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
+    "files": [
+        "dist"
+    ],
     "exports": {
-        ".": "./dist/src/index.js"
+        ".": "./dist/index.js"
     },
     "scripts": {
         "lint": "eslint",

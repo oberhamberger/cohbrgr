@@ -4,6 +4,10 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
+    "type": "module",
+    "files": [
+        "dist"
+    ],
     "exports": {
         ".": "./dist/css/_variables.css"
     },

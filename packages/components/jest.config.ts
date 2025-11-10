@@ -6,7 +6,11 @@ const config: JestConfigWithTsJest = {
     ...baseConfig,
     displayName: 'components',
     testEnvironment: 'jsdom',
-    rootDir: './',
+    rootDir: 'src',
+    testMatch: [
+        '**/__tests__/**/*.+(ts|tsx)',
+        '**/?(*.)+(spec|test).+(ts|tsx)',
+    ],
 };
 
 export default config;
