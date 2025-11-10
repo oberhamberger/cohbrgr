@@ -4,8 +4,11 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
+    "files": [
+        "src"
+    ],
     "exports": {
-        ".": "./index.ts"
+        ".": "./src/index.ts"
     },
     "scripts": {
         "lint": "eslint",

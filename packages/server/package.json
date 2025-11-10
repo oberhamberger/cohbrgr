@@ -4,12 +4,16 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
+    "files": [
+        "dist"
+    ],
     "exports": {
-        ".": "./dist/src/index.js"
+        ".": "./dist/index.js"
     },
     "scripts": {
         "build": "tsc",
         "lint": "eslint",
+        "prettier": "prettier --write .",
         "test": "jest"
     },
     "dependencies": {

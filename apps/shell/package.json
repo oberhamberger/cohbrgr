@@ -4,6 +4,9 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
+    "files": [
+        "dist"
+    ],
     "main": "dist/server",
     "exports": {
         ".": "./dist/server/index.js",

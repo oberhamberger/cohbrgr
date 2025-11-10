@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.6
 
 # ---------- builder ----------
-FROM node:24-alpine AS builder
+FROM node:25-alpine AS builder
 WORKDIR /usr/app
 
 COPY . .
@@ -17,7 +17,7 @@ RUN npm run build:shell
 RUN npm prune --omit=dev
 
 # ---------- runtime ----------
-FROM node:24-alpine AS runtime
+FROM node:25-alpine AS runtime
 WORKDIR /usr/app
 
 COPY --from=builder /usr/app /usr/app
