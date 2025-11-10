@@ -4,9 +4,9 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
-    "main": "dist/server",
+    "main": "dist/index.js",
     "exports": {
-        ".": "./dist/server/index.ts",
+        ".": "./dist/index.ts",
         "./env": "./env/index.ts"
     },
     "nx": {
