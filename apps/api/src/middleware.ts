@@ -1,101 +1,20 @@
 import { createHash } from 'crypto';
+import navigation from 'data/navigation.json';
+import translations from 'data/translations.json';
 import { Application, NextFunction, Request, Response } from 'express';
-import type { ParsedQs } from 'qs';
+import type { LanguageCode, TranslationsMap } from 'src/utils/language';
+import {
+    getExplicitLanguageFromRequest,
+    pickLanguage,
+    supportedLanguages,
+} from 'src/utils/language';
 
 import { logging, methodDetermination } from '@cohbrgr/server';
-
-import navigation from '../data/navigation.json';
-import translations from '../data/translations.json';
-
-const isProduction = process.env['NODE_ENV'] === 'production';
-
-type TranslationsMap = typeof translations;
-type LanguageCode = keyof TranslationsMap;
-
-const supportedLanguages = Object.keys(translations) as LanguageCode[];
-const defaultLanguage: LanguageCode = (
-    supportedLanguages.includes('en' as LanguageCode)
-        ? 'en'
-        : supportedLanguages[0]
-) as LanguageCode;
+import { isProduction } from '@cohbrgr/utils';
 
 function etagOf(payload: unknown): string {
     const jsonString = JSON.stringify(payload);
     return createHash('sha1').update(jsonString).digest('hex');
-}
-
-/** Safely coerce a value (often from ParsedQs) to a string */
-function coerceToString(value: unknown): string | undefined {
-    if (typeof value === 'string') return value;
-    if (Array.isArray(value)) {
-        const first = value[0];
-        return typeof first === 'string' ? first : undefined;
-    }
-    return undefined;
-}
-
-/** Extract explicit language from query (?lang=) or params (/:lang) using bracket access */
-function getExplicitLanguageFromRequest(request: Request): string | undefined {
-    // query: ParsedQs has an index signature => must use ['lang']
-    const queryObject = request.query as ParsedQs | undefined;
-    const rawQueryLang = queryObject ? queryObject['lang'] : undefined;
-    const queryLanguage = coerceToString(rawQueryLang)?.toLowerCase();
-    if (queryLanguage) return queryLanguage;
-
-    // params: Record<string, string> (no index-signature restriction here, but keep consistent)
-    const rawParamLang = (request.params as Record<string, string | undefined>)[
-        'lang'
-    ];
-    const paramLanguage = rawParamLang?.toLowerCase();
-    if (paramLanguage) return paramLanguage;
-
-    return undefined;
-}
-
-/** Parse Accept-Language, prefer primary subtags, keep bracket-safe reads everywhere else */
-function getLanguageFromAcceptLanguageHeader(
-    request: Request,
-): string | undefined {
-    const acceptLanguageHeader = request.headers['accept-language'];
-    if (typeof acceptLanguageHeader !== 'string') {
-        return undefined;
-    }
-
-    // Split header safely into primary tags
-    const primaryLanguageTags = acceptLanguageHeader
-        .split(',')
-        .map((segment) => {
-            const trimmed = segment?.trim() ?? '';
-            const [languageCode] = trimmed.split(';');
-            return (languageCode ?? '').toLowerCase();
-        })
-        .filter((code) => code.length > 0)
-        .map((languageTag) => languageTag.split('-')[0]); // "de-AT" -> "de"
-
-    const firstSupported = primaryLanguageTags.find((primary) =>
-        supportedLanguages.includes(primary as LanguageCode),
-    );
-    return firstSupported;
-}
-
-function pickLanguage(request: Request): LanguageCode {
-    const explicitLanguage = getExplicitLanguageFromRequest(request);
-    if (
-        explicitLanguage &&
-        supportedLanguages.includes(explicitLanguage as LanguageCode)
-    ) {
-        return explicitLanguage as LanguageCode;
-    }
-
-    const headerLanguage = getLanguageFromAcceptLanguageHeader(request);
-    if (
-        headerLanguage &&
-        supportedLanguages.includes(headerLanguage as LanguageCode)
-    ) {
-        return headerLanguage as LanguageCode;
-    }
-
-    return defaultLanguage;
 }
 
 function requireSupportedLanguage(

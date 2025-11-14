@@ -9,7 +9,8 @@
         "module": "NodeNext",
         "baseUrl": ".",
         "paths": {
-            "src/*": ["./src/*"]
+            "src/*": ["./src/*"],
+            "data/*": ["./data/*"]
         },
         "typeRoots": ["../../node_modules/@types", "./node_modules/@types"]
     },
