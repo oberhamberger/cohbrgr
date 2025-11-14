@@ -9,8 +9,11 @@ import {
     supportedLanguages,
 } from 'src/utils/language';
 
-import { logging, methodDetermination } from '@cohbrgr/server';
+import { done, logging, methodDetermination } from '@cohbrgr/server';
 import { isProduction } from '@cohbrgr/utils';
+
+const defaultPort = isProduction ? 3002 : 3002 + 30;
+const port = process.env['PORT'] || defaultPort;
 
 function etagOf(payload: unknown): string {
     const jsonString = JSON.stringify(payload);
@@ -31,7 +34,7 @@ function requireSupportedLanguage(
             error: `Unsupported language "${explicitLanguage}". Supported: ${supportedLanguages.join(', ')}.`,
         });
     }
-    next();
+    return next();
 }
 
 function sendJsonWithEtag(response: Response, payload: unknown) {
@@ -43,7 +46,7 @@ function sendJsonWithEtag(response: Response, payload: unknown) {
     return response.json(payload);
 }
 
-const middleware = (app: Application, done: () => void) => {
+const middleware = (app: Application) => {
     app.use(logging(isProduction));
     app.use(methodDetermination);
 
@@ -103,7 +106,7 @@ const middleware = (app: Application, done: () => void) => {
         },
     );
 
-    done();
+    done(app, Number(port));
 };
 
 export default middleware;
