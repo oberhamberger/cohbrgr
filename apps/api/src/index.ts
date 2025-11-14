@@ -1,7 +1,9 @@
-import type { Application } from 'express';
-import Express from 'express';
-import initMiddleware from 'src/middleware';
+import app from 'src/server';
 
-const app: Application = Express();
+import { gracefulStartAndClose } from '@cohbrgr/server';
+import { isProduction } from '@cohbrgr/utils';
 
-initMiddleware(app);
+const defaultPort = isProduction ? 3002 : 3002 + 30;
+const port = process.env['PORT'] || defaultPort;
+
+gracefulStartAndClose(app, Number(port));
