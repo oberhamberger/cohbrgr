@@ -2,7 +2,7 @@ import type { Application } from 'express';
 
 import { Logger, isProduction } from '@cohbrgr/utils';
 
-export const done = (app: Application, port: number) => {
+export const gracefulStartAndClose = (app: Application, port: number) => {
     // starting the server
     const server = app.listen(port, () => {
         Logger.info(
