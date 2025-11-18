@@ -4,7 +4,7 @@ import baseConfig from '@cohbrgr/jest';
 
 const config: JestConfigWithTsJest = {
     ...baseConfig,
-    displayName: 'server',
+    displayName: 'api',
     testEnvironment: 'node',
     rootDir: './',
     modulePaths: ['node_modules', '<rootDir>'],
