@@ -13,10 +13,10 @@ export const fullTranslationController = (
 
 // Language-specific via path param: /translations/de
 export const languageSpecificTranslationController = (
-    request: Request,
+    _request: Request,
     response: Response,
 ) => {
-    const selectedLanguage = pickLanguage(request);
+    const selectedLanguage = pickLanguage(_request);
     const selectedKeys = translationService.get()[selectedLanguage];
 
     sendJsonWithEtag(response, {
