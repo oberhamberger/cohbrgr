@@ -19,7 +19,8 @@
         "dev": "NODE_ENV=development rspack build",
         "build": "NODE_ENV=production rspack build",
         "build:analyze": "npm run build -- --analyze",
-        "start": "npm run dev"
+        "start": "npm run dev",
+        "test": "jest"
     },
     "dependencies": {
         "@cohbrgr/server": "2.0.1",
