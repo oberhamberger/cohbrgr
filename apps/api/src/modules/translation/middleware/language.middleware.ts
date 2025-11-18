@@ -1,6 +1,7 @@
 import translationsData from 'data/translations.json';
-import { Request } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import type { ParsedQs } from 'qs';
+import { coerceToString } from 'src/utils/common';
 
 export type TranslationsMap = typeof translationsData;
 export type LanguageCode = keyof TranslationsMap;
@@ -15,20 +16,10 @@ export const defaultLanguage: LanguageCode = (
         : supportedLanguages[0]
 ) as LanguageCode;
 
-/** Safely coerce a value (often from ParsedQs) to a string */
-function coerceToString(value: unknown): string | undefined {
-    if (typeof value === 'string') return value;
-    if (Array.isArray(value)) {
-        const first = value[0];
-        return typeof first === 'string' ? first : undefined;
-    }
-    return undefined;
-}
-
 /** Extract explicit language from query (?lang=) or params (/:lang) using bracket access */
-export function getExplicitLanguageFromRequest(
+export const getExplicitLanguageFromRequest = (
     request: Request,
-): string | undefined {
+): string | undefined => {
     // query: ParsedQs has an index signature => must use ['lang']
     const queryObject = request.query as ParsedQs | undefined;
     const rawQueryLang = queryObject ? queryObject['lang'] : undefined;
@@ -43,12 +34,12 @@ export function getExplicitLanguageFromRequest(
     if (paramLanguage) return paramLanguage;
 
     return undefined;
-}
+};
 
 /** Parse Accept-Language, prefer primary subtags, keep bracket-safe reads everywhere else */
-export function getLanguageFromAcceptLanguageHeader(
+export const getLanguageFromAcceptLanguageHeader = (
     request: Request,
-): string | undefined {
+): string | undefined => {
     const acceptLanguageHeader = request.headers['accept-language'];
     if (typeof acceptLanguageHeader !== 'string') {
         return undefined;
@@ -69,9 +60,9 @@ export function getLanguageFromAcceptLanguageHeader(
         supportedLanguages.includes(primary as LanguageCode),
     );
     return firstSupported;
-}
+};
 
-export function pickLanguage(request: Request): LanguageCode {
+export const pickLanguage = (request: Request): LanguageCode => {
     const explicitLanguage = getExplicitLanguageFromRequest(request);
     if (
         explicitLanguage &&
@@ -89,4 +80,22 @@ export function pickLanguage(request: Request): LanguageCode {
     }
 
     return defaultLanguage;
-}
+};
+
+export const requireSupportedLanguage = (
+    request: Request,
+    response: Response,
+    next: NextFunction,
+): Response | void => {
+    const explicitLanguage = getExplicitLanguageFromRequest(request);
+
+    if (
+        explicitLanguage &&
+        !supportedLanguages.includes(explicitLanguage as LanguageCode)
+    ) {
+        return response.status(400).json({
+            error: `Unsupported language "${explicitLanguage}". Supported: ${supportedLanguages.join(', ')}.`,
+        });
+    }
+    next();
+};
