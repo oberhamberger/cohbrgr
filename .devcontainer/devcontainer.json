@@ -1,0 +1,11 @@
+{
+    "name": "cohbrgr",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+    "workspaceFolder": "/workspaces/cohbrgr",
+    "forwardPorts": [3000, 3001],
+    "postCreateCommand": "cd /workspaces/cohbrgr && npm ci && npm run build",
+    "remoteUser": "node"
+}
