@@ -1,20 +1,29 @@
+// .devcontainer/devcontainer.json
+
 {
     "name": "COHBRGR Dev Environment",
-    "build": {
-        "dockerfile": "../Dockerfile"
-    },
-    "workspaceFolder": "/usr/src/app",
 
+    // 1. DOCKERFILE PFAD UND KONTEXT
+    // Wir setzen den Build-Kontext auf den Root-Ordner, da das Dockerfile dort liegt.
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+
+    // 2. KORREKTUR: ENTFERNUNG DES PROBLEMATISCHEN BEFEHLS
+    // Der chown-Befehl ist entfernt, um den Fehler "Operation not permitted" zu vermeiden.
+    // "initializeCommand": "sudo chown -R node:node /usr/src/app", // <--- ENTFERNT
+
+    // 3. WORKSPACE DEFINITION
+    "workspaceFolder": "/workspaces/cohbrgr",
+
+    // 4. PORT-WEITERLEITUNG
     "forwardPorts": [3000, 3001],
 
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "terminal.integrated.defaultProfile.linux": "bash"
-            }
-        }
-    },
+    // 6. POST-CREATE BEFEHLE (als Non-Root-User 'node')
+    // Wir lassen "cd" zur Sicherheit und führen dann die npm-Befehle aus.
+    "postCreateCommand": "cd /workspaces/cohbrgr && npm ci && npm run build",
 
-    "postCreateCommand": "chown -R node:node /usr/src/app && cd /usr/src/app && npm ci && npm run build",
+    // 7. BENUTZERDEFINITON (Wichtig für npm ci/npm run build)
     "remoteUser": "node"
 }
