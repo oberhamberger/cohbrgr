@@ -1,19 +1,14 @@
 {
     "name": "COHBRGR Frontend Dev",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "../Dockerfile"
     },
-    "workspaceFolder": "/usr/app",
+    "workspaceFolder": "/usr/src/app",
 
     "forwardPorts": [3000, 3001],
 
     "customizations": {
         "vscode": {
-            "extensions": [
-                "dbaeumer.vscode-eslint",
-                "esbenp.prettier-vscode",
-                "ms-vscode.js-debug-nightly"
-            ],
             "settings": {
                 "terminal.integrated.defaultProfile.linux": "bash"
             }
