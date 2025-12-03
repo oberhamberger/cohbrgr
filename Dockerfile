@@ -7,6 +7,7 @@ RUN apt-get update && \
         git \
         build-essential \
         python3 \
+        openssh-client \
         && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspaces/cohbrgr
