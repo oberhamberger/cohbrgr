@@ -15,6 +15,6 @@
         }
     },
 
-    "postCreateCommand": "cd /usr/src/app && npm ci && npm run build",
+    "postCreateCommand": "chown -R node:node /usr/src/app && cd /usr/src/app && npm ci && npm run build",
     "remoteUser": "node"
 }
