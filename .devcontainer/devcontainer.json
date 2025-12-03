@@ -1,5 +1,5 @@
 {
-    "name": "COHBRGR Frontend Dev",
+    "name": "COHBRGR Dev Environment",
     "build": {
         "dockerfile": "../Dockerfile"
     },
@@ -15,5 +15,6 @@
         }
     },
 
-    "postCreateCommand": "npm ci && npm run build"
+    "postCreateCommand": "cd /usr/src/app && npm ci && npm run build",
+    "remoteUser": "node"
 }
