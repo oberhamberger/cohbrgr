@@ -3,3 +3,5 @@
 FROM node:25-alpine
 
 WORKDIR /usr/src/app
+
+USER node
