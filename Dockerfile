@@ -2,7 +2,4 @@
 
 FROM node:25-alpine
 
-WORKDIR /usr/app
-
-
-
+WORKDIR /usr/src/app
