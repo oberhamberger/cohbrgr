@@ -18,13 +18,13 @@
     },
     "dependencies": {
         "@cohbrgr/utils": "2.0.1",
-        "express": "^5.1.0"
+        "express": "^5.2.1"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "2.0.1",
         "@cohbrgr/jest": "2.0.1",
         "@cohbrgr/tsconfig": "2.0.1",
         "@types/compression": "^1.8.1",
-        "@types/express": "^5.0.5"
+        "@types/express": "^5.0.6"
     }
 }
