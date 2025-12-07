@@ -15,7 +15,7 @@
         "lint": "eslint"
     },
     "dependencies": {
-        "winston": "^3.18.3"
+        "winston": "^3.19.0"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "2.0.1",
