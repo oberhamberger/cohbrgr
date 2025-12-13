@@ -12,11 +12,11 @@
         ".": "./index.js"
     },
     "dependencies": {
-        "@eslint/js": "^9.39.1",
-        "eslint": "^9.39.1",
+        "@eslint/js": "^9.39.2",
+        "eslint": "^9.39.2",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-import": "^2.32.0",
-        "eslint-plugin-jest": "^29.2.1",
+        "eslint-plugin-jest": "^29.2.2",
         "typescript-eslint": "^8.49.0"
     }
 }
