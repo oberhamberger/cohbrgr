@@ -12,7 +12,7 @@
     },
     "tsconfig": "tsconfig.json",
     "dependencies": {
-        "@tsconfig/node22": "^22.0.5",
-        "@tsconfig/strictest": "^2.0.8"
+        "@tsconfig/node22": "22.0.5",
+        "@tsconfig/strictest": "2.0.8"
     }
 }
