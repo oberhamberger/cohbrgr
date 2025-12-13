@@ -51,18 +51,18 @@
     },
     "homepage": "https://github.com/oberhamberger/cohbrgr#readme",
     "dependencies": {
-        "react": "^19.2.3",
-        "react-dom": "^19.2.3",
-        "react-router": "^7.10.1",
-        "react-router-dom": "^7.10.1"
+        "react": "19.2.3",
+        "react-dom": "19.2.3",
+        "react-router": "7.10.1",
+        "react-router-dom": "7.10.1"
     },
     "devDependencies": {
-        "@nx/js": "^22.2.1",
-        "@types/node": "^25.0.1",
-        "@types/react": "^19.2.7",
-        "@types/react-dom": "^19.2.3",
-        "husky": "^9.1.7",
-        "nx": "^22.2.1",
-        "typescript": "^5.9.3"
+        "@nx/js": "22.2.3",
+        "@types/node": "25.0.1",
+        "@types/react": "19.2.7",
+        "@types/react-dom": "19.2.3",
+        "husky": "9.1.7",
+        "nx": "22.2.3",
+        "typescript": "5.9.3"
     }
 }
