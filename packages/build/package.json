@@ -24,7 +24,6 @@
         "@swc-node/register": "1.11.1",
         "@swc/core": "1.15.4",
         "@swc/helpers": "0.5.17",
-        "@swc/register": "0.1.10",
         "esbuild-register": "3.6.0",
         "nodemon-webpack-plugin": "4.8.2",
         "raw-loader": "4.0.2",
