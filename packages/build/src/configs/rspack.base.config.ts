@@ -20,6 +20,7 @@ export const baseConfig: RspackOptions = {
         extensions: ['.tsx', '.ts', '.js', '.json', '.scss', 'css'],
         alias: {
             src: resolve(CWD, './src'),
+            data: resolve(CWD, './data'),
         },
     },
     watch: isDevelopment,

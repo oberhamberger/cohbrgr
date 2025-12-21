@@ -4,7 +4,7 @@
         "rootDir": "./src",
         "baseUrl": ".",
         "paths": {
-            "src/*": ["./*"]
+            "src/*": ["./src/*"]
         },
         "outDir": "dist"
     },
