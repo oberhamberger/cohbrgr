@@ -15,3 +15,10 @@ services:
             dockerfile: ./apps/content/Dockerfile
         ports:
             - '3001:3001'
+
+    api:
+        build:
+            context: .
+            dockerfile: ./apps/api/Dockerfile
+        ports:
+            - '3002:3002'
