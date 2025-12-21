@@ -1,0 +1,36 @@
+{
+    "name": "@cohbrgr/api",
+    "version": "2.0.1",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "private": true,
+    "main": "dist/index.js",
+    "exports": {
+        ".": "./dist/index.ts",
+        "./env": "./env/index.ts"
+    },
+    "nx": {
+        "projectType": "application"
+    },
+    "scripts": {
+        "serve": "node .",
+        "lint": "eslint",
+        "prettier": "prettier --write .",
+        "dev": "NODE_ENV=development rspack build",
+        "build": "NODE_ENV=production rspack build",
+        "build:analyze": "npm run build -- --analyze",
+        "start": "npm run dev",
+        "test": "jest"
+    },
+    "dependencies": {
+        "@cohbrgr/server": "2.0.1",
+        "@cohbrgr/utils": "2.0.1"
+    },
+    "devDependencies": {
+        "@cohbrgr/build": "2.0.1",
+        "@cohbrgr/eslint": "2.0.1",
+        "@cohbrgr/jest": "2.0.1",
+        "@cohbrgr/tsconfig": "2.0.1",
+        "@types/express": "5.0.6"
+    }
+}
