@@ -32,7 +32,7 @@
         "@cohbrgr/utils": "2.0.1",
         "compression": "1.8.1",
         "express-rate-limit": "8.2.1",
-        "helmet": "8.0.0",
+        "helmet": "8.1.0",
         "nocache": "4.0.0",
         "normalize.css": "8.0.1",
         "web-vitals": "5.1.0",
@@ -48,7 +48,7 @@
         "@cohbrgr/jest": "2.0.1",
         "@cohbrgr/tsconfig": "2.0.1",
         "@types/compression": "1.8.1",
-        "html-validate": "10.4.0",
+        "html-validate": "10.5.0",
         "node-mocks-http": "1.17.2"
     }
 }
