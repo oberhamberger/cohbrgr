@@ -6,7 +6,7 @@ export const getStyleLoader = (): RuleSetUseItem[] => {
             loader: 'builtin:lightningcss-loader',
         },
         {
-            loader: 'sass-loader',
+            loader: require.resolve('sass-loader'),
             options: {
                 api: 'modern-compiler',
                 implementation: require.resolve('sass-embedded'),
