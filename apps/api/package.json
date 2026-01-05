@@ -23,14 +23,14 @@
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/server": "2.0.1",
-        "@cohbrgr/utils": "2.0.1"
+        "@cohbrgr/server": "workspace:*",
+        "@cohbrgr/utils": "workspace:*"
     },
     "devDependencies": {
-        "@cohbrgr/build": "2.0.1",
-        "@cohbrgr/eslint": "2.0.1",
-        "@cohbrgr/jest": "2.0.1",
-        "@cohbrgr/tsconfig": "2.0.1",
+        "@cohbrgr/build": "workspace:*",
+        "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/jest": "workspace:*",
+        "@cohbrgr/tsconfig": "workspace:*",
         "@types/express": "5.0.6"
     }
 }
