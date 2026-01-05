@@ -35,6 +35,8 @@
         "@cohbrgr/eslint": "workspace:*",
         "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
+        "@rspack/cli": "catalog:",
+        "@rspack/core": "catalog:",
         "@types/express": "5.0.6"
     }
 }
