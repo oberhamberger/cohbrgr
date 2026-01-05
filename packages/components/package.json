@@ -16,8 +16,8 @@
         "test": "jest"
     },
     "devDependencies": {
-        "@cohbrgr/jest": "2.0.1",
-        "@cohbrgr/tsconfig": "2.0.1",
-        "@cohbrgr/utils": "2.0.1"
+        "@cohbrgr/jest": "workspace:*",
+        "@cohbrgr/tsconfig": "workspace:*",
+        "@cohbrgr/utils": "workspace:*"
     }
 }
