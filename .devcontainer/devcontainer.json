@@ -6,6 +6,6 @@
     },
     "workspaceFolder": "/workspaces/cohbrgr",
     "forwardPorts": [3000, 3001, 3002],
-    "postCreateCommand": "cd /workspaces/cohbrgr && npm ci && npm run build",
+    "postCreateCommand": "cd /workspaces/cohbrgr && pnpm i && pnpm run build",
     "remoteUser": "node"
 }
