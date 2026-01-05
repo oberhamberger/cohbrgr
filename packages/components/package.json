@@ -16,6 +16,7 @@
         "test": "jest"
     },
     "devDependencies": {
+        "@cohbrgr/eslint": "workspace:*",
         "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
         "@cohbrgr/utils": "workspace:*"
