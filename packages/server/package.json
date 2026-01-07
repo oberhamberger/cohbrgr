@@ -1,23 +1,30 @@
 {
     "name": "@cohbrgr/server",
-    "version": "2.0.0-0",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
+    "private": true,
+    "files": [
+        "dist"
+    ],
     "exports": {
         ".": "./dist/index.js"
     },
     "scripts": {
         "build": "tsc",
-        "lint": "eslint"
+        "lint": "eslint",
+        "prettier": "prettier --write .",
+        "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/utils": "2.0.0-0",
-        "express": "^5.1.0"
+        "@cohbrgr/utils": "workspace:*",
+        "express": "5.2.1"
     },
     "devDependencies": {
-        "@cohbrgr/eslint": "2.0.0-0",
-        "@cohbrgr/tsconfig": "2.0.0-0",
-        "@types/compression": "^1.7.5",
-        "@types/express": "^5.0.1"
+        "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/jest": "workspace:*",
+        "@cohbrgr/tsconfig": "workspace:*",
+        "@types/compression": "1.8.1",
+        "@types/express": "5.0.6"
     }
 }

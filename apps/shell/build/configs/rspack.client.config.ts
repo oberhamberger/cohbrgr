@@ -1,11 +1,6 @@
+import { resolve } from 'path';
+
 import { InjectManifest } from '@aaroon/workbox-rspack-plugin';
-import {
-    baseConfig,
-    CWD,
-    isAnalyze,
-    isProduction,
-    serviceWorker,
-} from '@cohbrgr/build';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 import { defineConfig } from '@rspack/cli';
 import {
@@ -14,8 +9,17 @@ import {
     ProgressPlugin,
     type RspackOptions,
 } from '@rspack/core';
-import { resolve } from 'path';
 import { merge } from 'webpack-merge';
+
+import {
+    CWD,
+    baseConfig,
+    isAnalyze,
+    isCloudRun,
+    isProduction,
+    serviceWorker,
+} from '@cohbrgr/build';
+
 import getModuleFederationPlugins from './rspack.federated.config';
 
 const config: RspackOptions = {
@@ -52,15 +56,25 @@ const config: RspackOptions = {
     optimization: {
         chunkIds: isProduction ? 'natural' : 'named',
         minimize: isProduction,
-        splitChunks: {
-            chunks: 'all',
-        },
+        ...(isProduction
+            ? {
+                  splitChunks: {
+                      chunks: 'all',
+                  },
+              }
+            : {}),
     },
     output: {
+        uniqueName: 'shell',
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
-        publicPath: 'http://localhost:3000/',
+        publicPath: isCloudRun
+            ? 'https://cohbrgr.com/'
+            : isProduction
+              ? 'http://localhost:3000/'
+              : 'http://localhost:3030/',
+
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };

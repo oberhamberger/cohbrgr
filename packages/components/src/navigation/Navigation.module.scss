@@ -1,15 +1,8 @@
 .navigation {
-    padding: 2rem 2rem 3.5rem 2rem;
-    text-align: center;
+    padding: 0 2rem 2rem;
 
-    @media screen and (orientation: landscape) and (min-width: 420px) {
-        padding: 2rem 2rem 3.5rem 2rem;
-        margin: 0;
-    }
-
-    @media screen and (orientation: portrait) and (min-width: 768px) {
-        padding: 0;
-        margin: 0;
+    @media screen and (min-width: 1024px) {
+        padding: 0 4rem;
     }
 
     ul {
@@ -27,10 +20,8 @@
     }
 
     a {
-        @media screen and (orientation: portrait) and (min-width: 420px) {
-            font-size: 1.25rem;
-        }
-        @media screen and (orientation: landscape) and (min-width: 768px) {
+        font-size: 1.125rem;
+        @media screen and (min-width: 1025px) {
             font-size: 1.25rem;
         }
     }

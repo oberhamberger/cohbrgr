@@ -1,16 +1,26 @@
 {
     "name": "@cohbrgr/eslint",
-    "version": "2.0.0-0",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
+    "private": true,
+    "files": [
+        "index.js",
+        "cli.js"
+    ],
     "type": "module",
+    "bin": {
+        "eslint": "./cli.js"
+    },
     "exports": {
         ".": "./index.js"
     },
     "dependencies": {
-        "@eslint/js": "^9.26.0",
-        "eslint-config-prettier": "^10.1.2",
-        "eslint-plugin-import": "^2.31.0",
-        "typescript-eslint": "^8.31.1"
+        "@eslint/js": "9.39.2",
+        "eslint": "9.39.2",
+        "eslint-config-prettier": "10.1.8",
+        "eslint-plugin-import": "2.32.0",
+        "eslint-plugin-jest": "29.12.0",
+        "typescript-eslint": "8.51.0"
     }
 }

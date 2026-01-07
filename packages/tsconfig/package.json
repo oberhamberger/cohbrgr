@@ -1,13 +1,18 @@
 {
     "name": "@cohbrgr/tsconfig",
-    "version": "2.0.0-0",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
+    "private": true,
+    "files": [
+        "tsconfig.json"
+    ],
     "exports": {
         ".": "./tsconfig.json"
     },
+    "tsconfig": "tsconfig.json",
     "dependencies": {
-        "@tsconfig/node22": "^22.0.1",
-        "@tsconfig/strictest": "^2.0.5"
+        "@tsconfig/node24": "24.0.3",
+        "@tsconfig/strictest": "2.0.8"
     }
 }

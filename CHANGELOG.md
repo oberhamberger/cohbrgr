@@ -1,3 +1,19 @@
+# 2.0.0 (2025-06-11)
+
+### 🚀 Features
+
+- added cache-control header ([8f58bbf](https://github.com/oberhamberger/cohbrgr/commit/8f58bbf))
+- added cache headers to static assets in shell ([568e138](https://github.com/oberhamberger/cohbrgr/commit/568e138))
+- **prettier:** added prettier import order package and ran prettier ([eed9709](https://github.com/oberhamberger/cohbrgr/commit/eed9709))
+
+### 🩹 Fixes
+
+- publicPath in Shell ([412ffde](https://github.com/oberhamberger/cohbrgr/commit/412ffde))
+
+### ❤️ Thank You
+
+- Christian Oberhamberger
+
 ## 2.0.0-0 (2025-05-04)
 
 ### 🚀 Features

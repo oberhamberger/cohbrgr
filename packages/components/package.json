@@ -1,10 +1,14 @@
 {
     "name": "@cohbrgr/components",
-    "version": "2.0.0-0",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
+    "private": true,
+    "files": [
+        "src"
+    ],
     "exports": {
-        ".": "./index.ts"
+        ".": "./src/index.ts"
     },
     "scripts": {
         "lint": "eslint",
@@ -12,8 +16,9 @@
         "test": "jest"
     },
     "devDependencies": {
-        "@cohbrgr/jest": "2.0.0-0",
-        "@cohbrgr/tsconfig": "2.0.0-0",
-        "@cohbrgr/utils": "2.0.0-0"
+        "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/jest": "workspace:*",
+        "@cohbrgr/tsconfig": "workspace:*",
+        "@cohbrgr/utils": "workspace:*"
     }
 }
