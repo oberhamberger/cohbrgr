@@ -1,19 +1,19 @@
 name: Setup pnpm
 description: Installs pnpm and dependencies with caching
 runs:
-  using: "composite"
-  steps:
-    - name: Install pnpm
-      run: npm install -g pnpm
-      shell: sh
+    using: 'composite'
+    steps:
+        - name: Install pnpm
+          run: npm install -g pnpm
+          shell: sh
 
-    - uses: actions/cache@v4
-      with:
-        path: ~/.local/share/pnpm/store
-        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-
+        - uses: actions/cache@v4
+          with:
+              path: ~/.local/share/pnpm/store
+              key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+              restore-keys: |
+                  ${{ runner.os }}-pnpm-
 
-    - name: Install dependencies
-      run: pnpm install
-      shell: sh
+        - name: Install dependencies
+          run: pnpm install
+          shell: sh
