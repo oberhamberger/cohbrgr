@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
-import Spinner from 'src/spinner';
+import Spinner from './Spinner';
 
 describe('Spinner component', () => {
     it('displays spinner', async () => {

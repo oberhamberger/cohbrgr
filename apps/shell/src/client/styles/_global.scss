@@ -10,9 +10,11 @@ body {
     max-width: 100vw;
     overflow-x: hidden;
 }
+
 html {
     background-color: var(--color-background);
 }
+
 // html::after {
 //     content: '';
 //     position: fixed;
@@ -25,17 +27,6 @@ html {
 //     z-index: -1;
 // }
 
-main {
-    padding: 8rem 2rem 0 2rem;
-    @media screen and (orientation: landscape) and (min-width: 420px) {
-        padding: 4rem;
-        min-width: calc(400px - 2rem);
-    }
-    @media screen and (orientation: portrait) and (min-width: 768px) {
-        padding: 4rem 0;
-    }
-}
-
 h1,
 h2,
 h3,
@@ -46,31 +37,23 @@ h6,
     line-height: 1.07143;
     margin: 0;
     padding: 0;
-    text-align: center;
     font-family: var(--font-serif);
 }
 
 [role='doc-subtitle'] {
     font-weight: 700;
-    font-size: 1rem;
 }
 
 h1 {
-    font-size: 1.75rem;
-    @media screen and (orientation: portrait) and (min-width: 420px) {
-        font-size: 2rem;
-    }
-    @media screen and (orientation: landscape) and (min-width: 768px) {
+    font-size: 1.8rem;
+    @media screen and (min-width: 1025px) {
         font-size: 2rem;
     }
 }
 
 p {
-    text-align: center;
-    @media screen and (orientation: portrait) and (min-width: 420px) {
-        font-size: 1.25rem;
-    }
-    @media screen and (orientation: landscape) and (min-width: 933px) {
+    font-size: 1.125rem;
+    @media screen and (min-width: 1025px) {
         font-size: 1.25rem;
     }
 }
@@ -83,5 +66,19 @@ a {
     &:active,
     &:focus {
         text-decoration: underline;
+    }
+}
+
+main {
+    padding: 1.5rem 2rem 1rem 2rem;
+    @media screen and (orientation: portrait) {
+        padding: 4rem 4rem 6rem 2rem;
+    }
+    @media screen and (min-width: 768px) {
+        padding: 4rem 4rem 6rem 2rem;
+    }
+
+    @media screen and (min-width: 1024px) {
+        padding: 4rem 4rem 6rem 4rem;
     }
 }

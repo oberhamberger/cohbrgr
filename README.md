@@ -6,7 +6,7 @@ This Repository is meant to be used for experimentation and trying out stuff, wi
 ## Installing
 
 ```
-npm install
+pnpm install
 ```
 
 ## Developing
@@ -14,7 +14,7 @@ npm install
 build locally:
 
 ```
-npm run build
+pnpm run build
 ```
 
 run server (after first build):
@@ -26,7 +26,7 @@ node .
 develop locally:
 
 ```
-npm start
+pnpm start
 ```
 
 ## Docker
@@ -36,7 +36,7 @@ Since the application is split into multiple microfrontends, you will need to ru
 build a Docker-Container:
 
 ```
-docker build --tag node-[APP] -f Dockerfile.[APP] .
+docker build --tag node-[APP] -f ./[APP]/Dockerfile .
 ```
 
 run as Docker-Container:
@@ -49,7 +49,7 @@ docker run -d -p 3000:3000 node-[APP]
 
 - Minimal React Single Page Application
 - NodeJS Express Server providing SSR
-- Module Federation
+- Module Federation on Server and Client
 - Static Site Generation
 - SCSS Modules Styles
 - Typescript
@@ -60,6 +60,19 @@ docker run -d -p 3000:3000 node-[APP]
 - Prettier
 - Jest + React Testing Library
 - and of course: dark mode
+
+## CI/CD
+
+This project uses GitHub Actions for continuous integration. The following checks run automatically:
+
+- Linting: Ensures code style consistency
+- Build: Verifies the project builds successfully
+- Tests: Runs the test suite
+
+The CI pipeline runs on:
+
+- Push to `main` and `develop` branches
+- Pull requests to `main` and `develop` branches
 
 ## forever ignored
 

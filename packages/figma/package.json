@@ -1,8 +1,13 @@
 {
     "name": "@cohbrgr/figma",
-    "version": "2.0.0-0",
+    "version": "2.0.1",
     "author": "Christian Oberhamberger",
     "license": "ISC",
+    "private": true,
+    "type": "module",
+    "files": [
+        "dist"
+    ],
     "exports": {
         ".": "./dist/css/_variables.css"
     },
@@ -10,6 +15,6 @@
         "build": "style-dictionary build"
     },
     "dependencies": {
-        "style-dictionary": "^4.4.0"
+        "style-dictionary": "5.1.1"
     }
 }

@@ -3,7 +3,7 @@ services:
     shell:
         build:
             context: .
-            dockerfile: ./Dockerfile.shell
+            dockerfile: ./apps/shell/Dockerfile
         ports:
             - '3000:3000'
         depends_on:
@@ -12,6 +12,13 @@ services:
     content:
         build:
             context: .
-            dockerfile: ./Dockerfile.content
+            dockerfile: ./apps/content/Dockerfile
         ports:
             - '3001:3001'
+
+    api:
+        build:
+            context: .
+            dockerfile: ./apps/api/Dockerfile
+        ports:
+            - '3002:3002'

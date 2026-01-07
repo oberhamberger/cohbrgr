@@ -1,19 +1,16 @@
 .layout {
     display: grid;
-    align-content: space-between;
-    justify-content: space-evenly;
     height: 100vh;
-    justify-items: center;
+    align-content: space-between;
+    max-width: calc(768px - 2rem);
 
     /* Avoid Chrome to see Safari hack */
     @supports (-webkit-touch-callout: none) {
         height: -webkit-fill-available;
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 1024px) {
         height: unset;
-        margin: 0 auto 0 auto;
-        width: calc(768px - 2rem);
 
         @supports (-webkit-touch-callout: none) {
             height: unset;

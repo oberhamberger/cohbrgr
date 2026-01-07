@@ -1,6 +1,8 @@
+import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
+
 import { isProduction } from '@cohbrgr/build';
 import { Config } from '@cohbrgr/content/env';
-import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
+
 import packageJson from '../../../../package.json';
 
 const { dependencies } = packageJson;

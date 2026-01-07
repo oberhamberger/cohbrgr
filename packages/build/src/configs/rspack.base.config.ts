@@ -1,11 +1,13 @@
-import { type RspackOptions } from '@rspack/core';
 import { resolve } from 'path';
+
+import { type RspackOptions } from '@rspack/core';
+
 import { getStyleLoader } from '../loader/style.loader';
 import {
     CWD,
-    isProduction,
-    isWatch,
     Mode,
+    isDevelopment,
+    isProduction,
     regexSource,
     regexStyle,
 } from '../utils/constants';
@@ -15,12 +17,13 @@ export const baseConfig: RspackOptions = {
     devtool: isProduction ? false : 'source-map',
     context: resolve(CWD, `./src`),
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.json', '.scss'],
+        extensions: ['.tsx', '.ts', '.js', '.json', '.scss', 'css'],
         alias: {
             src: resolve(CWD, './src'),
+            data: resolve(CWD, './data'),
         },
     },
-    watch: isWatch,
+    watch: isDevelopment,
 
     module: {
         rules: [
@@ -52,6 +55,11 @@ export const baseConfig: RspackOptions = {
                 type: 'css/auto',
             },
         ],
+        generator: {
+            'css/auto': {
+                localIdentName: '[local]-[hash:base64:6]',
+            },
+        },
     },
 
     experiments: {

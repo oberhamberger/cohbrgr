@@ -1,13 +1,16 @@
-import { baseConfig, CWD, isProduction } from '@cohbrgr/build';
+import { resolve } from 'path';
+
 import { defineConfig } from '@rspack/cli';
 import {
     CssExtractRspackPlugin,
     ProgressPlugin,
     type RspackOptions,
 } from '@rspack/core';
-import { resolve } from 'path';
-import getModuleFederationPlugins from './rspack.federated.config';
 import { merge } from 'webpack-merge';
+
+import { CWD, baseConfig, isCloudRun, isProduction } from '@cohbrgr/build';
+
+import getModuleFederationPlugins from './rspack.federated.config';
 
 const config: RspackOptions = {
     ...baseConfig,
@@ -36,10 +39,15 @@ const config: RspackOptions = {
         },
     },
     output: {
+        uniqueName: 'content',
         path: resolve(CWD, './dist/client'),
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
-        publicPath: 'http://localhost:3001/client/',
+        publicPath: isCloudRun
+            ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/client/'
+            : isProduction
+              ? 'http://localhost:3001/client/'
+              : 'http://localhost:3031/client/',
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };

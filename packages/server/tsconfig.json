@@ -1,13 +1,17 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
-        "jsx": "react-jsx",
-        "baseUrl": ".",
-        "paths": {
-            "src/*": ["./src/*"]
-        },
-        "outDir": "dist",
-        "declaration": true,
-        "typeRoots": ["../../node_modules/@types", "./client/src/@types/*"]
-    }
+        "rootDir": "./src",
+        "outDir": "dist"
+    },
+    "include": ["./", "src/**/*"],
+    "exclude": [
+        "dist",
+        "node_modules",
+        "jest.config.ts",
+        "**/*.spec.ts",
+        "**/*.spec.tsx",
+        "**/*.test.ts",
+        "**/__tests_/**/*"
+    ]
 }

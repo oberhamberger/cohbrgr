@@ -1,9 +1,12 @@
+import { extname, resolve } from 'path';
+
+import { FunctionComponent } from 'react';
+
+import { readdirSync } from 'fs';
+import { State } from 'src/client/store/state';
+
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
-import { readdirSync } from 'fs';
-import { extname, resolve } from 'path';
-import { FunctionComponent } from 'react';
-import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
     nonce: string;

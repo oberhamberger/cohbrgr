@@ -1,0 +1,7 @@
+packages:
+    - 'packages/*'
+    - 'apps/*'
+
+catalog:
+    '@rspack/cli': '1.7.0'
+    '@rspack/core': '1.7.0'
