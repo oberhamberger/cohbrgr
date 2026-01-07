@@ -7,14 +7,15 @@ WORKDIR /usr/app
 COPY . .
 
 ENV DOCKER=true
-RUN pnpm ci
+RUN npm install -g pnpm
+RUN pnpm install
 
 ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
 RUN pnpm run build:shell
 
-# Keep only prod deps
-RUN pnpm prune --omit=dev
+# Keep only production deps for the runtime image
+RUN pnpm prune --prod --force
 
 # ---------- runtime ----------
 FROM node:25-alpine AS runtime
