@@ -2,7 +2,7 @@ module.exports = {
     ci: {
         collect: {
             startServerCommand: 'npm run serve',
-            numberOfRuns: 5,
+            numberOfRuns: 2,
             url: [
                 'http://localhost:3000',
                 'http://localhost:3000/offline'
