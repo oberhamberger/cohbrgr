@@ -18,7 +18,7 @@
         "ssr"
     ],
     "scripts": {
-        "bootstrap": "git clean -xfd && npm ci && npm run build",
+        "bootstrap": "git clean -xfd && pnpm i && pnpm run build",
         "prettier": "prettier --write .",
         "lint": "nx run-many -t lint",
         "build": "nx run-many -t build",
@@ -61,6 +61,7 @@
         "react-router-dom": "7.11.0"
     },
     "devDependencies": {
+        "@cohbrgr/prettier": "workspace:*",
         "@nx/js": "22.3.3",
         "@types/node": "25.0.3",
         "@types/react": "19.2.7",
