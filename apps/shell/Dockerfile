@@ -7,14 +7,14 @@ WORKDIR /usr/app
 COPY . .
 
 ENV DOCKER=true
-RUN npm ci
+RUN pnpm ci
 
 ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
-RUN npm run build:shell
+RUN pnpm run build:shell
 
 # Keep only prod deps
-RUN npm prune --omit=dev
+RUN pnpm prune --omit=dev
 
 # ---------- runtime ----------
 FROM node:25-alpine AS runtime

@@ -5,9 +5,13 @@
     "license": "ISC",
     "private": true,
     "files": [
-        "index.js"
+        "index.js",
+        "cli.js"
     ],
     "type": "module",
+    "bin": {
+        "eslint": "./cli.js"
+    },
     "exports": {
         ".": "./index.js"
     },

@@ -18,19 +18,21 @@
         "prettier": "prettier --write .",
         "dev": "NODE_ENV=development rspack build",
         "build": "NODE_ENV=production rspack build",
-        "build:analyze": "npm run build -- --analyze",
-        "start": "npm run dev",
+        "build:analyze": "pnpm run build -- --analyze",
+        "start": "pnpm run dev",
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/server": "2.0.1",
-        "@cohbrgr/utils": "2.0.1"
+        "@cohbrgr/server": "workspace:*",
+        "@cohbrgr/utils": "workspace:*"
     },
     "devDependencies": {
-        "@cohbrgr/build": "2.0.1",
-        "@cohbrgr/eslint": "2.0.1",
-        "@cohbrgr/jest": "2.0.1",
-        "@cohbrgr/tsconfig": "2.0.1",
+        "@cohbrgr/build": "workspace:*",
+        "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/jest": "workspace:*",
+        "@cohbrgr/tsconfig": "workspace:*",
+        "@rspack/cli": "catalog:",
+        "@rspack/core": "catalog:",
         "@types/express": "5.0.6"
     }
 }
