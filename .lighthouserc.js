@@ -26,6 +26,11 @@ module.exports = {
         },
         assert: {
             preset: 'lighthouse:recommended',
+            assertions: {
+                'network-dependency-tree-insight': 'warn',
+                'unused-javascript': 'warn',
+                'uses-text-compression': 'warn'
+            }
         },
         upload: {
             target: 'filesystem',
