@@ -17,3 +17,7 @@ runs:
         - name: Install dependencies
           run: pnpm install
           shell: sh
+
+        - name: Build Project
+          run: pnpm run build
+          shell: sh
