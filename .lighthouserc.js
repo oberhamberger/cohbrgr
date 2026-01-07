@@ -3,13 +3,15 @@ module.exports = {
         collect: {
             startServerCommand: 'npm run serve',
             numberOfRuns: 2,
-            url: [
-                'http://localhost:3000',
-                'http://localhost:3000/offline'
-            ],
+            url: ['http://localhost:3000', 'http://localhost:3000/offline'],
             settings: {
                 chromeFlags: '--no-sandbox',
-                onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
+                onlyCategories: [
+                    'performance',
+                    'accessibility',
+                    'best-practices',
+                    'seo',
+                ],
             },
             disableStorageReset: true,
             // Disable the storage reset to keep the session alive
@@ -20,13 +22,13 @@ module.exports = {
             // when running Lighthouse from the command line
             // or in CI/CD pipelines
             // For more information, see:
-            // 
+            //
         },
         assert: {
             preset: 'lighthouse:recommended',
         },
         upload: {
-            target: 'filesystem'
-        }
+            target: 'filesystem',
+        },
     },
 };

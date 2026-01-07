@@ -96,7 +96,9 @@ await (async () => {
     const server = app.listen(port, () => {
         Logger.info(
             `Listening on ${
-                isProduction ? port : `http://localhost:${port} in development mode`
+                isProduction
+                    ? port
+                    : `http://localhost:${port} in development mode`
             }`,
         );
         if (process.send) {
