@@ -37,5 +37,5 @@ The build process can be configured using the following environment variables an
 
 ## Scripts
 
-- `npm run lint`: Lints the package files.
-- `npm run build`: Builds the package.
+- `pnpm run lint`: Lints the package files.
+- `pnpm run build`: Builds the package.
