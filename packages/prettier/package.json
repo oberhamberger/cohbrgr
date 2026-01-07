@@ -5,8 +5,13 @@
     "license": "ISC",
     "private": true,
     "files": [
-        "index.js"
+        "index.js",
+        "cli.js"
     ],
+    "type": "module",
+    "bin": {
+        "prettier": "./cli.js"
+    },
     "exports": {
         ".": "./index.js"
     },

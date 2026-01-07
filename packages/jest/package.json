@@ -5,8 +5,12 @@
     "license": "ISC",
     "private": true,
     "files": [
-        "index.ts"
+        "index.ts",
+        "cli.js"
     ],
+    "bin": {
+        "jest": "./cli.js"
+    },
     "exports": {
         ".": "./index.ts"
     },
