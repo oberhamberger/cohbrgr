@@ -30,5 +30,5 @@ Some projects, like `apps/content` and `apps/shell`, have a multi-project Jest s
 To run all the unit tests in the monorepo, use the following command:
 
 ```bash
-npm run test
+pnpm run test
 ```

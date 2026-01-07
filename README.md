@@ -6,7 +6,7 @@ This Repository is meant to be used for experimentation and trying out stuff, wi
 ## Installing
 
 ```
-npm install
+pnpm install
 ```
 
 ## Developing
@@ -14,7 +14,7 @@ npm install
 build locally:
 
 ```
-npm run build
+pnpm run build
 ```
 
 run server (after first build):
@@ -26,7 +26,7 @@ node .
 develop locally:
 
 ```
-npm start
+pnpm start
 ```
 
 ## Docker
