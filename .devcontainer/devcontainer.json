@@ -7,5 +7,17 @@
     "workspaceFolder": "/workspaces/cohbrgr",
     "forwardPorts": [3000, 3001, 3002],
     "postCreateCommand": "cd /workspaces/cohbrgr && pnpm i && pnpm run build",
-    "remoteUser": "node"
+    "remoteUser": "node",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "github.github-vscode-theme",
+                "google.geminicodeassist",
+                "mhutchie.git-graph",
+                "ms-vscode-remote.remote-containers",
+                "vscode-icons-team.vscode-icons"
+            ]
+        }
+    }
 }
