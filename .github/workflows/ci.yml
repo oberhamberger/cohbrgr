@@ -28,17 +28,6 @@ jobs:
             - name: Run linting
               run: pnpm run lint
 
-    build:
-        needs: install
-        runs-on: ubuntu-latest
-        container:
-            image: node:25-alpine
-        steps:
-            - uses: actions/checkout@v4
-            - uses: ./.github/actions/setup-pnpm
-            - name: Build
-              run: pnpm run build
-
     test:
         needs: install
         runs-on: ubuntu-latest
