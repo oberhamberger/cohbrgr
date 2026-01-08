@@ -18,7 +18,8 @@ ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
 RUN pnpm run build:shell
 
-RUN pnpm deploy --filter=./apps/shell --prod /prod/shell
+# Force injection ONLY for the deploy step
+RUN NPM_CONFIG_INJECT_WORKSPACE_PACKAGES=true pnpm deploy --filter=./apps/shell --prod /prod/shell
 RUN cp -r apps/shell/dist /prod/shell/dist
 
 # ---------- runtime ----------
