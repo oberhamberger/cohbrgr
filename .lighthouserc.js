@@ -29,8 +29,8 @@ module.exports = {
             assertions: {
                 'network-dependency-tree-insight': 'warn',
                 'unused-javascript': 'warn',
-                'uses-text-compression': 'warn'
-            }
+                'uses-text-compression': 'warn',
+            },
         },
         upload: {
             target: 'filesystem',

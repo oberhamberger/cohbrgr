@@ -1,4 +1,4 @@
-name: Setup pnpm
+name: Setup
 description: Installs pnpm and dependencies with caching
 runs:
     using: 'composite'
@@ -16,8 +16,4 @@ runs:
 
         - name: Install dependencies
           run: pnpm install
-          shell: sh
-
-        - name: Build Project
-          run: pnpm run build
           shell: sh
