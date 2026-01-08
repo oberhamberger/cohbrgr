@@ -5,6 +5,7 @@ runs:
     steps:
         - name: Setup
         - uses: ./.github/actions/setup
+          shell: sh
 
         - name: Build Project
           run: pnpm run build
