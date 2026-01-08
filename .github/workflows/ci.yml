@@ -7,6 +7,15 @@ on:
         branches: ['main', 'develop']
 
 jobs:
+    setup:
+        runs-on: ubuntu-latest
+        container:
+            image: node:25-alpine
+
+        steps:
+            - uses: actions/checkout@v4
+            - uses: ./.github/actions/setup-pnpm
+
     lint:
         needs: setup
         runs-on: ubuntu-latest
@@ -14,7 +23,7 @@ jobs:
             image: node:25-alpine
         steps:
             - uses: actions/checkout@v4
-            - uses: ./.github/actions/setup
+            - uses: ./.github/actions/setup-and-build
             - name: Run linting
               run: pnpm run lint
 
@@ -25,7 +34,7 @@ jobs:
             image: node:25-alpine
         steps:
             - uses: actions/checkout@v4
-            - uses: ./.github/actions/setup
+            - uses: ./.github/actions/setup-and-build
             - name: Run tests
               run: pnpm run test
 
@@ -38,7 +47,7 @@ jobs:
             - uses: actions/checkout@v4
             - name: Install Chromium
               run: apk add --no-cache chromium
-            - uses: ./.github/actions/setup
+            - uses: ./.github/actions/setup-and-build
             - name: Run Lighthouse CI
               env:
                   LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
