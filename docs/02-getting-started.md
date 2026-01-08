@@ -27,7 +27,7 @@ Before you begin, make sure you have the following installed:
 3.  Install the dependencies:
 
     ```bash
-    npm install
+    pnpm install
     ```
 
 ## Development
@@ -35,7 +35,7 @@ Before you begin, make sure you have the following installed:
 To start the development servers for all applications, run the following command:
 
 ```bash
-npm start
+pnpm start
 ```
 
 This will start the `shell` and `content` applications in development mode. The `shell` application will be available at `http://localhost:3030`, and the `content` application will be available at `http://localhost:3031`.

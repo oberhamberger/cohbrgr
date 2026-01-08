@@ -1,0 +1,11 @@
+name: Setup and Build
+description: Installs pnpm and dependencies with caching, then builds the project.
+runs:
+    using: 'composite'
+    steps:
+        - name: Setup
+          uses: ./.github/actions/setup
+
+        - name: Build Project
+          run: pnpm run build
+          shell: sh

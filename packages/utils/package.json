@@ -18,7 +18,7 @@
         "winston": "3.19.0"
     },
     "devDependencies": {
-        "@cohbrgr/eslint": "2.0.1",
-        "@cohbrgr/tsconfig": "2.0.1"
+        "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/tsconfig": "workspace:*"
     }
 }

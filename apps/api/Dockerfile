@@ -1,27 +1,32 @@
 # syntax=docker/dockerfile:1.6
 
 # ---------- builder ----------
-FROM node:25-alpine AS builder
+FROM node:24-slim AS builder
 WORKDIR /usr/app
 
 COPY . .
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 ENV DOCKER=true
-RUN npm ci
+ENV CI=true
+
+RUN corepack enable
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
-RUN npm run build:api
+RUN pnpm run build:api
 
-# Keep only production deps for the runtime image
-RUN npm prune --omit=dev
+# Force injection ONLY for the deploy step
+RUN NPM_CONFIG_INJECT_WORKSPACE_PACKAGES=true pnpm deploy --filter=./apps/api --prod /prod/api
+RUN cp -r apps/api/dist /prod/api/dist
 
 # ---------- runtime ----------
-FROM node:25-alpine AS runtime
-WORKDIR /usr/app
+FROM node:24-slim AS runtime
+WORKDIR /prod/api
 
-# Bring over built artifacts + pruned prod deps
-COPY --from=builder /usr/app /usr/app
+COPY --from=builder /prod/api /prod/api
 
 USER node
 
@@ -30,4 +35,4 @@ ENV DOCKER=true
 ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
 
-ENTRYPOINT ["node", "apps/api"]
+ENTRYPOINT ["node", "."]
