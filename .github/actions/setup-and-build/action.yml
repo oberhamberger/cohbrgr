@@ -3,9 +3,9 @@ description: Installs pnpm and dependencies with caching, then builds the projec
 runs:
     using: 'composite'
     steps:
-      - name: Setup
-        uses: ./.github/actions/setup
+        - name: Setup
+          uses: ./.github/actions/setup
 
-      - name: Build Project
-        run: pnpm run build
-        shell: sh
+        - name: Build Project
+          run: pnpm run build
+          shell: sh
