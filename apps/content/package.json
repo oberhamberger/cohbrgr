@@ -28,7 +28,8 @@
     "dependencies": {
         "@cohbrgr/components": "workspace:*",
         "@cohbrgr/server": "workspace:*",
-        "@cohbrgr/utils": "workspace:*"
+        "@cohbrgr/utils": "workspace:*",
+        "express": "5.2.1"
     },
     "devDependencies": {
         "@cohbrgr/build": "workspace:*",
