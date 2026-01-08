@@ -31,6 +31,7 @@
         "@cohbrgr/server": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
         "compression": "1.8.1",
+        "express": "5.2.1",
         "express-rate-limit": "8.2.1",
         "helmet": "8.1.0",
         "nocache": "4.0.0",
@@ -51,6 +52,7 @@
         "@rspack/cli": "catalog:",
         "@rspack/core": "catalog:",
         "@types/compression": "1.8.1",
+        "@types/express": "5.0.6",
         "html-validate": "10.5.0",
         "node-mocks-http": "1.17.2"
     }

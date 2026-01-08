@@ -18,9 +18,6 @@ importers:
 
   .:
     dependencies:
-      express:
-        specifier: 5.2.1
-        version: 5.2.1
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -40,9 +37,6 @@ importers:
       '@nx/js':
         specifier: 22.3.3
         version: 22.3.3(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.8(@swc/helpers@0.5.18))(nx@22.3.3(@swc-node/register@1.11.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.8(@swc/helpers@0.5.18)))
-      '@types/express':
-        specifier: 5.0.6
-        version: 5.0.6
       '@types/node':
         specifier: 25.0.3
         version: 25.0.3
@@ -70,6 +64,9 @@ importers:
       '@cohbrgr/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      express:
+        specifier: 5.2.1
+        version: 5.2.1
     devDependencies:
       '@cohbrgr/build':
         specifier: workspace:*
@@ -104,6 +101,9 @@ importers:
       '@cohbrgr/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      express:
+        specifier: 5.2.1
+        version: 5.2.1
     devDependencies:
       '@cohbrgr/build':
         specifier: workspace:*
@@ -144,6 +144,9 @@ importers:
       compression:
         specifier: 1.8.1
         version: 1.8.1
+      express:
+        specifier: 5.2.1
+        version: 5.2.1
       express-rate-limit:
         specifier: 8.2.1
         version: 8.2.1(express@5.2.1)
@@ -199,6 +202,9 @@ importers:
       '@types/compression':
         specifier: 1.8.1
         version: 1.8.1
+      '@types/express':
+        specifier: 5.0.6
+        version: 5.0.6
       html-validate:
         specifier: 10.5.0
         version: 10.5.0(jest-diff@30.2.0)(jest-snapshot@30.2.0)(jest@30.2.0(@types/node@25.0.3)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.27.2)))
@@ -222,7 +228,7 @@ importers:
         version: 1.4.0(@rspack/core@1.7.0(@swc/helpers@0.5.18))(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))
       '@rspack/cli':
         specifier: 1.7.0
-        version: 1.7.0(@rspack/core@1.7.0(@swc/helpers@0.5.18))(@types/express@5.0.6)(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))
+        version: 1.7.0(@rspack/core@1.7.0(@swc/helpers@0.5.18))(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))
       '@rspack/core':
         specifier: 1.7.0
         version: 1.7.0(@swc/helpers@0.5.18)
@@ -351,6 +357,9 @@ importers:
       '@cohbrgr/utils':
         specifier: workspace:*
         version: link:../utils
+      express:
+        specifier: 5.2.1
+        version: 5.2.1
     devDependencies:
       '@cohbrgr/eslint':
         specifier: workspace:*
@@ -364,6 +373,9 @@ importers:
       '@types/compression':
         specifier: 1.8.1
         version: 1.8.1
+      '@types/express':
+        specifier: 5.0.6
+        version: 5.0.6
 
   packages/tsconfig:
     dependencies:
@@ -8472,6 +8484,22 @@ snapshots:
       - webpack
       - webpack-cli
 
+  '@rspack/cli@1.7.0(@rspack/core@1.7.0(@swc/helpers@0.5.18))(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))':
+    dependencies:
+      '@discoveryjs/json-ext': 0.5.7
+      '@rspack/core': 1.7.0(@swc/helpers@0.5.18)
+      '@rspack/dev-server': 1.1.5(@rspack/core@1.7.0(@swc/helpers@0.5.18))(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))
+      exit-hook: 4.0.0
+      webpack-bundle-analyzer: 4.10.2
+    transitivePeerDependencies:
+      - '@types/express'
+      - bufferutil
+      - debug
+      - supports-color
+      - utf-8-validate
+      - webpack
+      - webpack-cli
+
   '@rspack/core@1.7.0(@swc/helpers@0.5.18)':
     dependencies:
       '@module-federation/runtime-tools': 0.22.0
@@ -8485,6 +8513,23 @@ snapshots:
       '@rspack/core': 1.7.0(@swc/helpers@0.5.18)
       chokidar: 3.6.0
       http-proxy-middleware: 2.0.9(@types/express@5.0.6)
+      p-retry: 6.2.1
+      webpack-dev-server: 5.2.2(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))
+      ws: 8.18.3
+    transitivePeerDependencies:
+      - '@types/express'
+      - bufferutil
+      - debug
+      - supports-color
+      - utf-8-validate
+      - webpack
+      - webpack-cli
+
+  '@rspack/dev-server@1.1.5(@rspack/core@1.7.0(@swc/helpers@0.5.18))(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))':
+    dependencies:
+      '@rspack/core': 1.7.0(@swc/helpers@0.5.18)
+      chokidar: 3.6.0
+      http-proxy-middleware: 2.0.9(@types/express@4.17.25)
       p-retry: 6.2.1
       webpack-dev-server: 5.2.2(webpack@5.104.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(esbuild@0.27.2))
       ws: 8.18.3
