@@ -1,9 +1,11 @@
+import sortImports from '@trivago/prettier-plugin-sort-imports';
+
 const config = {
     trailingComma: 'all',
     tabWidth: 4,
     semi: true,
     singleQuote: true,
-    plugins: ['@trivago/prettier-plugin-sort-imports'],
+    plugins: [sortImports],
     importOrder: [
         '^node:(.*)$',
         'path',
@@ -17,4 +19,4 @@ const config = {
     importOrderSortSpecifiers: true,
 };
 
-module.exports = config;
+export default config;

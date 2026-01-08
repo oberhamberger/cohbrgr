@@ -7,22 +7,38 @@ on:
         branches: ['main', 'develop']
 
 jobs:
-    build:
+    lint:
         runs-on: ubuntu-latest
         container:
             image: node:25-alpine
-
         steps:
             - uses: actions/checkout@v4
-
-            - name: Install dependencies
-              run: npm ci
-
+            - uses: ./.github/actions/setup-and-build
             - name: Run linting
-              run: npm run lint
+              run: pnpm run lint
 
-            - name: Build
-              run: npm run build
-
+    test:
+        runs-on: ubuntu-latest
+        container:
+            image: node:25-alpine
+        steps:
+            - uses: actions/checkout@v4
+            - uses: ./.github/actions/setup-and-build
             - name: Run tests
-              run: npm run test
+              run: pnpm run test
+
+    lighthouse:
+        runs-on: ubuntu-latest
+        container:
+            image: node:25-alpine
+        steps:
+            - uses: actions/checkout@v4
+            - name: Install Chromium
+              run: apk add --no-cache chromium
+            - uses: ./.github/actions/setup-and-build
+            - name: Run Lighthouse CI
+              env:
+                  LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  npm install -g @lhci/cli
+                  lhci autorun
