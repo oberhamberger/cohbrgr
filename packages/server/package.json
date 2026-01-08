@@ -17,14 +17,12 @@
         "test": "jest"
     },
     "dependencies": {
-        "@cohbrgr/utils": "workspace:*",
-        "express": "5.2.1"
+        "@cohbrgr/utils": "workspace:*"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
         "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
-        "@types/compression": "1.8.1",
-        "@types/express": "5.0.6"
+        "@types/compression": "1.8.1"
     }
 }
