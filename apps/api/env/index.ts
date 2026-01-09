@@ -7,7 +7,7 @@ export const internalConfig = {
     docker: {
         port: 3002,
         location: 'https://cohbrgr-api-944962437395.europe-west6.run.app',
-        staticPath: '/apps/api/dist',
+        staticPath: '/dist',
     },
 };
 
