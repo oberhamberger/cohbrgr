@@ -12,7 +12,7 @@ ENV DOCKER=true
 ENV CI=true
 
 RUN corepack enable
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
