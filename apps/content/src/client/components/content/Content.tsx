@@ -12,9 +12,7 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <>
             <main>
-                <p role="doc-subtitle">
-                    C·V·Q·O
-                </p>
+                <p role="doc-subtitle">C·V·Q·O</p>
                 <h1>My name is Christian</h1>
                 <p>
                     I am a Frontend Architect at{' '}
