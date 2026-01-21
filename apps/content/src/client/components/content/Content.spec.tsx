@@ -7,7 +7,7 @@ const nonce = '123456789';
 describe('Main Content Component', () => {
     it('displays my initials', async () => {
         render(<Content nonce={nonce} />);
-        const items = await screen.findAllByText('C·V·Q·O');
+        const items = await screen.findAllByText('My name is Christian');
         expect(items).toHaveLength(1);
     });
 
