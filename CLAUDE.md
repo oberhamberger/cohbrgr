@@ -59,14 +59,14 @@ Three deployable applications communicate via Module Federation:
 
 ### Shared Packages (`packages/`)
 
-| Package | Purpose |
-|---------|---------|
-| `@cohbrgr/build` | Rspack/Webpack configuration utilities |
-| `@cohbrgr/components` | Shared React UI components |
-| `@cohbrgr/server` | Express.js middleware and utilities |
-| `@cohbrgr/figma` | Design tokens from Figma via Style Dictionary |
-| `@cohbrgr/utils` | General utilities (logger, argument parser) |
-| `@cohbrgr/eslint`, `@cohbrgr/prettier`, `@cohbrgr/jest`, `@cohbrgr/tsconfig` | Shared configs |
+| Package                                                                      | Purpose                                       |
+| ---------------------------------------------------------------------------- | --------------------------------------------- |
+| `@cohbrgr/build`                                                             | Rspack/Webpack configuration utilities        |
+| `@cohbrgr/components`                                                        | Shared React UI components                    |
+| `@cohbrgr/server`                                                            | Express.js middleware and utilities           |
+| `@cohbrgr/figma`                                                             | Design tokens from Figma via Style Dictionary |
+| `@cohbrgr/utils`                                                             | General utilities (logger, argument parser)   |
+| `@cohbrgr/eslint`, `@cohbrgr/prettier`, `@cohbrgr/jest`, `@cohbrgr/tsconfig` | Shared configs                                |
 
 ### Key Technical Decisions
 
