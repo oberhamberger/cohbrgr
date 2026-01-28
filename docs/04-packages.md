@@ -1,39 +1,125 @@
 # Packages
 
-This project contains a number of shared packages that are used by the applications. These packages are located in the `/packages` directory.
+Shared packages live in `/packages` and are consumed by applications. Each package is published to the workspace under the `@cohbrgr` scope.
 
-## `@cohbrgr/build`
+## Core Packages
 
-This package provides the core build configuration for the monorepo, using Rspack as the bundler. It is designed to handle TypeScript, React, and Module Federation.
+### @cohbrgr/build
 
-## `@cohbrgr/components`
+Rspack configuration utilities for building applications. Provides base configurations for client, server, and federated builds.
 
-This package contains shared UI components used across the applications, such as `Navigation` and `Spinner`.
+```typescript
+import { createBaseConfig } from '@cohbrgr/build';
+```
 
-## `@cohbrgr/eslint`
+**Used by**: shell, content
 
-This package provides the base ESLint configuration for all TypeScript and React projects within the monorepo.
+### @cohbrgr/components
 
-## `@cohbrgr/figma`
+Shared React UI components used across applications.
 
-This package is responsible for managing and transforming design tokens from Figma into SCSS and CSS variables using Style Dictionary.
+| Component    | Description          |
+| ------------ | -------------------- |
+| `Navigation` | Site navigation menu |
+| `Spinner`    | Loading indicator    |
 
-## `@cohbrgr/jest`
+```typescript
+import { Navigation, Spinner } from '@cohbrgr/components';
+```
 
-This package provides a shared base Jest configuration for TypeScript projects within the monorepo.
+**Used by**: shell, content
 
-## `@cohbrgr/prettier`
+### @cohbrgr/server
 
-This package provides the shared Prettier configuration for all projects within the monorepo.
+Express.js middleware and server utilities.
 
-## `@cohbrgr/server`
+| Export                  | Description                 |
+| ----------------------- | --------------------------- |
+| `loggingMiddleware`     | Request/response logging    |
+| `errorMiddleware`       | Error handling              |
+| `healthRouter`          | Health check endpoints      |
+| `gracefulStartAndClose` | Server lifecycle management |
 
-This package provides a collection of reusable server-side middleware functions for Express.js applications.
+```typescript
+import { healthRouter, loggingMiddleware } from '@cohbrgr/server';
+```
 
-## `@cohbrgr/tsconfig`
+**Used by**: shell, content, api
 
-This package provides the base TypeScript configuration (`tsconfig.json`) for all TypeScript projects within the monorepo.
+### @cohbrgr/utils
 
-## `@cohbrgr/utils`
+General-purpose utilities.
 
-This package provides a collection of general-purpose utility functions and modules, such as a logger and a process argument parser.
+| Export            | Description          |
+| ----------------- | -------------------- |
+| `logger`          | Structured logging   |
+| `findProcessArgs` | CLI argument parsing |
+| `constants`       | Shared constants     |
+
+```typescript
+import { findProcessArgs, logger } from '@cohbrgr/utils';
+```
+
+**Used by**: All apps and packages
+
+### @cohbrgr/figma
+
+Design tokens extracted from Figma using Style Dictionary. Outputs SCSS variables and CSS custom properties.
+
+**Output**: `packages/figma/src/tokens.json` transforms to SCSS/CSS
+
+**Used by**: components, shell, content
+
+## Configuration Packages
+
+These packages provide shared configurations to ensure consistency across the monorepo.
+
+### @cohbrgr/tsconfig
+
+Base TypeScript configuration extended by all packages.
+
+```json
+{
+    "extends": "@cohbrgr/tsconfig"
+}
+```
+
+### @cohbrgr/eslint
+
+Shared ESLint configuration for TypeScript and React.
+
+```javascript
+import baseConfig from '@cohbrgr/eslint';
+
+export default [...baseConfig];
+```
+
+### @cohbrgr/prettier
+
+Shared Prettier configuration.
+
+```javascript
+import config from '@cohbrgr/prettier';
+
+export default config;
+```
+
+### @cohbrgr/jest
+
+Base Jest configuration for TypeScript projects.
+
+```typescript
+import baseConfig from '@cohbrgr/jest';
+
+export default { ...baseConfig };
+```
+
+## Dependency Graph
+
+View the package dependency graph:
+
+```bash
+pnpm run graph
+```
+
+This opens an interactive visualization showing how packages depend on each other.

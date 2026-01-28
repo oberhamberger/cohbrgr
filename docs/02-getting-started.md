@@ -1,61 +1,112 @@
 # Getting Started
 
-This guide will walk you through the process of setting up your development environment and running the applications.
+This guide walks you through setting up your development environment and running the applications.
 
 ## Prerequisites
 
-Before you begin, make sure you have the following installed:
-
 - [Node.js](https://nodejs.org/) (version specified in `.nvmrc`)
-- [npm](https://www.npmjs.com/)
-- [Docker](https://www.docker.com/)
+- [pnpm](https://pnpm.io/) (version specified in `package.json` `packageManager` field)
+- [Docker](https://www.docker.com/) (optional, for containerized deployment)
 
 ## Installation
 
-1.  Clone the repository:
+1. Clone the repository:
 
     ```bash
     git clone https://github.com/oberhamberger/cohbrgr.git
-    ```
-
-2.  Navigate to the project directory:
-
-    ```bash
     cd cohbrgr
     ```
 
-3.  Install the dependencies:
+2. Install dependencies:
 
     ```bash
     pnpm install
     ```
 
+3. Build all packages:
+
+    ```bash
+    pnpm run build
+    ```
+
+    This builds packages in dependency order (build tools first, then apps).
+
 ## Development
 
-To start the development servers for all applications, run the following command:
+Start all applications in development mode with hot reloading:
 
 ```bash
-pnpm start
+pnpm run dev
 ```
 
-This will start the `shell` and `content` applications in development mode. The `shell` application will be available at `http://localhost:3030`, and the `content` application will be available at `http://localhost:3031`.
+This starts:
 
-### Building for Production
+| App     | URL                   | Description            |
+| ------- | --------------------- | ---------------------- |
+| shell   | http://localhost:3030 | Main SSR application   |
+| content | http://localhost:3031 | Content micro-frontend |
+| api     | http://localhost:3032 | REST API server        |
 
-To build the applications for production, run the following command:
+To run a single app in development mode:
 
 ```bash
-npm run build
+pnpm run dev:shell
+pnpm run dev:content
+pnpm run dev:api
 ```
 
-This will create a `dist` directory in each application's directory, containing the production-ready assets.
+## Production Build
 
-### Running in Production Mode
-
-To run the applications in production mode, you first need to build them. Then, you can start the server by running:
+Build all applications for production:
 
 ```bash
-node .
+pnpm run build
 ```
 
-This will start the `shell` application in production mode, serving the server-side rendered application.
+Serve the production build:
+
+```bash
+pnpm run serve
+```
+
+## Common Commands
+
+| Command              | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| `pnpm install`       | Install all dependencies                                 |
+| `pnpm run bootstrap` | Clean rebuild (removes node_modules, reinstalls, builds) |
+| `pnpm run dev`       | Start all apps in development mode                       |
+| `pnpm run build`     | Build all packages and apps                              |
+| `pnpm run serve`     | Serve production builds                                  |
+| `pnpm run test`      | Run all tests                                            |
+| `pnpm run lint`      | Run ESLint across all packages                           |
+| `pnpm run prettier`  | Format code with Prettier                                |
+| `pnpm run graph`     | Visualize the dependency graph                           |
+
+## Troubleshooting
+
+### Build fails with missing dependencies
+
+The `@cohbrgr/build` package must be built before other packages. Run a full build:
+
+```bash
+pnpm run build
+```
+
+### Port already in use
+
+Check if another process is using ports 3030, 3031, or 3032:
+
+```bash
+lsof -i :3030
+```
+
+### Clean slate
+
+If things are in a broken state, run bootstrap to start fresh:
+
+```bash
+pnpm run bootstrap
+```
+
+This removes all generated files and node_modules, then reinstalls and rebuilds everything.
