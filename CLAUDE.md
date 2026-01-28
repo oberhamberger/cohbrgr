@@ -90,3 +90,7 @@ Each app has its own Dockerfile. Use docker-compose for multi-app local setup:
 ```bash
 docker-compose up
 ```
+
+## Git Guidelines
+
+- **Never run `git push`** - Pushing to `develop` triggers GitHub Actions, and pushing to `main` triggers deployment. The user will handle pushing manually.
