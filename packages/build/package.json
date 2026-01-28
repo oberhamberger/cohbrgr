@@ -12,7 +12,8 @@
     },
     "scripts": {
         "lint": "eslint",
-        "build": "tsc"
+        "build": "tsc",
+        "test": "jest"
     },
     "dependencies": {
         "@aaroon/workbox-rspack-plugin": "0.3.3",
@@ -34,6 +35,7 @@
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
         "@types/webpack-env": "1.18.8"

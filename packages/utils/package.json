@@ -12,13 +12,15 @@
     },
     "scripts": {
         "build": "tsc",
-        "lint": "eslint"
+        "lint": "eslint",
+        "test": "jest"
     },
     "dependencies": {
         "winston": "3.19.0"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*"
     }
 }
