@@ -1,7 +1,8 @@
 import translationsData from 'data/translations.json';
 import { NextFunction, Request, Response } from 'express';
 import type { ParsedQs } from 'qs';
-import { coerceToString } from 'src/utils/common';
+
+import { coerceToString } from '@cohbrgr/server';
 
 export type TranslationsMap = typeof translationsData;
 export type LanguageCode = keyof TranslationsMap;

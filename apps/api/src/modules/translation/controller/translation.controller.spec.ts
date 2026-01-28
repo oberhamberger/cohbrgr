@@ -5,11 +5,15 @@ import {
 } from 'src/modules/translation/controller/translation.controller';
 import { pickLanguage } from 'src/modules/translation/middleware/language.middleware';
 import translationService from 'src/modules/translation/service/translation.service';
-import { sendJsonWithEtag } from 'src/utils/middlewares';
+
+import { sendJsonWithEtag } from '@cohbrgr/server';
 
 jest.mock('src/modules/translation/middleware/language.middleware');
 jest.mock('src/modules/translation/service/translation.service');
-jest.mock('src/utils/middlewares');
+jest.mock('@cohbrgr/server', () => ({
+    ...jest.requireActual('@cohbrgr/server'),
+    sendJsonWithEtag: jest.fn(),
+}));
 
 describe('translation.controller', () => {
     let mockRequest: Partial<Request>;

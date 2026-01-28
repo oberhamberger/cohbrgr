@@ -1,9 +1,31 @@
 import type { Request, Response } from 'express';
 
-import { etagOf } from './common';
-import { sendJsonWithEtag } from './middlewares';
+import { etagOf, sendJsonWithEtag } from '../etag';
 
-describe('middlewares', () => {
+describe('etag utilities', () => {
+    describe('etagOf', () => {
+        it('should return a consistent hash for the same payload', () => {
+            const payload = { a: 1, b: 'test' };
+            const etag1 = etagOf(payload);
+            const etag2 = etagOf(payload);
+            expect(etag1).toBe(etag2);
+        });
+
+        it('should return a different hash for different payloads', () => {
+            const payload1 = { a: 1, b: 'test' };
+            const payload2 = { a: 2, b: 'test' };
+            const etag1 = etagOf(payload1);
+            const etag2 = etagOf(payload2);
+            expect(etag1).not.toBe(etag2);
+        });
+
+        it('should return a sha1 hex string', () => {
+            const payload = { test: 'data' };
+            const etag = etagOf(payload);
+            expect(etag).toMatch(/^[a-f0-9]{40}$/);
+        });
+    });
+
     describe('sendJsonWithEtag', () => {
         let mockRequest: Partial<Request>;
         let mockResponse: Partial<Response>;
@@ -60,21 +82,6 @@ describe('middlewares', () => {
 
             sendJsonWithEtag(mockResponse as Response, payload);
 
-            expect(mockResponse.json).toHaveBeenCalledWith(payload);
-        });
-
-        it('should handle complex payloads', () => {
-            const payload = {
-                nested: { data: [1, 2, 3] },
-                string: 'test',
-            };
-
-            sendJsonWithEtag(mockResponse as Response, payload);
-
-            expect(mockResponse.set).toHaveBeenCalledWith(
-                'ETag',
-                expect.any(String),
-            );
             expect(mockResponse.json).toHaveBeenCalledWith(payload);
         });
     });
