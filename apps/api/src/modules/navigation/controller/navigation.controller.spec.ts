@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import navigationService from 'src/modules/navigation/services/navigation.service';
-import { sendJsonWithEtag } from 'src/utils/middlewares';
+
+import { sendJsonWithEtag } from '@cohbrgr/server';
 
 import {
     fullNavigationController,
@@ -8,7 +9,10 @@ import {
 } from './navigation.controller';
 
 jest.mock('src/modules/navigation/services/navigation.service');
-jest.mock('src/utils/middlewares');
+jest.mock('@cohbrgr/server', () => ({
+    ...jest.requireActual('@cohbrgr/server'),
+    sendJsonWithEtag: jest.fn(),
+}));
 
 describe('navigation.controller', () => {
     let mockRequest: Partial<Request>;

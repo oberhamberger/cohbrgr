@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import navigationService from 'src/modules/navigation/services/navigation.service';
-import { sendJsonWithEtag } from 'src/utils/middlewares';
+
+import { sendJsonWithEtag } from '@cohbrgr/server';
 
 export const fullNavigationController = (
     _request: Request,

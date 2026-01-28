@@ -1,7 +1,8 @@
 import type { Request, Response } from 'express';
 import { pickLanguage } from 'src/modules/translation/middleware/language.middleware';
 import translationService from 'src/modules/translation/service/translation.service';
-import { sendJsonWithEtag } from 'src/utils/middlewares';
+
+import { sendJsonWithEtag } from '@cohbrgr/server';
 
 // Full translation bundle
 export const fullTranslationController = (
