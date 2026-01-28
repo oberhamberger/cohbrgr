@@ -28,6 +28,7 @@ describe('server middleware', () => {
     });
 
     it('should set up logging middleware', () => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { logging } = require('@cohbrgr/server');
 
         middleware(
@@ -41,6 +42,7 @@ describe('server middleware', () => {
     });
 
     it('should set up methodDetermination middleware', () => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { methodDetermination } = require('@cohbrgr/server');
 
         middleware(
@@ -76,6 +78,7 @@ describe('server middleware', () => {
     });
 
     it('should use correct middleware order', () => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { logging, methodDetermination } = require('@cohbrgr/server');
         const callOrder: string[] = [];
 

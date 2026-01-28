@@ -12,6 +12,7 @@ describe('env config', () => {
 
     it('should use local config when DOCKER env is not set', () => {
         delete process.env['DOCKER'];
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
 
         expect(Config.port).toBe(3000);
@@ -21,6 +22,7 @@ describe('env config', () => {
 
     it('should use docker config when DOCKER env is set', () => {
         process.env['DOCKER'] = 'true';
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
 
         expect(Config.port).toBe(3000);
