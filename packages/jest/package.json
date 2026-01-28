@@ -4,12 +4,13 @@
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
+    "type": "module",
     "files": [
         "index.ts",
-        "cli.js"
+        "cli.cjs"
     ],
     "bin": {
-        "jest": "./cli.js"
+        "jest": "./cli.cjs"
     },
     "exports": {
         ".": "./index.ts"
