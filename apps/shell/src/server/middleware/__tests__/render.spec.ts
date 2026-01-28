@@ -98,4 +98,40 @@ describe('render middleware', () => {
             expect(report.errorCount).toBeLessThan(1);
         });
     });
+
+    it('should handle HEAD requests', async () => {
+        mockRequest = httpMocks.createRequest({
+            method: 'HEAD',
+            url: '/offline',
+        });
+
+        mockResponse = httpMocks.createResponse({
+            locals: {
+                nonce: '1234',
+            },
+        });
+
+        await render(true, true)(mockRequest, mockResponse);
+
+        expect(mockResponse.statusCode).toEqual(200);
+    });
+
+    it('should render with non-production mode', async () => {
+        mockRequest = httpMocks.createRequest({
+            method: 'GET',
+            url: '/offline',
+        });
+
+        mockResponse = httpMocks.createResponse({
+            locals: {
+                nonce: '1234',
+            },
+        });
+
+        await render(false, true)(mockRequest, mockResponse);
+
+        const htmlResponse = mockResponse._getData();
+        expect(mockResponse.statusCode).toEqual(200);
+        expect(htmlResponse.length).toBeGreaterThan(0);
+    });
 });
