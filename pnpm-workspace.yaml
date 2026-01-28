@@ -1,7 +1,7 @@
 packages:
-    - 'packages/*'
-    - 'apps/*'
+  - packages/*
+  - apps/*
 
 catalog:
-    '@rspack/cli': '1.7.3'
-    '@rspack/core': '1.7.3'
+  '@rspack/cli': 1.7.4
+  '@rspack/core': 1.7.4
