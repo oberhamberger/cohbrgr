@@ -33,6 +33,9 @@ pnpm run serve
 pnpm run test
 pnpm run test:components    # Test specific package
 
+# Run tests with coverage (within a package/app directory)
+npx jest --coverage
+
 # Linting and formatting
 pnpm run lint
 pnpm run prettier
@@ -90,6 +93,24 @@ Each app has its own Dockerfile. Use docker-compose for multi-app local setup:
 ```bash
 docker-compose up
 ```
+
+## CI Commands
+
+The following commands are executed in GitHub Actions and should pass locally before committing:
+
+```bash
+pnpm install          # Install dependencies
+pnpm run build        # Build all packages and apps
+pnpm run lint         # Run ESLint (warnings OK, errors fail)
+pnpm run test         # Run all tests
+lhci autorun          # Lighthouse CI (requires Chrome/Chromium)
+```
+
+## Claude Code Settings
+
+Shared Claude Code permissions are stored in `.claude/settings.json`. Local/personal settings go in `.claude/settings.local.json` (gitignored).
+
+The shared settings pre-approve common commands like `pnpm run test`, `git status`, `git commit`, etc.
 
 ## Git Guidelines
 
