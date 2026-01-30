@@ -111,10 +111,10 @@ Logger.error('Database connection failed');
 
 ```typescript
 import {
-    Logger,
     findProcessArgs,
     isDevelopment,
     isProduction,
+    Logger,
 } from '@cohbrgr/utils';
 
 // Environment-aware configuration

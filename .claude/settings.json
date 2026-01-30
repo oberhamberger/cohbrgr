@@ -1,21 +1,21 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(pnpm run prettier:*)",
-      "Bash(pnpm run test:*)",
-      "Bash(pnpm run test)",
-      "Bash(pnpm run build:*)",
-      "Bash(pnpm run build)",
-      "Bash(pnpm run lint:*)",
-      "Bash(pnpm run lint)",
-      "Bash(pnpm exec prettier:*)",
-      "Bash(git status:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(lhci autorun:*)",
-      "Bash(ls:*)"
-    ]
-  }
+    "permissions": {
+        "allow": [
+            "Bash(pnpm run prettier:*)",
+            "Bash(pnpm run test:*)",
+            "Bash(pnpm run test)",
+            "Bash(pnpm run build:*)",
+            "Bash(pnpm run build)",
+            "Bash(pnpm run lint:*)",
+            "Bash(pnpm run lint)",
+            "Bash(pnpm exec prettier:*)",
+            "Bash(git status:*)",
+            "Bash(git diff:*)",
+            "Bash(git log:*)",
+            "Bash(git add:*)",
+            "Bash(git commit:*)",
+            "Bash(lhci autorun:*)",
+            "Bash(ls:*)"
+        ]
+    }
 }

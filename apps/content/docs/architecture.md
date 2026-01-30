@@ -25,8 +25,8 @@ This app acts as a **remote** in the Module Federation architecture. The shell a
 
 ### Exposed Modules
 
-| Name | Path | Description |
-|------|------|-------------|
+| Name        | Path                            | Description                 |
+| ----------- | ------------------------------- | --------------------------- |
 | `./Content` | `src/client/components/content` | Main page content component |
 
 ### Shared Dependencies

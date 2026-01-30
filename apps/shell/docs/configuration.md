@@ -2,25 +2,25 @@
 
 ## Environment Variables
 
-| Variable | Purpose |
-|----------|---------|
+| Variable   | Purpose                                   |
+| ---------- | ----------------------------------------- |
 | `NODE_ENV` | Set to `production` for production builds |
-| `DOCKER` | When set, uses Cloud Run URLs |
+| `DOCKER`   | When set, uses Cloud Run URLs             |
 
 ## Ports
 
 | Environment | Port |
-|-------------|------|
-| Production | 3000 |
+| ----------- | ---- |
+| Production  | 3000 |
 | Development | 3030 |
 
 ## Public Paths
 
-| Environment | URL |
-|-------------|-----|
-| Local production | `http://localhost:3000/` |
+| Environment       | URL                      |
+| ----------------- | ------------------------ |
+| Local production  | `http://localhost:3000/` |
 | Local development | `http://localhost:3030/` |
-| Cloud Run | `https://cohbrgr.com/` |
+| Cloud Run         | `https://cohbrgr.com/`   |
 
 ## Server Middleware
 

@@ -17,13 +17,13 @@ pnpm run serve:api
 
 ## Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/health` | Health check |
-| GET | `/navigation` | Full navigation tree |
-| GET | `/navigation/:nodeId` | Navigation subtree |
-| GET | `/translation` | All translations |
-| GET | `/translation/:lang` | Language-specific translations |
+| Method | Path                  | Description                    |
+| ------ | --------------------- | ------------------------------ |
+| GET    | `/health`             | Health check                   |
+| GET    | `/navigation`         | Full navigation tree           |
+| GET    | `/navigation/:nodeId` | Navigation subtree             |
+| GET    | `/translation`        | All translations               |
+| GET    | `/translation/:lang`  | Language-specific translations |
 
 ## Documentation
 

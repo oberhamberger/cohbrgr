@@ -214,7 +214,12 @@ describe('errorHandler', () => {
 
     it('sends 500 status for errors', () => {
         const error = new Error('Test error');
-        errorHandler(error, mockRequest as Request, mockResponse as Response, mockNext);
+        errorHandler(
+            error,
+            mockRequest as Request,
+            mockResponse as Response,
+            mockNext,
+        );
         expect(mockResponse.status).toHaveBeenCalledWith(500);
     });
 });
@@ -303,47 +308,50 @@ const mockResponse = httpMocks.createResponse();
 ## Adding Tests to a New Package
 
 1. Add `@cohbrgr/jest` as a dev dependency:
-   ```bash
-   pnpm add -D @cohbrgr/jest
-   ```
+
+    ```bash
+    pnpm add -D @cohbrgr/jest
+    ```
 
 2. Create `jest.config.ts`:
-   ```typescript
-   import type { JestConfigWithTsJest } from 'ts-jest';
-   import baseConfig from '@cohbrgr/jest';
 
-   const config: JestConfigWithTsJest = {
-       ...baseConfig,
-       displayName: 'my-package',
-       testEnvironment: 'node', // or 'jsdom' for React
-       rootDir: '.',
-   };
+    ```typescript
+    import type { JestConfigWithTsJest } from 'ts-jest';
 
-   export default config;
-   ```
+    import baseConfig from '@cohbrgr/jest';
+
+    const config: JestConfigWithTsJest = {
+        ...baseConfig,
+        displayName: 'my-package',
+        testEnvironment: 'node', // or 'jsdom' for React
+        rootDir: '.',
+    };
+
+    export default config;
+    ```
 
 3. Add test script to `package.json`:
-   ```json
-   {
-       "scripts": {
-           "test": "jest"
-       }
-   }
-   ```
+
+    ```json
+    {
+        "scripts": {
+            "test": "jest"
+        }
+    }
+    ```
 
 4. Update `tsconfig.json` to exclude test files from build:
-   ```json
-   {
-       "exclude": ["dist", "node_modules", "jest.config.ts", "**/*.spec.ts"]
-   }
-   ```
+
+    ```json
+    {
+        "exclude": ["dist", "node_modules", "jest.config.ts", "**/*.spec.ts"]
+    }
+    ```
 
 5. Update `eslint.config.mjs` to ignore test files:
-   ```javascript
-   import config from '@cohbrgr/eslint';
 
-   export default [
-       ...config,
-       { ignores: ['jest.config.ts', '**/*.spec.ts'] },
-   ];
-   ```
+    ```javascript
+    import config from '@cohbrgr/eslint';
+
+    export default [...config, { ignores: ['jest.config.ts', '**/*.spec.ts'] }];
+    ```

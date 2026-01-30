@@ -27,11 +27,12 @@ This app acts as the **host** that consumes remotes. It doesn't expose any modul
 
 ### Consumed Remotes
 
-| Remote | Module | Usage |
-|--------|--------|-------|
+| Remote    | Module      | Usage             |
+| --------- | ----------- | ----------------- |
 | `content` | `./Content` | Main page content |
 
 The remote URL is determined by environment:
+
 - Local: `http://localhost:3001/client/remoteEntry.js` (prod) or port 3031 (dev)
 - Docker: Cloud Run URL from content app's config
 

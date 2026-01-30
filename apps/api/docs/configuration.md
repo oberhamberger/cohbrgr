@@ -2,10 +2,10 @@
 
 ## Environment Variables
 
-| Variable | Purpose |
-|----------|---------|
-| `NODE_ENV` | Set to `production` for production builds |
-| `DOCKER` | When set, uses Cloud Run URLs instead of localhost |
+| Variable   | Purpose                                            |
+| ---------- | -------------------------------------------------- |
+| `NODE_ENV` | Set to `production` for production builds          |
+| `DOCKER`   | When set, uses Cloud Run URLs instead of localhost |
 
 ## Port
 
