@@ -3,11 +3,11 @@ import { StrictMode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { hydrateRoot } from 'react-dom/client';
 import App from 'src/client/App';
-import { TranslationProvider } from 'src/client/contexts/translation';
+import { TranslationLoader } from 'src/client/components/translation-loader';
 import { TranslationKeys } from 'src/client/types/translation';
 
 /**
- * Default English translations as fallback for client-only rendering.
+ * Default English translations as fallback while fetching from API.
  */
 const defaultTranslations: TranslationKeys = {
     'hero.subtitle': 'c.f.k.o',
@@ -37,11 +37,11 @@ if (root) {
         root,
         <StrictMode>
             <QueryClientProvider client={queryClient}>
-                <TranslationProvider
-                    context={{ lang: 'en', keys: defaultTranslations }}
+                <TranslationLoader
+                    fallback={{ lang: 'en', keys: defaultTranslations }}
                 >
                     <App />
-                </TranslationProvider>
+                </TranslationLoader>
             </QueryClientProvider>
         </StrictMode>,
     );
