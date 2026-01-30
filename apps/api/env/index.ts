@@ -1,6 +1,8 @@
+const isProduction = process.env['NODE_ENV'] === 'production';
+
 export const internalConfig = {
     local: {
-        port: 3002,
+        port: isProduction ? 3002 : 3032,
         location: 'http://localhost',
         staticPath: '/dist',
     },

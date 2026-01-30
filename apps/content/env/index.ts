@@ -1,9 +1,11 @@
+const isProduction = process.env['NODE_ENV'] === 'production';
+
 export const internalConfig = {
     local: {
-        port: 3001,
+        port: isProduction ? 3001 : 3031,
         location: 'http://localhost',
         staticPath: '/dist',
-        apiUrl: 'http://localhost:3002',
+        apiUrl: isProduction ? 'http://localhost:3002' : 'http://localhost:3032',
     },
     docker: {
         port: 3001,
