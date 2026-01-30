@@ -1,10 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
+import { Config } from 'env';
 import { TranslationResponse } from 'src/client/types/translation';
-
-const API_BASE_URL =
-    process.env['DOCKER'] === 'true'
-        ? 'https://cohbrgr-api-944962437395.europe-west6.run.app'
-        : 'http://localhost:3032';
 
 /**
  * Fetches translations for a specific language from the API.
@@ -12,7 +8,7 @@ const API_BASE_URL =
 export const fetchTranslations = async (
     lang: string = 'en',
 ): Promise<TranslationResponse> => {
-    const response = await fetch(`${API_BASE_URL}/translation/${lang}`);
+    const response = await fetch(`${Config.apiUrl}/translation/${lang}`);
     if (!response.ok) {
         throw new Error(`Failed to fetch translations: ${response.statusText}`);
     }
