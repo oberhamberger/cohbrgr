@@ -4,6 +4,7 @@ import { readdirSync } from 'fs';
 import { FunctionComponent } from 'react';
 
 import { State } from 'src/client/store/state';
+import { TranslationKeys } from 'src/client/types/translation';
 
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
@@ -11,6 +12,10 @@ import { Logger } from '@cohbrgr/utils';
 interface IJavascriptHTMLProps {
     nonce: string;
     isProduction: boolean;
+    translations: {
+        lang: string;
+        keys: TranslationKeys;
+    };
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
@@ -30,6 +35,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     const __initial_state__: State = {
         isProduction: props.isProduction,
         nonce: '',
+        translations: props.translations,
     };
 
     return (
