@@ -13,6 +13,12 @@ interface ITranslationLoader {
     };
 }
 
+type TranslationState = {
+    lang: string;
+    keys: TranslationKeys;
+    isDefault: boolean;
+};
+
 /**
  * Component that fetches translations from the API and provides them via context.
  * Uses fallback translations until the API response is received.
@@ -21,12 +27,15 @@ const TranslationLoader: FunctionComponent<ITranslationLoader> = ({
     children,
     fallback,
 }) => {
-    const [translations, setTranslations] = useState(fallback);
+    const [translations, setTranslations] = useState<TranslationState>({
+        ...fallback,
+        isDefault: true,
+    });
     const { data } = useQuery(translationQueryOptions('en'));
 
     useEffect(() => {
         if (data) {
-            setTranslations({ lang: data.lang, keys: data.keys });
+            setTranslations({ lang: data.lang, keys: data.keys, isDefault: false });
         }
     }, [data]);
 

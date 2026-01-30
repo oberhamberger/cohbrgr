@@ -21,12 +21,14 @@ export type TranslationContextValue = {
     lang: string;
     keys: TranslationKeys;
     translate: (key: TranslationKey) => string;
+    isDefault: boolean;
 };
 
 const initialTranslationContext: TranslationContextValue = {
     lang: 'en',
     keys: defaultTranslations,
     translate: (key: TranslationKey) => defaultTranslations[key] ?? key,
+    isDefault: true,
 };
 
 type ProviderProps = {
@@ -34,6 +36,7 @@ type ProviderProps = {
     context?: {
         lang: string;
         keys: TranslationKeys;
+        isDefault?: boolean;
     };
 };
 
@@ -46,7 +49,7 @@ export const TranslationContext = createContext<TranslationContextValue>(
  */
 export const TranslationProvider = ({
     children,
-    context = { lang: 'en', keys: defaultTranslations },
+    context = { lang: 'en', keys: defaultTranslations, isDefault: true },
 }: ProviderProps) => {
     const translate = (key: TranslationKey): string => {
         return context.keys[key] ?? key;
@@ -58,6 +61,7 @@ export const TranslationProvider = ({
                 lang: context.lang,
                 keys: context.keys,
                 translate,
+                isDefault: context.isDefault ?? true,
             }}
         >
             {children}

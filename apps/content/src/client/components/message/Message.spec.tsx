@@ -18,7 +18,9 @@ const mockTranslations: TranslationKeys = {
 
 const renderWithProvider = (ui: React.ReactElement) => {
     return render(
-        <TranslationProvider context={{ lang: 'en', keys: mockTranslations }}>
+        <TranslationProvider
+            context={{ lang: 'en', keys: mockTranslations, isDefault: false }}
+        >
             {ui}
         </TranslationProvider>,
     );
@@ -40,23 +42,29 @@ describe('Message Component', () => {
     it('renders the key itself when translation not found', () => {
         const emptyTranslations = {} as TranslationKeys;
         render(
-            <TranslationProvider context={{ lang: 'en', keys: emptyTranslations }}>
+            <TranslationProvider
+                context={{ lang: 'en', keys: emptyTranslations, isDefault: false }}
+            >
                 <Message id="hero.title" />
             </TranslationProvider>,
         );
 
-        expect(screen.getByText('hero.title')).toBeInTheDocument();
+        // In development, missing translations are wrapped in brackets
+        expect(screen.getByText('[hero.title]')).toBeInTheDocument();
     });
 
     it('renders fallback when key not found', () => {
         const emptyTranslations = {} as TranslationKeys;
         render(
-            <TranslationProvider context={{ lang: 'en', keys: emptyTranslations }}>
+            <TranslationProvider
+                context={{ lang: 'en', keys: emptyTranslations, isDefault: false }}
+            >
                 <Message id="hero.title" fallback="Fallback Text" />
             </TranslationProvider>,
         );
 
-        expect(screen.getByText('Fallback Text')).toBeInTheDocument();
+        // In development, missing translations are wrapped in brackets
+        expect(screen.getByText('[Fallback Text]')).toBeInTheDocument();
     });
 
     it('renders HTML content when html prop is true', () => {

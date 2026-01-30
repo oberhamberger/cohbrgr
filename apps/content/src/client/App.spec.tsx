@@ -19,7 +19,9 @@ const mockTranslations: TranslationKeys = {
 
 const renderWithProvider = (ui: React.ReactElement) => {
     return render(
-        <TranslationProvider context={{ lang: 'en', keys: mockTranslations }}>
+        <TranslationProvider
+            context={{ lang: 'en', keys: mockTranslations, isDefault: false }}
+        >
             {ui}
         </TranslationProvider>,
     );
