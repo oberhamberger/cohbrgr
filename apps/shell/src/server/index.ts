@@ -2,10 +2,8 @@ import app from 'src/server/server';
 
 import { gracefulStartAndClose } from '@cohbrgr/server';
 import { Config } from '@cohbrgr/shell/env';
-import { isProduction } from '@cohbrgr/utils';
 
-const defaultPort = isProduction ? Config.port : Config.port + 30;
-const port = process.env['PORT'] || defaultPort;
+const port = process.env['PORT'] || Config.port;
 
 /**
  * Dynamically imports and initializes the render middleware for server-side rendering.
