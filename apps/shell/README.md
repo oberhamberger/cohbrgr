@@ -17,26 +17,26 @@ pnpm run serve:shell
 
 ## Consumed Remotes
 
-| Remote | Module | Description |
-|--------|--------|-------------|
+| Remote    | Module      | Description       |
+| --------- | ----------- | ----------------- |
 | `content` | `./Content` | Main page content |
 
 Loaded via React.lazy with Suspense fallback.
 
 ## Routes
 
-| Path | Page |
-|------|------|
-| `/` | Content (from remote) |
-| `/offline` | Offline page |
-| `*` | Not found |
+| Path       | Page                  |
+| ---------- | --------------------- |
+| `/`        | Content (from remote) |
+| `/offline` | Offline page          |
+| `*`        | Not found             |
 
 ## Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/health` | Health check |
-| GET | `/*` | SSR rendered pages |
+| Method | Path      | Description        |
+| ------ | --------- | ------------------ |
+| GET    | `/health` | Health check       |
+| GET    | `/*`      | SSR rendered pages |
 
 ## Documentation
 

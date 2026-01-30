@@ -17,21 +17,22 @@ pnpm run serve:content
 
 ## Exposed Components
 
-| Module | Description |
-|--------|-------------|
+| Module      | Description                       |
+| ----------- | --------------------------------- |
 | `./Content` | Main page content with navigation |
 
 Consumed by the shell app via:
+
 ```typescript
 const Content = React.lazy(() => import('content/Content'));
 ```
 
 ## Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/health` | Health check |
-| GET | `/client/*` | Static files (JS, CSS, remoteEntry.js) |
+| Method | Path        | Description                            |
+| ------ | ----------- | -------------------------------------- |
+| GET    | `/health`   | Health check                           |
+| GET    | `/client/*` | Static files (JS, CSS, remoteEntry.js) |
 
 ## Documentation
 
