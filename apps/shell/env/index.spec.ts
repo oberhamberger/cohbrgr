@@ -26,7 +26,9 @@ describe('env config', () => {
         const { Config } = require('./index');
 
         expect(Config.port).toBe(3000);
-        expect(Config.location).toBe('https://cohbrgr-o44imzpega-oa.a.run.app/');
+        expect(Config.location).toBe(
+            'https://cohbrgr-o44imzpega-oa.a.run.app/',
+        );
         expect(Config.staticPath).toBe('/dist');
     });
 });

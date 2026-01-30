@@ -1,6 +1,5 @@
 //import routes from '@cohbrgr/shell/src/client/routes';
 import { join } from 'path';
-
 import { fork } from 'child_process';
 import { mkdirSync, writeFile } from 'fs';
 

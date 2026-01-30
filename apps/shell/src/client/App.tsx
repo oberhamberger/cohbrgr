@@ -1,4 +1,4 @@
-import { FunctionComponent, Suspense, lazy, useEffect } from 'react';
+import { FunctionComponent, lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import 'src/client/styles/index.scss';

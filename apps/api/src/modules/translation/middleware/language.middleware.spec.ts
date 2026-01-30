@@ -1,5 +1,3 @@
-import type { NextFunction, Request, Response } from 'express';
-
 import {
     defaultLanguage,
     getExplicitLanguageFromRequest,
@@ -9,6 +7,8 @@ import {
     supportedLanguages,
     translations,
 } from './language.middleware';
+
+import type { NextFunction, Request, Response } from 'express';
 
 describe('language.middleware', () => {
     describe('exports', () => {
@@ -124,7 +124,9 @@ describe('language.middleware', () => {
                 headers: { 'accept-language': undefined },
             } as unknown as Request;
 
-            expect(getLanguageFromAcceptLanguageHeader(request)).toBeUndefined();
+            expect(
+                getLanguageFromAcceptLanguageHeader(request),
+            ).toBeUndefined();
         });
 
         it('should return undefined when no supported language in header', () => {
@@ -132,7 +134,9 @@ describe('language.middleware', () => {
                 headers: { 'accept-language': 'fr-FR,fr;q=0.9,es;q=0.8' },
             } as unknown as Request;
 
-            expect(getLanguageFromAcceptLanguageHeader(request)).toBeUndefined();
+            expect(
+                getLanguageFromAcceptLanguageHeader(request),
+            ).toBeUndefined();
         });
 
         it('should handle empty segments in header', () => {

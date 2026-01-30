@@ -1,5 +1,6 @@
-import type { RequestHandler, Response } from 'express';
 import Express from 'express';
+
+import type { RequestHandler, Response } from 'express';
 
 export interface StaticFilesOptions {
     /**

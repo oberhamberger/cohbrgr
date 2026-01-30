@@ -1,6 +1,6 @@
-import type { Application } from 'express';
+import { isProduction, Logger } from '@cohbrgr/utils';
 
-import { Logger, isProduction } from '@cohbrgr/utils';
+import type { Application } from 'express';
 
 /**
  * Starts the Express server on the specified port and sets up graceful shutdown handlers for SIGTERM and SIGINT.

@@ -1,8 +1,8 @@
 import { extname, resolve } from 'path';
+import { readdirSync } from 'fs';
 
 import { FunctionComponent } from 'react';
 
-import { readdirSync } from 'fs';
 import { State } from 'src/client/store/state';
 
 import { Config } from '@cohbrgr/shell/env';

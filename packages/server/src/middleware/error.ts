@@ -1,11 +1,11 @@
+import { Logger } from '@cohbrgr/utils';
+
 import type {
     ErrorRequestHandler,
     NextFunction,
     Request,
     Response,
 } from 'express';
-
-import { Logger } from '@cohbrgr/utils';
 
 /**
  * Express error handler middleware that logs errors and returns a 500 status with a generic error message.

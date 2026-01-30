@@ -1,8 +1,9 @@
-import type { Request, Response } from 'express';
 import { pickLanguage } from 'src/modules/translation/middleware/language.middleware';
 import translationService from 'src/modules/translation/service/translation.service';
 
 import { sendJsonWithEtag } from '@cohbrgr/server';
+
+import type { Request, Response } from 'express';
 
 /**
  * Controller that returns the complete translation bundle for all languages with ETag caching.

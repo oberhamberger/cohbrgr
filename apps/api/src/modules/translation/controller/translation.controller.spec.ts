@@ -1,4 +1,3 @@
-import type { Request, Response } from 'express';
 import {
     fullTranslationController,
     languageSpecificTranslationController,
@@ -7,6 +6,8 @@ import { pickLanguage } from 'src/modules/translation/middleware/language.middle
 import translationService from 'src/modules/translation/service/translation.service';
 
 import { sendJsonWithEtag } from '@cohbrgr/server';
+
+import type { Request, Response } from 'express';
 
 jest.mock('src/modules/translation/middleware/language.middleware');
 jest.mock('src/modules/translation/service/translation.service');

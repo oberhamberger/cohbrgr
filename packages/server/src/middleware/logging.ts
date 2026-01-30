@@ -1,6 +1,6 @@
-import type { NextFunction, Request, Response } from 'express';
-
 import { Logger } from '@cohbrgr/utils';
+
+import type { NextFunction, Request, Response } from 'express';
 
 /**
  * Middleware factory that creates a request logging handler with different verbosity for production vs development.
