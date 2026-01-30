@@ -1,12 +1,11 @@
 import { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom';
 
+import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
-import { TranslationProvider } from 'src/client/contexts/translation';
 import routes from 'src/client/routes';
-import { TranslationKeys } from 'src/client/types/translation';
 import Javascript from 'src/server/template/components/Javascript.html';
 import Stylesheets from 'src/server/template/components/Stylesheets.html';
 

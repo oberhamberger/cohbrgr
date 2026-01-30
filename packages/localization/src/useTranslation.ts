@@ -1,9 +1,6 @@
 import { useContext } from 'react';
 
-import {
-    TranslationContext,
-    TranslationContextValue,
-} from 'src/client/contexts/translation';
+import { TranslationContext, TranslationContextValue } from './context';
 
 /**
  * Hook to access translation context values.

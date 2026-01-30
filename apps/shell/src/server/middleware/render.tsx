@@ -1,15 +1,13 @@
 import { PassThrough, Stream } from 'stream';
 
-import { renderToPipeableStream } from 'react-dom/server';
-import { Request, Response } from 'express';
-import { HttpContextData } from 'src/client/contexts/http';
-import { defaultTranslations } from 'src/client/contexts/translation';
-import { TranslationKeys } from 'src/client/types/translation';
-import Index from 'src/server/template/Index.html';
-
-import { Config } from '@cohbrgr/shell/env';
+import { defaultTranslations, TranslationKeys } from '@cohbrgr/localization';
 import { HttpMethod } from '@cohbrgr/server';
+import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
+import { Request, Response } from 'express';
+import { renderToPipeableStream } from 'react-dom/server';
+import { HttpContextData } from 'src/client/contexts/http';
+import Index from 'src/server/template/Index.html';
 
 type TranslationData = {
     lang: string;

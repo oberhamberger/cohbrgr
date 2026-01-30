@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { TranslationProvider } from 'src/client/contexts/translation';
-import { TranslationKeys } from 'src/client/types/translation';
 
+import { TranslationProvider } from './context';
 import Message from './Message';
+import { TranslationKeys } from './types';
 
 const mockTranslations: TranslationKeys = {
     'hero.subtitle': 'c.f.k.o',

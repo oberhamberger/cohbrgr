@@ -1,7 +1,7 @@
 import { createContext, ReactElement } from 'react';
 
+import { defaultTranslations } from '@cohbrgr/localization';
 import { State } from 'src/client/store/state';
-import { defaultTranslations } from 'src/client/contexts/translation';
 
 const initialAppStateContext: State = {
     isProduction: false,

@@ -3,11 +3,10 @@ import { readdirSync } from 'fs';
 
 import { FunctionComponent } from 'react';
 
-import { State } from 'src/client/store/state';
-import { TranslationKeys } from 'src/client/types/translation';
-
+import { TranslationKeys } from '@cohbrgr/localization';
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
+import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
     nonce: string;

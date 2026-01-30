@@ -2,9 +2,9 @@ import { useContext } from 'react';
 
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { TranslationKeys } from 'src/client/types/translation';
 
-import { TranslationContext, TranslationProvider } from './translation';
+import { TranslationContext, TranslationProvider } from './context';
+import { TranslationKeys } from './types';
 
 const TestConsumer = () => {
     const context = useContext(TranslationContext);
@@ -12,6 +12,7 @@ const TestConsumer = () => {
         <div>
             <span data-testid="lang">{context.lang}</span>
             <span data-testid="title">{context.translate('hero.title')}</span>
+            <span data-testid="isDefault">{context.isDefault.toString()}</span>
         </div>
     );
 };
@@ -36,6 +37,7 @@ describe('translation context', () => {
                         lang: 'en',
                         keys: mockTranslations,
                         translate: (key) => mockTranslations[key] ?? key,
+                        isDefault: false,
                     }}
                 >
                     <TestConsumer />
@@ -54,6 +56,7 @@ describe('translation context', () => {
                     context={{
                         lang: 'en',
                         keys: mockTranslations,
+                        isDefault: false,
                     }}
                 >
                     <TestConsumer />
@@ -62,6 +65,7 @@ describe('translation context', () => {
 
             expect(screen.getByTestId('lang')).toHaveTextContent('en');
             expect(screen.getByTestId('title')).toHaveTextContent('Test Title');
+            expect(screen.getByTestId('isDefault')).toHaveTextContent('false');
         });
 
         it('should use default context when not provided', () => {
@@ -72,6 +76,7 @@ describe('translation context', () => {
             );
 
             expect(screen.getByTestId('lang')).toHaveTextContent('en');
+            expect(screen.getByTestId('isDefault')).toHaveTextContent('true');
         });
 
         it('should return key when translation is missing', () => {

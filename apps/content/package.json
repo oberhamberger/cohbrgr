@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "@cohbrgr/components": "workspace:*",
+        "@cohbrgr/localization": "workspace:*",
         "@cohbrgr/server": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
         "@tanstack/react-query": "^5.90.20",
