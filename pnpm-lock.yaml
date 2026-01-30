@@ -149,6 +149,9 @@ importers:
       '@cohbrgr/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@tanstack/react-query':
+        specifier: ^5.90.20
+        version: 5.90.20(react@19.2.4)
       express:
         specifier: 5.2.1
         version: 5.2.1

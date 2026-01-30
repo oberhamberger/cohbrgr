@@ -3,6 +3,7 @@ import { PassThrough, Stream } from 'stream';
 import { renderToPipeableStream } from 'react-dom/server';
 import { Request, Response } from 'express';
 import { HttpContextData } from 'src/client/contexts/http';
+import { defaultTranslations } from 'src/client/contexts/translation';
 import Index from 'src/server/template/Index.html';
 
 import { HttpMethod } from '@cohbrgr/server';
@@ -28,6 +29,10 @@ const render =
     async (req: Request, res: Response) => {
         const stream = new Promise<Stream>((resolve, reject) => {
             const httpContext: HttpContextData = {};
+            const translations = {
+                lang: 'en',
+                keys: defaultTranslations,
+            };
             try {
                 const { pipe, abort } = renderToPipeableStream(
                     <Index
@@ -36,6 +41,7 @@ const render =
                         useCSR={useClientSideRendering}
                         nonce={res.locals['cspNonce']}
                         httpContextData={httpContext}
+                        translations={translations}
                     />,
                     {
                         onAllReady() {

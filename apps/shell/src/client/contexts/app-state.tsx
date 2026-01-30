@@ -1,10 +1,15 @@
 import { createContext, ReactElement } from 'react';
 
 import { State } from 'src/client/store/state';
+import { defaultTranslations } from 'src/client/contexts/translation';
 
 const initialAppStateContext: State = {
     isProduction: false,
     nonce: '',
+    translations: {
+        lang: 'en',
+        keys: defaultTranslations,
+    },
 };
 
 type ProviderProps = {
