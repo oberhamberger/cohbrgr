@@ -70,6 +70,25 @@ Design tokens extracted from Figma using Style Dictionary. Outputs SCSS variable
 
 **Used by**: components, shell, content
 
+### @cohbrgr/localization
+
+Internationalization (i18n) utilities for React applications.
+
+| Export                | Description                              |
+| --------------------- | ---------------------------------------- |
+| `TranslationProvider` | Context provider for translations        |
+| `useTranslation`      | Hook to access translation context       |
+| `Message`             | Component to render translated text      |
+| `defaultTranslations` | Fallback English translations            |
+
+```typescript
+import { Message, TranslationProvider, useTranslation } from '@cohbrgr/localization';
+```
+
+**Used by**: shell, content
+
+See [Localization](./08-localization.md) for detailed integration documentation.
+
 ## Configuration Packages
 
 These packages provide shared configurations to ensure consistency across the monorepo.

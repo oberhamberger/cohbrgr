@@ -11,4 +11,5 @@ This documentation provides a comprehensive overview of the cohbrgr project. It 
 5.  [Applications](./05-applications.md)
 6.  [Deployment](./06-deployment.md)
 7.  [Unit Testing](./07-unit-testing.md)
-8.  [Architectural Decision Records](./adr/README.md)
+8.  [Localization](./08-localization.md)
+9.  [Architectural Decision Records](./adr/README.md)
