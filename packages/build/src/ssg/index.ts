@@ -13,11 +13,17 @@ const routes = [''];
 const serverAddress = `http://localhost:${port}`;
 const staticOutputPath = 'dist/client/static';
 
+/**
+ * Generates static HTML files by starting a server, fetching routes, and saving them to disk.
+ */
 const staticSiteGenerator = async () => {
     const runningServer = fork('./dist/server/index.js', ['--generator'], {
         silent: true,
     });
 
+    /**
+     * Writes the generated HTML content to a file in the static output directory.
+     */
     const safeHTMLtoFile = (html: string, index: number) => {
         const outputPath = join(
             staticOutputPath,

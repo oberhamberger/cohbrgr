@@ -7,6 +7,9 @@ import type {
 
 import { Logger } from '@cohbrgr/utils';
 
+/**
+ * Express error handler middleware that logs errors and returns a 500 status with a generic error message.
+ */
 export const errorHandler: ErrorRequestHandler = (
     err,
     req: Request,

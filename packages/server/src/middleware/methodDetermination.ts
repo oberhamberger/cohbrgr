@@ -15,6 +15,9 @@ export enum HttpMethod {
     PATCH = 'PATCH',
 }
 
+/**
+ * Middleware that restricts incoming requests to only GET and HEAD methods, returning 405 for others.
+ */
 export const methodDetermination: RequestHandler = (
     req: Request,
     res: Response,
