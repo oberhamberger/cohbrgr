@@ -18,7 +18,10 @@
     },
     "dependencies": {
         "@cohbrgr/utils": "workspace:*",
-        "express": "5.2.1"
+        "compression": "1.8.1",
+        "express": "5.2.1",
+        "express-rate-limit": "8.2.1",
+        "nocache": "4.0.0"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
