@@ -1,9 +1,8 @@
 import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
 
+import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
 import { useQuery } from '@tanstack/react-query';
-import { TranslationProvider } from 'src/client/contexts/translation';
 import { translationQueryOptions } from 'src/client/queries/translation';
-import { TranslationKeys } from 'src/client/types/translation';
 
 interface ITranslationLoader {
     children: ReactElement;

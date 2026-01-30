@@ -1,11 +1,11 @@
 import { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
+import { TranslationProvider } from '@cohbrgr/localization';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { hydrateRoot } from 'react-dom/client';
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
-import { TranslationProvider } from 'src/client/contexts/translation';
 import registerServiceWorker from 'src/client/utils/register-service-worker';
 
 const queryClient = new QueryClient({

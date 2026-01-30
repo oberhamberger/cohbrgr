@@ -1,8 +1,7 @@
 import { FunctionComponent } from 'react';
 
 import { Navigation } from '@cohbrgr/components';
-
-import { Message } from '../message';
+import { Message } from '@cohbrgr/localization';
 import StructuredData from '../structured-data';
 
 export interface IContent {

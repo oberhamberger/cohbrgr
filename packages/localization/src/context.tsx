@@ -1,11 +1,11 @@
 import { createContext, ReactElement } from 'react';
 
-import { TranslationKey, TranslationKeys } from 'src/client/types/translation';
+import { TranslationKey, TranslationKeys } from './types';
 
 /**
  * Default English translations as fallback.
  */
-const defaultTranslations: TranslationKeys = {
+export const defaultTranslations: TranslationKeys = {
     'hero.subtitle': 'c.f.k.o',
     'hero.title': 'My Name is Christian.',
     'hero.text':

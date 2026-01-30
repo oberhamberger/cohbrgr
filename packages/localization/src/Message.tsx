@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 
-import { useTranslation } from 'src/client/hooks/useTranslation';
-import { TranslationKey } from 'src/client/types/translation';
+import { TranslationKey } from './types';
+import { useTranslation } from './useTranslation';
 
 export interface IMessage {
     /** The translation key to look up */

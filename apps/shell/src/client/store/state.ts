@@ -1,4 +1,4 @@
-import { TranslationKeys } from 'src/client/types/translation';
+import { TranslationKeys } from '@cohbrgr/localization';
 
 export type State = {
     isProduction: boolean;
