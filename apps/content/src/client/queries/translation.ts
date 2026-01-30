@@ -4,7 +4,7 @@ import { TranslationResponse } from 'src/client/types/translation';
 const API_BASE_URL =
     process.env['DOCKER'] === 'true'
         ? 'https://cohbrgr-api-944962437395.europe-west6.run.app'
-        : 'http://localhost:3002';
+        : 'http://localhost:3032';
 
 /**
  * Fetches translations for a specific language from the API.
