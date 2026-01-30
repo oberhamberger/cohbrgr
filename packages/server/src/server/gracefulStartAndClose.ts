@@ -2,6 +2,9 @@ import type { Application } from 'express';
 
 import { Logger, isProduction } from '@cohbrgr/utils';
 
+/**
+ * Starts the Express server on the specified port and sets up graceful shutdown handlers for SIGTERM and SIGINT.
+ */
 export const gracefulStartAndClose = (app: Application, port: number) => {
     // starting the server
     const server = app.listen(port, () => {
@@ -15,7 +18,9 @@ export const gracefulStartAndClose = (app: Application, port: number) => {
         }
     });
 
-    // stopping the server correctly
+    /**
+     * Closes the server gracefully and exits the process.
+     */
     const closeGracefully = async () => {
         await server.close();
         Logger.log('info', `Server closed.`);

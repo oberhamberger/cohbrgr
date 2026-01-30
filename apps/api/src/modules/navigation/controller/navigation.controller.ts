@@ -3,6 +3,9 @@ import navigationService from 'src/modules/navigation/services/navigation.servic
 
 import { sendJsonWithEtag } from '@cohbrgr/server';
 
+/**
+ * Controller that returns the complete navigation structure with ETag caching.
+ */
 export const fullNavigationController = (
     _request: Request,
     response: Response,
@@ -10,6 +13,9 @@ export const fullNavigationController = (
     return sendJsonWithEtag(response, navigationService.get());
 };
 
+/**
+ * Controller that returns the sub-navigation for a specific node ID with ETag caching.
+ */
 export const subNavigationController = (
     _request: Request,
     response: Response,

@@ -11,6 +11,9 @@ const routeKeys = Object.keys(routes);
 const routeValues = Object.values(routes);
 const noncePlaceHolder = /!CSPNONCE_PLACEHOLDER!/g;
 
+/**
+ * Attempts to match a request path against the defined route values and returns the corresponding route key.
+ */
 const matchPathWithRoutes = (path: string) => {
     let matchedRoute = null;
     routeKeys.forEach((route, index) => {
@@ -21,6 +24,9 @@ const matchPathWithRoutes = (path: string) => {
     return matchedRoute;
 };
 
+/**
+ * Checks if a file exists at the given path and returns a promise resolving to true or false.
+ */
 const checkFileExists = (filePath: string) => {
     return new Promise((resolve) => {
         access(filePath, constants.F_OK, (err) => {
@@ -35,6 +41,9 @@ const checkFileExists = (filePath: string) => {
     });
 };
 
+/**
+ * Middleware factory that serves pre-generated static HTML files in production, replacing CSP nonce placeholders with actual nonces.
+ */
 const jam =
     (isProduction: boolean) =>
     async (req: Request, res: Response, next: NextFunction) => {

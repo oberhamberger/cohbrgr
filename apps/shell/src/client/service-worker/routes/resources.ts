@@ -13,8 +13,9 @@ const resourceCacheFirst = new CacheFirst({
     ],
 });
 
-// this resource handler is meant for images+fonts that may be referenced
-// without being checked into the codebase under /resources/static
+/**
+ * Route matcher callback that identifies image and font requests for caching.
+ */
 const resourceMatch: RouteMatchCallback = ({ request }) =>
     request.destination === 'image' || request.destination === 'font';
 

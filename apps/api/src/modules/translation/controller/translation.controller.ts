@@ -4,7 +4,9 @@ import translationService from 'src/modules/translation/service/translation.serv
 
 import { sendJsonWithEtag } from '@cohbrgr/server';
 
-// Full translation bundle
+/**
+ * Controller that returns the complete translation bundle for all languages with ETag caching.
+ */
 export const fullTranslationController = (
     _request: Request,
     response: Response,
@@ -12,7 +14,9 @@ export const fullTranslationController = (
     sendJsonWithEtag(response, translationService.get());
 };
 
-// Language-specific via path param: /translations/de
+/**
+ * Controller that returns translations for a specific language determined from the request with ETag caching.
+ */
 export const languageSpecificTranslationController = (
     _request: Request,
     response: Response,

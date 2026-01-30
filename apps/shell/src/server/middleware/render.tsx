@@ -8,6 +8,9 @@ import { PassThrough, Stream } from 'stream';
 import { HttpMethod } from '@cohbrgr/server';
 import { Logger } from '@cohbrgr/utils';
 
+/**
+ * Converts a readable stream to a complete string by accumulating all chunks.
+ */
 const streamToString = (stream: Stream): Promise<string> => {
     const chunks: Uint8Array[] = [];
     return new Promise((resolve, reject) => {
@@ -17,6 +20,9 @@ const streamToString = (stream: Stream): Promise<string> => {
     });
 };
 
+/**
+ * Middleware factory that creates a server-side rendering handler for React applications with streaming support.
+ */
 const render =
     (isProduction: boolean, useClientSideRendering: boolean) =>
     async (req: Request, res: Response) => {

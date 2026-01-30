@@ -17,7 +17,9 @@ export const defaultLanguage: LanguageCode = (
         : supportedLanguages[0]
 ) as LanguageCode;
 
-/** Extract explicit language from query (?lang=) or params (/:lang) using bracket access */
+/**
+ * Extracts the explicitly specified language code from query parameters or URL path parameters.
+ */
 export const getExplicitLanguageFromRequest = (
     request: Request,
 ): string | undefined => {
@@ -37,7 +39,9 @@ export const getExplicitLanguageFromRequest = (
     return undefined;
 };
 
-/** Parse Accept-Language, prefer primary subtags, keep bracket-safe reads everywhere else */
+/**
+ * Parses the Accept-Language header and returns the first supported language code.
+ */
 export const getLanguageFromAcceptLanguageHeader = (
     request: Request,
 ): string | undefined => {
@@ -63,6 +67,9 @@ export const getLanguageFromAcceptLanguageHeader = (
     return firstSupported;
 };
 
+/**
+ * Determines the best language code for a request by checking explicit parameters, Accept-Language header, or falling back to the default.
+ */
 export const pickLanguage = (request: Request): LanguageCode => {
     const explicitLanguage = getExplicitLanguageFromRequest(request);
     if (
@@ -83,6 +90,9 @@ export const pickLanguage = (request: Request): LanguageCode => {
     return defaultLanguage;
 };
 
+/**
+ * Middleware that validates explicit language parameters and returns a 400 error if an unsupported language is requested.
+ */
 export const requireSupportedLanguage = (
     request: Request,
     response: Response,

@@ -1,5 +1,8 @@
 import { FunctionComponent } from 'react';
 
+/**
+ * Builds a JSON-LD structured data object for Schema.org WebSite markup.
+ */
 const buildJsonLd = () => {
     return JSON.stringify({
         '@context': 'https://schema.org',

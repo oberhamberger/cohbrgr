@@ -3,6 +3,9 @@ import { RouteHandler } from 'workbox-core';
 export const OFFLINE_CACHE_NAME = 'offline';
 export const FALLBACK_HTML_URL = '/offline';
 
+/**
+ * Service worker route handler that serves the offline fallback page for failed navigation requests.
+ */
 const offlineNavigationHandler: RouteHandler = async ({ request }) => {
     const { destination, mode } = request;
     if (destination === 'document' && mode === 'navigate') {
