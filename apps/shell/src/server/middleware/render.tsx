@@ -4,10 +4,36 @@ import { renderToPipeableStream } from 'react-dom/server';
 import { Request, Response } from 'express';
 import { HttpContextData } from 'src/client/contexts/http';
 import { defaultTranslations } from 'src/client/contexts/translation';
+import { TranslationKeys } from 'src/client/types/translation';
 import Index from 'src/server/template/Index.html';
 
+import { Config } from '@cohbrgr/shell/env';
 import { HttpMethod } from '@cohbrgr/server';
 import { Logger } from '@cohbrgr/utils';
+
+type TranslationData = {
+    lang: string;
+    keys: TranslationKeys;
+};
+
+/**
+ * Fetches translations from the API for the specified language.
+ * Falls back to default translations if the fetch fails.
+ */
+const fetchTranslations = async (lang: string = 'en'): Promise<TranslationData> => {
+    try {
+        const response = await fetch(`${Config.apiUrl}/translation/${lang}`);
+        if (!response.ok) {
+            Logger.warn(`Failed to fetch translations: ${response.statusText}`);
+            return { lang, keys: defaultTranslations };
+        }
+        const data = await response.json();
+        return { lang: data.lang, keys: data.keys };
+    } catch (error) {
+        Logger.warn(`Error fetching translations: ${error}`);
+        return { lang, keys: defaultTranslations };
+    }
+};
 
 /**
  * Converts a readable stream to a complete string by accumulating all chunks.
@@ -27,12 +53,10 @@ const streamToString = (stream: Stream): Promise<string> => {
 const render =
     (isProduction: boolean, useClientSideRendering: boolean) =>
     async (req: Request, res: Response) => {
+        const translations = await fetchTranslations('en');
+
         const stream = new Promise<Stream>((resolve, reject) => {
             const httpContext: HttpContextData = {};
-            const translations = {
-                lang: 'en',
-                keys: defaultTranslations,
-            };
             try {
                 const { pipe, abort } = renderToPipeableStream(
                     <Index
