@@ -29,6 +29,7 @@
         "@cohbrgr/components": "workspace:*",
         "@cohbrgr/server": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
+        "@tanstack/react-query": "^5.90.20",
         "express": "5.2.1"
     },
     "devDependencies": {

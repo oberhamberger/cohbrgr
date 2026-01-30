@@ -2,29 +2,37 @@ import { FunctionComponent } from 'react';
 
 import { Navigation } from '@cohbrgr/components';
 
+import { Message } from '../message';
 import StructuredData from '../structured-data';
 
 export interface IContent {
     nonce?: string | undefined;
 }
 
+/**
+ * Main content component displaying the hero section with translated text.
+ */
 const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <>
             <main>
-                <h1>My name is Christian</h1>
+                <h1>
+                    <Message id="hero.title" />
+                </h1>
                 <p>
-                    I am a Frontend Architect at{' '}
-                    <a href="https://www.netconomy.net/">Netconomy</a>. I mainly
-                    work with React and Node.js on online commerce platforms.
+                    <Message id="hero.text" html />
                 </p>
             </main>
             <Navigation>
-                <a href="https://github.com/oberhamberger">Github</a>
-                <a href="https://bsky.app/profile/cohbrgr.bsky.social">
-                    Bluesky
+                <a href="https://github.com/oberhamberger">
+                    <Message id="hero.nav.github" />
                 </a>
-                <a href="https://www.linkedin.com/in/oberhamberger">LinkedIn</a>
+                <a href="https://bsky.app/profile/cohbrgr.bsky.social">
+                    <Message id="hero.nav.bluesky" />
+                </a>
+                <a href="https://www.linkedin.com/in/oberhamberger">
+                    <Message id="hero.nav.linkedin" />
+                </a>
             </Navigation>
             <StructuredData nonce={nonce} />
         </>
