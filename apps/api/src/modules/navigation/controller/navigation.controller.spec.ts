@@ -1,4 +1,3 @@
-import type { Request, Response } from 'express';
 import navigationService from 'src/modules/navigation/services/navigation.service';
 
 import { sendJsonWithEtag } from '@cohbrgr/server';
@@ -7,6 +6,8 @@ import {
     fullNavigationController,
     subNavigationController,
 } from './navigation.controller';
+
+import type { Request, Response } from 'express';
 
 jest.mock('src/modules/navigation/services/navigation.service');
 jest.mock('@cohbrgr/server', () => ({

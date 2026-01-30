@@ -1,6 +1,6 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
-
 import baseConfig from '@cohbrgr/jest';
+
+import type { JestConfigWithTsJest } from 'ts-jest';
 
 const config: JestConfigWithTsJest = {
     ...baseConfig,

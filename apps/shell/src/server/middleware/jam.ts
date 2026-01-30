@@ -1,10 +1,10 @@
 import { resolve } from 'path';
+import { access, constants, readFileSync } from 'fs';
 
 import { NextFunction, Request, Response } from 'express';
-import { access, constants, readFileSync } from 'fs';
 import routes from 'src/client/routes';
 
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
+import { findProcessArgs, Logger } from '@cohbrgr/utils';
 
 const isGenerator = findProcessArgs(['--generator']);
 const routeKeys = Object.keys(routes);

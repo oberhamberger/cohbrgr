@@ -1,6 +1,6 @@
-import type { NextFunction, Request, Response } from 'express';
-
 import jam from '../jam';
+
+import type { NextFunction, Request, Response } from 'express';
 
 describe('jam middleware', () => {
     let mockRequest: Partial<Request>;

@@ -1,7 +1,8 @@
-import type { Application, Request, Response, NextFunction } from 'express';
 import rateLimit, { type Options } from 'express-rate-limit';
 
 import { Logger } from '@cohbrgr/utils';
+
+import type { Application, NextFunction, Request, Response } from 'express';
 
 export interface RateLimitOptions {
     /**
@@ -44,9 +45,7 @@ export function applyRateLimit(
                     'warn',
                     `Restricted request from ${request.ip} for ${request.path}`,
                 );
-                return response
-                    .status(opts.statusCode)
-                    .send(opts.message);
+                return response.status(opts.statusCode).send(opts.message);
             },
         }),
     );

@@ -1,6 +1,7 @@
+import { useContext } from 'react';
+
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { useContext } from 'react';
 
 import { HttpContext, HttpContextData, HttpProvider, HttpStatus } from './http';
 
@@ -8,8 +9,12 @@ const TestConsumer = () => {
     const context = useContext(HttpContext);
     return (
         <div>
-            <span data-testid="statusCode">{context?.statusCode ?? 'none'}</span>
-            <span data-testid="redirectLocation">{context?.redirectLocation ?? 'none'}</span>
+            <span data-testid="statusCode">
+                {context?.statusCode ?? 'none'}
+            </span>
+            <span data-testid="redirectLocation">
+                {context?.redirectLocation ?? 'none'}
+            </span>
         </div>
     );
 };
@@ -41,7 +46,9 @@ describe('http context', () => {
             );
 
             expect(screen.getByTestId('statusCode')).toHaveTextContent('200');
-            expect(screen.getByTestId('redirectLocation')).toHaveTextContent('/home');
+            expect(screen.getByTestId('redirectLocation')).toHaveTextContent(
+                '/home',
+            );
         });
     });
 

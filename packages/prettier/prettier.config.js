@@ -1,22 +1,9 @@
-import sortImports from '@trivago/prettier-plugin-sort-imports';
-
+// Import order is enforced by ESLint (packages/eslint). Prettier does not sort imports to avoid conflicts.
 const config = {
     trailingComma: 'all',
     tabWidth: 4,
     semi: true,
     singleQuote: true,
-    plugins: [sortImports],
-    importOrder: [
-        '^node:(.*)$',
-        'path',
-        '^react(.*)',
-        '(.*).scss',
-        '<THIRD_PARTY_MODULES>',
-        '@cohbrgr/(.*)',
-        '^[./]',
-    ],
-    importOrderSeparation: true,
-    importOrderSortSpecifiers: true,
 };
 
 export default config;

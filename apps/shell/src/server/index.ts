@@ -10,10 +10,9 @@ const port = process.env['PORT'] || defaultPort;
 /**
  * Dynamically imports and initializes the render middleware for server-side rendering.
  */
-const renderThunk = (
+const renderThunk =
     // @ts-expect-error: dynamic import of server-entry is required for SSR compatibility
-    (await import('./server-entry')).default as unknown as RenderThunk
-)();
+    ((await import('./server-entry')).default as unknown as RenderThunk)();
 
 app.use(renderThunk);
 

@@ -1,7 +1,8 @@
-import type { Request, Response } from 'express';
 import navigationService from 'src/modules/navigation/services/navigation.service';
 
 import { sendJsonWithEtag } from '@cohbrgr/server';
+
+import type { Request, Response } from 'express';
 
 /**
  * Controller that returns the complete navigation structure with ETag caching.

@@ -1,4 +1,5 @@
 import { randomBytes } from 'crypto';
+
 import type { NextFunction, Request, Response } from 'express';
 
 const NONCE_PLACEHOLDER = '!CSPNONCE_PLACEHOLDER!';

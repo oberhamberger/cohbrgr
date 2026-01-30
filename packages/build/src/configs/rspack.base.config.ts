@@ -5,9 +5,9 @@ import { type RspackOptions } from '@rspack/core';
 import { getStyleLoader } from '../loader/style.loader';
 import {
     CWD,
-    Mode,
     isDevelopment,
     isProduction,
+    Mode,
     regexSource,
     regexStyle,
 } from '../utils/constants';

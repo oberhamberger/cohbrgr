@@ -1,6 +1,6 @@
-import type { Request, Response } from 'express';
-
 import { etagOf, sendJsonWithEtag } from '../etag';
+
+import type { Request, Response } from 'express';
 
 describe('etag utilities', () => {
     describe('etagOf', () => {

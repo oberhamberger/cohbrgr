@@ -6,8 +6,8 @@ import NodemonPlugin from 'nodemon-webpack-plugin';
 import { merge } from 'webpack-merge';
 
 import {
-    CWD,
     baseConfig,
+    CWD,
     isCloudRun,
     isDevelopment,
     isProduction,

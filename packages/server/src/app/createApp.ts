@@ -1,12 +1,13 @@
 import compression from 'compression';
-import type { Application } from 'express';
 import Express from 'express';
 import nocache from 'nocache';
 
-import { healthRoutes } from '../router/health';
 import { logging } from '../middleware/logging';
 import { methodDetermination } from '../middleware/methodDetermination';
 import { applyRateLimit, type RateLimitOptions } from '../middleware/rateLimit';
+import { healthRoutes } from '../router/health';
+
+import type { Application } from 'express';
 
 export interface CreateAppOptions {
     /**
