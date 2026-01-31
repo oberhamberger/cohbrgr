@@ -7,7 +7,10 @@ import { fetchTranslations } from 'src/client/queries/translation';
 import Index from 'src/server/template/Index.html';
 
 import { HttpMethod } from '@cohbrgr/server';
-import { createTranslationCache, TranslationCache } from '@cohbrgr/localization';
+import {
+    createTranslationCache,
+    TranslationCache,
+} from '@cohbrgr/localization';
 import { Logger } from '@cohbrgr/utils';
 
 /**

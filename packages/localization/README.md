@@ -10,20 +10,20 @@ pnpm add @cohbrgr/localization
 
 ## Exports
 
-| Export                       | Type      | Description                                    |
-| ---------------------------- | --------- | ---------------------------------------------- |
-| `TranslationProvider`        | Component | Context provider for translations              |
-| `TranslationContext`         | Context   | React context for translation values           |
-| `useTranslation`             | Hook      | Access translation context                     |
-| `Message`                    | Component | Render translated text by key                  |
-| `createTranslationCache`     | Function  | Create Suspense-compatible translation cache   |
-| `TranslationCacheProvider`   | Component | Provider for translation cache                 |
-| `SuspenseTranslationLoader`  | Component | Suspense-aware translation loader              |
-| `TranslationKey`             | Type      | Union of all valid translation keys            |
-| `TranslationKeys`            | Type      | Record mapping keys to translated strings      |
-| `TranslationResponse`        | Type      | API response shape for translations            |
-| `TranslationContextValue`    | Type      | Shape of the translation context value         |
-| `TranslationCache`           | Type      | Shape of the Suspense-compatible cache         |
+| Export                      | Type      | Description                                  |
+| --------------------------- | --------- | -------------------------------------------- |
+| `TranslationProvider`       | Component | Context provider for translations            |
+| `TranslationContext`        | Context   | React context for translation values         |
+| `useTranslation`            | Hook      | Access translation context                   |
+| `Message`                   | Component | Render translated text by key                |
+| `createTranslationCache`    | Function  | Create Suspense-compatible translation cache |
+| `TranslationCacheProvider`  | Component | Provider for translation cache               |
+| `SuspenseTranslationLoader` | Component | Suspense-aware translation loader            |
+| `TranslationKey`            | Type      | Union of all valid translation keys          |
+| `TranslationKeys`           | Type      | Record mapping keys to translated strings    |
+| `TranslationResponse`       | Type      | API response shape for translations          |
+| `TranslationContextValue`   | Type      | Shape of the translation context value       |
+| `TranslationCache`          | Type      | Shape of the Suspense-compatible cache       |
 
 ## Types
 
@@ -90,10 +90,10 @@ function createTranslationCache(
 
 **Parameters:**
 
-| Parameter     | Type                                   | Description                              |
-| ------------- | -------------------------------------- | ---------------------------------------- |
-| `fetcher`     | `() => Promise<TranslationResponse>`   | Function to fetch translations (SSR)     |
-| `initialData` | `TranslationResponse`                  | Pre-populated data (hydration)           |
+| Parameter     | Type                                 | Description                          |
+| ------------- | ------------------------------------ | ------------------------------------ |
+| `fetcher`     | `() => Promise<TranslationResponse>` | Function to fetch translations (SSR) |
+| `initialData` | `TranslationResponse`                | Pre-populated data (hydration)       |
 
 **SSR Usage (pre-fetch before render):**
 
@@ -170,7 +170,11 @@ const render = async (req, res) => {
                 </SuspenseTranslationLoader>
             </Suspense>
         </TranslationCacheProvider>,
-        { onAllReady() { /* stream response */ } },
+        {
+            onAllReady() {
+                /* stream response */
+            },
+        },
     );
 };
 ```

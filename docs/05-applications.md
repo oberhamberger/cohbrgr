@@ -46,7 +46,7 @@ pnpm run serve:shell    # Serve production build
 | Mode        | Port |
 | ----------- | ---- |
 | Development | 3030 |
-| Production  | 3030 |
+| Production  | 3000 |
 
 ---
 
@@ -95,7 +95,7 @@ pnpm run serve:content    # Serve production build
 | Mode        | Port |
 | ----------- | ---- |
 | Development | 3031 |
-| Production  | 3031 |
+| Production  | 3001 |
 
 ---
 
@@ -148,4 +148,46 @@ pnpm run serve:api    # Serve production build
 | Mode        | Port |
 | ----------- | ---- |
 | Development | 3032 |
-| Production  | 3032 |
+| Production  | 3002 |
+
+---
+
+## Port Configuration
+
+Ports are determined at **build time** based on `NODE_ENV`. The port value is inlined into the bundle during compilation, not read at runtime.
+
+### Summary Table
+
+| Application | Development (`pnpm run dev`) | Production (`pnpm run serve`) |
+| ----------- | ---------------------------- | ----------------------------- |
+| Shell       | 3030                         | 3000                          |
+| Content     | 3031                         | 3001                          |
+| API         | 3032                         | 3002                          |
+
+### How It Works
+
+The `env/index.ts` file in each app uses `process.env.NODE_ENV` with dot notation, which allows Rspack's DefinePlugin to inline the value at build time:
+
+```typescript
+// apps/*/env/index.ts
+const isProduction = process.env.NODE_ENV === 'production';
+
+const config = {
+    local: {
+        port: isProduction ? 3000 : 3030,  // Inlined at build time
+        // ...
+    },
+};
+```
+
+This means:
+- `pnpm run dev` (NODE_ENV=development) → port becomes `3030`
+- `pnpm run build` (NODE_ENV=production) → port becomes `3000`
+
+### Verification
+
+Run the port verification script to ensure ports are configured correctly:
+
+```bash
+./scripts/verify-ports.sh
+```

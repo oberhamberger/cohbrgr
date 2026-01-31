@@ -149,10 +149,12 @@ import {
             </SuspenseTranslationLoader>
         </Suspense>
     </AppStateProvider>
-</TranslationCacheProvider>
+</TranslationCacheProvider>;
 
-{/* Translations from cache embedded in initial state */}
-<Javascript translationCache={props.translationCache} /* ... */ />
+{
+    /* Translations from cache embedded in initial state */
+}
+<Javascript translationCache={props.translationCache} /* ... */ />;
 ```
 
 ### Client Bootstrap

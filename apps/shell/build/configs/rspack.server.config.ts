@@ -55,7 +55,7 @@ const config: RspackOptions = {
         library: { type: 'commonjs2' },
     },
     externalsPresets: { node: true },
-    externals: ['express', '@cohbrgr/shell/env'],
+    externals: ['express'],
 };
 
 export default defineConfig(merge(baseConfig, config));

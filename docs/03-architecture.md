@@ -22,9 +22,22 @@ cohbrgr uses a micro-frontend architecture where a host application (shell) orch
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Shell Server  │    │  Content Server │    │    API Server   │
 │   (SSR + Host)  │◄───│    (Remote)     │    │    (Express)    │
-│   Port 3030     │    │   Port 3031     │    │   Port 3032     │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
+
+### Application Ports
+
+Ports are determined at **build time** based on `NODE_ENV`. This ensures development and production builds can run on different ports without runtime configuration.
+
+| Application | Development | Production |
+| ----------- | ----------- | ---------- |
+| Shell       | 3030        | 3000       |
+| Content     | 3031        | 3001       |
+| API         | 3032        | 3002       |
+
+**Note**: The port is baked into the bundle during build:
+- `pnpm run dev` builds with `NODE_ENV=development` → uses 303x ports
+- `pnpm run build` builds with `NODE_ENV=production` → uses 300x ports
 
 ## Monorepo Structure
 
