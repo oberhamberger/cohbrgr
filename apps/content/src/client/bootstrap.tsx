@@ -1,6 +1,5 @@
 import { StrictMode } from 'react';
 
-import { defaultTranslations } from '@cohbrgr/localization';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { hydrateRoot } from 'react-dom/client';
 import App from 'src/client/App';
@@ -22,9 +21,7 @@ if (root) {
         root,
         <StrictMode>
             <QueryClientProvider client={queryClient}>
-                <TranslationLoader
-                    fallback={{ lang: 'en', keys: defaultTranslations }}
-                >
+                <TranslationLoader fallback={{ lang: 'en', keys: {} }}>
                     <App />
                 </TranslationLoader>
             </QueryClientProvider>

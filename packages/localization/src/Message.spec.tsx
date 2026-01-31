@@ -43,7 +43,11 @@ describe('Message Component', () => {
         const emptyTranslations = {} as TranslationKeys;
         render(
             <TranslationProvider
-                context={{ lang: 'en', keys: emptyTranslations, isDefault: false }}
+                context={{
+                    lang: 'en',
+                    keys: emptyTranslations,
+                    isDefault: false,
+                }}
             >
                 <Message id="hero.title" />
             </TranslationProvider>,
@@ -57,7 +61,11 @@ describe('Message Component', () => {
         const emptyTranslations = {} as TranslationKeys;
         render(
             <TranslationProvider
-                context={{ lang: 'en', keys: emptyTranslations, isDefault: false }}
+                context={{
+                    lang: 'en',
+                    keys: emptyTranslations,
+                    isDefault: false,
+                }}
             >
                 <Message id="hero.title" fallback="Fallback Text" />
             </TranslationProvider>,

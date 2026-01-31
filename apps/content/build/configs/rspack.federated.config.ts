@@ -21,6 +21,9 @@ const getRemoteOptions = () => {
                 singleton: true,
                 requiredVersion: dependencies['react-dom'],
             },
+            '@cohbrgr/localization': {
+                singleton: true,
+            },
         },
     };
 };

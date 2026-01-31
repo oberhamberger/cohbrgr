@@ -1,11 +1,13 @@
 import { PassThrough, Stream } from 'stream';
 
-import { HttpMethod } from '@cohbrgr/server';
-import { Logger } from '@cohbrgr/utils';
 import { Request, Response } from 'express';
-import { renderToPipeableStream } from 'react-dom/server';
+import { renderToPipeableStream, renderToString } from 'react-dom/server';
 import { HttpContextData } from 'src/client/contexts/http';
 import Index from 'src/server/template/Index.html';
+
+import { Logger } from '@cohbrgr/utils';
+import { HttpMethod } from '@cohbrgr/server';
+import { createSSRDataRegistry, SSRDataRegistry } from '@cohbrgr/localization';
 
 /**
  * Converts a readable stream to a complete string by accumulating all chunks.
@@ -20,22 +22,74 @@ const streamToString = (stream: Stream): Promise<string> => {
 };
 
 /**
- * Middleware factory that creates a server-side rendering handler for React applications with streaming support.
+ * Renders the Index component with the given SSR data registry.
+ */
+const renderIndex = (
+    isProduction: boolean,
+    location: string,
+    useCSR: boolean,
+    nonce: string,
+    httpContextData: HttpContextData,
+    ssrRegistry: SSRDataRegistry,
+) => (
+    <Index
+        isProduction={isProduction}
+        location={location}
+        useCSR={useCSR}
+        nonce={nonce}
+        httpContextData={httpContextData}
+        ssrRegistry={ssrRegistry}
+    />
+);
+
+/**
+ * Middleware factory that creates a server-side rendering handler for React applications.
+ * Implements two-pass SSR:
+ * 1. First pass: Render to collect data requirements (e.g., translation fetch)
+ * 2. Await all registered promises
+ * 3. Second pass: Render with resolved data
  */
 const render =
     (isProduction: boolean, useClientSideRendering: boolean) =>
     async (req: Request, res: Response) => {
+        const ssrDataRegistry = createSSRDataRegistry();
+
+        // First pass: render to collect data requirements
+        const httpContextFirstPass: HttpContextData = {};
+        Logger.info('SSR: Starting first pass to collect data requirements');
+        renderToString(
+            renderIndex(
+                isProduction,
+                req.url,
+                useClientSideRendering,
+                res.locals['cspNonce'],
+                httpContextFirstPass,
+                ssrDataRegistry.collectingRegistry,
+            ),
+        );
+
+        // Await all registered promises (e.g., translation fetch)
+        if (ssrDataRegistry.hasPromises()) {
+            Logger.info('SSR: Awaiting registered promises');
+            await ssrDataRegistry.awaitPromises();
+            Logger.info('SSR: Promises resolved');
+        } else {
+            Logger.warn('SSR: No promises were registered during first pass');
+        }
+
+        // Second pass: render with resolved data
         const stream = new Promise<Stream>((resolve, reject) => {
             const httpContext: HttpContextData = {};
             try {
                 const { pipe, abort } = renderToPipeableStream(
-                    <Index
-                        isProduction={isProduction}
-                        location={req.url}
-                        useCSR={useClientSideRendering}
-                        nonce={res.locals['cspNonce']}
-                        httpContextData={httpContext}
-                    />,
+                    renderIndex(
+                        isProduction,
+                        req.url,
+                        useClientSideRendering,
+                        res.locals['cspNonce'],
+                        httpContext,
+                        ssrDataRegistry.resolvedRegistry,
+                    ),
                     {
                         onAllReady() {
                             const renderStatusCode =

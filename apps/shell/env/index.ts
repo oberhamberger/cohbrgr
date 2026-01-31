@@ -5,7 +5,9 @@ const internalConfig = {
         port: isProduction ? 3000 : 3030,
         location: 'http://localhost',
         staticPath: '/dist',
-        apiUrl: isProduction ? 'http://localhost:3002' : 'http://localhost:3032',
+        apiUrl: isProduction
+            ? 'http://localhost:3002'
+            : 'http://localhost:3032',
     },
     docker: {
         port: 3000,

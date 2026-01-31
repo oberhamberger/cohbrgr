@@ -1,6 +1,7 @@
+import { queryOptions } from '@tanstack/react-query';
+
 import { TranslationResponse } from '@cohbrgr/localization';
 import { Config } from '@cohbrgr/shell/env';
-import { queryOptions } from '@tanstack/react-query';
 
 /**
  * Fetches translations for a specific language from the API.

@@ -2,21 +2,6 @@ import { createContext, ReactElement } from 'react';
 
 import { TranslationKey, TranslationKeys } from './types';
 
-/**
- * Default English translations as fallback.
- */
-export const defaultTranslations: TranslationKeys = {
-    'hero.subtitle': 'c.f.k.o',
-    'hero.title': 'My Name is Christian.',
-    'hero.text':
-        "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>. I mainly work with React and Node.js on online commerce platforms.",
-    'hero.nav.github': 'Github',
-    'hero.nav.bluesky': 'Bluesky',
-    'hero.nav.linkedin': 'LinkedIn',
-    'offline.nav.refresh': 'return',
-    'offline.nav.back': 'zurück',
-};
-
 export type TranslationContextValue = {
     lang: string;
     keys: TranslationKeys;
@@ -26,8 +11,8 @@ export type TranslationContextValue = {
 
 const initialTranslationContext: TranslationContextValue = {
     lang: 'en',
-    keys: defaultTranslations,
-    translate: (key: TranslationKey) => defaultTranslations[key] ?? key,
+    keys: {},
+    translate: (key: TranslationKey) => key,
     isDefault: true,
 };
 
@@ -49,7 +34,7 @@ export const TranslationContext = createContext<TranslationContextValue>(
  */
 export const TranslationProvider = ({
     children,
-    context = { lang: 'en', keys: defaultTranslations, isDefault: true },
+    context = { lang: 'en', keys: {}, isDefault: true },
 }: ProviderProps) => {
     const translate = (key: TranslationKey): string => {
         return context.keys[key] ?? key;

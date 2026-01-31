@@ -47,6 +47,15 @@ describe('translation context', () => {
             expect(screen.getByTestId('lang')).toHaveTextContent('en');
             expect(screen.getByTestId('title')).toHaveTextContent('Test Title');
         });
+
+        it('should use initial context default translate function when no provider', () => {
+            render(<TestConsumer />);
+
+            expect(screen.getByTestId('lang')).toHaveTextContent('en');
+            // Default translate returns the key as-is
+            expect(screen.getByTestId('title')).toHaveTextContent('hero.title');
+            expect(screen.getByTestId('isDefault')).toHaveTextContent('true');
+        });
     });
 
     describe('TranslationProvider', () => {

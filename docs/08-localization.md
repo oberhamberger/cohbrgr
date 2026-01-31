@@ -16,22 +16,38 @@ The localization system consists of three parts:
 ┌─────────────┐     ┌─────────────┐     ┌──────────────────┐
 │  API Server │────▶│  /translation│────▶│ translations.json│
 └─────────────┘     └─────────────┘     └──────────────────┘
+       ▲
+       │ fetch (triggered by TranslationLoader during SSR)
        │
-       │ fetch (client-side)
-       ▼
-┌─────────────────────────────────────────────────────────┐
-│                    Shell / Content App                   │
+┌──────┴──────────────────────────────────────────────────┐
+│                       Shell App                          │
+│  ┌─────────────────────────────────────────────────────┐│
+│  │ render.tsx (Two-Pass SSR)                           ││
+│  │  1. First pass: collect data requirements           ││
+│  │  2. Await promises (translation fetch)              ││
+│  │  3. Second pass: render with resolved data          ││
+│  └─────────────────────────────────────────────────────┘│
+│         │                                                │
+│         ▼                                                │
 │  ┌─────────────────┐    ┌────────────────────────────┐  │
-│  │TranslationLoader│───▶│   TranslationProvider      │  │
-│  │                 │    │                            │  │
+│  │ SSRDataProvider │───▶│   TranslationLoader        │  │
+│  │ (promise        │    │   (registers fetch,        │  │
+│  │  registry)      │    │    uses resolved data)     │  │
 │  └─────────────────┘    │  ┌────────┐  ┌──────────┐  │  │
-│                         │  │Message │  │useTransl.│  │  │
-│                         │  └────────┘  └──────────┘  │  │
-│                         └────────────────────────────┘  │
+│         │               │  │Message │  │useTransl.│  │  │
+│         ▼               │  └────────┘  └──────────┘  │  │
+│  ┌─────────────────┐    └────────────────────────────┘  │
+│  │ __initial_state_│                                    │
+│  │ (hydration)     │                                    │
+│  └─────────────────┘                                    │
 └─────────────────────────────────────────────────────────┘
 ```
 
-Both shell and content apps fetch translations client-side using TanStack Query.
+The shell app uses a two-pass SSR approach:
+
+1. **First pass**: Components register data requirements (e.g., TranslationLoader registers translation fetch)
+2. **Await**: The render middleware waits for all registered promises
+3. **Second pass**: Components render with resolved data
 
 ## Translation Data
 
@@ -56,15 +72,14 @@ Translations are stored in `apps/api/data/translations.json`:
 
 1. Add the key to all language objects in `translations.json`
 2. Update the `TranslationKey` type in `packages/localization/src/types.ts`
-3. Update `defaultTranslations` in `packages/localization/src/context.tsx`
 
 ## API Endpoints
 
 The API provides two endpoints for translations:
 
-| Endpoint             | Description                          |
-| -------------------- | ------------------------------------ |
-| `GET /translation`   | Returns all translations (all languages) |
+| Endpoint                 | Description                                  |
+| ------------------------ | -------------------------------------------- |
+| `GET /translation`       | Returns all translations (all languages)     |
 | `GET /translation/:lang` | Returns translations for a specific language |
 
 ### Response Format
@@ -81,86 +96,81 @@ The API provides two endpoints for translations:
 
 ## Shell App Integration
 
-The shell app fetches translations client-side using TanStack Query, similar to the content app.
+The shell app uses a two-pass SSR approach where components can register data requirements during the first render pass.
 
-### Translation Query
+### Two-Pass SSR in Render Middleware
 
-In `apps/shell/src/client/queries/translation.ts`:
-
-```typescript
-import { TranslationResponse } from '@cohbrgr/localization';
-import { Config } from '@cohbrgr/shell/env';
-import { queryOptions } from '@tanstack/react-query';
-
-export const translationQueryOptions = (lang: string = 'en') =>
-    queryOptions({
-        queryKey: ['translations', lang],
-        queryFn: () => fetchTranslations(lang),
-        staleTime: 1000 * 60 * 60, // 1 hour
-    });
-```
-
-### Translation Loader Component
-
-In `apps/shell/src/client/components/translation-loader/TranslationLoader.tsx`:
+In `apps/shell/src/server/middleware/render.tsx`:
 
 ```tsx
-import { TranslationProvider } from '@cohbrgr/localization';
-import { useQuery } from '@tanstack/react-query';
+import { createSSRDataRegistry } from '@cohbrgr/localization';
 
-const TranslationLoader = ({ children, fallback }) => {
-    const [translations, setTranslations] = useState({
-        ...fallback,
-        isDefault: true,
-    });
-    const { data } = useQuery(translationQueryOptions('en'));
+const render = (isProduction, useClientSideRendering) => async (req, res) => {
+    const ssrDataRegistry = createSSRDataRegistry();
 
-    useEffect(() => {
-        if (data) {
-            setTranslations({
-                lang: data.lang,
-                keys: data.keys,
-                isDefault: false
-            });
-        }
-    }, [data]);
+    // First pass: render to collect data requirements
+    renderToString(
+        <Index ssrRegistry={ssrDataRegistry.collectingRegistry} /* ... */ />,
+    );
 
-    return (
-        <TranslationProvider context={translations}>
-            {children}
-        </TranslationProvider>
+    // Await all registered promises (e.g., translation fetch)
+    if (ssrDataRegistry.hasPromises()) {
+        await ssrDataRegistry.awaitPromises();
+    }
+
+    // Second pass: render with resolved data
+    renderToPipeableStream(
+        <Index ssrRegistry={ssrDataRegistry.resolvedRegistry} /* ... */ />,
+        // ...
     );
 };
 ```
 
 ### SSR Template
 
-In `apps/shell/src/server/template/Index.html.tsx`, default translations are used for SSR:
+In `apps/shell/src/server/template/Index.html.tsx`:
 
 ```tsx
-import { defaultTranslations, TranslationProvider } from '@cohbrgr/localization';
+import { SSRDataProvider, TranslationLoader } from '@cohbrgr/localization';
+import { fetchTranslations } from 'src/client/queries/translation';
 
-<TranslationProvider
-    context={{ lang: 'en', keys: defaultTranslations, isDefault: true }}
->
-    <App />
-</TranslationProvider>
+<SSRDataProvider registry={props.ssrRegistry}>
+    <TranslationLoader fetchTranslations={() => fetchTranslations('en')}>
+        <App />
+    </TranslationLoader>
+</SSRDataProvider>;
+
+{
+    /* Translations from registry embedded in initial state */
+}
+<Javascript ssrRegistry={props.ssrRegistry} /* ... */ />;
 ```
+
+### TranslationLoader Behavior
+
+The `TranslationLoader` component from `@cohbrgr/localization`:
+
+- **During SSR first pass** (`isCollecting: true`): Registers the translation fetch promise
+- **During SSR second pass** (`isCollecting: false`): Uses resolved translations from registry
+- **During client hydration**: Uses translations from `__initial_state__`
 
 ### Client Bootstrap
 
-In `apps/shell/src/client/bootstrap.tsx`:
+In `apps/shell/src/client/bootstrap.tsx`, translations from initial state are used for hydration:
 
 ```tsx
-import { defaultTranslations } from '@cohbrgr/localization';
-import { TranslationLoader } from 'src/client/components/translation-loader';
+import { TranslationProvider } from '@cohbrgr/localization';
 
-<TranslationLoader fallback={{ lang: 'en', keys: defaultTranslations }}>
+const translations = window.__initial_state__?.translations ?? {};
+
+<TranslationProvider
+    context={{ lang: 'en', keys: translations, isDefault: false }}
+>
     <App />
-</TranslationLoader>
+</TranslationProvider>;
 ```
 
-The client hydrates with default translations, then fetches updated translations from the API.
+This ensures SSR and client hydration use identical translations, preventing hydration mismatches.
 
 ## Content App Integration
 
@@ -202,7 +212,7 @@ const TranslationLoader = ({ children, fallback }) => {
             setTranslations({
                 lang: data.lang,
                 keys: data.keys,
-                isDefault: false
+                isDefault: false,
             });
         }
     }, [data]);
@@ -220,9 +230,7 @@ const TranslationLoader = ({ children, fallback }) => {
 In `apps/content/src/client/bootstrap.tsx`:
 
 ```tsx
-import { defaultTranslations } from '@cohbrgr/localization';
-
-<TranslationLoader fallback={{ lang: 'en', keys: defaultTranslations }}>
+<TranslationLoader fallback={{ lang: 'en', keys: {} }}>
     <App />
 </TranslationLoader>
 ```
@@ -238,8 +246,12 @@ import { Message } from '@cohbrgr/localization';
 
 const Hero = () => (
     <main>
-        <h1><Message id="hero.title" /></h1>
-        <p><Message id="hero.text" html /></p>
+        <h1>
+            <Message id="hero.title" />
+        </h1>
+        <p>
+            <Message id="hero.text" html />
+        </p>
     </main>
 );
 ```
@@ -267,11 +279,11 @@ const Navigation = () => {
 
 In development (`NODE_ENV !== 'production'`), the `Message` component adds visual indicators for untranslated content:
 
-| Condition | Display |
-| --------- | ------- |
-| Using default translations | `[Translation text]` |
-| Missing translation key | `[key.name]` or `[Fallback text]` |
-| Loaded from API | `Translation text` (no brackets) |
+| Condition                   | Display                           |
+| --------------------------- | --------------------------------- |
+| Translations not loaded yet | `[key.name]`                      |
+| Missing translation key     | `[key.name]` or `[Fallback text]` |
+| Loaded from API             | `Translation text` (no brackets)  |
 
 This makes it easy to identify content that needs translation during development.
 
@@ -297,8 +309,8 @@ This makes it easy to identify content that needs translation during development
 ## Best Practices
 
 1. **Use translation keys** that describe the content's purpose, not its value:
-   - Good: `hero.title`, `nav.home`, `error.notFound`
-   - Bad: `hello_text`, `button1`, `message`
+    - Good: `hero.title`, `nav.home`, `error.notFound`
+    - Bad: `hello_text`, `button1`, `message`
 
 2. **Keep translations in sync** - All languages should have the same keys
 
@@ -306,4 +318,4 @@ This makes it easy to identify content that needs translation during development
 
 4. **Cache translations** - Use appropriate stale times in TanStack Query to avoid unnecessary refetches
 
-5. **Provide fallbacks** - Always have default translations so the app renders even if the API fails
+5. **Graceful degradation** - The app renders translation keys in brackets if the API fails, making it functional but clearly indicating missing translations

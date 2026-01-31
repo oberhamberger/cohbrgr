@@ -14,8 +14,9 @@ export type TranslationKey =
 
 /**
  * Map of translation keys to their translated string values.
+ * Partial because translations may not be loaded yet.
  */
-export type TranslationKeys = Record<TranslationKey, string>;
+export type TranslationKeys = Partial<Record<TranslationKey, string>>;
 
 /**
  * Response shape from the language-specific translation API endpoint.

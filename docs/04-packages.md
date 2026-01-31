@@ -74,15 +74,18 @@ Design tokens extracted from Figma using Style Dictionary. Outputs SCSS variable
 
 Internationalization (i18n) utilities for React applications.
 
-| Export                | Description                              |
-| --------------------- | ---------------------------------------- |
-| `TranslationProvider` | Context provider for translations        |
-| `useTranslation`      | Hook to access translation context       |
-| `Message`             | Component to render translated text      |
-| `defaultTranslations` | Fallback English translations            |
+| Export                | Description                         |
+| --------------------- | ----------------------------------- |
+| `TranslationProvider` | Context provider for translations   |
+| `useTranslation`      | Hook to access translation context  |
+| `Message`             | Component to render translated text |
 
 ```typescript
-import { Message, TranslationProvider, useTranslation } from '@cohbrgr/localization';
+import {
+    Message,
+    TranslationProvider,
+    useTranslation,
+} from '@cohbrgr/localization';
 ```
 
 **Used by**: shell, content

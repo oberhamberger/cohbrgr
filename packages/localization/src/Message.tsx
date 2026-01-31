@@ -18,7 +18,11 @@ const isDevelopment = process.env['NODE_ENV'] !== 'production';
  * Component that renders a translated message based on a translation key.
  * In development, fallback/default translations are wrapped with square brackets.
  */
-const Message: FunctionComponent<IMessage> = ({ id, fallback, html = false }) => {
+const Message: FunctionComponent<IMessage> = ({
+    id,
+    fallback,
+    html = false,
+}) => {
     const { translate, isDefault } = useTranslation();
     const translation = translate(id);
     // If translation equals the key, it means no translation was found
