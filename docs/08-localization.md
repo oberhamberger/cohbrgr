@@ -17,37 +17,38 @@ The localization system consists of three parts:
 │  API Server │────▶│  /translation│────▶│ translations.json│
 └─────────────┘     └─────────────┘     └──────────────────┘
        ▲
-       │ fetch (triggered by TranslationLoader during SSR)
+       │ fetch (awaited before React render)
        │
 ┌──────┴──────────────────────────────────────────────────┐
 │                       Shell App                          │
 │  ┌─────────────────────────────────────────────────────┐│
-│  │ render.tsx (Two-Pass SSR)                           ││
-│  │  1. First pass: collect data requirements           ││
-│  │  2. Await promises (translation fetch)              ││
-│  │  3. Second pass: render with resolved data          ││
+│  │ render.tsx (Pre-fetch + Suspense SSR)               ││
+│  │  1. Fetch translations (awaited)                    ││
+│  │  2. Create cache with pre-fetched data              ││
+│  │  3. Single-pass render with renderToPipeableStream  ││
 │  └─────────────────────────────────────────────────────┘│
 │         │                                                │
 │         ▼                                                │
-│  ┌─────────────────┐    ┌────────────────────────────┐  │
-│  │ SSRDataProvider │───▶│   TranslationLoader        │  │
-│  │ (promise        │    │   (registers fetch,        │  │
-│  │  registry)      │    │    uses resolved data)     │  │
-│  └─────────────────┘    │  ┌────────┐  ┌──────────┐  │  │
-│         │               │  │Message │  │useTransl.│  │  │
-│         ▼               │  └────────┘  └──────────┘  │  │
-│  ┌─────────────────┐    └────────────────────────────┘  │
+│  ┌──────────────────────┐  ┌────────────────────────┐   │
+│  │TranslationCacheProvider│─▶│SuspenseTranslationLoader│  │
+│  │ (Suspense-compatible │  │  (reads from cache,    │   │
+│  │  translation cache)  │  │   provides context)    │   │
+│  └──────────────────────┘  │  ┌────────┐  ┌──────┐  │   │
+│         │                  │  │Message │  │useT..│  │   │
+│         ▼                  │  └────────┘  └──────┘  │   │
+│  ┌─────────────────┐       └────────────────────────┘   │
 │  │ __initial_state_│                                    │
 │  │ (hydration)     │                                    │
 │  └─────────────────┘                                    │
 └─────────────────────────────────────────────────────────┘
 ```
 
-The shell app uses a two-pass SSR approach:
+The shell app uses a pre-fetch + Suspense approach:
 
-1. **First pass**: Components register data requirements (e.g., TranslationLoader registers translation fetch)
-2. **Await**: The render middleware waits for all registered promises
-3. **Second pass**: Components render with resolved data
+1. **Pre-fetch**: Translations are fetched and awaited before React starts rendering
+2. **Cache**: A Suspense-compatible cache is created with the pre-fetched data
+3. **Render**: Single-pass `renderToPipeableStream` with cache already populated
+4. **Hydration**: Client receives translations via `__initial_state__` and uses the same cache structure
 
 ## Translation Data
 
@@ -96,32 +97,36 @@ The API provides two endpoints for translations:
 
 ## Shell App Integration
 
-The shell app uses a two-pass SSR approach where components can register data requirements during the first render pass.
+The shell app pre-fetches translations before React rendering, then uses a Suspense-compatible cache for both SSR and hydration.
 
-### Two-Pass SSR in Render Middleware
+### Render Middleware
 
 In `apps/shell/src/server/middleware/render.tsx`:
 
 ```tsx
-import { createSSRDataRegistry } from '@cohbrgr/localization';
+import { createTranslationCache } from '@cohbrgr/localization';
+import { fetchTranslations } from 'src/client/queries/translation';
 
 const render = (isProduction, useClientSideRendering) => async (req, res) => {
-    const ssrDataRegistry = createSSRDataRegistry();
-
-    // First pass: render to collect data requirements
-    renderToString(
-        <Index ssrRegistry={ssrDataRegistry.collectingRegistry} /* ... */ />,
-    );
-
-    // Await all registered promises (e.g., translation fetch)
-    if (ssrDataRegistry.hasPromises()) {
-        await ssrDataRegistry.awaitPromises();
+    // Fetch translations before React render
+    let translationData;
+    try {
+        translationData = await fetchTranslations('en');
+    } catch (error) {
+        translationData = { lang: 'en', keys: {} };
     }
 
-    // Second pass: render with resolved data
+    // Create cache with pre-fetched data - no Suspense needed during render
+    const translationCache = createTranslationCache(undefined, translationData);
+
+    // Single-pass render with cache already populated
     renderToPipeableStream(
-        <Index ssrRegistry={ssrDataRegistry.resolvedRegistry} /* ... */ />,
-        // ...
+        <Index translationCache={translationCache} /* ... */ />,
+        {
+            onAllReady() {
+                // Stream complete HTML
+            },
+        },
     );
 };
 ```
@@ -131,46 +136,61 @@ const render = (isProduction, useClientSideRendering) => async (req, res) => {
 In `apps/shell/src/server/template/Index.html.tsx`:
 
 ```tsx
-import { SSRDataProvider, TranslationLoader } from '@cohbrgr/localization';
-import { fetchTranslations } from 'src/client/queries/translation';
+import {
+    TranslationCacheProvider,
+    SuspenseTranslationLoader,
+} from '@cohbrgr/localization';
 
-<SSRDataProvider registry={props.ssrRegistry}>
-    <TranslationLoader fetchTranslations={() => fetchTranslations('en')}>
-        <App />
-    </TranslationLoader>
-</SSRDataProvider>;
+<TranslationCacheProvider cache={props.translationCache}>
+    <AppStateProvider context={/* ... */}>
+        <Suspense fallback={null}>
+            <SuspenseTranslationLoader>
+                <App />
+            </SuspenseTranslationLoader>
+        </Suspense>
+    </AppStateProvider>
+</TranslationCacheProvider>
 
-{
-    /* Translations from registry embedded in initial state */
-}
-<Javascript ssrRegistry={props.ssrRegistry} /* ... */ />;
+{/* Translations from cache embedded in initial state */}
+<Javascript translationCache={props.translationCache} /* ... */ />
 ```
-
-### TranslationLoader Behavior
-
-The `TranslationLoader` component from `@cohbrgr/localization`:
-
-- **During SSR first pass** (`isCollecting: true`): Registers the translation fetch promise
-- **During SSR second pass** (`isCollecting: false`): Uses resolved translations from registry
-- **During client hydration**: Uses translations from `__initial_state__`
 
 ### Client Bootstrap
 
-In `apps/shell/src/client/bootstrap.tsx`, translations from initial state are used for hydration:
+In `apps/shell/src/client/bootstrap.tsx`, the client uses the same component structure with a pre-populated cache:
 
 ```tsx
-import { TranslationProvider } from '@cohbrgr/localization';
+import {
+    createTranslationCache,
+    TranslationCacheProvider,
+    SuspenseTranslationLoader,
+} from '@cohbrgr/localization';
 
 const translations = window.__initial_state__?.translations ?? {};
 
-<TranslationProvider
-    context={{ lang: 'en', keys: translations, isDefault: false }}
->
-    <App />
-</TranslationProvider>;
+// Create cache pre-populated with SSR translations for hydration
+const translationCache = createTranslationCache(undefined, {
+    lang: 'en',
+    keys: translations,
+});
+
+hydrateRoot(
+    root,
+    <TranslationCacheProvider cache={translationCache}>
+        <AppStateProvider context={window.__initial_state__}>
+            <Suspense fallback={null}>
+                <SuspenseTranslationLoader>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </SuspenseTranslationLoader>
+            </Suspense>
+        </AppStateProvider>
+    </TranslationCacheProvider>,
+);
 ```
 
-This ensures SSR and client hydration use identical translations, preventing hydration mismatches.
+This ensures SSR and client hydration use identical component trees and translations, preventing hydration mismatches.
 
 ## Content App Integration
 
