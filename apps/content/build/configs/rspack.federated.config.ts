@@ -23,6 +23,7 @@ const getRemoteOptions = () => {
             },
             '@cohbrgr/localization': {
                 singleton: true,
+                requiredVersion: false,
             },
         },
     };
