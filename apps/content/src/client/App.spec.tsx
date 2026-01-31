@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
-import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
 import { render, screen } from '@testing-library/react';
+
+import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
 
 import App from './App';
 

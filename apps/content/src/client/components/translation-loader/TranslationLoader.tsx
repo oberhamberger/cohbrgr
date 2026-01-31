@@ -1,8 +1,9 @@
 import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
 
-import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
 import { useQuery } from '@tanstack/react-query';
 import { translationQueryOptions } from 'src/client/queries/translation';
+
+import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
 
 interface ITranslationLoader {
     children: ReactElement;
@@ -34,12 +35,18 @@ const TranslationLoader: FunctionComponent<ITranslationLoader> = ({
 
     useEffect(() => {
         if (data) {
-            setTranslations({ lang: data.lang, keys: data.keys, isDefault: false });
+            setTranslations({
+                lang: data.lang,
+                keys: data.keys,
+                isDefault: false,
+            });
         }
     }, [data]);
 
     return (
-        <TranslationProvider context={translations}>{children}</TranslationProvider>
+        <TranslationProvider context={translations}>
+            {children}
+        </TranslationProvider>
     );
 };
 

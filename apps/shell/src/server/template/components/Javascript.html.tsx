@@ -3,13 +3,16 @@ import { readdirSync } from 'fs';
 
 import { FunctionComponent } from 'react';
 
+import { State } from 'src/client/store/state';
+
+import { SSRDataRegistry, TranslationResponse } from '@cohbrgr/localization';
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
-import { State } from 'src/client/store/state';
 
 interface IJavascriptHTMLProps {
     nonce: string;
     isProduction: boolean;
+    ssrRegistry: SSRDataRegistry;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
@@ -26,10 +29,21 @@ try {
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     props: JavascriptHTMLProps,
 ) => {
+    // Get translations from SSR data registry
+    const translationData =
+        props.ssrRegistry.getData<TranslationResponse>('translations');
+
     const __initial_state__: State = {
         isProduction: props.isProduction,
         nonce: '',
+        translations: translationData?.keys ?? {},
     };
+
+    // Escape for safe embedding in JavaScript - handle single quotes, backslashes, and script tags
+    const jsonString = JSON.stringify(__initial_state__)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/<\/script>/gi, '<\\/script>');
 
     return (
         <>
@@ -38,9 +52,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     id="initial-state"
                     nonce={props.nonce}
                     dangerouslySetInnerHTML={{
-                        __html: `__initial_state__ = JSON.parse('${JSON.stringify(
-                            __initial_state__,
-                        )}')`,
+                        __html: `__initial_state__ = JSON.parse('${jsonString}')`,
                     }}
                 ></script>
             }

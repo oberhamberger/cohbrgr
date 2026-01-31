@@ -1,13 +1,19 @@
 import { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom';
 
-import { defaultTranslations, TranslationProvider } from '@cohbrgr/localization';
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
+import { fetchTranslations } from 'src/client/queries/translation';
 import routes from 'src/client/routes';
 import Javascript from 'src/server/template/components/Javascript.html';
 import Stylesheets from 'src/server/template/components/Stylesheets.html';
+
+import {
+    SSRDataProvider,
+    SSRDataRegistry,
+    TranslationLoader,
+} from '@cohbrgr/localization';
 
 interface IIndexProps {
     isProduction: boolean;
@@ -15,6 +21,7 @@ interface IIndexProps {
     useCSR: boolean;
     nonce: string;
     httpContextData: HttpContextData;
+    ssrRegistry: SSRDataRegistry;
 }
 
 export type IndexProps = IIndexProps;
@@ -75,32 +82,33 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
             </head>
             <body>
                 <div id="root">
-                    <AppStateProvider
-                        context={{
-                            nonce: props.nonce,
-                            isProduction: props.isProduction,
-                        }}
-                    >
-                        <TranslationProvider
+                    <SSRDataProvider registry={props.ssrRegistry}>
+                        <AppStateProvider
                             context={{
-                                lang: 'en',
-                                keys: defaultTranslations,
-                                isDefault: true,
+                                nonce: props.nonce,
+                                isProduction: props.isProduction,
                             }}
                         >
-                            <HttpProvider context={props.httpContextData}>
-                                <StaticRouter location={props.location}>
-                                    <App />
-                                </StaticRouter>
-                            </HttpProvider>
-                        </TranslationProvider>
-                    </AppStateProvider>
+                            <TranslationLoader
+                                fetchTranslations={() =>
+                                    fetchTranslations('en')
+                                }
+                            >
+                                <HttpProvider context={props.httpContextData}>
+                                    <StaticRouter location={props.location}>
+                                        <App />
+                                    </StaticRouter>
+                                </HttpProvider>
+                            </TranslationLoader>
+                        </AppStateProvider>
+                    </SSRDataProvider>
                 </div>
 
                 {props.useCSR && props.location !== routes.offline && (
                     <Javascript
                         nonce={props.nonce}
                         isProduction={props.isProduction}
+                        ssrRegistry={props.ssrRegistry}
                     />
                 )}
             </body>

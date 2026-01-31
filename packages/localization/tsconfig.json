@@ -9,5 +9,11 @@
         "outDir": "dist",
         "jsx": "react-jsx"
     },
-    "exclude": ["dist", "node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.spec.tsx"]
+    "exclude": [
+        "dist",
+        "node_modules",
+        "jest.config.ts",
+        "**/*.spec.ts",
+        "**/*.spec.tsx"
+    ]
 }

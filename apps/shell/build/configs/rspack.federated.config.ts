@@ -20,12 +20,19 @@ const getHostOptions = (isServer: boolean) => {
         remotes: {
             content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
-        shared: [
-            {
-                react: dependencies.react,
-                'react-dom': dependencies['react-dom'],
+        shared: {
+            react: {
+                singleton: true,
+                requiredVersion: dependencies.react,
             },
-        ],
+            'react-dom': {
+                singleton: true,
+                requiredVersion: dependencies['react-dom'],
+            },
+            '@cohbrgr/localization': {
+                singleton: true,
+            },
+        },
     };
 };
 
