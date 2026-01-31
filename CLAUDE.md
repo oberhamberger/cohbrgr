@@ -79,6 +79,22 @@ Three deployable applications communicate via Module Federation:
 - **Nx** manages monorepo build orchestration and caching
 - **pnpm workspaces** for package management
 
+### Application Ports
+
+Ports are determined at **build time** based on `NODE_ENV`:
+
+| Application | Development (`pnpm run dev`) | Production (`pnpm run serve`) |
+| ----------- | ---------------------------- | ----------------------------- |
+| Shell       | 3030                         | 3000                          |
+| Content     | 3031                         | 3001                          |
+| API         | 3032                         | 3002                          |
+
+After any changes to port configuration, run the verification script:
+
+```bash
+./scripts/verify-ports.sh
+```
+
 ### Data Flow
 
 1. Shell app server-side renders React using Express

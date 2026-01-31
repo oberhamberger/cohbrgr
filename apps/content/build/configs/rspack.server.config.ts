@@ -52,7 +52,7 @@ const config: RspackOptions = {
         clean: true,
     },
     externalsPresets: { node: true },
-    externals: ['express', '@cohbrgr/content/env'],
+    externals: ['express'],
 };
 
 export default defineConfig(merge(baseConfig, config));

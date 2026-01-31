@@ -90,7 +90,9 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                         >
                             <Suspense fallback={null}>
                                 <SuspenseTranslationLoader>
-                                    <HttpProvider context={props.httpContextData}>
+                                    <HttpProvider
+                                        context={props.httpContextData}
+                                    >
                                         <StaticRouter location={props.location}>
                                             <App />
                                         </StaticRouter>

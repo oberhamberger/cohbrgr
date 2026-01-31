@@ -1,4 +1,6 @@
-const isProduction = process.env['NODE_ENV'] === 'production';
+// Note: Using dot notation (process.env.X) allows Rspack to inline values at build time
+const isProduction = process.env.NODE_ENV === 'production';
+const isDocker = process.env.DOCKER === 'true';
 
 export const internalConfig = {
     local: {
@@ -13,6 +15,4 @@ export const internalConfig = {
     },
 };
 
-export const Config = process.env['DOCKER']
-    ? internalConfig.docker
-    : internalConfig.local;
+export const Config = isDocker ? internalConfig.docker : internalConfig.local;
