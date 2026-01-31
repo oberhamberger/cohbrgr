@@ -1,13 +1,14 @@
 import { PassThrough, Stream } from 'stream';
 
 import { Request, Response } from 'express';
-import { renderToPipeableStream, renderToString } from 'react-dom/server';
+import { renderToPipeableStream } from 'react-dom/server';
 import { HttpContextData } from 'src/client/contexts/http';
+import { fetchTranslations } from 'src/client/queries/translation';
 import Index from 'src/server/template/Index.html';
 
-import { Logger } from '@cohbrgr/utils';
 import { HttpMethod } from '@cohbrgr/server';
-import { createSSRDataRegistry, SSRDataRegistry } from '@cohbrgr/localization';
+import { createTranslationCache, TranslationCache } from '@cohbrgr/localization';
+import { Logger } from '@cohbrgr/utils';
 
 /**
  * Converts a readable stream to a complete string by accumulating all chunks.
@@ -22,7 +23,7 @@ const streamToString = (stream: Stream): Promise<string> => {
 };
 
 /**
- * Renders the Index component with the given SSR data registry.
+ * Renders the Index component with the given translation cache.
  */
 const renderIndex = (
     isProduction: boolean,
@@ -30,7 +31,7 @@ const renderIndex = (
     useCSR: boolean,
     nonce: string,
     httpContextData: HttpContextData,
-    ssrRegistry: SSRDataRegistry,
+    translationCache: TranslationCache,
 ) => (
     <Index
         isProduction={isProduction}
@@ -38,46 +39,23 @@ const renderIndex = (
         useCSR={useCSR}
         nonce={nonce}
         httpContextData={httpContextData}
-        ssrRegistry={ssrRegistry}
+        translationCache={translationCache}
     />
 );
 
 /**
  * Middleware factory that creates a server-side rendering handler for React applications.
- * Implements two-pass SSR:
- * 1. First pass: Render to collect data requirements (e.g., translation fetch)
- * 2. Await all registered promises
- * 3. Second pass: Render with resolved data
+ * Uses Suspense to handle async data loading - components suspend until data is ready,
+ * then the stream flushes the complete HTML.
  */
 const render =
     (isProduction: boolean, useClientSideRendering: boolean) =>
     async (req: Request, res: Response) => {
-        const ssrDataRegistry = createSSRDataRegistry();
-
-        // First pass: render to collect data requirements
-        const httpContextFirstPass: HttpContextData = {};
-        Logger.info('SSR: Starting first pass to collect data requirements');
-        renderToString(
-            renderIndex(
-                isProduction,
-                req.url,
-                useClientSideRendering,
-                res.locals['cspNonce'],
-                httpContextFirstPass,
-                ssrDataRegistry.collectingRegistry,
-            ),
+        // Create a Suspense-compatible translation cache
+        const translationCache = createTranslationCache(() =>
+            fetchTranslations('en'),
         );
 
-        // Await all registered promises (e.g., translation fetch)
-        if (ssrDataRegistry.hasPromises()) {
-            Logger.info('SSR: Awaiting registered promises');
-            await ssrDataRegistry.awaitPromises();
-            Logger.info('SSR: Promises resolved');
-        } else {
-            Logger.warn('SSR: No promises were registered during first pass');
-        }
-
-        // Second pass: render with resolved data
         const stream = new Promise<Stream>((resolve, reject) => {
             const httpContext: HttpContextData = {};
             try {
@@ -88,7 +66,7 @@ const render =
                         useClientSideRendering,
                         res.locals['cspNonce'],
                         httpContext,
-                        ssrDataRegistry.resolvedRegistry,
+                        translationCache,
                     ),
                     {
                         onAllReady() {

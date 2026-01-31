@@ -5,14 +5,14 @@ import { FunctionComponent } from 'react';
 
 import { State } from 'src/client/store/state';
 
-import { SSRDataRegistry, TranslationResponse } from '@cohbrgr/localization';
+import { TranslationCache } from '@cohbrgr/localization';
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
 
 interface IJavascriptHTMLProps {
     nonce: string;
     isProduction: boolean;
-    ssrRegistry: SSRDataRegistry;
+    translationCache: TranslationCache;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
@@ -29,9 +29,8 @@ try {
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     props: JavascriptHTMLProps,
 ) => {
-    // Get translations from SSR data registry
-    const translationData =
-        props.ssrRegistry.getData<TranslationResponse>('translations');
+    // Get translations from cache (already resolved after Suspense)
+    const translationData = props.translationCache.getResolved();
 
     const __initial_state__: State = {
         isProduction: props.isProduction,

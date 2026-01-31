@@ -1,13 +1,12 @@
 import { renderToString } from 'react-dom/server';
 
-import { SSRDataRegistry } from '@cohbrgr/localization';
+import { TranslationCache } from '@cohbrgr/localization';
 
 import Javascript from '../Javascript.html';
 
-const mockSSRRegistry: SSRDataRegistry = {
-    registerPromise: () => {},
-    getData: () => ({ lang: 'en', keys: { 'hero.title': 'Test Title' } }),
-    isCollecting: false,
+const mockTranslationCache: TranslationCache = {
+    read: () => ({ lang: 'en', keys: { 'hero.title': 'Test Title' } }),
+    getResolved: () => ({ lang: 'en', keys: { 'hero.title': 'Test Title' } }),
 };
 
 describe('Javascript component', () => {
@@ -16,7 +15,7 @@ describe('Javascript component', () => {
             <Javascript
                 nonce="test-nonce"
                 isProduction={true}
-                ssrRegistry={mockSSRRegistry}
+                translationCache={mockTranslationCache}
             />,
         );
 
@@ -29,7 +28,7 @@ describe('Javascript component', () => {
             <Javascript
                 nonce="my-nonce"
                 isProduction={true}
-                ssrRegistry={mockSSRRegistry}
+                translationCache={mockTranslationCache}
             />,
         );
 
@@ -41,7 +40,7 @@ describe('Javascript component', () => {
             <Javascript
                 nonce="test-nonce"
                 isProduction={true}
-                ssrRegistry={mockSSRRegistry}
+                translationCache={mockTranslationCache}
             />,
         );
 
@@ -53,12 +52,29 @@ describe('Javascript component', () => {
             <Javascript
                 nonce="test-nonce"
                 isProduction={true}
-                ssrRegistry={mockSSRRegistry}
+                translationCache={mockTranslationCache}
             />,
         );
 
         expect(html).toContain('"translations"');
         expect(html).toContain('hero.title');
+    });
+
+    it('should handle missing translations gracefully', () => {
+        const emptyCache: TranslationCache = {
+            read: () => ({ lang: 'en', keys: {} }),
+            getResolved: () => undefined,
+        };
+
+        const html = renderToString(
+            <Javascript
+                nonce="test-nonce"
+                isProduction={true}
+                translationCache={emptyCache}
+            />,
+        );
+
+        expect(html).toContain('"translations":{}');
     });
 
     it('should have correct displayName', () => {
