@@ -45,15 +45,24 @@ const renderIndex = (
 
 /**
  * Middleware factory that creates a server-side rendering handler for React applications.
- * Uses Suspense to handle async data loading - components suspend until data is ready,
- * then the stream flushes the complete HTML.
+ * Fetches translations before rendering, then uses Suspense-compatible cache for hydration.
  */
 const render =
     (isProduction: boolean, useClientSideRendering: boolean) =>
     async (req: Request, res: Response) => {
-        // Create a Suspense-compatible translation cache
-        const translationCache = createTranslationCache(() =>
-            fetchTranslations('en'),
+        // Fetch translations before React render so cache is pre-populated
+        let translationData;
+        try {
+            translationData = await fetchTranslations('en');
+        } catch (error) {
+            Logger.error('Failed to fetch translations:', error);
+            translationData = { lang: 'en', keys: {} };
+        }
+
+        // Create cache with pre-fetched data - no Suspense needed
+        const translationCache = createTranslationCache(
+            undefined,
+            translationData,
         );
 
         const stream = new Promise<Stream>((resolve, reject) => {
