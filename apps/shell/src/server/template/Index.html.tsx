@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { StaticRouter } from 'react-router-dom';
 
-import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
+import { defaultTranslations, TranslationProvider } from '@cohbrgr/localization';
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
@@ -15,10 +15,6 @@ interface IIndexProps {
     useCSR: boolean;
     nonce: string;
     httpContextData: HttpContextData;
-    translations: {
-        lang: string;
-        keys: TranslationKeys;
-    };
 }
 
 export type IndexProps = IIndexProps;
@@ -83,10 +79,15 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                         context={{
                             nonce: props.nonce,
                             isProduction: props.isProduction,
-                            translations: props.translations,
                         }}
                     >
-                        <TranslationProvider context={props.translations}>
+                        <TranslationProvider
+                            context={{
+                                lang: 'en',
+                                keys: defaultTranslations,
+                                isDefault: true,
+                            }}
+                        >
                             <HttpProvider context={props.httpContextData}>
                                 <StaticRouter location={props.location}>
                                     <App />
@@ -100,7 +101,6 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     <Javascript
                         nonce={props.nonce}
                         isProduction={props.isProduction}
-                        translations={props.translations}
                     />
                 )}
             </body>

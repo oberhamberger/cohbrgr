@@ -3,7 +3,6 @@ import { readdirSync } from 'fs';
 
 import { FunctionComponent } from 'react';
 
-import { TranslationKeys } from '@cohbrgr/localization';
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
 import { State } from 'src/client/store/state';
@@ -11,10 +10,6 @@ import { State } from 'src/client/store/state';
 interface IJavascriptHTMLProps {
     nonce: string;
     isProduction: boolean;
-    translations: {
-        lang: string;
-        keys: TranslationKeys;
-    };
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
@@ -34,7 +29,6 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     const __initial_state__: State = {
         isProduction: props.isProduction,
         nonce: '',
-        translations: props.translations,
     };
 
     return (

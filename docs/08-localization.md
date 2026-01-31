@@ -17,19 +17,21 @@ The localization system consists of three parts:
 │  API Server │────▶│  /translation│────▶│ translations.json│
 └─────────────┘     └─────────────┘     └──────────────────┘
        │
-       │ fetch
+       │ fetch (client-side)
        ▼
 ┌─────────────────────────────────────────────────────────┐
 │                    Shell / Content App                   │
 │  ┌─────────────────┐    ┌────────────────────────────┐  │
 │  │TranslationLoader│───▶│   TranslationProvider      │  │
-│  │  (content only) │    │                            │  │
+│  │                 │    │                            │  │
 │  └─────────────────┘    │  ┌────────┐  ┌──────────┐  │  │
 │                         │  │Message │  │useTransl.│  │  │
 │                         │  └────────┘  └──────────┘  │  │
 │                         └────────────────────────────┘  │
 └─────────────────────────────────────────────────────────┘
 ```
+
+Both shell and content apps fetch translations client-side using TanStack Query.
 
 ## Translation Data
 
@@ -79,56 +81,86 @@ The API provides two endpoints for translations:
 
 ## Shell App Integration
 
-The shell app fetches translations server-side during SSR and passes them to the client.
+The shell app fetches translations client-side using TanStack Query, similar to the content app.
 
-### Server-Side Rendering
+### Translation Query
 
-In `apps/shell/src/server/middleware/render.tsx`:
+In `apps/shell/src/client/queries/translation.ts`:
 
 ```typescript
-import { defaultTranslations, TranslationKeys } from '@cohbrgr/localization';
+import { TranslationResponse } from '@cohbrgr/localization';
+import { Config } from '@cohbrgr/shell/env';
+import { queryOptions } from '@tanstack/react-query';
 
-const fetchTranslations = async (lang: string = 'en') => {
-    try {
-        const response = await fetch(`${Config.apiUrl}/translation/${lang}`);
-        if (!response.ok) {
-            return { lang, keys: defaultTranslations };
+export const translationQueryOptions = (lang: string = 'en') =>
+    queryOptions({
+        queryKey: ['translations', lang],
+        queryFn: () => fetchTranslations(lang),
+        staleTime: 1000 * 60 * 60, // 1 hour
+    });
+```
+
+### Translation Loader Component
+
+In `apps/shell/src/client/components/translation-loader/TranslationLoader.tsx`:
+
+```tsx
+import { TranslationProvider } from '@cohbrgr/localization';
+import { useQuery } from '@tanstack/react-query';
+
+const TranslationLoader = ({ children, fallback }) => {
+    const [translations, setTranslations] = useState({
+        ...fallback,
+        isDefault: true,
+    });
+    const { data } = useQuery(translationQueryOptions('en'));
+
+    useEffect(() => {
+        if (data) {
+            setTranslations({
+                lang: data.lang,
+                keys: data.keys,
+                isDefault: false
+            });
         }
-        return await response.json();
-    } catch (error) {
-        return { lang, keys: defaultTranslations };
-    }
-};
+    }, [data]);
 
-// In the render function
-const translations = await fetchTranslations('en');
+    return (
+        <TranslationProvider context={translations}>
+            {children}
+        </TranslationProvider>
+    );
+};
 ```
 
 ### SSR Template
 
-In `apps/shell/src/server/template/Index.html.tsx`:
+In `apps/shell/src/server/template/Index.html.tsx`, default translations are used for SSR:
 
 ```tsx
-import { TranslationProvider } from '@cohbrgr/localization';
+import { defaultTranslations, TranslationProvider } from '@cohbrgr/localization';
 
-<TranslationProvider context={props.translations}>
+<TranslationProvider
+    context={{ lang: 'en', keys: defaultTranslations, isDefault: true }}
+>
     <App />
 </TranslationProvider>
 ```
 
-### Client Hydration
+### Client Bootstrap
 
 In `apps/shell/src/client/bootstrap.tsx`:
 
 ```tsx
-import { TranslationProvider } from '@cohbrgr/localization';
+import { defaultTranslations } from '@cohbrgr/localization';
+import { TranslationLoader } from 'src/client/components/translation-loader';
 
-<TranslationProvider context={window.__initial_state__.translations}>
+<TranslationLoader fallback={{ lang: 'en', keys: defaultTranslations }}>
     <App />
-</TranslationProvider>
+</TranslationLoader>
 ```
 
-The initial state is passed from server to client via a script tag containing the serialized translations.
+The client hydrates with default translations, then fetches updated translations from the API.
 
 ## Content App Integration
 
