@@ -1,15 +1,10 @@
 import { createContext, ReactElement } from 'react';
 
-import { defaultTranslations } from '@cohbrgr/localization';
 import { State } from 'src/client/store/state';
 
 const initialAppStateContext: State = {
     isProduction: false,
     nonce: '',
-    translations: {
-        lang: 'en',
-        keys: defaultTranslations,
-    },
 };
 
 type ProviderProps = {
