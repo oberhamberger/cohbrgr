@@ -23,14 +23,25 @@ export type TranslationCache = {
 /**
  * Creates a Suspense-compatible translation cache.
  * The cache suspends on first read until the promise resolves.
+ *
+ * @param fetcher - Function to fetch translations (used on SSR)
+ * @param initialData - Pre-populated data for hydration (used on client)
  */
 export const createTranslationCache = (
-    fetcher: () => Promise<TranslationResponse>,
+    fetcher?: () => Promise<TranslationResponse>,
+    initialData?: TranslationResponse,
 ): TranslationCache => {
-    let entry: CacheEntry<TranslationResponse> | undefined;
+    let entry: CacheEntry<TranslationResponse> | undefined = initialData
+        ? { status: 'resolved', data: initialData }
+        : undefined;
 
     const read = (): TranslationResponse => {
         if (!entry) {
+            if (!fetcher) {
+                // No fetcher and no initial data - return empty translations
+                return { lang: 'en', keys: {} };
+            }
+
             const promise = fetcher()
                 .then((data) => {
                     entry = { status: 'resolved', data };
