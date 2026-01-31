@@ -31,6 +31,7 @@ const getHostOptions = (isServer: boolean) => {
             },
             '@cohbrgr/localization': {
                 singleton: true,
+                requiredVersion: false,
             },
         },
     };
