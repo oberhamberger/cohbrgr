@@ -102,6 +102,7 @@ The API provides two endpoints for translations:
 ### CORS
 
 The API is configured to allow cross-origin requests from the shell app origins:
+
 - Development: `http://localhost:3030`
 - Production: `http://localhost:3000`, `https://cohbrgr.com`
 
@@ -227,7 +228,7 @@ In `apps/shell/src/server/template/Index.html.tsx`:
 ```tsx
 import { QueryClientProvider } from '@tanstack/react-query';
 
-const Index = ({ queryClient, /* ... */ }) => (
+const Index = ({ queryClient /* ... */ }) => (
     <html>
         <body>
             <div id="root">
@@ -249,7 +250,11 @@ const Index = ({ queryClient, /* ... */ }) => (
 In `apps/shell/src/client/bootstrap.tsx`:
 
 ```tsx
-import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+    HydrationBoundary,
+    QueryClient,
+    QueryClientProvider,
+} from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
     defaultOptions: {

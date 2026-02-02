@@ -109,16 +109,17 @@ export const Config = isDocker ? internalConfig.docker : internalConfig.local;
 ```
 
 This means:
+
 - `pnpm run build` → `NODE_ENV=production`, `DOCKER` unset → local production config
 - `DOCKER=true pnpm run build` → Docker/GCP config with cloud URLs
 
 ### Configuration Per Environment
 
-| Environment      | NODE_ENV     | DOCKER  | API URL                                     |
-| ---------------- | ------------ | ------- | ------------------------------------------- |
-| Local dev        | development  | -       | `http://localhost:3032`                     |
-| Local production | production   | -       | `http://localhost:3002`                     |
-| Docker/GCP       | production   | `true`  | `https://cohbrgr-api-....run.app`           |
+| Environment      | NODE_ENV    | DOCKER | API URL                           |
+| ---------------- | ----------- | ------ | --------------------------------- |
+| Local dev        | development | -      | `http://localhost:3032`           |
+| Local production | production  | -      | `http://localhost:3002`           |
+| Docker/GCP       | production  | `true` | `https://cohbrgr-api-....run.app` |
 
 ## CI/CD
 
