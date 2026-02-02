@@ -45,8 +45,7 @@ describe('Main Content Component', () => {
         jest.clearAllMocks();
         global.fetch = jest.fn().mockResolvedValue({
             ok: true,
-            json: () =>
-                Promise.resolve({ lang: 'en', keys: mockTranslations }),
+            json: () => Promise.resolve({ lang: 'en', keys: mockTranslations }),
         });
     });
 

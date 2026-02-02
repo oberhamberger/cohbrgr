@@ -134,7 +134,10 @@ const render =
             .replace(/<\/script>/gi, '<\\/script>');
 
         // Replace placeholder with actual dehydrated state
-        markup = markup.replace(DEHYDRATED_STATE_PLACEHOLDER, dehydratedStateJson);
+        markup = markup.replace(
+            DEHYDRATED_STATE_PLACEHOLDER,
+            dehydratedStateJson,
+        );
 
         if (req.method === HttpMethod.GET) {
             res.send(markup);

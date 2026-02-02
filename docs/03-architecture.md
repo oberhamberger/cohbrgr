@@ -36,6 +36,7 @@ Ports are determined at **build time** based on `NODE_ENV`. This ensures develop
 | API         | 3032        | 3002       |
 
 **Note**: The port is baked into the bundle during build:
+
 - `pnpm run dev` builds with `NODE_ENV=development` → uses 303x ports
 - `pnpm run build` builds with `NODE_ENV=production` → uses 300x ports
 

@@ -10,29 +10,35 @@ pnpm add @cohbrgr/localization
 
 ## Exports
 
-| Export                   | Type      | Description                          |
-| ------------------------ | --------- | ------------------------------------ |
-| `TranslationProvider`    | Component | Context provider for translations    |
-| `TranslationContext`     | Context   | React context for translation values |
-| `useTranslation`         | Hook      | Access translation context           |
-| `Message`                | Component | Render translated text by key        |
-| `TranslationKey`         | Type      | Union of all valid translation keys  |
-| `TranslationKeys`        | Type      | Record mapping keys to strings       |
-| `TranslationResponse`    | Type      | API response shape for translations  |
-| `TranslationContextValue`| Type      | Shape of the translation context     |
+| Export                    | Type      | Description                          |
+| ------------------------- | --------- | ------------------------------------ |
+| `TranslationProvider`     | Component | Context provider for translations    |
+| `TranslationContext`      | Context   | React context for translation values |
+| `useTranslation`          | Hook      | Access translation context           |
+| `Message`                 | Component | Render translated text by key        |
+| `TranslationKey`          | Type      | Union of all valid translation keys  |
+| `TranslationKeys`         | Type      | Record mapping keys to strings       |
+| `TranslationResponse`     | Type      | API response shape for translations  |
+| `TranslationContextValue` | Type      | Shape of the translation context     |
 
 ## Quick Start
 
 ```tsx
-import { TranslationProvider, Message, useTranslation } from '@cohbrgr/localization';
+import {
+    TranslationProvider,
+    Message,
+    useTranslation,
+} from '@cohbrgr/localization';
 
 // Wrap your app with the provider
 const App = () => {
-    const translations = { lang: 'en', keys: { 'hello': 'Hello World' } };
+    const translations = { lang: 'en', keys: { hello: 'Hello World' } };
 
     return (
         <TranslationProvider context={translations}>
-            <h1><Message id="hello" /></h1>
+            <h1>
+                <Message id="hello" />
+            </h1>
         </TranslationProvider>
     );
 };
@@ -168,22 +174,27 @@ import { TranslationProvider, Message } from '@cohbrgr/localization';
 
 const translationQueryOptions = (lang: string) => ({
     queryKey: ['translations', lang],
-    queryFn: () => fetch(`/api/translation/${lang}`).then(r => r.json()),
+    queryFn: () => fetch(`/api/translation/${lang}`).then((r) => r.json()),
     staleTime: 1000 * 60 * 60, // 1 hour
 });
 
 const Content = () => {
-    const { data: translations } = useSuspenseQuery(translationQueryOptions('en'));
+    const { data: translations } = useSuspenseQuery(
+        translationQueryOptions('en'),
+    );
 
     return (
         <TranslationProvider context={translations}>
-            <h1><Message id="hero.title" /></h1>
+            <h1>
+                <Message id="hero.title" />
+            </h1>
         </TranslationProvider>
     );
 };
 ```
 
 This approach:
+
 - Works with React Suspense for loading states
 - Supports SSR with proper hydration via TanStack Query's `dehydrate`/`HydrationBoundary`
 - Caches translations to avoid unnecessary refetches

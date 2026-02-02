@@ -43,8 +43,7 @@ describe('App', () => {
         jest.clearAllMocks();
         global.fetch = jest.fn().mockResolvedValue({
             ok: true,
-            json: () =>
-                Promise.resolve({ lang: 'en', keys: mockTranslations }),
+            json: () => Promise.resolve({ lang: 'en', keys: mockTranslations }),
         });
     });
 
@@ -63,7 +62,9 @@ describe('App', () => {
     });
 
     it('passes nonce prop to Content', async () => {
-        const { container } = renderWithQueryClient(<App nonce="custom-nonce" />);
+        const { container } = renderWithQueryClient(
+            <App nonce="custom-nonce" />,
+        );
 
         await screen.findByText('My Name is Christian.');
 

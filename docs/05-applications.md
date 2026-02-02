@@ -176,7 +176,9 @@ const isDocker = process.env.DOCKER === 'true';
 export const internalConfig = {
     local: {
         port: isProduction ? 3000 : 3030,
-        apiUrl: isProduction ? 'http://localhost:3002' : 'http://localhost:3032',
+        apiUrl: isProduction
+            ? 'http://localhost:3002'
+            : 'http://localhost:3032',
     },
     docker: {
         port: 3000,
@@ -188,6 +190,7 @@ export const Config = isDocker ? internalConfig.docker : internalConfig.local;
 ```
 
 This means:
+
 - `pnpm run dev` (NODE_ENV=development) → local dev config (port 303x)
 - `pnpm run build` (NODE_ENV=production) → local production config (port 300x)
 - `DOCKER=true pnpm run build` → Docker/GCP config (cloud URLs)
