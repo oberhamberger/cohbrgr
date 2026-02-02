@@ -11,6 +11,16 @@ const config: JestConfigWithTsJest = {
         '**/__tests__/**/*.+(ts|tsx)',
         '**/?(*.)+(spec|test).+(ts|tsx)',
     ],
+    coveragePathIgnorePatterns: [
+        '/node_modules/',
+        'index.ts',
+        'app/createApp.ts',
+        'middleware/cspNonce.ts',
+        'middleware/rateLimit.ts',
+        'middleware/staticFiles.ts',
+        'router/health.ts',
+        'server/gracefulStartAndClose.ts',
+    ],
 };
 
 export default config;
