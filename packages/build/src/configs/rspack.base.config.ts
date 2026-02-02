@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import { type RspackOptions } from '@rspack/core';
+import { DefinePlugin, type RspackOptions } from '@rspack/core';
 
 import { getStyleLoader } from '../loader/style.loader';
 import {
@@ -16,6 +16,11 @@ export const baseConfig: RspackOptions = {
     mode: isProduction ? Mode.PRODUCTION : Mode.DEVELOPMENT,
     devtool: isProduction ? false : 'source-map',
     context: resolve(CWD, `./src`),
+    plugins: [
+        new DefinePlugin({
+            'process.env.DOCKER': JSON.stringify(process.env['DOCKER'] ?? ''),
+        }),
+    ],
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json', '.scss', 'css'],
         alias: {

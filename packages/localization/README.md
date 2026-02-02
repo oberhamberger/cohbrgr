@@ -215,10 +215,10 @@ Context provider that makes translations available to the component tree. Use th
 
 **Props:**
 
-| Prop       | Type                                                           | Description      |
-| ---------- | -------------------------------------------------------------- | ---------------- |
-| `children` | `ReactElement`                                                 | Child components |
-| `context`  | `{ lang: string; keys: TranslationKeys; isDefault?: boolean }` | Translation data |
+| Prop       | Type                                     | Description      |
+| ---------- | ---------------------------------------- | ---------------- |
+| `children` | `ReactElement`                           | Child components |
+| `context`  | `{ lang: string; keys: TranslationKeys }` | Translation data |
 
 ```tsx
 import { TranslationProvider } from '@cohbrgr/localization';
@@ -226,7 +226,6 @@ import { TranslationProvider } from '@cohbrgr/localization';
 const translations = {
     lang: 'en',
     keys: { 'hero.title': 'Hello World' /* ... */ },
-    isDefault: false,
 };
 
 <TranslationProvider context={translations}>
@@ -240,20 +239,14 @@ Component that renders translated text based on a translation key.
 
 **Props:**
 
-| Prop       | Type             | Default | Description                               |
-| ---------- | ---------------- | ------- | ----------------------------------------- |
-| `id`       | `TranslationKey` | -       | The translation key to look up            |
-| `fallback` | `string`         | -       | Fallback text if key not found            |
-| `html`     | `boolean`        | `false` | Render content as HTML (use with caution) |
+| Prop   | Type             | Default | Description                               |
+| ------ | ---------------- | ------- | ----------------------------------------- |
+| `id`   | `TranslationKey` | -       | The translation key to look up            |
+| `html` | `boolean`        | `false` | Render content as HTML (use with caution) |
 
-**Development Mode Behavior:**
+**Missing Translation Behavior:**
 
-In development (`NODE_ENV !== 'production'`), the Message component wraps text in square brackets `[text]` when:
-
-- Using default/fallback translations (`isDefault: true`)
-- A translation key is missing
-
-This makes it easy to identify untranslated content during development.
+When a translation key is not found, the Message component displays the key wrapped in square brackets `[key]`. This makes it easy to identify missing translations.
 
 ```tsx
 import { Message } from '@cohbrgr/localization';
@@ -261,11 +254,11 @@ import { Message } from '@cohbrgr/localization';
 // Basic usage
 <h1><Message id="hero.title" /></h1>
 
-// With fallback
-<p><Message id="missing.key" fallback="Default text" /></p>
-
 // Render HTML content
 <p><Message id="hero.text" html /></p>
+
+// Missing key displays: [missing.key]
+<p><Message id="missing.key" /></p>
 ```
 
 ## Hook
@@ -276,29 +269,27 @@ Hook to access translation context values.
 
 **Returns:** `TranslationContextValue`
 
-| Property    | Type                              | Description                        |
-| ----------- | --------------------------------- | ---------------------------------- |
-| `lang`      | `string`                          | Current language code              |
-| `keys`      | `TranslationKeys`                 | All translation key-value pairs    |
-| `translate` | `(key: TranslationKey) => string` | Get translation for a key          |
-| `isDefault` | `boolean`                         | Whether using default translations |
+| Property    | Type                              | Description                     |
+| ----------- | --------------------------------- | ------------------------------- |
+| `lang`      | `string`                          | Current language code           |
+| `keys`      | `TranslationKeys`                 | All translation key-value pairs |
+| `translate` | `(key: TranslationKey) => string` | Get translation for a key       |
 
 ```tsx
 import { useTranslation } from '@cohbrgr/localization';
 
 const MyComponent = () => {
-    const { translate, lang, isDefault } = useTranslation();
+    const { translate, lang } = useTranslation();
 
     return (
         <div>
             <p>Language: {lang}</p>
             <p>{translate('hero.title')}</p>
-            {isDefault && <span>Loading translations...</span>}
         </div>
     );
 };
 ```
 
-## Fallback Behavior
+## Missing Translation Behavior
 
-When translations are not loaded (e.g., during SSR or before the API response), the translation key itself is returned as the fallback. In development mode, untranslated keys are wrapped in brackets `[key]` to make them easy to identify.
+When a translation key is not found, it is returned as-is from `translate()`. The `Message` component wraps missing keys in brackets `[key]` to make them easy to identify.

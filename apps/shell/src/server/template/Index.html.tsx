@@ -1,6 +1,7 @@
 import { FunctionComponent, Suspense } from 'react';
 import { StaticRouter } from 'react-router-dom';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
@@ -8,19 +9,13 @@ import routes from 'src/client/routes';
 import Javascript from 'src/server/template/components/Javascript.html';
 import Stylesheets from 'src/server/template/components/Stylesheets.html';
 
-import {
-    SuspenseTranslationLoader,
-    TranslationCache,
-    TranslationCacheProvider,
-} from '@cohbrgr/localization';
-
 interface IIndexProps {
     isProduction: boolean;
     location: string;
     useCSR: boolean;
     nonce: string;
     httpContextData: HttpContextData;
-    translationCache: TranslationCache;
+    queryClient: QueryClient;
 }
 
 export type IndexProps = IIndexProps;
@@ -81,7 +76,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
             </head>
             <body>
                 <div id="root">
-                    <TranslationCacheProvider cache={props.translationCache}>
+                    <QueryClientProvider client={props.queryClient}>
                         <AppStateProvider
                             context={{
                                 nonce: props.nonce,
@@ -89,25 +84,20 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                             }}
                         >
                             <Suspense fallback={null}>
-                                <SuspenseTranslationLoader>
-                                    <HttpProvider
-                                        context={props.httpContextData}
-                                    >
-                                        <StaticRouter location={props.location}>
-                                            <App />
-                                        </StaticRouter>
-                                    </HttpProvider>
-                                </SuspenseTranslationLoader>
+                                <HttpProvider context={props.httpContextData}>
+                                    <StaticRouter location={props.location}>
+                                        <App />
+                                    </StaticRouter>
+                                </HttpProvider>
                             </Suspense>
                         </AppStateProvider>
-                    </TranslationCacheProvider>
+                    </QueryClientProvider>
                 </div>
 
                 {props.useCSR && props.location !== routes.offline && (
                     <Javascript
                         nonce={props.nonce}
                         isProduction={props.isProduction}
-                        translationCache={props.translationCache}
                     />
                 )}
             </body>

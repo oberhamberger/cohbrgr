@@ -19,6 +19,7 @@
     "dependencies": {
         "@cohbrgr/utils": "workspace:*",
         "compression": "1.8.1",
+        "cors": "^2.8.6",
         "express": "5.2.1",
         "express-rate-limit": "8.2.1",
         "nocache": "4.0.0"
@@ -28,6 +29,7 @@
         "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
         "@types/compression": "1.8.1",
+        "@types/cors": "^2.8.19",
         "@types/express": "5.0.6"
     }
 }

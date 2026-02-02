@@ -1,4 +1,5 @@
 export * from './app/createApp';
+export type { CorsOptions } from './app/createApp';
 
 export * from './middleware/cspNonce';
 export * from './middleware/error';

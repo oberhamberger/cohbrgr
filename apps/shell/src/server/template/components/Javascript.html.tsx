@@ -3,18 +3,17 @@ import { readdirSync } from 'fs';
 
 import { FunctionComponent } from 'react';
 
-import { State } from 'src/client/store/state';
-
-import { TranslationCache } from '@cohbrgr/localization';
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
 
 interface IJavascriptHTMLProps {
     nonce: string;
     isProduction: boolean;
-    translationCache: TranslationCache;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
+
+// Placeholder that will be replaced with actual dehydrated state after SSR completes
+export const DEHYDRATED_STATE_PLACEHOLDER = '__DEHYDRATED_STATE_PLACEHOLDER__';
 
 const jsDirectoryPath = resolve(process.cwd() + `${Config.staticPath}/client`);
 let scriptFiles: string[] = [];
@@ -29,17 +28,22 @@ try {
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     props: JavascriptHTMLProps,
 ) => {
-    // Get translations from cache (already resolved after Suspense)
-    const translationData = props.translationCache.getResolved();
-
-    const __initial_state__: State = {
+    // Build initial state with placeholder for dehydratedState
+    // The actual dehydrated state is injected after SSR completes (when Suspense resolves)
+    const initialStateTemplate = {
         isProduction: props.isProduction,
         nonce: '',
-        translations: translationData?.keys ?? {},
     };
 
+    // Create JSON with placeholder that will be replaced after render completes
+    const jsonWithPlaceholder = JSON.stringify(initialStateTemplate).slice(
+        0,
+        -1,
+    ); // Remove closing brace
+    const fullJson = `${jsonWithPlaceholder},"dehydratedState":${DEHYDRATED_STATE_PLACEHOLDER}}`;
+
     // Escape for safe embedding in JavaScript - handle single quotes, backslashes, and script tags
-    const jsonString = JSON.stringify(__initial_state__)
+    const jsonString = fullJson
         .replace(/\\/g, '\\\\')
         .replace(/'/g, "\\'")
         .replace(/<\/script>/gi, '<\\/script>');

@@ -1,7 +1,10 @@
 import '@testing-library/jest-dom';
+import { Suspense } from 'react';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
 
-import { TranslationKeys, TranslationProvider } from '@cohbrgr/localization';
+import { TranslationKeys } from '@cohbrgr/localization';
 
 import Content from './Content';
 
@@ -19,25 +22,49 @@ const mockTranslations: TranslationKeys = {
     'offline.nav.back': 'back',
 };
 
-const renderWithProvider = (ui: React.ReactElement) => {
+const createQueryClient = () =>
+    new QueryClient({
+        defaultOptions: {
+            queries: {
+                retry: false,
+            },
+        },
+    });
+
+const renderWithQueryClient = (ui: React.ReactElement) => {
+    const queryClient = createQueryClient();
     return render(
-        <TranslationProvider
-            context={{ lang: 'en', keys: mockTranslations, isDefault: false }}
-        >
-            {ui}
-        </TranslationProvider>,
+        <QueryClientProvider client={queryClient}>
+            <Suspense fallback={<div>Loading...</div>}>{ui}</Suspense>
+        </QueryClientProvider>,
     );
 };
 
 describe('Main Content Component', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        global.fetch = jest.fn().mockResolvedValue({
+            ok: true,
+            json: () =>
+                Promise.resolve({ lang: 'en', keys: mockTranslations }),
+        });
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     it('displays translated title', async () => {
-        renderWithProvider(<Content nonce={nonce} />);
+        renderWithQueryClient(<Content nonce={nonce} />);
         const items = await screen.findAllByText('My Name is Christian.');
         expect(items).toHaveLength(1);
     });
 
     it('displays navigation with translated links', async () => {
-        const { container } = renderWithProvider(<Content nonce={nonce} />);
+        const { container } = renderWithQueryClient(<Content nonce={nonce} />);
+
+        await screen.findByText('My Name is Christian.');
+
         expect(container.getElementsByTagName('nav').length).toEqual(1);
         expect(container.getElementsByTagName('li').length).toEqual(3);
 
@@ -46,8 +73,11 @@ describe('Main Content Component', () => {
         expect(screen.getByText('LinkedIn')).toBeInTheDocument();
     });
 
-    it('renders HTML content in hero text', () => {
-        renderWithProvider(<Content nonce={nonce} />);
+    it('renders HTML content in hero text', async () => {
+        renderWithQueryClient(<Content nonce={nonce} />);
+
+        await screen.findByText('My Name is Christian.');
+
         const link = screen.getByRole('link', { name: 'Netconomy' });
         expect(link).toHaveAttribute('href', 'https://netconomy.net');
     });
