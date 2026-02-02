@@ -223,10 +223,7 @@ import { TranslationProvider } from '@cohbrgr/localization';
 import { useQuery } from '@tanstack/react-query';
 
 const TranslationLoader = ({ children, fallback }) => {
-    const [translations, setTranslations] = useState({
-        ...fallback,
-        isDefault: true,
-    });
+    const [translations, setTranslations] = useState(fallback);
     const { data } = useQuery(translationQueryOptions('en'));
 
     useEffect(() => {
@@ -234,7 +231,6 @@ const TranslationLoader = ({ children, fallback }) => {
             setTranslations({
                 lang: data.lang,
                 keys: data.keys,
-                isDefault: false,
             });
         }
     }, [data]);
@@ -286,28 +282,26 @@ For more control or computed translations:
 import { useTranslation } from '@cohbrgr/localization';
 
 const Navigation = () => {
-    const { translate, isDefault } = useTranslation();
+    const { translate } = useTranslation();
 
     return (
         <nav>
             <a href="/github">{translate('hero.nav.github')}</a>
-            {isDefault && <Spinner />}
         </nav>
     );
 };
 ```
 
-## Development Mode
+## Missing Translation Behavior
 
-In development (`NODE_ENV !== 'production'`), the `Message` component adds visual indicators for untranslated content:
+The `Message` component displays missing translation keys wrapped in square brackets:
 
-| Condition                   | Display                           |
-| --------------------------- | --------------------------------- |
-| Translations not loaded yet | `[key.name]`                      |
-| Missing translation key     | `[key.name]` or `[Fallback text]` |
-| Loaded from API             | `Translation text` (no brackets)  |
+| Condition               | Display                          |
+| ----------------------- | -------------------------------- |
+| Translation found       | `Translation text`               |
+| Missing translation key | `[key.name]`                     |
 
-This makes it easy to identify content that needs translation during development.
+This makes it easy to identify content that needs translation.
 
 ## Adding a New Language
 

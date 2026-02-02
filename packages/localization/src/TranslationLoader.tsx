@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
+import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 
 import { TranslationProvider } from './context';
 import { useSSRData } from './ssr-context';
@@ -7,7 +7,7 @@ import { TranslationKeys, TranslationResponse } from './types';
 const SSR_DATA_KEY = 'translations';
 
 interface ITranslationLoader {
-    children: ReactElement;
+    children: ReactNode;
     /**
      * Function to fetch translations. Called during SSR and client-side.
      */
@@ -23,7 +23,7 @@ export type TranslationLoaderProps = ITranslationLoader;
 type TranslationState = {
     lang: string;
     keys: TranslationKeys;
-    isDefault: boolean;
+    loaded: boolean;
 };
 
 /**
@@ -51,7 +51,7 @@ const TranslationLoader: FunctionComponent<ITranslationLoader> = ({
     const [translations, setTranslations] = useState<TranslationState>(() => ({
         lang: ssrTranslations?.lang ?? lang,
         keys: ssrTranslations?.keys ?? {},
-        isDefault: !ssrTranslations,
+        loaded: !!ssrTranslations,
     }));
 
     // Client-side: fetch translations if not available from SSR
@@ -62,20 +62,20 @@ const TranslationLoader: FunctionComponent<ITranslationLoader> = ({
         }
 
         // Only fetch on client-side if needed
-        if (translations.isDefault) {
+        if (!translations.loaded) {
             fetchTranslations()
                 .then((data) => {
                     setTranslations({
                         lang: data.lang,
                         keys: data.keys,
-                        isDefault: false,
+                        loaded: true,
                     });
                 })
                 .catch(() => {
                     // Keep showing keys in brackets on error
                 });
         }
-    }, [fetchTranslations, ssrTranslations, translations.isDefault]);
+    }, [fetchTranslations, ssrTranslations, translations.loaded]);
 
     return (
         <TranslationProvider context={translations}>

@@ -28,6 +28,10 @@ const getHostOptions = (isServer: boolean) => {
                 singleton: true,
                 requiredVersion: dependencies['react-dom'],
             },
+            '@tanstack/react-query': {
+                singleton: true,
+                requiredVersion: dependencies['@tanstack/react-query'],
+            },
             '@cohbrgr/localization': {
                 singleton: true,
                 requiredVersion: false,

@@ -1,22 +1,11 @@
 import { renderToString } from 'react-dom/server';
 
-import { TranslationCache } from '@cohbrgr/localization';
-
-import Javascript from '../Javascript.html';
-
-const mockTranslationCache: TranslationCache = {
-    read: () => ({ lang: 'en', keys: { 'hero.title': 'Test Title' } }),
-    getResolved: () => ({ lang: 'en', keys: { 'hero.title': 'Test Title' } }),
-};
+import Javascript, { DEHYDRATED_STATE_PLACEHOLDER } from '../Javascript.html';
 
 describe('Javascript component', () => {
     it('should render initial state script', () => {
         const html = renderToString(
-            <Javascript
-                nonce="test-nonce"
-                isProduction={true}
-                translationCache={mockTranslationCache}
-            />,
+            <Javascript nonce="test-nonce" isProduction={true} />,
         );
 
         expect(html).toContain('initial-state');
@@ -25,11 +14,7 @@ describe('Javascript component', () => {
 
     it('should include nonce attribute', () => {
         const html = renderToString(
-            <Javascript
-                nonce="my-nonce"
-                isProduction={true}
-                translationCache={mockTranslationCache}
-            />,
+            <Javascript nonce="my-nonce" isProduction={true} />,
         );
 
         expect(html).toContain('nonce="my-nonce"');
@@ -37,44 +22,19 @@ describe('Javascript component', () => {
 
     it('should set isProduction in initial state', () => {
         const html = renderToString(
-            <Javascript
-                nonce="test-nonce"
-                isProduction={true}
-                translationCache={mockTranslationCache}
-            />,
+            <Javascript nonce="test-nonce" isProduction={true} />,
         );
 
         expect(html).toContain('"isProduction":true');
     });
 
-    it('should include translations in initial state', () => {
+    it('should include dehydratedState placeholder for post-render injection', () => {
         const html = renderToString(
-            <Javascript
-                nonce="test-nonce"
-                isProduction={true}
-                translationCache={mockTranslationCache}
-            />,
+            <Javascript nonce="test-nonce" isProduction={true} />,
         );
 
-        expect(html).toContain('"translations"');
-        expect(html).toContain('hero.title');
-    });
-
-    it('should handle missing translations gracefully', () => {
-        const emptyCache: TranslationCache = {
-            read: () => ({ lang: 'en', keys: {} }),
-            getResolved: () => undefined,
-        };
-
-        const html = renderToString(
-            <Javascript
-                nonce="test-nonce"
-                isProduction={true}
-                translationCache={emptyCache}
-            />,
-        );
-
-        expect(html).toContain('"translations":{}');
+        expect(html).toContain('"dehydratedState"');
+        expect(html).toContain(DEHYDRATED_STATE_PLACEHOLDER);
     });
 
     it('should have correct displayName', () => {

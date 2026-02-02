@@ -1,7 +1,11 @@
 import { FunctionComponent } from 'react';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
+
 import { Navigation } from '@cohbrgr/components';
-import { Message } from '@cohbrgr/localization';
+import { Message, TranslationProvider } from '@cohbrgr/localization';
+
+import { translationQueryOptions } from 'src/client/queries/translation';
 
 import StructuredData from '../structured-data';
 
@@ -11,10 +15,15 @@ export interface IContent {
 
 /**
  * Main content component displaying the hero section with translated text.
+ * Fetches translations using TanStack Query and provides them via context.
  */
 const Content: FunctionComponent<IContent> = ({ nonce }) => {
+    const { data: translations } = useSuspenseQuery(
+        translationQueryOptions('en'),
+    );
+
     return (
-        <>
+        <TranslationProvider context={translations}>
             <main>
                 <h1>
                     <Message id="hero.title" />
@@ -35,7 +44,7 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
                 </a>
             </Navigation>
             <StructuredData nonce={nonce} />
-        </>
+        </TranslationProvider>
     );
 };
 

@@ -1,9 +1,8 @@
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { hydrateRoot } from 'react-dom/client';
 import App from 'src/client/App';
-import { TranslationLoader } from 'src/client/components/translation-loader';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -21,9 +20,9 @@ if (root) {
         root,
         <StrictMode>
             <QueryClientProvider client={queryClient}>
-                <TranslationLoader fallback={{ lang: 'en', keys: {} }}>
+                <Suspense fallback={null}>
                     <App />
-                </TranslationLoader>
+                </Suspense>
             </QueryClientProvider>
         </StrictMode>,
     );

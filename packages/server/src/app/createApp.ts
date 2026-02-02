@@ -1,4 +1,5 @@
 import compression from 'compression';
+import cors from 'cors';
 import Express from 'express';
 import nocache from 'nocache';
 
@@ -8,6 +9,13 @@ import { applyRateLimit, type RateLimitOptions } from '../middleware/rateLimit';
 import { healthRoutes } from '../router/health';
 
 import type { Application } from 'express';
+
+export interface CorsOptions {
+    /**
+     * Allowed origins for CORS requests.
+     */
+    origins: string[];
+}
 
 export interface CreateAppOptions {
     /**
@@ -27,6 +35,10 @@ export interface CreateAppOptions {
      * Enable nocache middleware. Defaults to false.
      */
     nocache?: boolean;
+    /**
+     * Enable CORS with specified origins. Defaults to disabled.
+     */
+    cors?: CorsOptions;
 }
 
 /**
@@ -52,6 +64,16 @@ export interface CreateAppOptions {
  */
 export function createApp(options: CreateAppOptions): Application {
     const app: Application = Express();
+
+    // CORS
+    if (options.cors) {
+        app.use(
+            cors({
+                origin: options.cors.origins,
+                credentials: true,
+            }),
+        );
+    }
 
     // Rate limiting (production only)
     if (options.rateLimit) {

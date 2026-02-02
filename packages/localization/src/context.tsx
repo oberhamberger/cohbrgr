@@ -1,4 +1,4 @@
-import { createContext, ReactElement } from 'react';
+import { createContext, ReactNode } from 'react';
 
 import { TranslationKey, TranslationKeys } from './types';
 
@@ -6,22 +6,19 @@ export type TranslationContextValue = {
     lang: string;
     keys: TranslationKeys;
     translate: (key: TranslationKey) => string;
-    isDefault: boolean;
 };
 
 const initialTranslationContext: TranslationContextValue = {
     lang: 'en',
     keys: {},
     translate: (key: TranslationKey) => key,
-    isDefault: true,
 };
 
 type ProviderProps = {
-    children?: ReactElement;
+    children?: ReactNode;
     context?: {
         lang: string;
         keys: TranslationKeys;
-        isDefault?: boolean;
     };
 };
 
@@ -34,7 +31,7 @@ export const TranslationContext = createContext<TranslationContextValue>(
  */
 export const TranslationProvider = ({
     children,
-    context = { lang: 'en', keys: {}, isDefault: true },
+    context = { lang: 'en', keys: {} },
 }: ProviderProps) => {
     const translate = (key: TranslationKey): string => {
         return context.keys[key] ?? key;
@@ -46,7 +43,6 @@ export const TranslationProvider = ({
                 lang: context.lang,
                 keys: context.keys,
                 translate,
-                isDefault: context.isDefault ?? true,
             }}
         >
             {children}

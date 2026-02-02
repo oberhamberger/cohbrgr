@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useContext } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 import { TranslationProvider } from './context';
 import { TranslationResponse } from './types';
@@ -80,7 +80,7 @@ export const createTranslationCache = (
 const TranslationCacheContext = createContext<TranslationCache | null>(null);
 
 type TranslationCacheProviderProps = {
-    children: ReactElement;
+    children: ReactNode;
     cache: TranslationCache;
 };
 
@@ -106,7 +106,7 @@ export const useTranslationCache = (): TranslationCache | null => {
 };
 
 type SuspenseTranslationLoaderProps = {
-    children: ReactElement;
+    children: ReactNode;
     /**
      * Fallback language code if translations fail to load.
      */
@@ -125,9 +125,7 @@ const TranslationReader = ({
     if (!cache) {
         // No cache provided - use empty translations (client-side without SSR)
         return (
-            <TranslationProvider
-                context={{ lang: fallbackLang, keys: {}, isDefault: true }}
-            >
+            <TranslationProvider context={{ lang: fallbackLang, keys: {} }}>
                 {children}
             </TranslationProvider>
         );
@@ -141,7 +139,6 @@ const TranslationReader = ({
             context={{
                 lang: translations.lang,
                 keys: translations.keys,
-                isDefault: false,
             }}
         >
             {children}

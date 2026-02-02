@@ -1,4 +1,4 @@
-// Note: Using dot notation (process.env.X) allows Rspack to inline values at build time
+// Note: process.env values are inlined by DefinePlugin at build time
 const isProduction = process.env.NODE_ENV === 'production';
 const isDocker = process.env.DOCKER === 'true';
 

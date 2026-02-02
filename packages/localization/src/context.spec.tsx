@@ -12,7 +12,6 @@ const TestConsumer = () => {
         <div>
             <span data-testid="lang">{context.lang}</span>
             <span data-testid="title">{context.translate('hero.title')}</span>
-            <span data-testid="isDefault">{context.isDefault.toString()}</span>
         </div>
     );
 };
@@ -54,7 +53,6 @@ describe('translation context', () => {
             expect(screen.getByTestId('lang')).toHaveTextContent('en');
             // Default translate returns the key as-is
             expect(screen.getByTestId('title')).toHaveTextContent('hero.title');
-            expect(screen.getByTestId('isDefault')).toHaveTextContent('true');
         });
     });
 
@@ -65,7 +63,6 @@ describe('translation context', () => {
                     context={{
                         lang: 'en',
                         keys: mockTranslations,
-                        isDefault: false,
                     }}
                 >
                     <TestConsumer />
@@ -74,7 +71,6 @@ describe('translation context', () => {
 
             expect(screen.getByTestId('lang')).toHaveTextContent('en');
             expect(screen.getByTestId('title')).toHaveTextContent('Test Title');
-            expect(screen.getByTestId('isDefault')).toHaveTextContent('false');
         });
 
         it('should use default context when not provided', () => {
@@ -85,7 +81,6 @@ describe('translation context', () => {
             );
 
             expect(screen.getByTestId('lang')).toHaveTextContent('en');
-            expect(screen.getByTestId('isDefault')).toHaveTextContent('true');
         });
 
         it('should return key when translation is missing', () => {
