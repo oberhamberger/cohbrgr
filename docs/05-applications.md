@@ -166,23 +166,31 @@ Ports are determined at **build time** based on `NODE_ENV`. The port value is in
 
 ### How It Works
 
-The `env/index.ts` file in each app uses `process.env.NODE_ENV` with dot notation, which allows Rspack's DefinePlugin to inline the value at build time:
+The `env/index.ts` file in each app uses environment variables that Rspack's DefinePlugin inlines at build time:
 
 ```typescript
 // apps/*/env/index.ts
 const isProduction = process.env.NODE_ENV === 'production';
+const isDocker = process.env.DOCKER === 'true';
 
-const config = {
+export const internalConfig = {
     local: {
-        port: isProduction ? 3000 : 3030,  // Inlined at build time
-        // ...
+        port: isProduction ? 3000 : 3030,
+        apiUrl: isProduction ? 'http://localhost:3002' : 'http://localhost:3032',
+    },
+    docker: {
+        port: 3000,
+        apiUrl: 'https://cohbrgr-api-....run.app',
     },
 };
+
+export const Config = isDocker ? internalConfig.docker : internalConfig.local;
 ```
 
 This means:
-- `pnpm run dev` (NODE_ENV=development) → port becomes `3030`
-- `pnpm run build` (NODE_ENV=production) → port becomes `3000`
+- `pnpm run dev` (NODE_ENV=development) → local dev config (port 303x)
+- `pnpm run build` (NODE_ENV=production) → local production config (port 300x)
+- `DOCKER=true pnpm run build` → Docker/GCP config (cloud URLs)
 
 ### Verification
 

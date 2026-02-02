@@ -89,14 +89,36 @@ docker-compose up -d
 
 ## Environment Variables
 
-Applications read configuration from environment variables. Each app has an `env/` directory with defaults.
+Applications read configuration from environment variables at **build time**. Each app has an `env/` directory with configuration that gets inlined during bundling via Rspack's DefinePlugin.
 
-| Variable      | Description        | Default                 |
-| ------------- | ------------------ | ----------------------- |
-| `NODE_ENV`    | Environment mode   | `development`           |
-| `PORT`        | Server port        | App-specific            |
-| `API_URL`     | API server URL     | `http://localhost:3032` |
-| `CONTENT_URL` | Content server URL | `http://localhost:3031` |
+| Variable   | Description                       | Default       | Build-time |
+| ---------- | --------------------------------- | ------------- | ---------- |
+| `NODE_ENV` | Environment mode (dev/production) | `development` | Yes        |
+| `DOCKER`   | Running in Docker/GCP Cloud Run   | `false`       | Yes        |
+
+### Build-time vs Runtime
+
+These variables are read during the build process and inlined into the bundle:
+
+```typescript
+// apps/*/env/index.ts
+const isProduction = process.env.NODE_ENV === 'production';
+const isDocker = process.env.DOCKER === 'true';
+
+export const Config = isDocker ? internalConfig.docker : internalConfig.local;
+```
+
+This means:
+- `pnpm run build` → `NODE_ENV=production`, `DOCKER` unset → local production config
+- `DOCKER=true pnpm run build` → Docker/GCP config with cloud URLs
+
+### Configuration Per Environment
+
+| Environment      | NODE_ENV     | DOCKER  | API URL                                     |
+| ---------------- | ------------ | ------- | ------------------------------------------- |
+| Local dev        | development  | -       | `http://localhost:3032`                     |
+| Local production | production   | -       | `http://localhost:3002`                     |
+| Docker/GCP       | production   | `true`  | `https://cohbrgr-api-....run.app`           |
 
 ## CI/CD
 

@@ -136,6 +136,16 @@ See [ADR-0004](./adr/0004-choose-rspack-over-webpack.md) and [ADR-0006](./adr/00
 ## Data Flow
 
 1. **API Server** provides REST endpoints for navigation and translations
-2. **Shell Server** fetches data during SSR and passes it to React
-3. **Shell Client** hydrates with server state, manages subsequent data fetching
-4. **Content** receives props from shell and renders content sections
+2. **Shell Server** creates a QueryClient for SSR, renders React with Suspense
+3. **Content (federated)** uses `useSuspenseQuery` to fetch translations during SSR
+4. **Shell Server** dehydrates QueryClient after render, embeds in HTML as `__initial_state__`
+5. **Shell Client** hydrates with `HydrationBoundary`, restoring the query cache
+6. **Content** on client uses cached data - no refetch needed on initial load
+
+### TanStack Query Integration
+
+TanStack Query is shared as a singleton across shell and content via Module Federation. This enables:
+
+- Federated components to use `useSuspenseQuery` during SSR
+- Automatic cache sharing between host and remotes
+- SSR hydration via `dehydrate()` and `HydrationBoundary`

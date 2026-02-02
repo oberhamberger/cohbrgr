@@ -13,42 +13,46 @@ The localization system consists of three parts:
 ## Architecture
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌──────────────────┐
-│  API Server │────▶│  /translation│────▶│ translations.json│
-└─────────────┘     └─────────────┘     └──────────────────┘
-       ▲
-       │ fetch (awaited before React render)
-       │
-┌──────┴──────────────────────────────────────────────────┐
-│                       Shell App                          │
-│  ┌─────────────────────────────────────────────────────┐│
-│  │ render.tsx (Pre-fetch + Suspense SSR)               ││
-│  │  1. Fetch translations (awaited)                    ││
-│  │  2. Create cache with pre-fetched data              ││
-│  │  3. Single-pass render with renderToPipeableStream  ││
-│  └─────────────────────────────────────────────────────┘│
-│         │                                                │
-│         ▼                                                │
-│  ┌──────────────────────┐  ┌────────────────────────┐   │
-│  │TranslationCacheProvider│─▶│SuspenseTranslationLoader│  │
-│  │ (Suspense-compatible │  │  (reads from cache,    │   │
-│  │  translation cache)  │  │   provides context)    │   │
-│  └──────────────────────┘  │  ┌────────┐  ┌──────┐  │   │
-│         │                  │  │Message │  │useT..│  │   │
-│         ▼                  │  └────────┘  └──────┘  │   │
-│  ┌─────────────────┐       └────────────────────────┘   │
-│  │ __initial_state_│                                    │
-│  │ (hydration)     │                                    │
-│  └─────────────────┘                                    │
-└─────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                          Shell App                               │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │ QueryClientProvider (shared singleton via Module Federation)│  │
+│  │  ┌─────────────────────────────────────────────────────┐  │  │
+│  │  │ HydrationBoundary (restores SSR query cache)        │  │  │
+│  │  │  ┌───────────────────────────────────────────────┐  │  │  │
+│  │  │  │ Suspense                                      │  │  │  │
+│  │  │  │  ┌─────────────────────────────────────────┐  │  │  │  │
+│  │  │  │  │ Content (federated from content app)    │  │  │  │  │
+│  │  │  │  │  - useSuspenseQuery for translations    │  │  │  │  │
+│  │  │  │  │  - TranslationProvider with fetched data│  │  │  │  │
+│  │  │  │  │  - Message components render content    │  │  │  │  │
+│  │  │  │  └─────────────────────────────────────────┘  │  │  │  │
+│  │  │  └───────────────────────────────────────────────┘  │  │  │
+│  │  └─────────────────────────────────────────────────────┘  │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                              │                                   │
+│                              ▼                                   │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │ render.tsx: After streaming completes (onAllReady)        │  │
+│  │  1. dehydrate(queryClient) - captures all cached queries  │  │
+│  │  2. Inject into __initial_state__.dehydratedState         │  │
+│  └───────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              │ fetch (during SSR via useSuspenseQuery)
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                          API Server                              │
+│  GET /translation/:lang → { lang, keys: { ... } }               │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-The shell app uses a pre-fetch + Suspense approach:
+The system uses TanStack Query with SSR hydration:
 
-1. **Pre-fetch**: Translations are fetched and awaited before React starts rendering
-2. **Cache**: A Suspense-compatible cache is created with the pre-fetched data
-3. **Render**: Single-pass `renderToPipeableStream` with cache already populated
-4. **Hydration**: Client receives translations via `__initial_state__` and uses the same cache structure
+1. **SSR**: Content component's `useSuspenseQuery` fetches translations, suspending until ready
+2. **Dehydration**: After render completes, QueryClient is dehydrated and embedded in HTML
+3. **Hydration**: Client's `HydrationBoundary` restores the cache - no refetch needed
+4. **Client Navigation**: Subsequent fetches use cache or fetch fresh data as needed
 
 ## Translation Data
 
@@ -95,39 +99,124 @@ The API provides two endpoints for translations:
 }
 ```
 
-## Shell App Integration
+### CORS
 
-The shell app pre-fetches translations before React rendering, then uses a Suspense-compatible cache for both SSR and hydration.
+The API is configured to allow cross-origin requests from the shell app origins:
+- Development: `http://localhost:3030`
+- Production: `http://localhost:3000`, `https://cohbrgr.com`
 
-### Render Middleware
+## Content App Integration
+
+The Content app fetches translations using TanStack Query's `useSuspenseQuery` hook directly in the Content component.
+
+### Translation Query Options
+
+In `apps/content/src/client/queries/translation.ts`:
+
+```typescript
+import { queryOptions } from '@tanstack/react-query';
+import { Config } from '@cohbrgr/content/env';
+
+export const fetchTranslations = async (lang: string = 'en') => {
+    const response = await fetch(`${Config.apiUrl}/translation/${lang}`);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch translations: ${response.statusText}`);
+    }
+    return response.json();
+};
+
+export const translationQueryOptions = (lang: string = 'en') =>
+    queryOptions({
+        queryKey: ['translations', lang],
+        queryFn: () => fetchTranslations(lang),
+        staleTime: 1000 * 60 * 60, // 1 hour
+        gcTime: 1000 * 60 * 60 * 24, // 24 hours
+    });
+```
+
+### Content Component
+
+In `apps/content/src/client/components/content/Content.tsx`:
+
+```tsx
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { TranslationProvider } from '@cohbrgr/localization';
+import { translationQueryOptions } from 'src/client/queries/translation';
+
+const Content = ({ nonce }) => {
+    const { data: translations } = useSuspenseQuery(
+        translationQueryOptions('en'),
+    );
+
+    return (
+        <TranslationProvider context={translations}>
+            <main>
+                <Message id="hero.title" />
+                {/* ... */}
+            </main>
+        </TranslationProvider>
+    );
+};
+```
+
+## Shell App SSR Integration
+
+The shell app provides the QueryClient that federated components (like Content) use for data fetching.
+
+### Module Federation Shared Dependencies
+
+TanStack Query is configured as a singleton shared dependency so the shell and content apps use the same QueryClient instance:
+
+```javascript
+// In rspack.federated.config.ts for both shell and content
+shared: {
+    '@tanstack/react-query': {
+        singleton: true,
+        requiredVersion: dependencies['@tanstack/react-query'],
+    },
+}
+```
+
+### SSR Render Middleware
 
 In `apps/shell/src/server/middleware/render.tsx`:
 
 ```tsx
-import { createTranslationCache } from '@cohbrgr/localization';
-import { fetchTranslations } from 'src/client/queries/translation';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { DEHYDRATED_STATE_PLACEHOLDER } from 'src/server/template/components/Javascript.html';
 
 const render = (isProduction, useClientSideRendering) => async (req, res) => {
-    // Fetch translations before React render
-    let translationData;
-    try {
-        translationData = await fetchTranslations('en');
-    } catch (error) {
-        translationData = { lang: 'en', keys: {} };
-    }
-
-    // Create cache with pre-fetched data - no Suspense needed during render
-    const translationCache = createTranslationCache(undefined, translationData);
-
-    // Single-pass render with cache already populated
-    renderToPipeableStream(
-        <Index translationCache={translationCache} /* ... */ />,
-        {
-            onAllReady() {
-                // Stream complete HTML
-            },
+    // Create QueryClient for SSR - federated components will use this
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: { staleTime: 1000 * 60 * 5 },
         },
+    });
+
+    const stream = new Promise((resolve, reject) => {
+        const { pipe } = renderToPipeableStream(
+            <Index queryClient={queryClient} /* ... */ />,
+            {
+                onAllReady() {
+                    // Suspense boundaries have resolved
+                    resolve(body);
+                },
+            },
+        );
+    });
+
+    const awaitedStream = await stream;
+    let markup = await streamToString(awaitedStream);
+
+    // Dehydrate AFTER render completes (Suspense resolved)
+    // This captures all queries from federated components
+    const dehydratedState = dehydrate(queryClient);
+    markup = markup.replace(
+        DEHYDRATED_STATE_PLACEHOLDER,
+        JSON.stringify(dehydratedState),
     );
+
+    res.send(markup);
 };
 ```
 
@@ -136,121 +225,55 @@ const render = (isProduction, useClientSideRendering) => async (req, res) => {
 In `apps/shell/src/server/template/Index.html.tsx`:
 
 ```tsx
-import {
-    TranslationCacheProvider,
-    SuspenseTranslationLoader,
-} from '@cohbrgr/localization';
+import { QueryClientProvider } from '@tanstack/react-query';
 
-<TranslationCacheProvider cache={props.translationCache}>
-    <AppStateProvider context={/* ... */}>
-        <Suspense fallback={null}>
-            <SuspenseTranslationLoader>
-                <App />
-            </SuspenseTranslationLoader>
-        </Suspense>
-    </AppStateProvider>
-</TranslationCacheProvider>;
-
-{
-    /* Translations from cache embedded in initial state */
-}
-<Javascript translationCache={props.translationCache} /* ... */ />;
-```
-
-### Client Bootstrap
-
-In `apps/shell/src/client/bootstrap.tsx`, the client uses the same component structure with a pre-populated cache:
-
-```tsx
-import {
-    createTranslationCache,
-    TranslationCacheProvider,
-    SuspenseTranslationLoader,
-} from '@cohbrgr/localization';
-
-const translations = window.__initial_state__?.translations ?? {};
-
-// Create cache pre-populated with SSR translations for hydration
-const translationCache = createTranslationCache(undefined, {
-    lang: 'en',
-    keys: translations,
-});
-
-hydrateRoot(
-    root,
-    <TranslationCacheProvider cache={translationCache}>
-        <AppStateProvider context={window.__initial_state__}>
-            <Suspense fallback={null}>
-                <SuspenseTranslationLoader>
-                    <BrowserRouter>
+const Index = ({ queryClient, /* ... */ }) => (
+    <html>
+        <body>
+            <div id="root">
+                <QueryClientProvider client={queryClient}>
+                    <Suspense fallback={null}>
+                        {/* Content component fetches translations here */}
                         <App />
-                    </BrowserRouter>
-                </SuspenseTranslationLoader>
-            </Suspense>
-        </AppStateProvider>
-    </TranslationCacheProvider>,
+                    </Suspense>
+                </QueryClientProvider>
+            </div>
+            <Javascript /* embeds dehydrated state placeholder */ />
+        </body>
+    </html>
 );
 ```
 
-This ensures SSR and client hydration use identical component trees and translations, preventing hydration mismatches.
+### Client Hydration
 
-## Content App Integration
-
-The content app fetches translations client-side using TanStack Query.
-
-### Translation Query
-
-In `apps/content/src/client/queries/translation.ts`:
-
-```typescript
-import { TranslationResponse } from '@cohbrgr/localization';
-import { queryOptions } from '@tanstack/react-query';
-
-export const translationQueryOptions = (lang: string = 'en') =>
-    queryOptions({
-        queryKey: ['translations', lang],
-        queryFn: () => fetchTranslations(lang),
-        staleTime: 1000 * 60 * 60, // 1 hour
-    });
-```
-
-### Translation Loader Component
-
-In `apps/content/src/client/components/translation-loader/TranslationLoader.tsx`:
+In `apps/shell/src/client/bootstrap.tsx`:
 
 ```tsx
-import { TranslationProvider } from '@cohbrgr/localization';
-import { useQuery } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const TranslationLoader = ({ children, fallback }) => {
-    const [translations, setTranslations] = useState(fallback);
-    const { data } = useQuery(translationQueryOptions('en'));
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000 * 60 * 5,
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 
-    useEffect(() => {
-        if (data) {
-            setTranslations({
-                lang: data.lang,
-                keys: data.keys,
-            });
-        }
-    }, [data]);
+const dehydratedState = window.__initial_state__?.dehydratedState;
 
-    return (
-        <TranslationProvider context={translations}>
-            {children}
-        </TranslationProvider>
-    );
-};
-```
-
-### Bootstrap
-
-In `apps/content/src/client/bootstrap.tsx`:
-
-```tsx
-<TranslationLoader fallback={{ lang: 'en', keys: {} }}>
-    <App />
-</TranslationLoader>
+hydrateRoot(
+    root,
+    <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={dehydratedState}>
+            <Suspense fallback={null}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </Suspense>
+        </HydrationBoundary>
+    </QueryClientProvider>,
+);
 ```
 
 ## Using Translations in Components
@@ -294,14 +317,14 @@ const Navigation = () => {
 
 ## Missing Translation Behavior
 
-The `Message` component displays missing translation keys wrapped in square brackets:
+When a translation key is not found, the `Message` component displays the key wrapped in square brackets:
 
-| Condition               | Display                          |
-| ----------------------- | -------------------------------- |
-| Translation found       | `Translation text`               |
-| Missing translation key | `[key.name]`                     |
+| Condition               | Display            |
+| ----------------------- | ------------------ |
+| Translation found       | `Translation text` |
+| Missing translation key | `[key.name]`       |
 
-This makes it easy to identify content that needs translation.
+This makes it easy to identify content that needs translation during development.
 
 ## Adding a New Language
 
@@ -330,8 +353,8 @@ This makes it easy to identify content that needs translation.
 
 2. **Keep translations in sync** - All languages should have the same keys
 
-3. **Use the Message component** for most translations - it handles fallbacks and development indicators
+3. **Use the Message component** for most translations - it handles missing key display
 
-4. **Cache translations** - Use appropriate stale times in TanStack Query to avoid unnecessary refetches
+4. **Cache translations** - TanStack Query caches for 1 hour by default, avoiding unnecessary refetches
 
-5. **Graceful degradation** - The app renders translation keys in brackets if the API fails, making it functional but clearly indicating missing translations
+5. **Graceful degradation** - Missing translations show as `[key]`, making the app functional while clearly indicating what needs translation
