@@ -1,4 +1,5 @@
-import { FunctionComponent, lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import type { FunctionComponent } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import 'src/client/styles/index.scss';
@@ -10,14 +11,8 @@ import AppRoutes from 'src/client/routes';
 import { onCLS, onINP, onLCP } from 'web-vitals/attribution';
 
 import { Spinner } from '@cohbrgr/components';
-import type { IContent } from '@cohbrgr/content/src/client/components/content/Content';
 
-const Content = lazy(
-    () =>
-        import('content/Content') as Promise<{
-            default: FunctionComponent<IContent>;
-        }>,
-);
+const Content = lazy(() => import('content/Content'));
 const App: FunctionComponent = () => {
     useEffect(() => {
         onCLS(console.log);

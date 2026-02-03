@@ -148,3 +148,4 @@ const render =
     };
 
 export default render;
+export type RenderMiddleware = typeof render;

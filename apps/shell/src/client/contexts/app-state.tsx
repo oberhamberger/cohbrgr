@@ -9,7 +9,7 @@ const initialAppStateContext: State = {
 
 type ProviderProps = {
     children?: ReactElement;
-    context: State;
+    context?: State | undefined;
 };
 
 export const AppStateContext = createContext<State>(initialAppStateContext);

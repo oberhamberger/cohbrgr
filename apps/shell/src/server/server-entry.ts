@@ -1,13 +1,15 @@
 import type { Request, Response } from 'express';
 
+import type { RenderMiddleware } from './middleware/render';
+
 /**
  * Factory function that creates a middleware handler which dynamically imports and executes the render middleware for SSR.
  */
 const createRenderThunk = () => async (req: Request, res: Response) => {
-    // @ts-expect-error: dynamic import of middleware/render is required for SSR compatibility
-    const renderer = (await import('./middleware/render'))
-        .default as unknown as RenderMiddlewareFactory;
+    const mod = await import('./middleware/render.tsx');
+    const renderer = mod.default as unknown as RenderMiddleware;
     return renderer(true, true)(req, res);
 };
 
 export default createRenderThunk;
+export type RenderThunk = typeof createRenderThunk;
