@@ -47,6 +47,10 @@ export const config = tseslint.config([
             import: importPlugin,
         },
         rules: {
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                { argsIgnorePattern: '^_' },
+            ],
             // Import order aligned with Prettier (packages/prettier): node/path, react, scss, third-party, @cohbrgr, relative, then type-only
             'import/order': [
                 'warn',

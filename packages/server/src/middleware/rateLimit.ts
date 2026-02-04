@@ -41,8 +41,7 @@ export function applyRateLimit(
                 _next: NextFunction,
                 opts: Options,
             ) => {
-                Logger.log(
-                    'warn',
+                Logger.warn(
                     `Restricted request from ${request.ip} for ${request.path}`,
                 );
                 return response.status(opts.statusCode).send(opts.message);
