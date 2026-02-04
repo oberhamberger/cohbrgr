@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 
+import { sanitizeHtml } from './sanitize';
 import { TranslationKey } from './types';
 import { useTranslation } from './useTranslation';
 
@@ -22,7 +23,7 @@ const Message: FunctionComponent<IMessage> = ({ id, html = false }) => {
     const output = isMissing ? `[${id}]` : translation;
 
     if (html) {
-        return <span dangerouslySetInnerHTML={{ __html: output }} />;
+        return <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(output) }} />;
     }
 
     return <>{output}</>;
