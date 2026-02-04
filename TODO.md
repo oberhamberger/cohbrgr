@@ -1,13 +1,18 @@
 # TODO
 
+## High Priority
+
+- [ ] Pin pnpm version in GitHub Actions setup (`.github/actions/setup/action.yml:7`) - uses `npm install -g pnpm` without a version while the project pins `pnpm@10.28.2`
+- [ ] Fix CSP nonce inconsistency across SSR template components - `StructuredData.tsx` receives nonce prop but doesn't apply it; `Stylesheets.html.tsx:60` has nonce commented out; only `Javascript.html.tsx:56` uses it correctly
+- [ ] Add ARIA attributes to Spinner component (`packages/components/src/spinner/Spinner.tsx:5-11`) - missing `role="status"` and `aria-label` for screen reader support
+
 ## Medium Priority
 
 - [ ] Resolve HttpStatus + Suspense TODO (`apps/shell/src/client/contexts/http.tsx:28-29`) - the comment notes Suspense-based SSR may not work properly; verify behavior and implement a proper solution
-- [ ] Unify TypeScript configurations - shell and content apps have divergent `tsconfig.json` settings (`jsx`, `module`, `lib`); create consistent inheritance from the shared base
-- [ ] Pin pnpm version in Dockerfile (`Dockerfile:15`) - currently uses `pnpm@latest` instead of matching the pinned `pnpm@10.28.2`
-- [ ] Uncomment and configure pre-commit hook (`.husky/pre-commit`) - Prettier formatting is not enforced before commits
+- [ ] Strengthen logging middleware tests (`packages/server/src/middleware/__tests__/logging.spec.ts:44-62`) - tests only assert `next()` was called, never verify what was actually logged
+- [ ] Add missing return statements in translation controllers (`apps/api/src/modules/translation/controller/translation.controller.ts:11-15`) - inconsistent with navigation controllers which return `sendJsonWithEtag()` result
+- [ ] Forward actual errors in SSR render middleware (`apps/shell/src/server/middleware/render.tsx:107-120`) - `onShellError` and `onError` reject with generic "Something went wrong" instead of the real error
 - [ ] Replace `console.log` Web Vitals logging with analytics endpoint (`apps/shell/src/client/App.tsx:17-20`) - metrics are logged to console in production
-- [ ] Use `Logger.warn()` instead of `Logger.log('warn', ...)` in rate limiter (`packages/server/src/middleware/rateLimit.ts:44-46`)
 - [ ] Add CORS origin URL validation in `createApp` (`packages/server/src/app/createApp.ts`) - origins are passed directly without validation
 - [ ] Synchronize root `package.json` version (v1.0.0) with app/package versions (v2.0.1), or document the versioning strategy
 
