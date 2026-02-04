@@ -1,9 +1,6 @@
 {
-    "extends": "@cohbrgr/tsconfig",
+    "extends": "@cohbrgr/tsconfig/app",
     "compilerOptions": {
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "rewriteRelativeImportExtensions": true,
         "baseUrl": ".",
         "paths": {
             "src/*": ["./src/*"],
@@ -14,8 +11,7 @@
             "./node_modules/@types",
             "./src/client/@types/*",
             "./src/server/@types/*"
-        ],
-        "lib": ["dom", "dom.iterable", "webworker"]
+        ]
     },
     "exclude": ["../../node_modules", "node_modules"]
 }
