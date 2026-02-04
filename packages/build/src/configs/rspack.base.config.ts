@@ -22,7 +22,7 @@ export const baseConfig: RspackOptions = {
         }),
     ],
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.json', '.scss', 'css'],
+        extensions: ['.tsx', '.ts', '.js', '.json', '.scss', '.css'],
         alias: {
             src: resolve(CWD, './src'),
             data: resolve(CWD, './data'),
