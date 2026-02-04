@@ -16,7 +16,8 @@
         "test": "jest"
     },
     "peerDependencies": {
-        "react": "^19.0.0"
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",

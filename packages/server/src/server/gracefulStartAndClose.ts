@@ -23,7 +23,7 @@ export const gracefulStartAndClose = (app: Application, port: number) => {
      */
     const closeGracefully = async () => {
         await server.close();
-        Logger.log('info', `Server closed.`);
+        Logger.info(`Server closed.`);
         process.exit();
     };
     process.on('SIGTERM', closeGracefully);
