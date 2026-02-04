@@ -33,7 +33,6 @@
         "@cohbrgr/utils": "workspace:*",
         "@tanstack/react-query": "^5.90.20",
         "express": "5.2.1",
-        "helmet": "8.1.0",
         "normalize.css": "8.0.1",
         "web-vitals": "5.1.0",
         "workbox-core": "7.4.0",

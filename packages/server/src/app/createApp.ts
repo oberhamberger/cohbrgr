@@ -1,6 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import Express from 'express';
+import helmet from 'helmet';
 import nocache from 'nocache';
 
 import { logging } from '../middleware/logging';
@@ -39,18 +40,23 @@ export interface CreateAppOptions {
      * Enable CORS with specified origins. Defaults to disabled.
      */
     cors?: CorsOptions;
+    /**
+     * Enable helmet security headers. Defaults to true.
+     */
+    helmet?: boolean;
 }
 
 /**
  * Creates an Express application with common middleware configured.
  *
  * Applies in order:
- * 1. Rate limiting (production only, if enabled)
- * 2. nocache (if enabled)
- * 3. Request logging
- * 4. Method determination (GET/HEAD only)
- * 5. Compression (if enabled)
- * 6. Health check endpoint at /health
+ * 1. Helmet security headers (enabled by default)
+ * 2. Rate limiting (production only, if enabled)
+ * 3. nocache (if enabled)
+ * 4. Request logging
+ * 5. Method determination (GET/HEAD only)
+ * 6. Compression (if enabled)
+ * 7. Health check endpoint at /health
  *
  * @example
  * ```typescript
@@ -64,6 +70,11 @@ export interface CreateAppOptions {
  */
 export function createApp(options: CreateAppOptions): Application {
     const app: Application = Express();
+
+    // Security headers (enabled by default)
+    if (options.helmet !== false) {
+        app.use(helmet());
+    }
 
     // CORS
     if (options.cors) {

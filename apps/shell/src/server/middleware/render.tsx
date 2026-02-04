@@ -61,6 +61,7 @@ const render =
 
         const stream = new Promise<Stream>((resolve, reject) => {
             const httpContext: HttpContextData = {};
+            let timeout: ReturnType<typeof setTimeout>;
             try {
                 const { pipe, abort } = renderToPipeableStream(
                     renderIndex(
@@ -73,6 +74,7 @@ const render =
                     ),
                     {
                         onAllReady() {
+                            clearTimeout(timeout);
                             const renderStatusCode =
                                 httpContext.statusCode || 200;
                             if (renderStatusCode < 300) {
@@ -103,12 +105,14 @@ const render =
                             resolve(body);
                         },
                         onShellError(error) {
+                            clearTimeout(timeout);
                             Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
                             reject(new Error('Something went wrong'));
                         },
                         onError(error) {
+                            clearTimeout(timeout);
                             Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
@@ -116,9 +120,13 @@ const render =
                         },
                     },
                 );
-                setTimeout(abort, 5000);
+                timeout = setTimeout(() => {
+                    abort();
+                    reject(new Error(`SSR render timed out for: ${req.url}`));
+                }, 5000);
             } catch (error) {
                 Logger.error(error);
+                reject(error);
             }
         });
 
