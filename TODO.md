@@ -17,8 +17,8 @@
 ## Medium Priority
 
 - [ ] Resolve HttpStatus + Suspense TODO (`apps/shell/src/client/contexts/http.tsx:28-29`) - the comment notes Suspense-based SSR may not work properly; verify behavior and implement a proper solution
-- [ ] Strengthen logging middleware tests (`packages/server/src/middleware/__tests__/logging.spec.ts:44-62`) - tests only assert `next()` was called, never verify what was actually logged
-- [ ] Add missing return statements in translation controllers (`apps/api/src/modules/translation/controller/translation.controller.ts:11-15`) - inconsistent with navigation controllers which return `sendJsonWithEtag()` result
+- [x] Strengthen logging middleware tests → Fixed: tests now mock `Logger.info` and assert actual log messages for both production and development modes
+- [x] Add missing return statements in translation controllers → Fixed: both controllers now explicitly return `sendJsonWithEtag()` result
 - [x] Forward actual errors in SSR render middleware → Fixed: `onShellError` and `onError` now forward the original error
 - [ ] Replace `console.log` Web Vitals logging with analytics endpoint (`apps/shell/src/client/App.tsx:17-20`) - metrics are logged to console in production
 - [x] Add CORS origin URL validation in `createApp` (`packages/server/src/app/createApp.ts`) - origins are passed directly without validation

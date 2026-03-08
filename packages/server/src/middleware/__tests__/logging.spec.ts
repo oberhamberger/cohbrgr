@@ -2,14 +2,22 @@ import { NextFunction, Request, Response } from 'express';
 
 import { logging } from '../logging';
 
+const mockLoggerInfo = jest.fn();
+jest.mock('@cohbrgr/utils', () => ({
+    Logger: {
+        info: (...args: unknown[]) => mockLoggerInfo(...args),
+    },
+}));
+
 describe('logging middleware', () => {
     let mockRequest: Partial<Request>;
     let mockResponse: Partial<Response>;
     let mockNext: NextFunction;
 
     beforeEach(() => {
+        mockLoggerInfo.mockReset();
         mockRequest = {
-            ip: 'test',
+            ip: '127.0.0.1',
             url: '/test-url',
             headers: {
                 'user-agent': 'test',
@@ -41,23 +49,23 @@ describe('logging middleware', () => {
         expect(mockNext).toHaveBeenCalled();
     });
 
-    it('should log with IP in production mode', () => {
-        // Production mode logs with IP
+    it('should log IP and URL in production mode', () => {
         logging(true)(
             mockRequest as Request,
             mockResponse as Response,
             mockNext,
         );
-        expect(mockNext).toHaveBeenCalled();
+        expect(mockLoggerInfo).toHaveBeenCalledWith(
+            '127.0.0.1 requests: /test-url',
+        );
     });
 
-    it('should log URL in development mode', () => {
-        // Development mode logs URL without IP
+    it('should log URL without IP in development mode', () => {
         logging(false)(
             mockRequest as Request,
             mockResponse as Response,
             mockNext,
         );
-        expect(mockNext).toHaveBeenCalled();
+        expect(mockLoggerInfo).toHaveBeenCalledWith('Requesting: /test-url');
     });
 });
