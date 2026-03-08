@@ -18,7 +18,9 @@ export const baseConfig: RspackOptions = {
     context: resolve(CWD, `./src`),
     plugins: [
         new DefinePlugin({
-            'process.env.DOCKER': JSON.stringify(process.env['DOCKER'] ?? ''),
+            'process.env.CLOUD_RUN': JSON.stringify(
+                process.env['CLOUD_RUN'] ?? '',
+            ),
         }),
     ],
     resolve: {

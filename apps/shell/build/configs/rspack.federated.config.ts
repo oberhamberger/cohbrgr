@@ -8,7 +8,7 @@ const { dependencies } = packageJson;
 
 // Config.port already returns the correct port based on NODE_ENV at build time
 const contentUrl =
-    process.env['DOCKER'] === 'true'
+    process.env['CLOUD_RUN'] === 'true'
         ? Config.location
         : `${Config.location}:${Config.port}/`;
 

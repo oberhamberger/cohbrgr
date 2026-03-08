@@ -2,7 +2,7 @@ declare global {
     namespace NodeJS {
         interface ProcessEnv {
             NODE_ENV?: 'development' | 'production';
-            DOCKER?: string;
+            CLOUD_RUN?: string;
         }
     }
 }

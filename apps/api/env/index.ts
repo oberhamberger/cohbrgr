@@ -2,7 +2,7 @@
 import { cloudRunOrigins, ports } from '@cohbrgr/env';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const isDocker = process.env.DOCKER === 'true';
+const isCloudRun = process.env.CLOUD_RUN === 'true';
 
 export const internalConfig = {
     local: {
@@ -10,11 +10,13 @@ export const internalConfig = {
         location: 'http://localhost',
         staticPath: '/dist',
     },
-    docker: {
+    cloudRun: {
         port: ports.api.prod,
         location: cloudRunOrigins.api,
         staticPath: '/dist',
     },
 };
 
-export const Config = isDocker ? internalConfig.docker : internalConfig.local;
+export const Config = isCloudRun
+    ? internalConfig.cloudRun
+    : internalConfig.local;

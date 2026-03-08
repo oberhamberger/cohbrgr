@@ -12,8 +12,8 @@ describe('env config', () => {
         process.env = originalEnv;
     });
 
-    it('should use local dev config when DOCKER env is not set', () => {
-        delete process.env['DOCKER'];
+    it('should use local dev config when CLOUD_RUN env is not set', () => {
+        delete process.env['CLOUD_RUN'];
         delete process.env['NODE_ENV'];
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
@@ -25,7 +25,7 @@ describe('env config', () => {
     });
 
     it('should use local production config when NODE_ENV is production', () => {
-        delete process.env['DOCKER'];
+        delete process.env['CLOUD_RUN'];
         process.env['NODE_ENV'] = 'production';
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
@@ -36,8 +36,8 @@ describe('env config', () => {
         expect(Config.staticPath).toBe('/dist');
     });
 
-    it('should use docker config when DOCKER env is set', () => {
-        process.env['DOCKER'] = 'true';
+    it('should use Cloud Run config when CLOUD_RUN env is set', () => {
+        process.env['CLOUD_RUN'] = 'true';
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
 

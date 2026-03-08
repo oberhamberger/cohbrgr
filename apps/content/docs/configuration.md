@@ -2,10 +2,10 @@
 
 ## Environment Variables
 
-| Variable   | Purpose                                      |
-| ---------- | -------------------------------------------- |
-| `NODE_ENV` | Set to `production` for production builds    |
-| `DOCKER`   | When set, uses Cloud Run URLs for publicPath |
+| Variable    | Purpose                                      |
+| ----------- | -------------------------------------------- |
+| `NODE_ENV`  | Set to `production` for production builds    |
+| `CLOUD_RUN` | When set, uses Cloud Run URLs for publicPath |
 
 ## Ports
 
@@ -30,7 +30,7 @@ Build and run with Docker:
 
 ```bash
 docker build -t cohbrgr-content .
-docker run -p 3001:3001 -e DOCKER=true cohbrgr-content
+docker run -p 3001:3001 -e CLOUD_RUN=true cohbrgr-content
 ```
 
 The shell app must be configured to fetch the remote entry from the correct URL matching the content app's deployment location.

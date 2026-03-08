@@ -91,10 +91,10 @@ docker-compose up -d
 
 Applications read configuration from environment variables at **build time**. Each app has an `env/` directory with configuration that gets inlined during bundling via Rspack's DefinePlugin.
 
-| Variable   | Description                       | Default       | Build-time |
-| ---------- | --------------------------------- | ------------- | ---------- |
-| `NODE_ENV` | Environment mode (dev/production) | `development` | Yes        |
-| `DOCKER`   | Running in Docker/GCP Cloud Run   | `false`       | Yes        |
+| Variable    | Description                       | Default       | Build-time |
+| ----------- | --------------------------------- | ------------- | ---------- |
+| `NODE_ENV`  | Environment mode (dev/production) | `development` | Yes        |
+| `CLOUD_RUN` | Deploying to GCP Cloud Run        | `false`       | Yes        |
 
 ### Build-time vs Runtime
 
@@ -103,23 +103,25 @@ These variables are read during the build process and inlined into the bundle:
 ```typescript
 // apps/*/env/index.ts
 const isProduction = process.env.NODE_ENV === 'production';
-const isDocker = process.env.DOCKER === 'true';
+const isCloudRun = process.env.CLOUD_RUN === 'true';
 
-export const Config = isDocker ? internalConfig.docker : internalConfig.local;
+export const Config = isCloudRun
+    ? internalConfig.cloudRun
+    : internalConfig.local;
 ```
 
 This means:
 
-- `pnpm run build` → `NODE_ENV=production`, `DOCKER` unset → local production config
-- `DOCKER=true pnpm run build` → Docker/GCP config with cloud URLs
+- `pnpm run build` → `NODE_ENV=production`, `CLOUD_RUN` unset → local production config
+- `CLOUD_RUN=true pnpm run build` → Cloud Run config with cloud URLs
 
 ### Configuration Per Environment
 
-| Environment      | NODE_ENV    | DOCKER | API URL                           |
-| ---------------- | ----------- | ------ | --------------------------------- |
-| Local dev        | development | -      | `http://localhost:3032`           |
-| Local production | production  | -      | `http://localhost:3002`           |
-| Docker/GCP       | production  | `true` | `https://cohbrgr-api-....run.app` |
+| Environment      | NODE_ENV    | CLOUD_RUN | API URL                           |
+| ---------------- | ----------- | --------- | --------------------------------- |
+| Local dev        | development | -         | `http://localhost:3032`           |
+| Local production | production  | -         | `http://localhost:3002`           |
+| Cloud Run        | production  | `true`    | `https://cohbrgr-api-....run.app` |
 
 ## CI/CD
 

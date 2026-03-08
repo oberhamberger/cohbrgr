@@ -11,7 +11,7 @@ const staticPath = resolve(process.cwd() + Config.staticPath + '/client');
 const isGenerator = findProcessArgs(['--generator']);
 
 const contentOrigin =
-    process.env['DOCKER'] === 'true'
+    process.env['CLOUD_RUN'] === 'true'
         ? cloudRunOrigins.content
         : isProduction
           ? `http://localhost:${ports.content.prod}`
