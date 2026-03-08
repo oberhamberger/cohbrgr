@@ -124,6 +124,10 @@ dist
 # Claude Code local settings
 .claude/settings.local.json
 
+# Playwright
+playwright-report/
+test-results/
+
 # Lighthouse CI reports (generated during local runs)
 localhost*.report.html
 localhost*.report.json

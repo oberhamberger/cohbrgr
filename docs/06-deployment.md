@@ -162,9 +162,9 @@ curl http://localhost:3001/health  # content (production)
 curl http://localhost:3002/health  # api (production)
 ```
 
-The shell app also proxies a content health check at `/content-health`, which is used by the client to verify the content micro-frontend is available before attempting to load it.
+The shell server checks the content app's health on startup and periodically (every 30s). The health status is injected into the SSR initial state, so the client knows synchronously whether the federated content is available — no client-side health check fetch needed.
 
-Use these for container orchestration health checks and load balancer configuration.
+Use these endpoints for container orchestration health checks and load balancer configuration.
 
 ## Observability
 

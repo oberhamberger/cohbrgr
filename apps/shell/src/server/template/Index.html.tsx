@@ -15,6 +15,7 @@ interface IIndexProps {
     location: string;
     useCSR: boolean;
     nonce: string;
+    contentHealthy: boolean;
     httpContextData: HttpContextData;
     queryClient: QueryClient;
 }
@@ -82,6 +83,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                             context={{
                                 nonce: props.nonce,
                                 isProduction: props.isProduction,
+                                contentHealthy: props.contentHealthy,
                             }}
                         >
                             <Suspense fallback={null}>
@@ -99,6 +101,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     <Javascript
                         nonce={props.nonce}
                         isProduction={props.isProduction}
+                        contentHealthy={props.contentHealthy}
                     />
                 )}
             </body>

@@ -103,12 +103,6 @@ for app in "Shell:$SHELL_PORT" "Content:$CONTENT_PORT" "API:$API_PORT"; do
 done
 echo ""
 
-# ── Content health proxy ──────────────────────────────────────────
-echo "Content health proxy (shell → content):"
-status=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:$SHELL_PORT/content-health")
-assert "Shell /content-health returns 200" "$status" "200"
-echo ""
-
 # ── API endpoints ─────────────────────────────────────────────────
 echo "API endpoints:"
 status=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:$API_PORT/translation")

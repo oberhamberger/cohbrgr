@@ -10,7 +10,7 @@ import type { NextFunction, Request, Response } from 'express';
 const staticPath = resolve(process.cwd() + Config.staticPath + '/client');
 const isGenerator = findProcessArgs(['--generator']);
 
-const contentOrigin =
+export const contentOrigin =
     process.env['CLOUD_RUN'] === 'true'
         ? cloudRunOrigins.content
         : isProduction
@@ -42,19 +42,6 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
     ];
     res.setHeader('Content-Security-Policy', directives.join('; '));
     next();
-});
-
-app.get('/content-health', async (_req: Request, res: Response) => {
-    try {
-        const response = await fetch(`${contentOrigin}/health`, {
-            signal: AbortSignal.timeout(3000),
-        });
-        res.status(response.ok ? 200 : 503).json({
-            status: response.ok ? 'OK' : 'unavailable',
-        });
-    } catch {
-        res.status(503).json({ status: 'unavailable' });
-    }
 });
 
 app.use(staticFiles(staticPath, { maxAge: 3600 }));

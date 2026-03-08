@@ -1,7 +1,8 @@
-import app from 'src/server/server';
+import app, { contentOrigin } from 'src/server/server';
 
 import { gracefulStartAndClose } from '@cohbrgr/server';
 import { Config } from '@cohbrgr/shell/env';
+import { startHealthChecks } from 'src/server/content-health';
 
 import type { RenderThunk } from './server-entry';
 
@@ -37,6 +38,8 @@ const main = async () => {
     app.use(renderThunk);
 
     gracefulStartAndClose(app, port);
+
+    startHealthChecks(contentOrigin);
 };
 
 main();

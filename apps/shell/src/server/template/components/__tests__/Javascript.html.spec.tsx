@@ -5,7 +5,11 @@ import Javascript, { DEHYDRATED_STATE_PLACEHOLDER } from '../Javascript.html';
 describe('Javascript component', () => {
     it('should render initial state script', () => {
         const html = renderToString(
-            <Javascript nonce="test-nonce" isProduction={true} />,
+            <Javascript
+                nonce="test-nonce"
+                isProduction={true}
+                contentHealthy={true}
+            />,
         );
 
         expect(html).toContain('initial-state');
@@ -14,7 +18,11 @@ describe('Javascript component', () => {
 
     it('should include nonce attribute', () => {
         const html = renderToString(
-            <Javascript nonce="my-nonce" isProduction={true} />,
+            <Javascript
+                nonce="my-nonce"
+                isProduction={true}
+                contentHealthy={true}
+            />,
         );
 
         expect(html).toContain('nonce="my-nonce"');
@@ -22,7 +30,11 @@ describe('Javascript component', () => {
 
     it('should set isProduction in initial state', () => {
         const html = renderToString(
-            <Javascript nonce="test-nonce" isProduction={true} />,
+            <Javascript
+                nonce="test-nonce"
+                isProduction={true}
+                contentHealthy={true}
+            />,
         );
 
         expect(html).toContain('"isProduction":true');
@@ -30,7 +42,11 @@ describe('Javascript component', () => {
 
     it('should include dehydratedState placeholder for post-render injection', () => {
         const html = renderToString(
-            <Javascript nonce="test-nonce" isProduction={true} />,
+            <Javascript
+                nonce="test-nonce"
+                isProduction={true}
+                contentHealthy={true}
+            />,
         );
 
         expect(html).toContain('"dehydratedState"');

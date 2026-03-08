@@ -4,6 +4,10 @@ import 'html-validate/jest';
 import httpMocks, { MockRequest, MockResponse } from 'node-mocks-http';
 import render from 'src/server/middleware/render';
 
+jest.mock('src/server/content-health', () => ({
+    isContentHealthy: () => true,
+}));
+
 const mockTranslationResponse = {
     lang: 'en',
     keys: {
