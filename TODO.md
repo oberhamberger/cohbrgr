@@ -6,20 +6,20 @@
 - [x] Hardcoded Cloud Run URLs in env files are baked at build time → Fixed: centralised in `@cohbrgr/env` package
 - [ ] Module Federation remote URLs are hardcoded at build time — shell can't find content at a different URL (`apps/shell/build/configs/rspack.federated.config.ts`)
 - [x] `publicPath` hardcoded to `https://cohbrgr.com/` for Cloud Run builds → Fixed: uses `productionDomain` from `@cohbrgr/env`
-- [ ] `docker-compose.yml` doesn't pass `PROJECT_ID` build arg to Dockerfiles — local Docker builds won't set `GCLOUD_RUN` correctly
+- [x] `docker-compose.yml` doesn't pass `PROJECT_ID` build arg to Dockerfiles → Fixed: passes `PROJECT_ID` from host environment
 
 ## High Priority
 
-- [ ] Pin pnpm version in GitHub Actions setup (`.github/actions/setup/action.yml:7`) - uses `npm install -g pnpm` without a version while the project pins `pnpm@10.28.2`
+- [x] Pin pnpm version in GitHub Actions setup → Fixed: pinned to `pnpm@10.28.2`
 - [x] Fix CSP nonce inconsistency across SSR template components → Fixed: nonce enabled on inline `<style>`, CSP header set after nonce generation, `'unsafe-inline'` removed from `style-src`
-- [ ] Add ARIA attributes to Spinner component (`packages/components/src/spinner/Spinner.tsx:5-11`) - missing `role="status"` and `aria-label` for screen reader support
+- [x] Add ARIA attributes to Spinner component → Fixed: added `role="status"` and `aria-label="Loading"`
 
 ## Medium Priority
 
 - [ ] Resolve HttpStatus + Suspense TODO (`apps/shell/src/client/contexts/http.tsx:28-29`) - the comment notes Suspense-based SSR may not work properly; verify behavior and implement a proper solution
 - [ ] Strengthen logging middleware tests (`packages/server/src/middleware/__tests__/logging.spec.ts:44-62`) - tests only assert `next()` was called, never verify what was actually logged
 - [ ] Add missing return statements in translation controllers (`apps/api/src/modules/translation/controller/translation.controller.ts:11-15`) - inconsistent with navigation controllers which return `sendJsonWithEtag()` result
-- [ ] Forward actual errors in SSR render middleware (`apps/shell/src/server/middleware/render.tsx:107-120`) - `onShellError` and `onError` reject with generic "Something went wrong" instead of the real error
+- [x] Forward actual errors in SSR render middleware → Fixed: `onShellError` and `onError` now forward the original error
 - [ ] Replace `console.log` Web Vitals logging with analytics endpoint (`apps/shell/src/client/App.tsx:17-20`) - metrics are logged to console in production
 - [x] Add CORS origin URL validation in `createApp` (`packages/server/src/app/createApp.ts`) - origins are passed directly without validation
 - [ ] Synchronize root `package.json` version (v1.0.0) with app/package versions (v2.0.1), or document the versioning strategy

@@ -4,7 +4,12 @@ import * as styles from './Spinner.module.scss';
 
 export const Spinner: FunctionComponent = () => {
     return (
-        <div className={styles.ripple} data-testid="spinner">
+        <div
+            className={styles.ripple}
+            data-testid="spinner"
+            role="status"
+            aria-label="Loading"
+        >
             <div></div>
             <div></div>
         </div>

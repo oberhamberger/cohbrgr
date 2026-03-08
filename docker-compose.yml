@@ -3,6 +3,8 @@ services:
         build:
             context: .
             dockerfile: ./apps/shell/Dockerfile
+            args:
+                PROJECT_ID: ${PROJECT_ID:-}
         ports:
             - '3000:3000'
         depends_on:
@@ -12,6 +14,8 @@ services:
         build:
             context: .
             dockerfile: ./apps/content/Dockerfile
+            args:
+                PROJECT_ID: ${PROJECT_ID:-}
         ports:
             - '3001:3001'
 
@@ -19,5 +23,7 @@ services:
         build:
             context: .
             dockerfile: ./apps/api/Dockerfile
+            args:
+                PROJECT_ID: ${PROJECT_ID:-}
         ports:
             - '3002:3002'

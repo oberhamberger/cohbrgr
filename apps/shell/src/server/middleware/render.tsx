@@ -109,14 +109,22 @@ const render =
                             Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
-                            reject(new Error('Something went wrong'));
+                            reject(
+                                error instanceof Error
+                                    ? error
+                                    : new Error(String(error)),
+                            );
                         },
                         onError(error) {
                             clearTimeout(timeout);
                             Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
-                            reject(new Error('Something went wrong'));
+                            reject(
+                                error instanceof Error
+                                    ? error
+                                    : new Error(String(error)),
+                            );
                         },
                     },
                 );
