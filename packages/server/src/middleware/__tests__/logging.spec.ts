@@ -24,6 +24,7 @@ describe('logging middleware', () => {
             },
         };
         mockResponse = {
+            locals: { correlationId: 'test-id' },
             statusCode: 0,
             json: jest.fn(),
             send: jest.fn(),
@@ -57,6 +58,7 @@ describe('logging middleware', () => {
         );
         expect(mockLoggerInfo).toHaveBeenCalledWith(
             '127.0.0.1 requests: /test-url',
+            { correlationId: 'test-id' },
         );
     });
 
@@ -66,6 +68,8 @@ describe('logging middleware', () => {
             mockResponse as Response,
             mockNext,
         );
-        expect(mockLoggerInfo).toHaveBeenCalledWith('Requesting: /test-url');
+        expect(mockLoggerInfo).toHaveBeenCalledWith('Requesting: /test-url', {
+            correlationId: 'test-id',
+        });
     });
 });

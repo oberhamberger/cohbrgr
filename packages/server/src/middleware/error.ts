@@ -9,6 +9,7 @@ import type {
 
 /**
  * Express error handler middleware that logs errors and returns a 500 status with a generic error message.
+ * Includes the correlation ID in the response for production debugging.
  */
 export const errorHandler: ErrorRequestHandler = (
     err,
@@ -16,7 +17,13 @@ export const errorHandler: ErrorRequestHandler = (
     res: Response,
     _next: NextFunction,
 ) => {
-    Logger.error(`error: ${req.method} ${req.url} ${err}`);
+    const correlationId = res.locals['correlationId'] as string | undefined;
+    const meta = correlationId ? { correlationId } : {};
 
-    res.status(500).json({ error: 'Internal Server Error' });
+    Logger.error(`error: ${req.method} ${req.url} ${err}`, meta);
+
+    res.status(500).json({
+        error: 'Internal Server Error',
+        ...(correlationId && { correlationId }),
+    });
 };

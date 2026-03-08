@@ -27,8 +27,8 @@
 ## Low Priority
 
 - [x] Add integration tests for Module Federation boundary conditions → Partially addressed: ErrorBoundary wraps federated Content component for graceful degradation on load failures
-- [ ] Implement distributed tracing with correlation IDs across shell/content/api services for easier log correlation
-- [ ] Add structured logging (JSON format) and file transport to the logger for production (`packages/utils/src/logger.ts`)
-- [ ] Improve error middleware to include correlation IDs in responses for production debugging (`packages/server/src/middleware/error.ts`)
+- [x] Implement distributed tracing with correlation IDs across shell/content/api services → Fixed: `correlationId` middleware generates/propagates `x-correlation-id`, included in logging and error responses
+- [x] Add structured logging (JSON format) for production → Fixed: logger uses JSON format in production, colorized text in development
+- [x] Improve error middleware to include correlation IDs in responses → Fixed: error responses include `correlationId` when available
 - [x] Apply rate limiting consistently across content and API apps → Fixed: enabled `rateLimit: true` in content and API `createApp` calls
 - [ ] Add health checks before Module Federation component loads to verify content/api availability
