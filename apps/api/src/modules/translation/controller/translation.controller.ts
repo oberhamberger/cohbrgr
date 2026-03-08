@@ -12,7 +12,7 @@ export const fullTranslationController = (
     _request: Request,
     response: Response,
 ) => {
-    sendJsonWithEtag(response, translationService.get());
+    return sendJsonWithEtag(response, translationService.get());
 };
 
 /**
@@ -25,7 +25,7 @@ export const languageSpecificTranslationController = (
     const selectedLanguage = pickLanguage(_request);
     const selectedKeys = translationService.get()[selectedLanguage];
 
-    sendJsonWithEtag(response, {
+    return sendJsonWithEtag(response, {
         lang: selectedLanguage,
         keys: selectedKeys,
     });
