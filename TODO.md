@@ -330,7 +330,7 @@ Most infrastructure is already in place from the existing setup. Verify before s
     gcloud builds triggers list  # confirm no triggers remain
     ```
 7. Add `deploy.sh` usage to CLAUDE.md
-8. Add `pnpm run deploy` and `pnpm run deploy:dry` scripts to root `package.json`
+8. Add `pnpm run ship` and `pnpm run ship:dry` scripts to root `package.json`
 
 #### Phase 4: Future Improvements
 

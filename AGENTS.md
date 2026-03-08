@@ -128,8 +128,8 @@ The project uses **CalVer** (Calendar Versioning) with the format `YYYY.MM.PATCH
 Deploy to Google Cloud Run via Cloud Build. Requires `gcloud` CLI authenticated with project `cohb-9fa5f`.
 
 ```bash
-pnpm run deploy        # build + deploy to production (asks for confirmation)
-pnpm run deploy:dry    # build only, no deploy
+pnpm run ship          # build + deploy to production (asks for confirmation)
+pnpm run ship:dry      # build only, no deploy
 ```
 
 Deployment builds all three apps in parallel, pushes images to Artifact Registry, deploys to Cloud Run, and runs e2e smoke tests against production. The `--dry-run` flag skips deploy and e2e steps.
