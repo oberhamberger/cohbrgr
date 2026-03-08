@@ -49,7 +49,7 @@ echo "Console:    https://console.cloud.google.com/cloud-build/builds/$BUILD_ID?
 echo ""
 
 # Stream logs from Cloud Logging (avoids the Cloud Storage timeout issue)
-gcloud builds log --stream --project="$PROJECT_ID" "$BUILD_ID"
+gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID"
 
 # Check final status
 STATUS=$(gcloud builds describe "$BUILD_ID" --project="$PROJECT_ID" --format='value(status)')
