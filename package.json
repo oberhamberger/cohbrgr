@@ -48,6 +48,7 @@
         "test:e2e": "pnpm --filter @cohbrgr/e2e e2e",
         "test:e2e:ui": "pnpm --filter @cohbrgr/e2e e2e:ui",
         "test:e2e:prod": "E2E_BASE_URL=https://cohbrgr.com pnpm --filter @cohbrgr/e2e e2e",
+        "integration": "pnpm run bootstrap && pnpm run lint && pnpm run test && pnpm run test:integration && pnpm run test:e2e",
         "prepare": "husky"
     },
     "repository": {
