@@ -1,17 +1,16 @@
 import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 
-import { isProduction } from '@cohbrgr/build';
 import { Config } from '@cohbrgr/content/env';
 
 import packageJson from '../../../../package.json';
 
 const { dependencies } = packageJson;
 
-const contentPort = isProduction ? Config.port : Config.port + 30;
+// Config.port already returns the correct port based on NODE_ENV at build time
 const contentUrl =
     process.env['DOCKER'] === 'true'
         ? Config.location
-        : `${Config.location}:${contentPort}/`;
+        : `${Config.location}:${Config.port}/`;
 
 const getHostOptions = (isServer: boolean) => {
     return {
@@ -20,12 +19,24 @@ const getHostOptions = (isServer: boolean) => {
         remotes: {
             content: `content@${contentUrl}${isServer ? 'server' : 'client'}/remoteEntry.js`,
         },
-        shared: [
-            {
-                react: dependencies.react,
-                'react-dom': dependencies['react-dom'],
+        shared: {
+            react: {
+                singleton: true,
+                requiredVersion: dependencies.react,
             },
-        ],
+            'react-dom': {
+                singleton: true,
+                requiredVersion: dependencies['react-dom'],
+            },
+            '@tanstack/react-query': {
+                singleton: true,
+                requiredVersion: dependencies['@tanstack/react-query'],
+            },
+            '@cohbrgr/localization': {
+                singleton: true,
+                requiredVersion: false,
+            },
+        },
     };
 };
 

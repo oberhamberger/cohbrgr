@@ -10,14 +10,8 @@ This configuration ensures consistent code formatting across the entire codebase
 - **`tabWidth`**: `4` - Sets the number of spaces per indentation level to 4.
 - **`semi`**: `true` - Prints semicolons at the end of statements.
 - **`singleQuote`**: `true` - Uses single quotes instead of double quotes.
-- **`plugins`**: Includes `@trivago/prettier-plugin-sort-imports` for intelligent import sorting.
-- **`importOrder`**: Defines the order of imports:
-    - `^react$`
-    - `^react-dom$`
-    - `^@?\w` (external packages, including scoped ones)
-    - `^[./]` (relative imports)
-- **`importOrderSeparation`**: `true` - Adds a newline between import groups.
-- **`importOrderSortSpecifiers`**: `true` - Sorts the import specifiers within a single import statement.
+
+Import order is **not** handled by Prettier; it is enforced by ESLint (`@cohbrgr/eslint`) to avoid conflicts and keep a single source of truth. Run `pnpm run lint --fix` to fix import order.
 
 ## Usage
 

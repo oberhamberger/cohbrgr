@@ -1,17 +1,48 @@
 # Introduction
 
-Welcome to the cohbrgr project! This project is a monorepo that contains a collection of applications and packages that work together to create a modern web application.
+cohbrgr is a TypeScript monorepo that explores modern web architecture patterns without relying on opinionated frameworks like Next.js or create-react-app. It serves as both a functional website and an educational reference for building SSR React applications with micro-frontend architecture.
 
-This documentation is intended to help new developers get started with the project. It provides a high-level overview of the project's architecture, as well as detailed information about the different applications and packages.
+## Why This Project Exists
 
-## Foundational Ideas and Concepts
+Most modern React projects reach for Next.js or similar meta-frameworks. While these tools are excellent, they abstract away the underlying mechanics. This project takes a different approach: building SSR, micro-frontends, and module federation from first principles to understand how these technologies actually work.
 
-The cohbrgr project is built around a few foundational ideas and concepts:
+## Core Technologies
 
-- **Monorepo:** The project is organized as a monorepo, which means that all the code for all the applications and packages is stored in a single repository. This makes it easier to manage dependencies and share code between different parts of the project.
-- **Micro-frontends:** The project uses a micro-frontend architecture, which means that the user interface is composed of multiple, independently deployable applications. This makes it easier to develop and maintain large and complex user interfaces.
-- **Module Federation:** The micro-frontends are implemented using Module Federation, which is a feature of Webpack and Rspack that allows separately compiled and deployed applications to share code and dependencies at runtime.
-- **Server-Side Rendering (SSR):** The main application is server-side rendered, which means that the initial HTML is generated on the server and sent to the client. This improves performance and SEO.
-- **TypeScript:** The entire project is written in TypeScript, which is a typed superset of JavaScript that helps to prevent errors and improve code quality.
-- **React:** The user interface is built using React, which is a popular JavaScript library for building user interfaces.
-- **Rspack:** The project uses Rspack as its build tool. Rspack is a fast, Rust-based bundler that is compatible with Webpack.
+| Technology            | Purpose                                     |
+| --------------------- | ------------------------------------------- |
+| **TypeScript**        | Type safety across the entire codebase      |
+| **React 19**          | UI components and rendering                 |
+| **Rspack**            | Fast, Webpack-compatible bundling           |
+| **Module Federation** | Runtime micro-frontend composition          |
+| **Express**           | Server-side rendering and API               |
+| **pnpm + Nx**         | Monorepo management and build orchestration |
+
+## Project Structure
+
+```
+cohbrgr/
+├── apps/                    # Deployable applications
+│   ├── shell/               # Host app, SSR container
+│   ├── content/             # Remote micro-frontend
+│   └── api/                 # REST API server
+├── packages/                # Shared libraries
+│   ├── build/               # Rspack configuration
+│   ├── components/          # Shared UI components
+│   ├── server/              # Express middleware
+│   └── ...                  # Config packages
+└── docs/                    # Documentation
+    └── adr/                 # Architectural Decision Records
+```
+
+## Design Principles
+
+1. **Learn by building** - Understand the mechanics, not just the abstractions
+2. **Keep it simple** - Minimal dependencies, clear data flow
+3. **Document decisions** - ADRs capture the "why" behind architectural choices
+4. **Share code wisely** - Packages extract genuinely reusable logic
+
+## Next Steps
+
+- [Getting Started](./02-getting-started.md) - Set up your development environment
+- [Architecture](./03-architecture.md) - Understand how the pieces fit together
+- [ADRs](./adr/README.md) - Learn why specific technologies were chosen

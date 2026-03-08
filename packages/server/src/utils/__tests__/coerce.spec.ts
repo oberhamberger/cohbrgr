@@ -1,23 +1,6 @@
-import { coerceToString, etagOf } from './common';
+import { coerceToString } from '../coerce';
 
-describe('common', () => {
-    describe('etagOf', () => {
-        it('should return a consistent hash for the same payload', () => {
-            const payload = { a: 1, b: 'test' };
-            const etag1 = etagOf(payload);
-            const etag2 = etagOf(payload);
-            expect(etag1).toBe(etag2);
-        });
-
-        it('should return a different hash for different payloads', () => {
-            const payload1 = { a: 1, b: 'test' };
-            const payload2 = { a: 2, b: 'test' };
-            const etag1 = etagOf(payload1);
-            const etag2 = etagOf(payload2);
-            expect(etag1).not.toBe(etag2);
-        });
-    });
-
+describe('coerce utilities', () => {
     describe('coerceToString', () => {
         it('should return the string if the value is a string', () => {
             expect(coerceToString('test')).toBe('test');
@@ -36,6 +19,14 @@ describe('common', () => {
             expect(coerceToString(123)).toBeUndefined();
             expect(coerceToString(null)).toBeUndefined();
             expect(coerceToString(undefined)).toBeUndefined();
+        });
+
+        it('should handle empty array', () => {
+            expect(coerceToString([])).toBeUndefined();
+        });
+
+        it('should handle empty string', () => {
+            expect(coerceToString('')).toBe('');
         });
     });
 });

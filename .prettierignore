@@ -2,3 +2,5 @@ lerna.json
 packages/figma/src/tokens.json
 /.nx/cache
 /.nx/workspace-data
+package-lock.json
+pnpm-lock.yaml

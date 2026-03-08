@@ -47,6 +47,11 @@ export const config = tseslint.config([
             import: importPlugin,
         },
         rules: {
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                { argsIgnorePattern: '^_' },
+            ],
+            // Import order aligned with Prettier (packages/prettier): node/path, react, scss, third-party, @cohbrgr, relative, then type-only
             'import/order': [
                 'warn',
                 {
@@ -67,14 +72,19 @@ export const config = tseslint.config([
                             position: 'after',
                         },
                         {
-                            pattern: '@cohbrgr/**',
+                            pattern: '.*\\.scss$',
                             group: 'external',
                             position: 'before',
                         },
+                        {
+                            pattern: '@cohbrgr/**',
+                            group: 'external',
+                            position: 'after',
+                        },
                     ],
-                    alphabetize: {
-                        caseInsensitive: true,
-                    },
+                    pathGroupsExcludedImportTypes: ['builtin'],
+                    alphabetize: { caseInsensitive: true },
+                    'newlines-between': 'always',
                 },
             ],
         },

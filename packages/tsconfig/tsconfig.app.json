@@ -1,0 +1,18 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "rewriteRelativeImportExtensions": true,
+        "declaration": false,
+        "lib": [
+            "es2024",
+            "ESNext.Array",
+            "ESNext.Collection",
+            "ESNext.Error",
+            "ESNext.Iterator",
+            "ESNext.Promise",
+            "dom",
+            "dom.iterable",
+            "webworker"
+        ]
+    }
+}

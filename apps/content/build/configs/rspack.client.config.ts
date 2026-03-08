@@ -8,7 +8,7 @@ import {
 } from '@rspack/core';
 import { merge } from 'webpack-merge';
 
-import { CWD, baseConfig, isCloudRun, isProduction } from '@cohbrgr/build';
+import { baseConfig, CWD, isCloudRun, isProduction } from '@cohbrgr/build';
 
 import getModuleFederationPlugins from './rspack.federated.config';
 

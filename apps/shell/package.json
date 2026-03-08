@@ -28,13 +28,11 @@
     "dependencies": {
         "@cohbrgr/components": "workspace:*",
         "@cohbrgr/figma": "workspace:*",
+        "@cohbrgr/localization": "workspace:*",
         "@cohbrgr/server": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
-        "compression": "1.8.1",
+        "@tanstack/react-query": "^5.90.20",
         "express": "5.2.1",
-        "express-rate-limit": "8.2.1",
-        "helmet": "8.1.0",
-        "nocache": "4.0.0",
         "normalize.css": "8.0.1",
         "web-vitals": "5.1.0",
         "workbox-core": "7.4.0",
@@ -51,9 +49,8 @@
         "@cohbrgr/tsconfig": "workspace:*",
         "@rspack/cli": "catalog:",
         "@rspack/core": "catalog:",
-        "@types/compression": "1.8.1",
         "@types/express": "5.0.6",
-        "html-validate": "10.6.0",
+        "html-validate": "10.7.0",
         "node-mocks-http": "1.17.2"
     }
 }
