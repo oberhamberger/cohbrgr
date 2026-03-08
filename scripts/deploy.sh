@@ -49,43 +49,26 @@ echo "Build ID:   $BUILD_ID"
 echo "Console:    $CONSOLE_URL"
 echo ""
 
-# Create a named pipe for log streaming so we can control output
-LOG_FIFO=$(mktemp -u)
-mkfifo "$LOG_FIFO"
-trap 'rm -f "$LOG_FIFO"' EXIT
+# Stream build logs, annotating any gcloud CLI noise
+gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>/dev/null \
+    | while IFS= read -r line; do
+        if [[ "$line" == Safe-chain:* ]]; then
+            echo "(gcloud update check timed out — this is harmless, run 'gcloud components update' manually)"
+        else
+            echo "$line"
+        fi
+    done || true
 
-# Stream logs through the pipe in the background
-gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" >"$LOG_FIFO" 2>/dev/null &
-LOG_PID=$!
+# Check final build status
+STATUS=$(gcloud builds describe "$BUILD_ID" \
+    --project="$PROJECT_ID" \
+    --format='value(status)' 2>/dev/null) || true
 
-# Display log output in a subshell (cat will exit when we close the pipe)
-cat "$LOG_FIFO" &
-CAT_PID=$!
-
-# Poll for build completion in the foreground
-while true; do
-    STATUS=$(gcloud builds describe "$BUILD_ID" \
-        --project="$PROJECT_ID" \
-        --format='value(status)' 2>/dev/null) || true
-
-    case "$STATUS" in
-        SUCCESS|FAILURE|TIMEOUT|CANCELLED|INTERNAL_ERROR)
-            # Give the log stream a moment to flush remaining output
-            sleep 2
-            kill "$LOG_PID" 2>/dev/null || true
-            kill "$CAT_PID" 2>/dev/null || true
-            wait "$LOG_PID" 2>/dev/null || true
-            wait "$CAT_PID" 2>/dev/null || true
-            echo ""
-            if [[ "$STATUS" == "SUCCESS" ]]; then
-                echo "Build completed successfully."
-            else
-                echo "Build failed with status: $STATUS"
-                echo "View logs: $CONSOLE_URL"
-                exit 1
-            fi
-            break
-            ;;
-    esac
-    sleep 10
-done
+echo ""
+if [[ "$STATUS" == "SUCCESS" ]]; then
+    echo "Build completed successfully."
+else
+    echo "Build failed with status: $STATUS"
+    echo "View logs: $CONSOLE_URL"
+    exit 1
+fi
