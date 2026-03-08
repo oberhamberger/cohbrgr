@@ -23,7 +23,9 @@ const Message: FunctionComponent<IMessage> = ({ id, html = false }) => {
     const output = isMissing ? `[${id}]` : translation;
 
     if (html) {
-        return <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(output) }} />;
+        return (
+            <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(output) }} />
+        );
     }
 
     return <>{output}</>;
