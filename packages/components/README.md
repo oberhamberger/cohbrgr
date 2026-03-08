@@ -23,6 +23,25 @@ import Navigation from '@cohbrgr/components/src/navigation';
 </Navigation>
 ```
 
+### `ErrorBoundary`
+
+A React error boundary that catches rendering errors in its children and optionally displays a fallback UI. Useful for wrapping micro-frontend components to prevent a remote failure from crashing the host application.
+
+#### Props
+
+- `children`: `ReactNode` - The content to render.
+- `fallback?`: `ReactNode` - UI to display when an error is caught. Renders nothing if omitted.
+
+#### Usage
+
+```typescript jsx
+import { ErrorBoundary } from '@cohbrgr/components';
+
+<ErrorBoundary fallback={<div>Something went wrong.</div>}>
+  <RemoteComponent />
+</ErrorBoundary>
+```
+
 ### `Spinner`
 
 A simple loading spinner component with a ripple effect.
