@@ -43,13 +43,13 @@ gcloud_filter() {
     sed -u '/^Safe-chain:/d; /^E0000.*ssl_transport/d; /^E0000.*secure_endpoint/d; /^WARNING.*absl/d; /^Unknown error.*Stream removed/d'
 }
 
-# Submit build asynchronously
+# Submit build asynchronously (stderr has upload progress, only capture stdout for ID)
 BUILD_ID=$(gcloud builds submit \
     --project="$PROJECT_ID" \
     --config=cloudbuild.yaml \
     --substitutions="_DEPLOY=$DEPLOY_FLAG,COMMIT_SHA=$COMMIT_SHA" \
     --async \
-    --format='value(id)' 2>&1 | gcloud_filter)
+    --format='value(id)' 2>/dev/null)
 
 CONSOLE_URL="https://console.cloud.google.com/cloud-build/builds/$BUILD_ID?project=$PROJECT_ID"
 echo "Build ID:   $BUILD_ID"
