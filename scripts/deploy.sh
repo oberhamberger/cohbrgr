@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Kill any lingering gcloud child processes on exit so their update checker
-# doesn't print noise (Safe-chain timeout) after the script finishes
-cleanup() {
-    pkill -P $$ 2>/dev/null || true
-}
-trap cleanup EXIT
-
 PROJECT_ID="cohb-9fa5f"
 COMMIT_SHA=$(git rev-parse HEAD)
 DRY_RUN=false
@@ -43,39 +36,19 @@ else
     fi
 fi
 
-# Submit build asynchronously, then stream logs with gcloud noise filtered out
-BUILD_ID=$(gcloud builds submit \
+# Run gcloud builds submit synchronously, piping all output (stdout + stderr)
+# through sed to filter gcloud CLI noise. The pipe is key: child processes
+# (like gcloud's background update checker) inherit the pipe fd instead of
+# the terminal, so their output is also captured and filtered.
+if gcloud builds submit \
     --project="$PROJECT_ID" \
     --config=cloudbuild.yaml \
-    --substitutions="_DEPLOY=$DEPLOY_FLAG,COMMIT_SHA=$COMMIT_SHA" \
-    --async \
-    --format='value(id)')
-
-CONSOLE_URL="https://console.cloud.google.com/cloud-build/builds/$BUILD_ID?project=$PROJECT_ID"
-echo "Build ID:   $BUILD_ID"
-echo "Console:    $CONSOLE_URL"
-echo ""
-
-# Stream build logs, annotating any gcloud CLI noise
-gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>/dev/null \
-    | while IFS= read -r line; do
-        if [[ "$line" == Safe-chain:* ]]; then
-            echo "(gcloud update check timed out — this is harmless, run 'gcloud components update' manually)"
-        else
-            echo "$line"
-        fi
-    done || true
-
-# Check final build status (head -1 filters any gcloud noise after the status value)
-STATUS=$(gcloud builds describe "$BUILD_ID" \
-    --project="$PROJECT_ID" \
-    --format='value(status)' 2>/dev/null | head -1) || true
-
-echo ""
-if [[ "$STATUS" == "SUCCESS" ]]; then
+    --substitutions="_DEPLOY=$DEPLOY_FLAG,COMMIT_SHA=$COMMIT_SHA" 2>&1 \
+    | sed -u '/^Safe-chain:/d; /^E0000.*ssl_transport/d; /^E0000.*secure_endpoint/d; /^WARNING.*absl/d; /^Unknown error.*Stream removed/d'; then
+    echo ""
     echo "Build completed successfully."
 else
-    echo "Build failed with status: $STATUS"
-    echo "View logs: $CONSOLE_URL"
+    echo ""
+    echo "Build failed. Check the Cloud Build console for details."
     exit 1
 fi
