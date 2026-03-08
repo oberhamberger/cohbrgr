@@ -32,6 +32,7 @@ pnpm run serve
 # Run tests
 pnpm run test
 pnpm run test:components    # Test specific package
+pnpm run test:integration   # Full integration test (builds, starts all apps, runs smoke tests)
 
 # Run tests with coverage (within a package/app directory)
 npx jest --coverage
@@ -62,15 +63,15 @@ Three deployable applications communicate via Module Federation:
 
 ### Shared Packages (`packages/`)
 
-| Package                                                                      | Purpose                                       |
-| ---------------------------------------------------------------------------- | --------------------------------------------- |
-| `@cohbrgr/build`                                                             | Rspack/Webpack configuration utilities        |
-| `@cohbrgr/components`                                                        | Shared React UI components                    |
-| `@cohbrgr/env`                                                               | Shared environment constants (ports, origins) |
-| `@cohbrgr/server`                                                            | Express.js middleware and utilities           |
-| `@cohbrgr/figma`                                                             | Design tokens from Figma via Style Dictionary |
-| `@cohbrgr/utils`                                                             | General utilities (logger, argument parser)   |
-| `@cohbrgr/eslint`, `@cohbrgr/prettier`, `@cohbrgr/jest`, `@cohbrgr/tsconfig` | Shared configs                                |
+| Package                                                                      | Purpose                                                         |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `@cohbrgr/build`                                                             | Rspack/Webpack configuration utilities                          |
+| `@cohbrgr/components`                                                        | Shared React UI components                                      |
+| `@cohbrgr/env`                                                               | Shared environment constants (ports, origins)                   |
+| `@cohbrgr/server`                                                            | Express.js middleware (logging, correlation IDs, rate limiting) |
+| `@cohbrgr/figma`                                                             | Design tokens from Figma via Style Dictionary                   |
+| `@cohbrgr/utils`                                                             | General utilities (logger, argument parser)                     |
+| `@cohbrgr/eslint`, `@cohbrgr/prettier`, `@cohbrgr/jest`, `@cohbrgr/tsconfig` | Shared configs                                                  |
 
 ### Key Technical Decisions
 
@@ -109,6 +110,16 @@ Each app has its own Dockerfile. Use docker-compose for multi-app local setup:
 
 ```bash
 docker-compose up
+```
+
+## Versioning
+
+The project uses **CalVer** (Calendar Versioning) with the format `YYYY.MM.PATCH`. All packages share a single version. Use the version script to bump:
+
+```bash
+./scripts/version.sh          # bump patch (e.g. 2026.03.0 → 2026.03.1)
+./scripts/version.sh minor    # new month (e.g. 2026.03.1 → 2026.04.0)
+./scripts/version.sh 2026.05.0  # set explicit version
 ```
 
 ## CI Commands

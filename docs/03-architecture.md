@@ -52,9 +52,10 @@ cohbrgr/
 │   └── api/            # API server
 └── packages/
     ├── build/          # Rspack configuration
-    ├── components/     # Shared React components
-    ├── server/         # Express middleware
-    ├── utils/          # General utilities
+    ├── components/     # Shared React components (ErrorBoundary, Spinner, Navigation)
+    ├── env/            # Shared environment constants (ports, origins)
+    ├── server/         # Express middleware (correlation IDs, logging, rate limiting)
+    ├── utils/          # General utilities (logger, argument parser)
     ├── figma/          # Design tokens
     └── [configs]/      # ESLint, Prettier, Jest, TSConfig
 ```

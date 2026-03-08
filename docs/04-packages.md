@@ -18,30 +18,34 @@ import { createBaseConfig } from '@cohbrgr/build';
 
 Shared React UI components used across applications.
 
-| Component    | Description          |
-| ------------ | -------------------- |
-| `Navigation` | Site navigation menu |
-| `Spinner`    | Loading indicator    |
+| Component       | Description                                     |
+| --------------- | ----------------------------------------------- |
+| `Navigation`    | Site navigation menu                            |
+| `Spinner`       | Loading indicator with `role="status"`          |
+| `ErrorBoundary` | Catches render errors with optional fallback UI |
 
 ```typescript
-import { Navigation, Spinner } from '@cohbrgr/components';
+import { ErrorBoundary, Navigation, Spinner } from '@cohbrgr/components';
 ```
 
 **Used by**: shell, content
 
 ### @cohbrgr/server
 
-Express.js middleware and server utilities.
+Express.js middleware, server utilities, and app factory.
 
-| Export                  | Description                 |
-| ----------------------- | --------------------------- |
-| `loggingMiddleware`     | Request/response logging    |
-| `errorMiddleware`       | Error handling              |
-| `healthRouter`          | Health check endpoints      |
-| `gracefulStartAndClose` | Server lifecycle management |
+| Export                  | Description                                    |
+| ----------------------- | ---------------------------------------------- |
+| `createApp`             | Express app factory with common middleware     |
+| `correlationId`         | Request correlation ID generation/propagation  |
+| `logging`               | Request logging with correlation ID            |
+| `errorHandler`          | Error handling with correlation ID in response |
+| `applyRateLimit`        | Rate limiting (production only)                |
+| `healthRoutes`          | Health check endpoints                         |
+| `gracefulStartAndClose` | Server lifecycle management                    |
 
 ```typescript
-import { healthRouter, loggingMiddleware } from '@cohbrgr/server';
+import { createApp, errorHandler, healthRoutes } from '@cohbrgr/server';
 ```
 
 **Used by**: shell, content, api
@@ -50,14 +54,15 @@ import { healthRouter, loggingMiddleware } from '@cohbrgr/server';
 
 General-purpose utilities.
 
-| Export            | Description          |
-| ----------------- | -------------------- |
-| `logger`          | Structured logging   |
-| `findProcessArgs` | CLI argument parsing |
-| `constants`       | Shared constants     |
+| Export            | Description                                      |
+| ----------------- | ------------------------------------------------ |
+| `Logger`          | Winston logger (JSON in production, text in dev) |
+| `findProcessArgs` | CLI argument parsing                             |
+| `isProduction`    | `true` if `NODE_ENV === 'production'`            |
+| `isDevelopment`   | `true` if not production                         |
 
 ```typescript
-import { findProcessArgs, logger } from '@cohbrgr/utils';
+import { Logger, findProcessArgs, isProduction } from '@cohbrgr/utils';
 ```
 
 **Used by**: All apps and packages
