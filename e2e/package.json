@@ -1,6 +1,8 @@
 {
     "name": "@cohbrgr/e2e",
     "version": "2026.3.0",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
     "private": true,
     "scripts": {
         "e2e": "playwright test",
