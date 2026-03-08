@@ -60,9 +60,9 @@ docker build -t cohbrgr-api -f apps/api/Dockerfile .
 Run individual containers:
 
 ```bash
-docker run -d -p 3030:3030 cohbrgr-shell
-docker run -d -p 3031:3031 cohbrgr-content
-docker run -d -p 3032:3032 cohbrgr-api
+docker run -d -p 3000:3000 cohbrgr-shell
+docker run -d -p 3001:3001 cohbrgr-content
+docker run -d -p 3002:3002 cohbrgr-api
 ```
 
 ### Docker Compose
@@ -142,14 +142,44 @@ The project uses GitHub Actions for continuous integration.
 4. Build all apps (`pnpm run build`)
 5. (main only) Deploy
 
+## Pre-Deployment Verification
+
+Run the integration test suite to verify all apps work together before deploying:
+
+```bash
+pnpm run test:integration
+```
+
+This builds all apps in production mode, starts them on ports 3000/3001/3002, and runs 16 smoke tests covering health checks, API endpoints, SSR, security headers, and correlation ID propagation.
+
 ## Health Checks
 
 Each application exposes a health endpoint:
 
 ```bash
-curl http://localhost:3030/health  # shell
-curl http://localhost:3031/health  # content
-curl http://localhost:3032/health  # api
+curl http://localhost:3000/health  # shell (production)
+curl http://localhost:3001/health  # content (production)
+curl http://localhost:3002/health  # api (production)
 ```
 
+The shell app also proxies a content health check at `/content-health`, which is used by the client to verify the content micro-frontend is available before attempting to load it.
+
 Use these for container orchestration health checks and load balancer configuration.
+
+## Observability
+
+### Correlation IDs
+
+All apps automatically generate a `x-correlation-id` header for each request. If an incoming request includes this header, the ID is propagated. Correlation IDs appear in:
+
+- Log output (as `correlationId` field in JSON logs)
+- Error responses (`{ "error": "Internal Server Error", "correlationId": "..." }`)
+- Response headers (`x-correlation-id`)
+
+### Structured Logging
+
+In production, all apps output structured JSON logs via Winston. In development, logs use colorized text format.
+
+### Rate Limiting
+
+All three apps have rate limiting enabled in production (500 requests per 10-minute window per IP).

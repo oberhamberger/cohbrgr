@@ -38,15 +38,22 @@ The remote URL is determined by environment:
 
 ### How Content is Loaded
 
+The `FederatedContent` component handles loading the remote module with a health check:
+
+1. Fetches `/content-health` to verify the content app is available
+2. If healthy, lazy-loads the `Content` component with `Suspense` and `ErrorBoundary`
+3. If unhealthy, renders nothing (graceful degradation)
+
 ```typescript
+// FederatedContent checks health, then loads:
 const Content = lazy(() => import('content/Content'));
 
-<Suspense fallback={<Spinner />}>
-    <Content />
-</Suspense>
+<ErrorBoundary>
+    <Suspense fallback={<Spinner />}>
+        <Content />
+    </Suspense>
+</ErrorBoundary>
 ```
-
-The Content component is lazy-loaded with a Suspense boundary showing a spinner during fetch.
 
 ## Server-Side Rendering
 

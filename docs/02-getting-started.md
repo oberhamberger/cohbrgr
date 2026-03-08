@@ -71,17 +71,18 @@ pnpm run serve
 
 ## Common Commands
 
-| Command              | Description                                              |
-| -------------------- | -------------------------------------------------------- |
-| `pnpm install`       | Install all dependencies                                 |
-| `pnpm run bootstrap` | Clean rebuild (removes node_modules, reinstalls, builds) |
-| `pnpm run dev`       | Start all apps in development mode                       |
-| `pnpm run build`     | Build all packages and apps                              |
-| `pnpm run serve`     | Serve production builds                                  |
-| `pnpm run test`      | Run all tests                                            |
-| `pnpm run lint`      | Run ESLint across all packages                           |
-| `pnpm run prettier`  | Format code with Prettier                                |
-| `pnpm run graph`     | Visualize the dependency graph                           |
+| Command                     | Description                                              |
+| --------------------------- | -------------------------------------------------------- |
+| `pnpm install`              | Install all dependencies                                 |
+| `pnpm run bootstrap`        | Clean rebuild (removes node_modules, reinstalls, builds) |
+| `pnpm run dev`              | Start all apps in development mode                       |
+| `pnpm run build`            | Build all packages and apps                              |
+| `pnpm run serve`            | Serve production builds                                  |
+| `pnpm run test`             | Run all unit tests                                       |
+| `pnpm run test:integration` | Build, start all apps, run smoke tests                   |
+| `pnpm run lint`             | Run ESLint across all packages                           |
+| `pnpm run prettier`         | Format code with Prettier                                |
+| `pnpm run graph`            | Visualize the dependency graph                           |
 
 ## Troubleshooting
 

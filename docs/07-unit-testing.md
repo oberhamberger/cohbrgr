@@ -262,14 +262,14 @@ describe('env config', () => {
         process.env = originalEnv;
     });
 
-    it('uses local config when DOCKER is not set', () => {
-        delete process.env['DOCKER'];
+    it('uses local config when CLOUD_RUN is not set', () => {
+        delete process.env['CLOUD_RUN'];
         const { Config } = require('./index');
         expect(Config.location).toBe('http://localhost');
     });
 
-    it('uses docker config when DOCKER is set', () => {
-        process.env['DOCKER'] = 'true';
+    it('uses cloud run config when CLOUD_RUN is set', () => {
+        process.env['CLOUD_RUN'] = 'true';
         const { Config } = require('./index');
         expect(Config.location).toContain('run.app');
     });
