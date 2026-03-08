@@ -26,9 +26,9 @@ Google Cloud Run deployment origins (without trailing slashes).
 ```typescript
 import { cloudRunOrigins } from '@cohbrgr/env';
 
-cloudRunOrigins.shell; // https://cohbrgr-o44imzpega-oa.a.run.app
+cloudRunOrigins.shell; // https://cohbrgr-o44imzpega-lz.a.run.app
 cloudRunOrigins.content; // https://cohbrgr-content-o44imzpega-oa.a.run.app
-cloudRunOrigins.api; // https://cohbrgr-api-944962437395.europe-west6.run.app
+cloudRunOrigins.api; // https://cohbrgr-api-o44imzpega-oa.a.run.app
 ```
 
 ### `productionDomain`
