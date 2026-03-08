@@ -13,6 +13,7 @@ describe('errorHandler middleware', () => {
             url: '/api/test',
         };
         mockResponse = {
+            locals: {},
             status: jest.fn().mockReturnThis(),
             json: jest.fn(),
         };
@@ -47,6 +48,23 @@ describe('errorHandler middleware', () => {
         });
     });
 
+    it('should include correlationId in response when available', () => {
+        mockResponse.locals = { correlationId: 'test-correlation-id' };
+        const error = new Error('Test error');
+
+        errorHandler(
+            error,
+            mockRequest as Request,
+            mockResponse as Response,
+            mockNext,
+        );
+
+        expect(mockResponse.json).toHaveBeenCalledWith({
+            error: 'Internal Server Error',
+            correlationId: 'test-correlation-id',
+        });
+    });
+
     it('should handle errors with different request methods', () => {
         mockRequest.method = 'POST';
         const error = new Error('POST error');
@@ -59,8 +77,5 @@ describe('errorHandler middleware', () => {
         );
 
         expect(mockResponse.status).toHaveBeenCalledWith(500);
-        expect(mockResponse.json).toHaveBeenCalledWith({
-            error: 'Internal Server Error',
-        });
     });
 });

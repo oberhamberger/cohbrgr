@@ -1,6 +1,7 @@
 export * from './app/createApp';
 export type { CorsOptions } from './app/createApp';
 
+export * from './middleware/correlationId';
 export * from './middleware/cspNonce';
 export * from './middleware/error';
 export * from './middleware/logging';

@@ -4,6 +4,7 @@ import Express from 'express';
 import helmet, { type HelmetOptions } from 'helmet';
 import nocache from 'nocache';
 
+import { correlationId } from '../middleware/correlationId';
 import { logging } from '../middleware/logging';
 import { methodDetermination } from '../middleware/methodDetermination';
 import { applyRateLimit, type RateLimitOptions } from '../middleware/rateLimit';
@@ -52,12 +53,13 @@ export interface CreateAppOptions {
  *
  * Applies in order:
  * 1. Helmet security headers (enabled by default)
- * 2. Rate limiting (production only, if enabled)
- * 3. nocache (if enabled)
- * 4. Request logging
- * 5. Method determination (GET/HEAD only)
- * 6. Compression (if enabled)
- * 7. Health check endpoint at /health
+ * 2. Correlation ID (generates or propagates `x-correlation-id`)
+ * 3. Rate limiting (production only, if enabled)
+ * 4. nocache (if enabled)
+ * 5. Request logging (includes correlation ID)
+ * 6. Method determination (GET/HEAD only)
+ * 7. Compression (if enabled)
+ * 8. Health check endpoint at /health
  *
  * @example
  * ```typescript
@@ -88,6 +90,9 @@ export function createApp(options: CreateAppOptions): Application {
             }),
         );
     }
+
+    // Correlation ID (before logging so the ID is available)
+    app.use(correlationId);
 
     // Rate limiting (production only)
     if (options.rateLimit) {
