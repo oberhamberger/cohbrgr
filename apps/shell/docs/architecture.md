@@ -70,6 +70,12 @@ The shell renders React on the server for initial page loads:
 
 SSR works with Module Federation—the server fetches the content remote's server build.
 
+### HTTP Status Codes in SSR
+
+The `HttpStatus` component sets the HTTP response status code during server rendering by mutating a shared context object. The render middleware reads this value in the `onAllReady` callback.
+
+**Constraint:** `HttpStatus` must not be placed inside a `Suspense` boundary. React may render and discard components during Suspense resolution, which would cause incorrect status codes. This is safe because `onAllReady` waits for all Suspense boundaries to resolve before reading the status.
+
 ## Dual Build
 
 Rspack produces two builds:
