@@ -49,8 +49,7 @@ echo "Build ID:   $BUILD_ID"
 echo "Console:    $CONSOLE_URL"
 echo ""
 
-# Stream logs, filtering out gcloud CLI gRPC/SSL noise
-gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>&1 \
-    | grep -v -E 'Safe-chain:|ssl_transport_security|secure_endpoint|SSL_write|SSL_ERROR_SSL|absl::InitializeLog|WRONG_VERSION_NUMBER|Corruption detected|Decryption error|Stream removed'
+# Stream build logs (suppress stderr where gcloud CLI gRPC/SSL noise appears)
+gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>/dev/null
 
 echo "Build completed successfully."
