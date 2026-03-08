@@ -36,15 +36,17 @@ else
     fi
 fi
 
-# Run synchronous build with all output piped through a noise filter.
-# The pipe ensures gcloud's child processes (background update checker)
-# inherit the pipe fd instead of the terminal, so Safe-chain timeouts
-# and gRPC/SSL errors are captured and filtered rather than leaked.
+# Disable gcloud's background update checker — it spawns a subprocess that
+# writes "Safe-chain: connect to storage.googleapis.com:443 timed out" directly
+# to /dev/tty, bypassing pipes. Not needed during automated deploys; users still
+# get update prompts when running gcloud interactively.
+export CLOUDSDK_COMPONENT_MANAGER_DISABLE_UPDATE_CHECKS=1
+
 if gcloud builds submit \
     --project="$PROJECT_ID" \
     --config=cloudbuild.yaml \
     --substitutions="_DEPLOY=$DEPLOY_FLAG,COMMIT_SHA=$COMMIT_SHA" 2>&1 \
-    | sed -u '/^Safe-chain:/d; /^E0000.*ssl_transport/d; /^E0000.*secure_endpoint/d; /^WARNING.*absl/d; /^Unknown error.*Stream removed/d'; then
+    | sed -u '/^E0000.*ssl_transport/d; /^E0000.*secure_endpoint/d; /^WARNING.*absl/d; /^Unknown error.*Stream removed/d'; then
     echo ""
     echo "Build completed successfully."
 else
