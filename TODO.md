@@ -37,13 +37,69 @@ Currently deployment is configured manually in Google Cloud Console (3 separate 
 
 ### Plan
 
-#### Phase 1: Create `cloudbuild.yaml`
+#### Phase 1: Create `cloudbuild.yaml` and `scripts/deploy.sh`
 
-Create a single `cloudbuild.yaml` at repo root that replaces all 3 manual triggers.
+Deployment is triggered manually via `scripts/deploy.sh`, which submits the local working tree to Cloud Build using `gcloud builds submit`. No GitHub trigger — you decide when to deploy.
 
-Since shell is in europe-north1 and content/api are in europe-west6, the `cloudbuild.yaml` must handle two regions. Image paths match the existing convention: `<region>-docker.pkg.dev/cohb-9fa5f/cloud-run-source-deploy/cohbrgr/<service>:<commit-sha>`.
+##### `scripts/deploy.sh`
 
-**Steps:**
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_ID="cohb-9fa5f"
+COMMIT_SHA=$(git rev-parse HEAD)
+DRY_RUN=false
+
+for arg in "$@"; do
+    case $arg in
+        --dry-run) DRY_RUN=true ;;
+        *) echo "Unknown argument: $arg"; exit 1 ;;
+    esac
+done
+
+# Ensure working tree is clean
+if [[ -n "$(git status --porcelain)" ]]; then
+    echo "Error: Working tree is dirty. Commit or stash changes before deploying."
+    exit 1
+fi
+
+echo "Project:    $PROJECT_ID"
+echo "Commit:     $COMMIT_SHA"
+echo "Dry run:    $DRY_RUN"
+echo ""
+
+if [[ "$DRY_RUN" == "true" ]]; then
+    echo "Dry run: building images only (no deploy)."
+    gcloud builds submit \
+        --project="$PROJECT_ID" \
+        --config=cloudbuild.yaml \
+        --substitutions="_DEPLOY=false,COMMIT_SHA=$COMMIT_SHA"
+else
+    echo "This will deploy to production (https://cohbrgr.com)."
+    read -rp "Continue? [y/N] " confirm
+    if [[ "$confirm" != [yY] ]]; then
+        echo "Aborted."
+        exit 0
+    fi
+
+    gcloud builds submit \
+        --project="$PROJECT_ID" \
+        --config=cloudbuild.yaml \
+        --substitutions="_DEPLOY=true,COMMIT_SHA=$COMMIT_SHA"
+fi
+```
+
+Usage:
+
+```bash
+./scripts/deploy.sh            # build + deploy (asks for confirmation)
+./scripts/deploy.sh --dry-run  # build only, no deploy
+```
+
+##### `cloudbuild.yaml`
+
+Since shell is in europe-north1 and content/api are in europe-west6, the config handles two regions. Image paths match the existing convention: `<region>-docker.pkg.dev/cohb-9fa5f/cloud-run-source-deploy/cohbrgr/<service>:<commit-sha>`.
 
 ```yaml
 steps:
@@ -114,55 +170,65 @@ steps:
           ]
       waitFor: [build-shell]
 
-    # 3. Deploy to Cloud Run (each waits for its own push)
+    # 3. Deploy to Cloud Run (skipped during --dry-run)
     - id: deploy-api
       name: gcr.io/cloud-builders/gcloud
+      entrypoint: bash
       args:
-          - run
-          - deploy
-          - cohbrgr-api
-          - --image=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api:$COMMIT_SHA
-          - --region=europe-west6
-          - --platform=managed
-          - --allow-unauthenticated
+          - -c
+          - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping deploy (dry run)"; exit 0; fi
+              gcloud run deploy cohbrgr-api \
+                  --image=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api:$COMMIT_SHA \
+                  --region=europe-west6 \
+                  --platform=managed \
+                  --allow-unauthenticated
       waitFor: [push-api]
 
     - id: deploy-content
       name: gcr.io/cloud-builders/gcloud
+      entrypoint: bash
       args:
-          - run
-          - deploy
-          - cohbrgr-content
-          - --image=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-content:$COMMIT_SHA
-          - --region=europe-west6
-          - --platform=managed
-          - --allow-unauthenticated
+          - -c
+          - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping deploy (dry run)"; exit 0; fi
+              gcloud run deploy cohbrgr-content \
+                  --image=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-content:$COMMIT_SHA \
+                  --region=europe-west6 \
+                  --platform=managed \
+                  --allow-unauthenticated
       waitFor: [push-content]
 
     - id: deploy-shell
       name: gcr.io/cloud-builders/gcloud
+      entrypoint: bash
       args:
-          - run
-          - deploy
-          - cohbrgr
-          - --image=europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr:$COMMIT_SHA
-          - --region=europe-north1
-          - --platform=managed
-          - --allow-unauthenticated
+          - -c
+          - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping deploy (dry run)"; exit 0; fi
+              gcloud run deploy cohbrgr \
+                  --image=europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr:$COMMIT_SHA \
+                  --region=europe-north1 \
+                  --platform=managed \
+                  --allow-unauthenticated
       waitFor: [push-shell]
 
-    # 4. Post-deploy e2e smoke test
+    # 4. Post-deploy e2e smoke test (skipped during --dry-run)
     - id: e2e
       name: node:24
       entrypoint: bash
       args:
           - -c
           - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping e2e (dry run)"; exit 0; fi
               corepack enable
               pnpm install --frozen-lockfile
               pnpm exec playwright install --with-deps chromium
               E2E_BASE_URL=https://cohbrgr.com pnpm run test:e2e
       waitFor: [deploy-api, deploy-content, deploy-shell]
+
+substitutions:
+    _DEPLOY: 'true'
 
 images:
     - europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api:$COMMIT_SHA
@@ -176,37 +242,66 @@ options:
 
 **Why `$COMMIT_SHA` not `$SHORT_SHA`**: The existing triggers tag images with full commit SHA. Keeping this convention preserves traceability and matches the `commit-sha` label on the Cloud Run services.
 
-**Why no lint/test step in Cloud Build**: CI (lint, test, integration, e2e) already runs in GitHub Actions on every push. Cloud Build only triggers on `main` after CI has passed. Duplicating checks would add ~5 minutes to every deploy for no benefit.
+**Why no lint/test step in Cloud Build**: CI (lint, test, integration, e2e) already runs in GitHub Actions. Duplicating checks would add ~5 minutes for no benefit.
 
 **Why parallel builds**: The three Dockerfiles each run `pnpm install` independently (full monorepo context). Building in parallel (`waitFor: ['-']`) cuts total build time from ~15 min to ~5 min. The `E2_HIGHCPU_8` machine type handles the concurrent builds.
 
-#### Phase 2: GCP Prerequisites
+**Why `gcloud builds submit` instead of a GitHub trigger**: Decouples deployment from git push. You deploy when you're ready, not when you push. No accidental deploys, no trigger management. The `--dry-run` flag lets you validate builds without deploying.
 
-The existing setup already has most of this in place. Verify before proceeding:
+#### Phase 2: Prerequisites
 
-1. **Artifact Registry repos** — the existing `cloud-run-source-deploy` repos already exist in both regions (created automatically by the current triggers). Verify:
+Most infrastructure is already in place from the existing setup. Verify before starting:
+
+1. **`gcloud` CLI authenticated locally**
+
+    ```bash
+    gcloud auth login
+    gcloud config set project cohb-9fa5f
+    ```
+
+2. **Cloud Build API enabled**
+
+    ```bash
+    gcloud services list --enabled | grep cloudbuild
+    # If not: gcloud services enable cloudbuild.googleapis.com
+    ```
+
+3. **Artifact Registry repos exist** in both regions (auto-created by current triggers):
 
     ```bash
     gcloud artifacts repositories list --location=europe-west6
     gcloud artifacts repositories list --location=europe-north1
     ```
 
-2. **Cloud Build service account permissions** — the default compute SA (`944962437395-compute@developer.gserviceaccount.com`) is already used by the existing triggers and has the required roles. Verify it can deploy to both regions:
-    - `roles/run.admin` — deploy to Cloud Run
-    - `roles/iam.serviceAccountUser` — act as Cloud Run runtime SA
-    - `roles/artifactregistry.writer` — push images to both regional repos
-
-3. **Create the new unified Cloud Build trigger**
+4. **Cloud Build service account permissions** — the default compute SA (`944962437395-compute@developer.gserviceaccount.com`) needs:
 
     ```bash
-    gcloud builds triggers create github \
-        --repo-name=cohbrgr \
-        --repo-owner=oberhamberger \
-        --branch-pattern='^main$' \
-        --build-config=cloudbuild.yaml
+    # Check current roles
+    gcloud projects get-iam-policy cohb-9fa5f \
+        --flatten="bindings[].members" \
+        --filter="bindings.members:944962437395-compute@developer.gserviceaccount.com" \
+        --format="table(bindings.role)"
     ```
 
-4. **Verify Cloud Run service names**
+    Required roles (likely already granted from existing triggers):
+    - `roles/run.admin` — deploy to Cloud Run
+    - `roles/iam.serviceAccountUser` — act as Cloud Run runtime SA
+    - `roles/artifactregistry.writer` — push images
+
+5. **`.gcloudignore`** — `gcloud builds submit` uploads the working tree. Without a `.gcloudignore`, it falls back to `.gitignore`. Create a `.gcloudignore` to also exclude test/CI files not needed for Docker builds:
+
+    ```
+    #!include:.gitignore
+    .github/
+    .claude/
+    .devcontainer/
+    .husky/
+    .vscode/
+    e2e/
+    docs/
+    ```
+
+6. **Verify Cloud Run service names**
     ```bash
     gcloud run services list --region=europe-north1  # cohbrgr
     gcloud run services list --region=europe-west6   # cohbrgr-content, cohbrgr-api
@@ -214,28 +309,34 @@ The existing setup already has most of this in place. Verify before proceeding:
 
 #### Phase 3: Migration
 
-1. Create `cloudbuild.yaml` and push to a feature branch
-2. Manually submit to validate (does NOT deploy — just builds):
+1. Create `cloudbuild.yaml`, `scripts/deploy.sh`, and `.gcloudignore`
+2. Test with dry run:
     ```bash
-    gcloud builds submit --config=cloudbuild.yaml --no-source
+    ./scripts/deploy.sh --dry-run
     ```
-3. Once builds pass, test a full deploy from the branch using Console "Run trigger" with the branch override
-4. Verify all three services deploy and pass e2e
-5. Merge to `main` — the new trigger fires automatically
-6. Delete the 3 old Cloud Build triggers:
+3. If builds pass, do a real deploy:
+    ```bash
+    ./scripts/deploy.sh
+    ```
+4. Verify all three services are up and e2e passes
+5. Delete the 3 old Cloud Build triggers:
     ```bash
     gcloud builds triggers delete 233d4973-143c-4966-af27-caf1d8ef46e3
     gcloud builds triggers delete 72f3cb79-3905-42cc-83b9-cfe3e48518cc
     gcloud builds triggers delete b0a3e918-a282-46ad-81e4-9594c6e9e2c8
     ```
-7. Document the deployment setup in CLAUDE.md
+6. Disconnect GitHub repo from Cloud Build (no triggers needed):
+    ```bash
+    gcloud builds triggers list  # confirm no triggers remain
+    ```
+7. Add `deploy.sh` usage to CLAUDE.md
+8. Add `pnpm run deploy` and `pnpm run deploy:dry` scripts to root `package.json`
 
 #### Phase 4: Future Improvements
 
 - **Build cache**: Use Kaniko (`gcr.io/kaniko-project/executor`) instead of `gcr.io/cloud-builders/docker` for layer caching across builds — could cut build time by 50%+
-- **Selective deploys**: Only rebuild/deploy apps whose source changed (check `git diff` against `apps/*/` and `packages/*/`)
+- **Selective deploys**: `deploy.sh --only shell` to rebuild/deploy a single service
 - **Rollback script**: `scripts/rollback.sh` that reverts a Cloud Run service to its previous revision
-- **Deploy notifications**: Cloud Build → Pub/Sub → webhook to post deploy status
 
 ## Performance
 
