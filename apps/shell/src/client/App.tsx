@@ -10,7 +10,7 @@ import Offline from 'src/client/pages/offline';
 import AppRoutes from 'src/client/routes';
 import { onCLS, onINP, onLCP } from 'web-vitals/attribution';
 
-import { Spinner } from '@cohbrgr/components';
+import { ErrorBoundary, Spinner } from '@cohbrgr/components';
 
 const Content = lazy(() => import('content/Content'));
 const App: FunctionComponent = () => {
@@ -26,9 +26,11 @@ const App: FunctionComponent = () => {
                 <Route
                     path={AppRoutes.start}
                     element={
-                        <Suspense fallback={<Spinner />}>
-                            <Content />
-                        </Suspense>
+                        <ErrorBoundary>
+                            <Suspense fallback={<Spinner />}>
+                                <Content />
+                            </Suspense>
+                        </ErrorBoundary>
                     }
                 />
                 <Route path={AppRoutes.offline} element={<Offline />} />
