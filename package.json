@@ -44,6 +44,7 @@
         "serve:content": "nx serve @cohbrgr/content",
         "serve:api": "nx serve @cohbrgr/api",
         "test:components": "nx test @cohbrgr/components",
+        "test:integration": "./scripts/integration-test.sh",
         "prepare": "husky"
     },
     "repository": {
