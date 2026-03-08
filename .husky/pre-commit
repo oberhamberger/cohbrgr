@@ -1,3 +1,9 @@
 # .husky/pre-commit
-npx prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
-git update-index --again
+FILES=""
+for f in $(git diff --cached --name-only --diff-filter=ACMR); do
+  [ ! -L "$f" ] && FILES="$FILES $f"
+done
+if [ -n "$FILES" ]; then
+  npx prettier $FILES --write --ignore-unknown
+  git update-index --again
+fi
