@@ -12,7 +12,7 @@ RUN apt-get update && \
 
 # 2. Install pnpm directly via npm
 # We use --before to bypass the corepack/shim conflicts 
-RUN npm install -g pnpm@10.28.2
+RUN npm install -g pnpm@10.31.0
 
 # 3. Configure pnpm environment
 ENV PNPM_HOME="/home/node/.local/share/pnpm"
