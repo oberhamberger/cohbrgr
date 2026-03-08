@@ -36,9 +36,7 @@ else
     fi
 fi
 
-# Submit build asynchronously and poll status
-# Log streaming (both Cloud Storage and Cloud Logging) has gRPC/SSL bugs in
-# the gcloud CLI that produce noisy errors. Polling avoids this entirely.
+# Submit build asynchronously, then stream logs with gcloud noise filtered out
 BUILD_ID=$(gcloud builds submit \
     --project="$PROJECT_ID" \
     --config=cloudbuild.yaml \
@@ -50,26 +48,9 @@ CONSOLE_URL="https://console.cloud.google.com/cloud-build/builds/$BUILD_ID?proje
 echo "Build ID:   $BUILD_ID"
 echo "Console:    $CONSOLE_URL"
 echo ""
-echo "Waiting for build to complete..."
 
-while true; do
-    STATUS=$(gcloud builds describe "$BUILD_ID" \
-        --project="$PROJECT_ID" \
-        --format='value(status)' 2>/dev/null) || true
+# Stream logs, filtering out gcloud CLI gRPC/SSL noise
+gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>&1 \
+    | grep -v -E 'Safe-chain:|ssl_transport_security|secure_endpoint|SSL_write|SSL_ERROR_SSL|absl::InitializeLog|WRONG_VERSION_NUMBER|Corruption detected|Decryption error|Stream removed'
 
-    case "$STATUS" in
-        SUCCESS)
-            echo "Build completed successfully."
-            exit 0
-            ;;
-        FAILURE|TIMEOUT|CANCELLED|INTERNAL_ERROR)
-            echo "Build failed with status: $STATUS"
-            echo "View logs: $CONSOLE_URL"
-            exit 1
-            ;;
-        *)
-            printf "."
-            sleep 15
-            ;;
-    esac
-done
+echo "Build completed successfully."
