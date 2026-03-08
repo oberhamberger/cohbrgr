@@ -32,7 +32,7 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
     const nonce = res.locals['cspNonce'];
     res.setHeader(
         'Content-Security-Policy',
-        `default-src 'self'; script-src 'self' ${contentOrigin} 'nonce-${nonce}'; connect-src 'self' ${contentOrigin}; style-src 'self' 'unsafe-inline'`,
+        `default-src 'self'; script-src 'self' ${contentOrigin} 'nonce-${nonce}'; connect-src 'self' ${contentOrigin}; style-src 'self' 'unsafe-inline' ${contentOrigin}`,
     );
     next();
 });
