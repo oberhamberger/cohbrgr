@@ -132,5 +132,4 @@ images:
     - europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr:$COMMIT_SHA
 
 options:
-    logging: CLOUD_LOGGING_ONLY
     machineType: E2_HIGHCPU_8
