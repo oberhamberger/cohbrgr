@@ -92,7 +92,7 @@ const render =
                                 );
                                 res.setHeader(
                                     'Cache-Control',
-                                    'public, max-age=3600',
+                                    'public, max-age=3600, stale-while-revalidate=86400',
                                 );
                             } else if (renderStatusCode < 400) {
                                 Logger.warn(`Redirected: ${req.url}`);
@@ -153,7 +153,18 @@ const render =
             }
         });
 
-        const awaitedStream = await stream;
+        let awaitedStream: Stream;
+        try {
+            awaitedStream = await stream;
+        } catch {
+            const nonce = res.locals['cspNonce'] || '';
+            res.status(500)
+                .setHeader('Content-Type', 'text/html; charset=utf-8')
+                .send(
+                    `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Error</title><style nonce="${nonce}">body{font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f5f5f5;color:#333}main{text-align:center}h1{font-size:2rem;margin-bottom:0.5rem}p{color:#666}</style></head><body><main><h1>Something went wrong</h1><p>Please try again later.</p></main></body></html>`,
+                );
+            return;
+        }
         let markup = await streamToString(awaitedStream);
 
         // Dehydrate QueryClient AFTER render completes (Suspense boundaries resolved)

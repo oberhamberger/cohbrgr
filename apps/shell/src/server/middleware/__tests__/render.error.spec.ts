@@ -28,7 +28,7 @@ describe('render middleware error handling', () => {
         jest.restoreAllMocks();
     });
 
-    it('should reject with 500 when onShellError is triggered', async () => {
+    it('should send styled error page when onShellError is triggered', async () => {
         mockRenderToPipeableStream.mockImplementation(
             (
                 _element: unknown,
@@ -46,13 +46,15 @@ describe('render middleware error handling', () => {
             locals: { cspNonce: '1234' },
         });
 
-        await expect(
-            render(true, true)(mockRequest, mockResponse),
-        ).rejects.toThrow('Shell render failed');
+        await render(true, true)(mockRequest, mockResponse);
+
         expect(mockResponse.statusCode).toEqual(500);
+        const body = mockResponse._getData();
+        expect(body).toContain('Something went wrong');
+        expect(body).toContain('nonce="1234"');
     });
 
-    it('should reject with 500 when onError is triggered', async () => {
+    it('should send styled error page when onError is triggered', async () => {
         mockRenderToPipeableStream.mockImplementation(
             (
                 _element: unknown,
@@ -77,13 +79,13 @@ describe('render middleware error handling', () => {
             locals: { cspNonce: '1234' },
         });
 
-        await expect(
-            render(true, true)(mockRequest, mockResponse),
-        ).rejects.toThrow('Render error');
+        await render(true, true)(mockRequest, mockResponse);
+
         expect(mockResponse.statusCode).toEqual(500);
+        expect(mockResponse._getData()).toContain('Something went wrong');
     });
 
-    it('should reject when renderToPipeableStream throws synchronously', async () => {
+    it('should send styled error page when renderToPipeableStream throws synchronously', async () => {
         mockRenderToPipeableStream.mockImplementation(() => {
             throw new Error('Sync failure');
         });
@@ -93,8 +95,9 @@ describe('render middleware error handling', () => {
             locals: { cspNonce: '1234' },
         });
 
-        await expect(
-            render(true, true)(mockRequest, mockResponse),
-        ).rejects.toThrow('Sync failure');
+        await render(true, true)(mockRequest, mockResponse);
+
+        expect(mockResponse.statusCode).toEqual(500);
+        expect(mockResponse._getData()).toContain('Something went wrong');
     });
 });

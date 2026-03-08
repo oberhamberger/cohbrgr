@@ -19,6 +19,8 @@ export default {
         '!src/server/server-entry.ts',
         // Uses lazy imports and web-vitals which require browser/runtime context
         '!src/client/App.tsx',
+        // Module Federation lazy import - covered by e2e tests
+        '!src/client/components/federated-content/FederatedContent.tsx',
         // Service worker files - run in browser context
         '!src/client/service-worker/**',
         '!src/client/utils/register-service-worker.ts',
