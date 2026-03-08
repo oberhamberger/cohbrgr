@@ -20,7 +20,7 @@
 - [x] Strengthen logging middleware tests → Fixed: tests now mock `Logger.info` and assert actual log messages for both production and development modes
 - [x] Add missing return statements in translation controllers → Fixed: both controllers now explicitly return `sendJsonWithEtag()` result
 - [x] Forward actual errors in SSR render middleware → Fixed: `onShellError` and `onError` now forward the original error
-- [ ] Replace `console.log` Web Vitals logging with analytics endpoint (`apps/shell/src/client/App.tsx:17-20`) - metrics are logged to console in production
+- [x] ~~Replace `console.log` Web Vitals logging with analytics endpoint~~ → Won't fix: console logging is intentional, analytics is not a goal of this project
 - [x] Add CORS origin URL validation in `createApp` (`packages/server/src/app/createApp.ts`) - origins are passed directly without validation
 - [x] Synchronize root `package.json` version (v1.0.0) with app/package versions (v2.0.1) → Fixed: adopted CalVer (YYYY.MM.PATCH) across all packages, added `scripts/version.sh` for unified bumps
 
@@ -30,5 +30,5 @@
 - [ ] Implement distributed tracing with correlation IDs across shell/content/api services for easier log correlation
 - [ ] Add structured logging (JSON format) and file transport to the logger for production (`packages/utils/src/logger.ts`)
 - [ ] Improve error middleware to include correlation IDs in responses for production debugging (`packages/server/src/middleware/error.ts`)
-- [ ] Apply rate limiting consistently across content and API apps (currently only shell has it)
+- [x] Apply rate limiting consistently across content and API apps → Fixed: enabled `rateLimit: true` in content and API `createApp` calls
 - [ ] Add health checks before Module Federation component loads to verify content/api availability
