@@ -8,7 +8,7 @@ COPY . .
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-ENV DOCKER=true
+ENV CLOUD_RUN=true
 ENV CI=true
 
 RUN corepack enable
@@ -31,7 +31,7 @@ COPY --from=builder /prod/content /prod/content
 USER node
 
 ENV NODE_ENV=production
-ENV DOCKER=true
+ENV CLOUD_RUN=true
 ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
 
