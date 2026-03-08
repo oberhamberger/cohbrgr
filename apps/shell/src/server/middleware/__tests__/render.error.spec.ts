@@ -26,7 +26,10 @@ describe('render middleware error handling', () => {
 
     it('should reject with 500 when onShellError is triggered', async () => {
         mockRenderToPipeableStream.mockImplementation(
-            (_element: unknown, options: { onShellError?: (error: Error) => void }) => {
+            (
+                _element: unknown,
+                options: { onShellError?: (error: Error) => void },
+            ) => {
                 if (options?.onShellError) {
                     options.onShellError(new Error('Shell render failed'));
                 }
@@ -41,13 +44,21 @@ describe('render middleware error handling', () => {
 
         await expect(
             render(true, true)(mockRequest, mockResponse),
-        ).rejects.toThrow('Something went wrong');
+        ).rejects.toThrow('Shell render failed');
         expect(mockResponse.statusCode).toEqual(500);
     });
 
     it('should reject with 500 when onError is triggered', async () => {
         mockRenderToPipeableStream.mockImplementation(
-            (_element: unknown, options: { onError?: (error: Error, errorInfo: { componentStack: string }) => void }) => {
+            (
+                _element: unknown,
+                options: {
+                    onError?: (
+                        error: Error,
+                        errorInfo: { componentStack: string },
+                    ) => void;
+                },
+            ) => {
                 if (options?.onError) {
                     options.onError(new Error('Render error'), {
                         componentStack: '',
@@ -64,7 +75,7 @@ describe('render middleware error handling', () => {
 
         await expect(
             render(true, true)(mockRequest, mockResponse),
-        ).rejects.toThrow('Something went wrong');
+        ).rejects.toThrow('Render error');
         expect(mockResponse.statusCode).toEqual(500);
     });
 
