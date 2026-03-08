@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Kill any lingering gcloud child processes on exit so their update checker
+# doesn't print noise (Safe-chain timeout) after the script finishes
+cleanup() {
+    pkill -P $$ 2>/dev/null || true
+}
+trap cleanup EXIT
+
 PROJECT_ID="cohb-9fa5f"
 COMMIT_SHA=$(git rev-parse HEAD)
 DRY_RUN=false
@@ -59,10 +66,10 @@ gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>/dev/null 
         fi
     done || true
 
-# Check final build status
+# Check final build status (head -1 filters any gcloud noise after the status value)
 STATUS=$(gcloud builds describe "$BUILD_ID" \
     --project="$PROJECT_ID" \
-    --format='value(status)' 2>/dev/null) || true
+    --format='value(status)' 2>/dev/null | head -1) || true
 
 echo ""
 if [[ "$STATUS" == "SUCCESS" ]]; then
