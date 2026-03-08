@@ -4,5 +4,5 @@ packages:
     - e2e
 
 catalog:
-    '@rspack/cli': 1.7.4
-    '@rspack/core': 1.7.4
+    '@rspack/cli': 1.7.7
+    '@rspack/core': 1.7.7
