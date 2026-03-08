@@ -2,6 +2,10 @@ import { Request, Response } from 'express';
 import httpMocks, { MockRequest, MockResponse } from 'node-mocks-http';
 import render from 'src/server/middleware/render';
 
+jest.mock('src/server/content-health', () => ({
+    isContentHealthy: () => true,
+}));
+
 const mockRenderToPipeableStream = jest.fn();
 jest.mock('react-dom/server', () => ({
     renderToPipeableStream: (...args: unknown[]) =>

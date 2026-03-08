@@ -5,6 +5,7 @@ import { State } from 'src/client/store/state';
 const initialAppStateContext: State = {
     isProduction: false,
     nonce: '',
+    contentHealthy: false,
 };
 
 type ProviderProps = {

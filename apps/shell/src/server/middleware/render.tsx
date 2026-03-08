@@ -9,6 +9,7 @@ import { DEHYDRATED_STATE_PLACEHOLDER } from 'src/server/template/components/Jav
 
 import { HttpMethod } from '@cohbrgr/server';
 import { Logger } from '@cohbrgr/utils';
+import { isContentHealthy } from 'src/server/content-health';
 
 /**
  * Converts a readable stream to a complete string by accumulating all chunks.
@@ -38,6 +39,7 @@ const renderIndex = (
         location={location}
         useCSR={useCSR}
         nonce={nonce}
+        contentHealthy={isContentHealthy()}
         httpContextData={httpContextData}
         queryClient={queryClient}
     />

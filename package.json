@@ -1,6 +1,6 @@
 {
     "name": "cohbrgr",
-    "version": "2026.03.0",
+    "version": "2026.3.0",
     "main": "apps/shell/dist/server",
     "author": "Christian Oberhamberger",
     "description": "temporary website gone mad",
@@ -45,6 +45,8 @@
         "serve:api": "nx serve @cohbrgr/api",
         "test:components": "nx test @cohbrgr/components",
         "test:integration": "./scripts/integration-test.sh",
+        "test:e2e": "pnpm --filter @cohbrgr/e2e e2e",
+        "test:e2e:ui": "pnpm --filter @cohbrgr/e2e e2e:ui",
         "prepare": "husky"
     },
     "repository": {

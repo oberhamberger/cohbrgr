@@ -1,6 +1,7 @@
 packages:
     - packages/*
     - apps/*
+    - e2e
 
 catalog:
     '@rspack/cli': 1.7.4

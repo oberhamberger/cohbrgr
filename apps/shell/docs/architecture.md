@@ -38,15 +38,18 @@ The remote URL is determined by environment:
 
 ### How Content is Loaded
 
-The `FederatedContent` component handles loading the remote module with a health check:
+The `FederatedContent` component loads the remote module based on server-side health status:
 
-1. Fetches `/content-health` to verify the content app is available
-2. If healthy, lazy-loads the `Content` component with `Suspense` and `ErrorBoundary`
-3. If unhealthy, renders nothing (graceful degradation)
+1. Shell server checks content app health on startup and every 30s
+2. Health status is injected into SSR initial state (`contentHealthy` flag)
+3. If healthy, lazy-loads the `Content` component with `Suspense` and `ErrorBoundary`
+4. If unhealthy, renders nothing (graceful degradation)
 
 ```typescript
-// FederatedContent checks health, then loads:
 const Content = lazy(() => import('content/Content'));
+
+// contentHealthy is read synchronously from SSR initial state
+if (!contentHealthy) return null;
 
 <ErrorBoundary>
     <Suspense fallback={<Spinner />}>

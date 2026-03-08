@@ -1,36 +1,19 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useContext } from 'react';
 import type { FunctionComponent } from 'react';
 
 import { ErrorBoundary, Spinner } from '@cohbrgr/components';
+import { AppStateContext } from 'src/client/contexts/app-state';
 
 const Content = lazy(() => import('content/Content'));
 
 /**
- * Wraps the federated Content component with a health check.
- * Verifies the content app is available before attempting to load the remote module.
+ * Wraps the federated Content component with server-side health awareness.
+ * The health status is determined server-side and passed via initial state.
  */
 const FederatedContent: FunctionComponent = () => {
-    const [status, setStatus] = useState<'checking' | 'healthy' | 'unhealthy'>(
-        'checking',
-    );
+    const { contentHealthy } = useContext(AppStateContext);
 
-    useEffect(() => {
-        const controller = new AbortController();
-        fetch('/content-health', { signal: controller.signal })
-            .then((res) => {
-                setStatus(res.ok ? 'healthy' : 'unhealthy');
-            })
-            .catch(() => {
-                setStatus('unhealthy');
-            });
-        return () => controller.abort();
-    }, []);
-
-    if (status === 'checking') {
-        return <Spinner />;
-    }
-
-    if (status === 'unhealthy') {
+    if (!contentHealthy) {
         return null;
     }
 

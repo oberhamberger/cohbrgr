@@ -9,6 +9,7 @@ import { Logger } from '@cohbrgr/utils';
 interface IJavascriptHTMLProps {
     nonce: string;
     isProduction: boolean;
+    contentHealthy: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
 
@@ -33,6 +34,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     const initialStateTemplate = {
         isProduction: props.isProduction,
         nonce: '',
+        contentHealthy: props.contentHealthy,
     };
 
     // Create JSON with placeholder that will be replaced after render completes
