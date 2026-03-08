@@ -71,6 +71,7 @@ Three deployable applications communicate via Module Federation:
 | `@cohbrgr/server`                                                            | Express.js middleware (logging, correlation IDs, rate limiting) |
 | `@cohbrgr/figma`                                                             | Design tokens from Figma via Style Dictionary                   |
 | `@cohbrgr/utils`                                                             | General utilities (logger, argument parser)                     |
+| `@cohbrgr/localization`                                                      | i18n utilities (TranslationProvider, useTranslation, Message)   |
 | `@cohbrgr/eslint`, `@cohbrgr/prettier`, `@cohbrgr/jest`, `@cohbrgr/tsconfig` | Shared configs                                                  |
 
 ### Key Technical Decisions
