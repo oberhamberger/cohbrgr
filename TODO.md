@@ -2,16 +2,16 @@
 
 ## High Priority (Cloud Run Deployment)
 
-- [ ] CORS policy only allows `localhost:3000` and `cohbrgr.com` — Cloud Run origins are rejected (`apps/api/src/server.ts:9-11`, `packages/server/src/app/createApp.ts`)
-- [ ] Hardcoded Cloud Run URLs in env files are baked at build time — deploying to a different project/region breaks service discovery (`apps/shell/env/index.ts:16-18`, `apps/content/env/index.ts:16-18`, `apps/api/env/index.ts:12`)
+- [x] CORS policy only allows `localhost:3000` and `cohbrgr.com` — Cloud Run origins are rejected → Fixed: CORS origins now use shared `@cohbrgr/env` constants
+- [x] Hardcoded Cloud Run URLs in env files are baked at build time → Fixed: centralised in `@cohbrgr/env` package
 - [ ] Module Federation remote URLs are hardcoded at build time — shell can't find content at a different URL (`apps/shell/build/configs/rspack.federated.config.ts`)
-- [ ] `publicPath` hardcoded to `https://cohbrgr.com/` for Cloud Run builds — assets won't load on bare Cloud Run domains (`apps/shell/build/configs/rspack.client.config.ts`, `apps/content/build/configs/rspack.client.config.ts`)
+- [x] `publicPath` hardcoded to `https://cohbrgr.com/` for Cloud Run builds → Fixed: uses `productionDomain` from `@cohbrgr/env`
 - [ ] `docker-compose.yml` doesn't pass `PROJECT_ID` build arg to Dockerfiles — local Docker builds won't set `GCLOUD_RUN` correctly
 
 ## High Priority
 
 - [ ] Pin pnpm version in GitHub Actions setup (`.github/actions/setup/action.yml:7`) - uses `npm install -g pnpm` without a version while the project pins `pnpm@10.28.2`
-- [ ] Fix CSP nonce inconsistency across SSR template components - `StructuredData.tsx` receives nonce prop but doesn't apply it; `Stylesheets.html.tsx:60` has nonce commented out; only `Javascript.html.tsx:56` uses it correctly
+- [x] Fix CSP nonce inconsistency across SSR template components → Fixed: nonce enabled on inline `<style>`, CSP header set after nonce generation, `'unsafe-inline'` removed from `style-src`
 - [ ] Add ARIA attributes to Spinner component (`packages/components/src/spinner/Spinner.tsx:5-11`) - missing `role="status"` and `aria-label` for screen reader support
 
 ## Medium Priority
@@ -26,7 +26,7 @@
 
 ## Low Priority
 
-- [ ] Add integration tests for Module Federation boundary conditions (remote component loading failures, version mismatches, network timeouts)
+- [x] Add integration tests for Module Federation boundary conditions → Partially addressed: ErrorBoundary wraps federated Content component for graceful degradation on load failures
 - [ ] Implement distributed tracing with correlation IDs across shell/content/api services for easier log correlation
 - [ ] Add structured logging (JSON format) and file transport to the logger for production (`packages/utils/src/logger.ts`)
 - [ ] Improve error middleware to include correlation IDs in responses for production debugging (`packages/server/src/middleware/error.ts`)
