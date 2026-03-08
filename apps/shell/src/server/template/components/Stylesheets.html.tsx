@@ -57,7 +57,7 @@ const Stylesheets: FunctionComponent<StylesheetProps> = (
     return (
         <>
             <style
-                // nonce={props.nonce}
+                nonce={props.nonce}
                 dangerouslySetInnerHTML={{ __html: styleFileContents }}
             ></style>
             {styleFiles.map((file) => (
