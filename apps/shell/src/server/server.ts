@@ -44,6 +44,19 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
+app.get('/content-health', async (_req: Request, res: Response) => {
+    try {
+        const response = await fetch(`${contentOrigin}/health`, {
+            signal: AbortSignal.timeout(3000),
+        });
+        res.status(response.ok ? 200 : 503).json({
+            status: response.ok ? 'OK' : 'unavailable',
+        });
+    } catch {
+        res.status(503).json({ status: 'unavailable' });
+    }
+});
+
 app.use(staticFiles(staticPath, { maxAge: 3600 }));
 
 export default app;
