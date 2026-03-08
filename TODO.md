@@ -1,24 +1,37 @@
 # TODO
 
-## Testing & Quality
+## Cloud Build Deployment (move from Cloud Console to repo)
 
-- [x] Increase unit test coverage — added content-health and FederatedContent tests, shell coverage 70% → 96%
-- [ ] Run e2e tests against production — requires deployment notification/polling (Cloud Run deploy takes ~10min with no completion callback)
-- [x] Add Lighthouse CI — config already present (`.lighthouserc.js`), fixed `npm` → `pnpm`, CI job exists in GitHub Actions
+Currently deployment is configured manually in Google Cloud Console. Moving to a `cloudbuild.yaml` in the repo would make it version-controlled, reviewable, and reproducible.
 
-## Performance & Production
+### Plan
 
-- [x] Review bundle size — ~123K gzipped total JS, no bloat identified
-- [ ] Evaluate streaming SSR (`onShellReady` instead of `onAllReady`) for faster TTFB — `HttpStatus` sets status during render; since it's outside Suspense boundaries, it should be available at shell-ready, but needs validation
-- [x] Review cache headers — hashed static files get `immutable` + 1 year; SSR pages get `stale-while-revalidate=86400`
-- [x] Add `/health` endpoint to the shell app — already provided by `createApp` in `@cohbrgr/server`
+1. **Export existing Cloud Build triggers** from Cloud Console to understand current setup
+2. **Create `cloudbuild.yaml`** at repo root with steps:
+    - Install pnpm and dependencies
+    - Build all packages and apps
+    - Run lint and tests
+    - Build Docker images for shell, content, and api
+    - Push images to Artifact Registry
+    - Deploy each service to Cloud Run
+3. **Configure Cloud Build trigger** to run on push to `main`
+4. **Add deploy notification** — Cloud Build can notify on completion, enabling production e2e:
+    - Option A: Add a final Cloud Build step that runs `test:e2e:prod`
+    - Option B: Use Cloud Build Pub/Sub notifications to trigger a separate e2e run
+5. **Remove manual Cloud Console configuration** once `cloudbuild.yaml` is verified
 
-## Architecture
+### Production E2E After Deploy
 
-- [x] Upgrade `@module-federation/enhanced` 0.23 → 2.1 — no breaking changes, all tests pass
-- [x] Add a styled 500 error page for SSR failures — render middleware catches errors and sends styled HTML
+Once deployment is in `cloudbuild.yaml`, add a post-deploy step:
 
-## Developer Experience
+```yaml
+- name: 'node:24'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - 'npm i -g pnpm && pnpm install && pnpm exec playwright install --with-deps chromium && pnpm run test:e2e:prod'
+```
 
-- [x] Review pre-commit hook — runs prettier on staged files only (fast); lint + test deferred to CI
-- [x] Set up GitHub Actions CI workflow — updated pnpm version, added integration test and e2e jobs
+## Performance
+
+- ~~Evaluate streaming SSR~~ → Won't do: streaming sends incomplete HTML with placeholders, defeating the purpose of SSR
