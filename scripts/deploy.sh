@@ -49,8 +49,32 @@ echo "Build ID:   $BUILD_ID"
 echo "Console:    $CONSOLE_URL"
 echo ""
 
-# Stream build logs, filtering gcloud CLI noise from both stdout and stderr
-gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>&1 \
-    | grep --line-buffered -v '^Safe-chain:' || true
+# Stream logs in the background (suppressing gcloud CLI noise)
+gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>/dev/null &
+LOG_PID=$!
 
-echo "Build completed successfully."
+# Poll for build completion in the foreground
+while true; do
+    STATUS=$(gcloud builds describe "$BUILD_ID" \
+        --project="$PROJECT_ID" \
+        --format='value(status)' 2>/dev/null) || true
+
+    case "$STATUS" in
+        SUCCESS|FAILURE|TIMEOUT|CANCELLED|INTERNAL_ERROR)
+            # Give the log stream a moment to flush remaining output
+            sleep 2
+            kill "$LOG_PID" 2>/dev/null || true
+            wait "$LOG_PID" 2>/dev/null || true
+            echo ""
+            if [[ "$STATUS" == "SUCCESS" ]]; then
+                echo "Build completed successfully."
+            else
+                echo "Build failed with status: $STATUS"
+                echo "View logs: $CONSOLE_URL"
+                exit 1
+            fi
+            break
+            ;;
+    esac
+    sleep 10
+done
