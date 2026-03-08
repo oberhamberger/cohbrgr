@@ -15,7 +15,7 @@
 
 ## Architecture
 
-- [ ] Upgrade `@module-federation/enhanced` 0.23 → 2.1
+- [x] Upgrade `@module-federation/enhanced` 0.23 → 2.1 — no breaking changes, all tests pass
 - [x] Add a styled 500 error page for SSR failures — render middleware catches errors and sends styled HTML
 
 ## Developer Experience
