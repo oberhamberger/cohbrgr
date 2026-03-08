@@ -1,5 +1,7 @@
 import { FunctionComponent } from 'react';
 
+import { productionDomain } from '@cohbrgr/env';
+
 /**
  * Builds a JSON-LD structured data object for Schema.org WebSite markup.
  */
@@ -10,7 +12,7 @@ const buildJsonLd = () => {
         name: 'Christian Oberhamberger',
         description:
             'My name is Christian. I am a Frontend Developer at Netconomy. I mainly work with React and Node.js on online commerce platforms. *sipping coffee*',
-        url: 'https://cohbrgr.com',
+        url: productionDomain,
     });
 };
 

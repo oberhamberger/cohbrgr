@@ -1,0 +1,12 @@
+{
+    "extends": "@cohbrgr/tsconfig",
+    "compilerOptions": {
+        "rootDir": "./src",
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./*"]
+        },
+        "outDir": "dist"
+    },
+    "exclude": ["dist", "node_modules", "jest.config.ts", "**/*.spec.ts"]
+}

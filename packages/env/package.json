@@ -1,0 +1,23 @@
+{
+    "name": "@cohbrgr/env",
+    "version": "1.0.0",
+    "author": "Christian Oberhamberger",
+    "license": "ISC",
+    "private": true,
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "lint": "eslint",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "@cohbrgr/eslint": "workspace:*",
+        "@cohbrgr/jest": "workspace:*",
+        "@cohbrgr/tsconfig": "workspace:*"
+    }
+}

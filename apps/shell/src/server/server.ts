@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 
 import { createApp, cspNonce, staticFiles } from '@cohbrgr/server';
+import { cloudRunOrigins, ports } from '@cohbrgr/env';
 import { Config } from '@cohbrgr/shell/env';
 import { findProcessArgs, isProduction } from '@cohbrgr/utils';
 
@@ -11,10 +12,10 @@ const isGenerator = findProcessArgs(['--generator']);
 
 const contentOrigin =
     process.env['DOCKER'] === 'true'
-        ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app'
+        ? cloudRunOrigins.content
         : isProduction
-          ? 'http://localhost:3001'
-          : 'http://localhost:3031';
+          ? `http://localhost:${ports.content.prod}`
+          : `http://localhost:${ports.content.dev}`;
 
 const app = createApp({
     isProduction,

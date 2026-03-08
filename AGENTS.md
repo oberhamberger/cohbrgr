@@ -66,6 +66,7 @@ Three deployable applications communicate via Module Federation:
 | ---------------------------------------------------------------------------- | --------------------------------------------- |
 | `@cohbrgr/build`                                                             | Rspack/Webpack configuration utilities        |
 | `@cohbrgr/components`                                                        | Shared React UI components                    |
+| `@cohbrgr/env`                                                               | Shared environment constants (ports, origins) |
 | `@cohbrgr/server`                                                            | Express.js middleware and utilities           |
 | `@cohbrgr/figma`                                                             | Design tokens from Figma via Style Dictionary |
 | `@cohbrgr/utils`                                                             | General utilities (logger, argument parser)   |

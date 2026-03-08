@@ -19,6 +19,7 @@ import {
     isProduction,
     serviceWorker,
 } from '@cohbrgr/build';
+import { ports, productionDomain } from '@cohbrgr/env';
 
 import getModuleFederationPlugins from './rspack.federated.config';
 
@@ -70,10 +71,10 @@ const config: RspackOptions = {
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
         publicPath: isCloudRun
-            ? 'https://cohbrgr.com/'
+            ? `${productionDomain}/`
             : isProduction
-              ? 'http://localhost:3000/'
-              : 'http://localhost:3030/',
+              ? `http://localhost:${ports.shell.prod}/`
+              : `http://localhost:${ports.shell.dev}/`,
 
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },

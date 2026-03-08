@@ -1,3 +1,5 @@
+import { cloudRunOrigins, ports } from '@cohbrgr/env';
+
 describe('env config', () => {
     const originalEnv = process.env;
 
@@ -16,8 +18,8 @@ describe('env config', () => {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
 
-        expect(Config.port).toBe(3030);
-        expect(Config.apiUrl).toBe('http://localhost:3032');
+        expect(Config.port).toBe(ports.shell.dev);
+        expect(Config.apiUrl).toBe(`http://localhost:${ports.api.dev}`);
         expect(Config.location).toBe('http://localhost');
         expect(Config.staticPath).toBe('/dist');
     });
@@ -28,8 +30,8 @@ describe('env config', () => {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
 
-        expect(Config.port).toBe(3000);
-        expect(Config.apiUrl).toBe('http://localhost:3002');
+        expect(Config.port).toBe(ports.shell.prod);
+        expect(Config.apiUrl).toBe(`http://localhost:${ports.api.prod}`);
         expect(Config.location).toBe('http://localhost');
         expect(Config.staticPath).toBe('/dist');
     });
@@ -39,10 +41,8 @@ describe('env config', () => {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { Config } = require('./index');
 
-        expect(Config.port).toBe(3000);
-        expect(Config.location).toBe(
-            'https://cohbrgr-o44imzpega-oa.a.run.app/',
-        );
+        expect(Config.port).toBe(ports.shell.prod);
+        expect(Config.location).toBe(`${cloudRunOrigins.shell}/`);
         expect(Config.staticPath).toBe('/dist');
     });
 });

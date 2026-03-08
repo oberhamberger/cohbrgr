@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "@cohbrgr/components": "workspace:*",
+        "@cohbrgr/env": "workspace:*",
         "@cohbrgr/localization": "workspace:*",
         "@cohbrgr/server": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
