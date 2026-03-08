@@ -31,9 +31,9 @@ Currently deployment is configured manually in Google Cloud Console (3 separate 
 #### Cleanup Opportunities
 
 - **Shell in different region**: shell is europe-north1 while content/api are europe-west6 — adds cross-region latency. Consider consolidating to one region.
-- **Content maxScale 100**: template annotation says `maxScale: 100` while metadata says 2. Likely stale — should be 2 like the others.
-- **Service accounts**: content/api use the default compute SA (`944962437395-compute@developer.gserviceaccount.com`) instead of the dedicated `cohbrgr-service-account`. Consider using the dedicated SA for all three.
-- **Unused `ENV=prod`**: content and api Cloud Run configs set `ENV=prod`, but the apps read `NODE_ENV` (set in Dockerfile). These env vars are unused and can be removed.
+- ~~**Content maxScale 100**: template annotation says `maxScale: 100` while metadata says 2. Likely stale — should be 2 like the others.~~ → Fixed
+- ~~**Service accounts**: content/api use the default compute SA (`944962437395-compute@developer.gserviceaccount.com`) instead of the dedicated `cohbrgr-service-account`. Consider using the dedicated SA for all three.~~ → All three now use `cohbrgr-service-account`
+- ~~**Unused `ENV=prod`**: content and api Cloud Run configs set `ENV=prod`, but the apps read `NODE_ENV` (set in Dockerfile). These env vars are unused and can be removed.~~ → Removed
 
 ### Plan
 
