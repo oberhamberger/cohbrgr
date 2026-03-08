@@ -41,6 +41,7 @@ fi
 # to /dev/tty, bypassing pipes. Not needed during automated deploys; users still
 # get update prompts when running gcloud interactively.
 export CLOUDSDK_COMPONENT_MANAGER_DISABLE_UPDATE_CHECKS=1
+export CLOUDSDK_CORE_DISABLE_USAGE_REPORTING=1
 
 if gcloud builds submit \
     --project="$PROJECT_ID" \
