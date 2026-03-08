@@ -63,7 +63,14 @@ const render =
 
         const stream = new Promise<Stream>((resolve, reject) => {
             const httpContext: HttpContextData = {};
+            let settled = false;
             let timeout: ReturnType<typeof setTimeout>;
+
+            const settle = () => {
+                settled = true;
+                clearTimeout(timeout);
+            };
+
             try {
                 const { pipe, abort } = renderToPipeableStream(
                     renderIndex(
@@ -76,7 +83,7 @@ const render =
                     ),
                     {
                         onAllReady() {
-                            clearTimeout(timeout);
+                            settle();
                             const renderStatusCode =
                                 httpContext.statusCode || 200;
                             if (renderStatusCode < 300) {
@@ -107,7 +114,7 @@ const render =
                             resolve(body);
                         },
                         onShellError(error) {
-                            clearTimeout(timeout);
+                            settle();
                             Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
@@ -118,7 +125,7 @@ const render =
                             );
                         },
                         onError(error) {
-                            clearTimeout(timeout);
+                            settle();
                             Logger.error(error);
                             res.statusCode = 500;
                             res.setHeader('content-type', 'text/html');
@@ -130,11 +137,17 @@ const render =
                         },
                     },
                 );
-                timeout = setTimeout(() => {
-                    abort();
-                    reject(new Error(`SSR render timed out for: ${req.url}`));
-                }, 5000);
+
+                if (!settled) {
+                    timeout = setTimeout(() => {
+                        abort();
+                        reject(
+                            new Error(`SSR render timed out for: ${req.url}`),
+                        );
+                    }, 5000);
+                }
             } catch (error) {
+                settle();
                 Logger.error(error);
                 reject(error);
             }
