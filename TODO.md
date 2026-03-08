@@ -4,7 +4,7 @@
 
 - [x] Increase unit test coverage — added content-health and FederatedContent tests, shell coverage 70% → 96%
 - [ ] Run e2e tests against production — requires deployment notification/polling (Cloud Run deploy takes ~10min with no completion callback)
-- [ ] Add Lighthouse CI — needs `@lhci/cli` dependency and `lighthouserc` config
+- [x] Add Lighthouse CI — config already present (`.lighthouserc.js`), fixed `npm` → `pnpm`, CI job exists in GitHub Actions
 
 ## Performance & Production
 
