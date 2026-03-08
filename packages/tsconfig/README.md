@@ -11,17 +11,19 @@ This `tsconfig.json` is designed to enforce strict type checking and provide a c
 The `tsconfig.json` in this package extends the following base configurations:
 
 - **`@tsconfig/strictest/tsconfig`**: Provides a highly strict set of TypeScript compiler options, promoting robust and error-free code.
-- **`@tsconfig/node22/tsconfig`**: Configures TypeScript for Node.js environments, targeting Node.js version 22.
+- **`@tsconfig/node24/tsconfig`**: Configures TypeScript for Node.js environments, targeting Node.js version 24.
 
 In addition to the extended configurations, the following `compilerOptions` are explicitly set or overridden:
 
 - **`jsx`**: `"react-jsx"` - Specifies the JSX factory to use, enabling the new JSX transform for React.
 - **`sourceMap`**: `true` - Generates source map files (`.map`) for easier debugging.
-- **`incremental`**: `true` - Enables incremental compilation, which speeds up subsequent compilations by caching information from previous compilations.
+- **`incremental`**: `false` - Disables incremental compilation (build orchestration is handled by Nx).
+- **`declaration`**: `true` - Generates `.d.ts` declaration files for package consumers.
 - **`allowJs`**: `false` - Disallows JavaScript files to be included in the compilation.
 - **`checkJs`**: `false` - Disables type checking for JavaScript files.
 - **`resolveJsonModule`**: `true` - Allows importing `.json` files as modules.
-- **`typeRoots`**: `["../../node_modules/@types", "../../@types"]` - Specifies the directories where TypeScript should look for type definition files. This ensures that types from `node_modules` and any custom types in the monorepo are correctly resolved.
+- **`types`**: `["node", "jest"]` - Restricts automatic type inclusion to Node.js and Jest types.
+- **`typeRoots`**: `["../../node_modules/@types", "../../@types", "node_modules/@types", "@types"]` - Specifies the directories where TypeScript should look for type definition files, covering both monorepo root and local package type directories.
 
 ## Usage
 

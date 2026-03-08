@@ -24,7 +24,7 @@ Typically, this package would be used as part of a build process to generate the
 Assuming a build script that runs Style Dictionary based on `config.json`:
 
 ```bash
-pnpm run build:tokens
+pnpm run build:figma
 ```
 
 This would generate:

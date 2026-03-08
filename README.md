@@ -19,16 +19,16 @@ build locally:
 pnpm run build
 ```
 
-run server (after first build):
+run all apps in development mode:
 
 ```
-node .
+pnpm run dev
 ```
 
-develop locally:
+serve production build:
 
 ```
-pnpm start
+pnpm run serve
 ```
 
 ## Docker
@@ -38,7 +38,7 @@ Since the application is split into multiple microfrontends, you will need to ru
 build a Docker-Container:
 
 ```
-docker build --tag node-[APP] -f ./[APP]/Dockerfile .
+docker build --tag node-[APP] -f ./apps/[APP]/Dockerfile .
 ```
 
 run as Docker-Container:
@@ -55,7 +55,7 @@ docker run -d -p 3000:3000 node-[APP]
 - Static Site Generation
 - SCSS Modules Styles
 - Typescript
-- Webpack Bundling
+- Rspack Bundling
 - Monorepositories
 - Serviceworker using Workbox (for offline-Mode)
 - Linting
@@ -67,9 +67,11 @@ docker run -d -p 3000:3000 node-[APP]
 
 This project uses GitHub Actions for continuous integration. The following checks run automatically:
 
-- Linting: Ensures code style consistency
-- Build: Verifies the project builds successfully
-- Tests: Runs the test suite
+- **Linting**: Ensures code style consistency
+- **Tests**: Runs the Jest test suite
+- **Integration**: Builds all apps, starts them, and runs smoke tests (health checks, API endpoints, SSR, security headers)
+- **E2E**: Runs Playwright end-to-end tests
+- **Lighthouse**: Runs Lighthouse CI performance audits
 
 The CI pipeline runs on:
 
