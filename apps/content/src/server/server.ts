@@ -6,7 +6,12 @@ import { isProduction } from '@cohbrgr/utils';
 
 const staticPath = resolve(process.cwd() + Config.staticPath);
 
-const app = createApp({ isProduction });
+const app = createApp({
+    isProduction,
+    helmet: {
+        crossOriginResourcePolicy: { policy: 'cross-origin' },
+    },
+});
 
 app.use(staticFiles(staticPath));
 
