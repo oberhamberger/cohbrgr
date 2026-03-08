@@ -1,0 +1,136 @@
+steps:
+    # 1. Build all three Docker images in parallel
+    #    Each Dockerfile does: pnpm install → build app → pnpm deploy --prod
+    #    Cloud Build runs these concurrently via waitFor: ['-']
+    - id: build-api
+      name: gcr.io/cloud-builders/docker
+      args:
+          - build
+          - --tag=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api:$COMMIT_SHA
+          - --tag=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api:latest
+          - --file=apps/api/Dockerfile
+          - --build-arg=PROJECT_ID=$PROJECT_ID
+          - .
+      waitFor: ['-']
+
+    - id: build-content
+      name: gcr.io/cloud-builders/docker
+      args:
+          - build
+          - --tag=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-content:$COMMIT_SHA
+          - --tag=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-content:latest
+          - --file=apps/content/Dockerfile
+          - --build-arg=PROJECT_ID=$PROJECT_ID
+          - .
+      waitFor: ['-']
+
+    - id: build-shell
+      name: gcr.io/cloud-builders/docker
+      args:
+          - build
+          - --tag=europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr:$COMMIT_SHA
+          - --tag=europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr:latest
+          - --file=apps/shell/Dockerfile
+          - --build-arg=PROJECT_ID=$PROJECT_ID
+          - .
+      waitFor: ['-']
+
+    # 2. Push images (each waits for its own build)
+    - id: push-api
+      name: gcr.io/cloud-builders/docker
+      args:
+          [
+              push,
+              --all-tags,
+              'europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api',
+          ]
+      waitFor: [build-api]
+
+    - id: push-content
+      name: gcr.io/cloud-builders/docker
+      args:
+          [
+              push,
+              --all-tags,
+              'europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-content',
+          ]
+      waitFor: [build-content]
+
+    - id: push-shell
+      name: gcr.io/cloud-builders/docker
+      args:
+          [
+              push,
+              --all-tags,
+              'europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr',
+          ]
+      waitFor: [build-shell]
+
+    # 3. Deploy to Cloud Run (skipped during --dry-run)
+    - id: deploy-api
+      name: gcr.io/cloud-builders/gcloud
+      entrypoint: bash
+      args:
+          - -c
+          - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping deploy (dry run)"; exit 0; fi
+              gcloud run deploy cohbrgr-api \
+                  --image=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api:$COMMIT_SHA \
+                  --region=europe-west6 \
+                  --platform=managed \
+                  --allow-unauthenticated
+      waitFor: [push-api]
+
+    - id: deploy-content
+      name: gcr.io/cloud-builders/gcloud
+      entrypoint: bash
+      args:
+          - -c
+          - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping deploy (dry run)"; exit 0; fi
+              gcloud run deploy cohbrgr-content \
+                  --image=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-content:$COMMIT_SHA \
+                  --region=europe-west6 \
+                  --platform=managed \
+                  --allow-unauthenticated
+      waitFor: [push-content]
+
+    - id: deploy-shell
+      name: gcr.io/cloud-builders/gcloud
+      entrypoint: bash
+      args:
+          - -c
+          - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping deploy (dry run)"; exit 0; fi
+              gcloud run deploy cohbrgr \
+                  --image=europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr:$COMMIT_SHA \
+                  --region=europe-north1 \
+                  --platform=managed \
+                  --allow-unauthenticated
+      waitFor: [push-shell]
+
+    # 4. Post-deploy e2e smoke test (skipped during --dry-run)
+    - id: e2e
+      name: node:24
+      entrypoint: bash
+      args:
+          - -c
+          - |
+              if [ "$_DEPLOY" != "true" ]; then echo "Skipping e2e (dry run)"; exit 0; fi
+              corepack enable
+              pnpm install --frozen-lockfile
+              pnpm exec playwright install --with-deps chromium
+              E2E_BASE_URL=https://cohbrgr.com pnpm run test:e2e
+      waitFor: [deploy-api, deploy-content, deploy-shell]
+
+substitutions:
+    _DEPLOY: 'true'
+
+images:
+    - europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-api:$COMMIT_SHA
+    - europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr-content:$COMMIT_SHA
+    - europe-north1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/cohbrgr/cohbrgr:$COMMIT_SHA
+
+options:
+    logging: CLOUD_LOGGING_ONLY
+    machineType: E2_HIGHCPU_8

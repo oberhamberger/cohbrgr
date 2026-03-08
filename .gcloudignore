@@ -1,0 +1,8 @@
+#!include:.gitignore
+.github/
+.claude/
+.devcontainer/
+.husky/
+.vscode/
+e2e/
+docs/
