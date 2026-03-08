@@ -31,10 +31,16 @@ app.use(cspNonce(isGenerator));
 
 app.use((_req: Request, res: Response, next: NextFunction) => {
     const nonce = res.locals['cspNonce'];
-    res.setHeader(
-        'Content-Security-Policy',
-        `default-src 'self'; script-src 'self' ${contentOrigin} 'nonce-${nonce}'; connect-src 'self' ${contentOrigin}; style-src 'self' 'unsafe-inline' ${contentOrigin}`,
-    );
+    const directives = [
+        "default-src 'self'",
+        `script-src 'self' ${contentOrigin} 'nonce-${nonce}'`,
+        `style-src 'self' ${contentOrigin} 'nonce-${nonce}'`,
+        `connect-src 'self' ${contentOrigin}`,
+        "img-src 'self'",
+        "font-src 'self'",
+        "frame-src 'none'",
+    ];
+    res.setHeader('Content-Security-Policy', directives.join('; '));
     next();
 });
 

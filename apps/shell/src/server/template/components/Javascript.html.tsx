@@ -64,7 +64,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     key={file}
                     async
                     type="module"
-                    crossOrigin="use-credentials"
+                    crossOrigin="anonymous"
                     nonce={props.nonce}
                     src={`/${file}`}
                 ></script>
