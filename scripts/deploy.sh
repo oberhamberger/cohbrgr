@@ -36,19 +36,40 @@ else
     fi
 fi
 
-# Run gcloud builds submit synchronously, piping all output (stdout + stderr)
-# through sed to filter gcloud CLI noise. The pipe is key: child processes
-# (like gcloud's background update checker) inherit the pipe fd instead of
+# Filter out gcloud CLI noise (gRPC/SSL errors, update checker timeouts).
+# Piping through sed ensures child processes inherit the pipe fd instead of
 # the terminal, so their output is also captured and filtered.
-if gcloud builds submit \
+gcloud_filter() {
+    sed -u '/^Safe-chain:/d; /^E0000.*ssl_transport/d; /^E0000.*secure_endpoint/d; /^WARNING.*absl/d; /^Unknown error.*Stream removed/d'
+}
+
+# Submit build asynchronously
+BUILD_ID=$(gcloud builds submit \
     --project="$PROJECT_ID" \
     --config=cloudbuild.yaml \
-    --substitutions="_DEPLOY=$DEPLOY_FLAG,COMMIT_SHA=$COMMIT_SHA" 2>&1 \
-    | sed -u '/^Safe-chain:/d; /^E0000.*ssl_transport/d; /^E0000.*secure_endpoint/d; /^WARNING.*absl/d; /^Unknown error.*Stream removed/d'; then
-    echo ""
+    --substitutions="_DEPLOY=$DEPLOY_FLAG,COMMIT_SHA=$COMMIT_SHA" \
+    --async \
+    --format='value(id)' 2>&1 | gcloud_filter)
+
+CONSOLE_URL="https://console.cloud.google.com/cloud-build/builds/$BUILD_ID?project=$PROJECT_ID"
+echo "Build ID:   $BUILD_ID"
+echo "Console:    $CONSOLE_URL"
+echo ""
+
+# Stream detailed logs from Cloud Logging, filtered through sed.
+# The pipe captures all child process output including gcloud's update checker.
+gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>&1 | gcloud_filter || true
+
+# Check final build status
+STATUS=$(gcloud builds describe "$BUILD_ID" \
+    --project="$PROJECT_ID" \
+    --format='value(status)' 2>&1 | gcloud_filter | head -1) || true
+
+echo ""
+if [[ "$STATUS" == "SUCCESS" ]]; then
     echo "Build completed successfully."
 else
-    echo ""
-    echo "Build failed. Check the Cloud Build console for details."
+    echo "Build failed with status: $STATUS"
+    echo "View logs: $CONSOLE_URL"
     exit 1
 fi
