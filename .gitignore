@@ -120,3 +120,11 @@ dist
 
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Lighthouse CI reports (generated during local runs)
+localhost*.report.html
+localhost*.report.json
+manifest.json

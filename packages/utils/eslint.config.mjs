@@ -1,3 +1,8 @@
 import config from '@cohbrgr/eslint';
 
-export default config;
+export default [
+    ...config,
+    {
+        ignores: ['jest.config.ts', '**/*.spec.ts'],
+    },
+];

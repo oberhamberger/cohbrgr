@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.6
-FROM node:25-slim
+FROM node:24-slim
 
 # 1. Install system dependencies
 RUN apt-get update && \
@@ -12,7 +12,7 @@ RUN apt-get update && \
 
 # 2. Install pnpm directly via npm
 # We use --before to bypass the corepack/shim conflicts 
-RUN npm install -g pnpm@latest
+RUN npm install -g pnpm@10.28.2
 
 # 3. Configure pnpm environment
 ENV PNPM_HOME="/home/node/.local/share/pnpm"

@@ -12,8 +12,8 @@ import {
 import { merge } from 'webpack-merge';
 
 import {
-    CWD,
     baseConfig,
+    CWD,
     isAnalyze,
     isCloudRun,
     isProduction,

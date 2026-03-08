@@ -1,117 +1,42 @@
-import { resolve } from 'path';
+import app from 'src/server/server';
 
-import compression from 'compression';
-import { randomBytes } from 'crypto';
-import express from 'express';
-import rateLimit from 'express-rate-limit';
-import nocache from 'nocache';
-
-import { logging, methodDetermination } from '@cohbrgr/server';
+import { gracefulStartAndClose } from '@cohbrgr/server';
 import { Config } from '@cohbrgr/shell/env';
-import { Logger, findProcessArgs } from '@cohbrgr/utils';
 
-const isProduction = process.env['NODE_ENV'] === 'production';
-const defaultPort = isProduction ? Config.port : Config.port + 30;
-const port = process.env['PORT'] || defaultPort;
-const staticPath = resolve(process.cwd() + Config.staticPath + '/client');
-// const useClientSideRendering = true;
-const isGenerator = findProcessArgs(['--generator']);
+import type { RenderThunk } from './server-entry';
 
-const app = express();
-
-if (isProduction) {
-    app.set('trust proxy', 1);
-    app.use(
-        rateLimit({
-            windowMs: 10 * 60 * 1000, // 10 minutes
-            max: 500, // limit each IP to 500 requests per window
-            handler: (request, response, _next, options) => {
-                Logger.log(
-                    'warn',
-                    `Restricted request from ${request.ip} for ${request.path}`,
-                );
-                return response
-                    .status(options.statusCode)
-                    .send(options.message);
-            },
-        }),
-    );
-}
-
-app.use(nocache());
-app.use(logging(isProduction));
-app.use(methodDetermination);
-app.use(compression());
-app.use(
-    express.static(staticPath, {
-        dotfiles: 'ignore',
-        setHeaders: (res) => {
-            res.set('Cache-Control', 'public, max-age=3600');
-        },
-    }),
-);
-app.use((_req, res, next) => {
-    res.locals['cspNonce'] = isGenerator
-        ? '!CSPNONCE_PLACEHOLDER!'
-        : randomBytes(16).toString('hex');
-    next();
-});
-// app.use(
-//     helmet({
-//         contentSecurityPolicy: {
-//             useDefaults: true,
-//             directives: {
-//                 // 'script-src': [
-//                 //     (req, res) =>
-//                 //         `'nonce-${(res as unknown as Response).locals.cspNonce}'`,
-//                 // ],
-//                 'script-src': [
-//                     "'self'",
-//                     "'unsafe-inline'",
-//                     'http://localhost:3031',
-//                     'cohbrgr-content-o44imzpega-oa.a.run.app',
-//                 ],
-//                 'manifest-src': ["'self'"],
-//                 'connect-src': ["'self'"],
-//                 'worker-src': ["'self'"],
-//                 'form-action': ["'none'"],
-//                 'default-src': ["'none'"],
-//             },
-//         },
-//     }),
-// );
-
-// app.use(jam(isProduction));
-
-await (async () => {
-    // @ts-expect-error: dynamic import of server-entry is required for SSR compatibility
-    const renderThunk = (await import('./server-entry'))
-        .default as unknown as RenderThunk;
-
-    const serverRender = renderThunk();
-
-    app.use(serverRender);
-
-    // starting the server
-    const server = app.listen(port, () => {
-        Logger.info(
-            `Listening on ${
-                isProduction
-                    ? port
-                    : `http://localhost:${port} in development mode`
-            }`,
+/**
+ * Parses and validates a port number from a string value.
+ * @param value - The string value to parse
+ * @param fallback - The fallback port number if value is undefined
+ * @returns A valid port number
+ * @throws Error if the value is not a valid port number (0-65535)
+ */
+const parsePort = (value: string | undefined, fallback: number): number => {
+    if (!value) return fallback;
+    const parsed = Number(value);
+    if (isNaN(parsed) || parsed < 0 || parsed > 65535) {
+        throw new Error(
+            `Invalid PORT: ${value}. Must be a number between 0 and 65535`,
         );
-        if (process.send) {
-            process.send('server-ready');
-        }
-    });
+    }
+    return parsed;
+};
 
-    // stopping the server correctly
-    const closeGracefully = async () => {
-        await server.close();
-        Logger.log('info', `Server closed.`);
-        process.exit();
-    };
-    process.on('SIGTERM', closeGracefully);
-    process.on('SIGINT', closeGracefully);
-})();
+const port = parsePort(process.env['PORT'], Config.port);
+
+/**
+ * Dynamically imports and initializes the render middleware for server-side rendering.
+ * Type assertion needed: nodenext CJS/ESM interop types the default export as the module namespace.
+ */
+const main = async () => {
+    const mod = await import('./server-entry.ts');
+    const createRenderThunk = mod.default as unknown as RenderThunk;
+    const renderThunk = createRenderThunk();
+
+    app.use(renderThunk);
+
+    gracefulStartAndClose(app, port);
+};
+
+main();

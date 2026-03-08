@@ -1,6 +1,7 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, Suspense } from 'react';
 import { StaticRouter } from 'react-router-dom';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
@@ -14,6 +15,7 @@ interface IIndexProps {
     useCSR: boolean;
     nonce: string;
     httpContextData: HttpContextData;
+    queryClient: QueryClient;
 }
 
 export type IndexProps = IIndexProps;
@@ -74,18 +76,22 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
             </head>
             <body>
                 <div id="root">
-                    <AppStateProvider
-                        context={{
-                            nonce: props.nonce,
-                            isProduction: props.isProduction,
-                        }}
-                    >
-                        <HttpProvider context={props.httpContextData}>
-                            <StaticRouter location={props.location}>
-                                <App />
-                            </StaticRouter>
-                        </HttpProvider>
-                    </AppStateProvider>
+                    <QueryClientProvider client={props.queryClient}>
+                        <AppStateProvider
+                            context={{
+                                nonce: props.nonce,
+                                isProduction: props.isProduction,
+                            }}
+                        >
+                            <Suspense fallback={null}>
+                                <HttpProvider context={props.httpContextData}>
+                                    <StaticRouter location={props.location}>
+                                        <App />
+                                    </StaticRouter>
+                                </HttpProvider>
+                            </Suspense>
+                        </AppStateProvider>
+                    </QueryClientProvider>
                 </div>
 
                 {props.useCSR && props.location !== routes.offline && (

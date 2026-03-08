@@ -3,6 +3,9 @@ import { Workbox } from 'workbox-window';
 const serviceWorker = '/sw.js';
 const isProduction = window.__initial_state__?.isProduction;
 
+/**
+ * Registers the service worker in production mode or unregisters it in development mode.
+ */
 const registerServiceWorker = async () => {
     if ('serviceWorker' in navigator) {
         if (isProduction) {

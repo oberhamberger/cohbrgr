@@ -10,7 +10,7 @@ jobs:
     lint:
         runs-on: ubuntu-latest
         container:
-            image: node:25-alpine
+            image: node:24-alpine
         steps:
             - uses: actions/checkout@v4
             - uses: ./.github/actions/setup-and-build
@@ -20,7 +20,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         container:
-            image: node:25-alpine
+            image: node:24-alpine
         steps:
             - uses: actions/checkout@v4
             - uses: ./.github/actions/setup-and-build
@@ -30,7 +30,7 @@ jobs:
     lighthouse:
         runs-on: ubuntu-latest
         container:
-            image: node:25-alpine
+            image: node:24-alpine
         steps:
             - uses: actions/checkout@v4
             - name: Install Chromium

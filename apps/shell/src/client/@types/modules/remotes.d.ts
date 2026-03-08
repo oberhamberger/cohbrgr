@@ -1,3 +1,6 @@
 declare module 'content/Content' {
-    export * from '@cohbrgr/content/src/client/components/content';
+    const Content: import('react').FunctionComponent<
+        import('@cohbrgr/content/src/client/components/content/Content').IContent
+    >;
+    export default Content;
 }

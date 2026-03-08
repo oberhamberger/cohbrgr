@@ -4,6 +4,14 @@ import 'html-validate/jest';
 import httpMocks, { MockRequest, MockResponse } from 'node-mocks-http';
 import render from 'src/server/middleware/render';
 
+const mockTranslationResponse = {
+    lang: 'en',
+    keys: {
+        'hero.title': 'Test Title',
+        'hero.subtitle': 'Test Subtitle',
+    },
+};
+
 describe('render middleware', () => {
     let mockRequest: MockRequest<Request>;
     let mockResponse: MockResponse<Response>;
@@ -16,6 +24,17 @@ describe('render middleware', () => {
         },
     };
     const htmlvalidate = new HtmlValidate(htmlValidatorConfig);
+
+    beforeEach(() => {
+        global.fetch = jest.fn().mockResolvedValue({
+            ok: true,
+            json: () => Promise.resolve(mockTranslationResponse),
+        });
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
 
     // doesn't work with federated modules yet
     // it('startpage should return valid html and return 200', async () => {
@@ -97,5 +116,41 @@ describe('render middleware', () => {
             expect(report.valid).toEqual(true);
             expect(report.errorCount).toBeLessThan(1);
         });
+    });
+
+    it('should handle HEAD requests', async () => {
+        mockRequest = httpMocks.createRequest({
+            method: 'HEAD',
+            url: '/offline',
+        });
+
+        mockResponse = httpMocks.createResponse({
+            locals: {
+                nonce: '1234',
+            },
+        });
+
+        await render(true, true)(mockRequest, mockResponse);
+
+        expect(mockResponse.statusCode).toEqual(200);
+    });
+
+    it('should render with non-production mode', async () => {
+        mockRequest = httpMocks.createRequest({
+            method: 'GET',
+            url: '/offline',
+        });
+
+        mockResponse = httpMocks.createResponse({
+            locals: {
+                nonce: '1234',
+            },
+        });
+
+        await render(false, true)(mockRequest, mockResponse);
+
+        const htmlResponse = mockResponse._getData();
+        expect(mockResponse.statusCode).toEqual(200);
+        expect(htmlResponse.length).toBeGreaterThan(0);
     });
 });

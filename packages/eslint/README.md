@@ -14,14 +14,7 @@ This configuration extends and combines several popular ESLint setups:
 
 - **Ignored Paths**: Automatically ignores `dist` and `node_modules` directories from linting.
 - **TypeScript Parsing**: Configures `parserOptions` for TypeScript files (`.ts`, `.tsx`) to correctly resolve `tsconfig.json`.
-- **Import Order**: Enforces a consistent import order using `eslint-plugin-import` with the following group order:
-    - `builtin`
-    - `external`
-    - `internal`
-    - `parent`
-    - `sibling`
-    - `index`
-      Imports are alphabetized within each group.
+- **Import Order**: Enforces a consistent import order using `eslint-plugin-import`, aligned so that Prettier does not sort imports (single source of truth). Group order: `builtin` (node, path, react), `external` (scss first, then @cohbrgr, then other third-party), `internal`, `parent`, `sibling`, `index`, `object`, `type`. Newlines between groups; alphabetized within each group (case-insensitive).
 
 ## Usage
 

@@ -1,9 +1,7 @@
 import { extname, resolve } from 'path';
+import { readdirSync } from 'fs';
 
 import { FunctionComponent } from 'react';
-
-import { readdirSync } from 'fs';
-import { State } from 'src/client/store/state';
 
 import { Config } from '@cohbrgr/shell/env';
 import { Logger } from '@cohbrgr/utils';
@@ -13,6 +11,9 @@ interface IJavascriptHTMLProps {
     isProduction: boolean;
 }
 export type JavascriptHTMLProps = IJavascriptHTMLProps;
+
+// Placeholder that will be replaced with actual dehydrated state after SSR completes
+export const DEHYDRATED_STATE_PLACEHOLDER = '__DEHYDRATED_STATE_PLACEHOLDER__';
 
 const jsDirectoryPath = resolve(process.cwd() + `${Config.staticPath}/client`);
 let scriptFiles: string[] = [];
@@ -27,10 +28,25 @@ try {
 const Javascript: FunctionComponent<JavascriptHTMLProps> = (
     props: JavascriptHTMLProps,
 ) => {
-    const __initial_state__: State = {
+    // Build initial state with placeholder for dehydratedState
+    // The actual dehydrated state is injected after SSR completes (when Suspense resolves)
+    const initialStateTemplate = {
         isProduction: props.isProduction,
         nonce: '',
     };
+
+    // Create JSON with placeholder that will be replaced after render completes
+    const jsonWithPlaceholder = JSON.stringify(initialStateTemplate).slice(
+        0,
+        -1,
+    ); // Remove closing brace
+    const fullJson = `${jsonWithPlaceholder},"dehydratedState":${DEHYDRATED_STATE_PLACEHOLDER}}`;
+
+    // Escape for safe embedding in JavaScript - handle single quotes, backslashes, and script tags
+    const jsonString = fullJson
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/<\/script>/gi, '<\\/script>');
 
     return (
         <>
@@ -39,9 +55,7 @@ const Javascript: FunctionComponent<JavascriptHTMLProps> = (
                     id="initial-state"
                     nonce={props.nonce}
                     dangerouslySetInnerHTML={{
-                        __html: `__initial_state__ = JSON.parse('${JSON.stringify(
-                            __initial_state__,
-                        )}')`,
+                        __html: `__initial_state__ = JSON.parse('${jsonString}')`,
                     }}
                 ></script>
             }
