@@ -36,7 +36,9 @@ else
     fi
 fi
 
-# Submit build asynchronously to avoid Cloud Storage log streaming timeout
+# Submit build asynchronously and poll status
+# Log streaming (both Cloud Storage and Cloud Logging) has gRPC/SSL bugs in
+# the gcloud CLI that produce noisy errors. Polling avoids this entirely.
 BUILD_ID=$(gcloud builds submit \
     --project="$PROJECT_ID" \
     --config=cloudbuild.yaml \
@@ -44,12 +46,30 @@ BUILD_ID=$(gcloud builds submit \
     --async \
     --format='value(id)')
 
+CONSOLE_URL="https://console.cloud.google.com/cloud-build/builds/$BUILD_ID?project=$PROJECT_ID"
 echo "Build ID:   $BUILD_ID"
-echo "Console:    https://console.cloud.google.com/cloud-build/builds/$BUILD_ID?project=$PROJECT_ID"
+echo "Console:    $CONSOLE_URL"
 echo ""
+echo "Waiting for build to complete..."
 
-# Stream logs from Cloud Logging (avoids the Cloud Storage timeout issue)
-# gcloud beta builds log --stream exits non-zero if the build fails
-gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID"
+while true; do
+    STATUS=$(gcloud builds describe "$BUILD_ID" \
+        --project="$PROJECT_ID" \
+        --format='value(status)' 2>/dev/null) || true
 
-echo "Build completed successfully."
+    case "$STATUS" in
+        SUCCESS)
+            echo "Build completed successfully."
+            exit 0
+            ;;
+        FAILURE|TIMEOUT|CANCELLED|INTERNAL_ERROR)
+            echo "Build failed with status: $STATUS"
+            echo "View logs: $CONSOLE_URL"
+            exit 1
+            ;;
+        *)
+            printf "."
+            sleep 15
+            ;;
+    esac
+done
