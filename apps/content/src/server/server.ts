@@ -8,7 +8,7 @@ import type { NextFunction, Request, Response } from 'express';
 
 const staticPath = resolve(process.cwd() + Config.staticPath);
 
-const app = createApp({ isProduction });
+const app = createApp({ isProduction, rateLimit: true });
 
 app.use('/client', (_req: Request, res: Response, next: NextFunction) => {
     res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');

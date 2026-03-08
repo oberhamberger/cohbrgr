@@ -13,6 +13,7 @@ const shellOrigins = isProduction
 
 const app = createApp({
     isProduction,
+    rateLimit: true,
     cors: { origins: shellOrigins },
 });
 
