@@ -49,9 +49,18 @@ echo "Build ID:   $BUILD_ID"
 echo "Console:    $CONSOLE_URL"
 echo ""
 
-# Stream logs in the background (suppressing gcloud CLI noise)
-gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" 2>/dev/null &
+# Create a named pipe for log streaming so we can control output
+LOG_FIFO=$(mktemp -u)
+mkfifo "$LOG_FIFO"
+trap 'rm -f "$LOG_FIFO"' EXIT
+
+# Stream logs through the pipe in the background
+gcloud beta builds log --stream --project="$PROJECT_ID" "$BUILD_ID" >"$LOG_FIFO" 2>/dev/null &
 LOG_PID=$!
+
+# Display log output in a subshell (cat will exit when we close the pipe)
+cat "$LOG_FIFO" &
+CAT_PID=$!
 
 # Poll for build completion in the foreground
 while true; do
@@ -64,7 +73,9 @@ while true; do
             # Give the log stream a moment to flush remaining output
             sleep 2
             kill "$LOG_PID" 2>/dev/null || true
+            kill "$CAT_PID" 2>/dev/null || true
             wait "$LOG_PID" 2>/dev/null || true
+            wait "$CAT_PID" 2>/dev/null || true
             echo ""
             if [[ "$STATUS" == "SUCCESS" ]]; then
                 echo "Build completed successfully."
