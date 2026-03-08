@@ -1,7 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import Express from 'express';
-import helmet from 'helmet';
+import helmet, { type HelmetOptions } from 'helmet';
 import nocache from 'nocache';
 
 import { logging } from '../middleware/logging';
@@ -41,9 +41,10 @@ export interface CreateAppOptions {
      */
     cors?: CorsOptions;
     /**
-     * Enable helmet security headers. Defaults to true.
+     * Enable helmet security headers. Pass true for defaults, false to disable,
+     * or a HelmetOptions object for custom configuration.
      */
-    helmet?: boolean;
+    helmet?: boolean | HelmetOptions;
 }
 
 /**
@@ -73,7 +74,9 @@ export function createApp(options: CreateAppOptions): Application {
 
     // Security headers (enabled by default)
     if (options.helmet !== false) {
-        app.use(helmet());
+        const helmetOptions =
+            typeof options.helmet === 'object' ? options.helmet : undefined;
+        app.use(helmet(helmetOptions));
     }
 
     // CORS
