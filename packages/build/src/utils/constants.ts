@@ -1,3 +1,5 @@
+import { ports } from '@cohbrgr/env';
+
 import { findProcessArgs } from './helpers';
 
 export enum Mode {
@@ -23,6 +25,7 @@ export const isShell = CWD.includes('shell');
 export const isWatch = isDevelopment || findProcessArgs(['--watch', '-w']);
 export const isAnalyze = findProcessArgs(['--analyze']);
 export const isSSG = findProcessArgs(['--generator']);
-export const port = process.env['PORT'] || isProduction ? 3000 : 3030;
+export const port =
+    process.env['PORT'] || isProduction ? ports.shell.prod : ports.shell.dev;
 
 export const isCloudRun = !!process.env['GCLOUD_RUN'];

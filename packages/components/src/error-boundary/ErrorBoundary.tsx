@@ -16,17 +16,17 @@ export class ErrorBoundary extends Component<
 > {
     static displayName = 'ErrorBoundary';
 
-    state: ErrorBoundaryState = { hasError: false };
+    override state: ErrorBoundaryState = { hasError: false };
 
     static getDerivedStateFromError(): ErrorBoundaryState {
         return { hasError: true };
     }
 
-    componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
         console.error('ErrorBoundary caught an error:', error, errorInfo);
     }
 
-    render(): ReactNode {
+    override render(): ReactNode {
         if (this.state.hasError) {
             return this.props.fallback ?? null;
         }

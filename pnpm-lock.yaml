@@ -63,6 +63,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@cohbrgr/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       '@cohbrgr/server':
         specifier: workspace:*
         version: link:../../packages/server
@@ -100,6 +103,9 @@ importers:
       '@cohbrgr/components':
         specifier: workspace:*
         version: link:../../packages/components
+      '@cohbrgr/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       '@cohbrgr/localization':
         specifier: workspace:*
         version: link:../../packages/localization
@@ -143,6 +149,9 @@ importers:
       '@cohbrgr/components':
         specifier: workspace:*
         version: link:../../packages/components
+      '@cohbrgr/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       '@cohbrgr/figma':
         specifier: workspace:*
         version: link:../../packages/figma
@@ -265,6 +274,9 @@ importers:
         specifier: 6.0.1
         version: 6.0.1
     devDependencies:
+      '@cohbrgr/env':
+        specifier: workspace:*
+        version: link:../env
       '@cohbrgr/eslint':
         specifier: workspace:*
         version: link:../eslint
@@ -295,6 +307,18 @@ importers:
       '@cohbrgr/utils':
         specifier: workspace:*
         version: link:../utils
+
+  packages/env:
+    devDependencies:
+      '@cohbrgr/eslint':
+        specifier: workspace:*
+        version: link:../eslint
+      '@cohbrgr/jest':
+        specifier: workspace:*
+        version: link:../jest
+      '@cohbrgr/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/eslint:
     dependencies:
@@ -9132,7 +9156,7 @@ snapshots:
     dependencies:
       '@rspack/core': 1.7.4(@swc/helpers@0.5.18)
       chokidar: 3.6.0
-      http-proxy-middleware: 2.0.9(@types/express@4.17.25)
+      http-proxy-middleware: 2.0.9(@types/express@5.0.6)
       p-retry: 6.2.1
       webpack-dev-server: 5.2.2(tslib@2.8.1)(webpack@5.104.1(@swc/core@1.15.11(@swc/helpers@0.5.18))(esbuild@0.27.2))
       ws: 8.19.0

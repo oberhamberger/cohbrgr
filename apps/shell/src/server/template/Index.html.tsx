@@ -2,6 +2,7 @@ import { FunctionComponent, Suspense } from 'react';
 import { StaticRouter } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { productionDomain } from '@cohbrgr/env';
 import App from 'src/client/App';
 import { AppStateProvider } from 'src/client/contexts/app-state';
 import { HttpContextData, HttpProvider } from 'src/client/contexts/http';
@@ -30,7 +31,7 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                     content="width=device-width, initial-scale=1.0"
                 />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-                <link rel="canonical" href="https://cohbrgr.com/" />
+                <link rel="canonical" href={`${productionDomain}/`} />
 
                 <title>Christian Oberhamberger</title>
 

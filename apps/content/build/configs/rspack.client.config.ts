@@ -9,6 +9,7 @@ import {
 import { merge } from 'webpack-merge';
 
 import { baseConfig, CWD, isCloudRun, isProduction } from '@cohbrgr/build';
+import { cloudRunOrigins, ports } from '@cohbrgr/env';
 
 import getModuleFederationPlugins from './rspack.federated.config';
 
@@ -44,10 +45,10 @@ const config: RspackOptions = {
         clean: true,
         assetModuleFilename: 'assets/[hash][ext][query]',
         publicPath: isCloudRun
-            ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/client/'
+            ? `${cloudRunOrigins.content}/client/`
             : isProduction
-              ? 'http://localhost:3001/client/'
-              : 'http://localhost:3031/client/',
+              ? `http://localhost:${ports.content.prod}/client/`
+              : `http://localhost:${ports.content.dev}/client/`,
         filename: isProduction ? `[name].[contenthash].js` : `[name].js`,
     },
 };

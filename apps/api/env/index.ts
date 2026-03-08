@@ -1,16 +1,18 @@
 // Note: process.env values are inlined by DefinePlugin at build time
+import { cloudRunOrigins, ports } from '@cohbrgr/env';
+
 const isProduction = process.env.NODE_ENV === 'production';
 const isDocker = process.env.DOCKER === 'true';
 
 export const internalConfig = {
     local: {
-        port: isProduction ? 3002 : 3032,
+        port: isProduction ? ports.api.prod : ports.api.dev,
         location: 'http://localhost',
         staticPath: '/dist',
     },
     docker: {
-        port: 3002,
-        location: 'https://cohbrgr-api-944962437395.europe-west6.run.app',
+        port: ports.api.prod,
+        location: cloudRunOrigins.api,
         staticPath: '/dist',
     },
 };

@@ -12,6 +12,7 @@ import {
     isDevelopment,
     isProduction,
 } from '@cohbrgr/build';
+import { cloudRunOrigins, ports } from '@cohbrgr/env';
 
 import getModuleFederationPlugins from './rspack.federated.config.ts';
 
@@ -45,10 +46,10 @@ const config: RspackOptions = {
         filename: '[name].js',
         libraryTarget: 'commonjs-module',
         publicPath: isCloudRun
-            ? 'https://cohbrgr-content-o44imzpega-oa.a.run.app/server/'
+            ? `${cloudRunOrigins.content}/server/`
             : isProduction
-              ? 'http://localhost:3001/server/'
-              : 'http://localhost:3031/server/',
+              ? `http://localhost:${ports.content.prod}/server/`
+              : `http://localhost:${ports.content.dev}/server/`,
         clean: true,
     },
     externalsPresets: { node: true },

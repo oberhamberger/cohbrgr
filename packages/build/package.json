@@ -34,6 +34,7 @@
         "webpack-merge": "6.0.1"
     },
     "devDependencies": {
+        "@cohbrgr/env": "workspace:*",
         "@cohbrgr/eslint": "workspace:*",
         "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
