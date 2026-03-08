@@ -4,7 +4,7 @@ Browser-based end-to-end tests using [Playwright](https://playwright.dev/), runn
 
 ## Prerequisites
 
-Build all packages before running tests:
+Build all packages before running tests locally:
 
 ```bash
 pnpm run build
@@ -13,14 +13,19 @@ pnpm run build
 ## Running Tests
 
 ```bash
-# Run all e2e tests (headless)
+# Run against local servers (headless)
 pnpm run test:e2e
 
 # Run with interactive UI
 pnpm run test:e2e:ui
+
+# Run against production
+pnpm run test:e2e:prod
 ```
 
-Playwright automatically starts all three servers before tests and stops them after. If servers are already running on the expected ports, they are reused.
+When running locally, Playwright automatically starts all three servers before tests and stops them after. If servers are already running on the expected ports, they are reused.
+
+When running against production (`E2E_BASE_URL`), no local servers are started. Tests that rely on internal endpoints (e.g. content app health) are skipped.
 
 ## Test Suites
 
@@ -35,7 +40,7 @@ Playwright automatically starts all three servers before tests and stops them af
 ## Configuration
 
 - **Browser:** Chromium only
-- **Base URL:** `http://localhost:3000` (shell production port)
+- **Base URL:** `http://localhost:3000` (overridable via `E2E_BASE_URL`)
 - **Retries:** 1 in CI, 0 locally
 - **Traces:** captured on first retry
 - **Reporter:** HTML locally, GitHub reporter in CI

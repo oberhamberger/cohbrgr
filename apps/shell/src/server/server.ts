@@ -17,6 +17,13 @@ export const contentOrigin =
           ? `http://localhost:${ports.content.prod}`
           : `http://localhost:${ports.content.dev}`;
 
+const apiOrigin =
+    process.env['CLOUD_RUN'] === 'true'
+        ? cloudRunOrigins.api
+        : isProduction
+          ? `http://localhost:${ports.api.prod}`
+          : `http://localhost:${ports.api.dev}`;
+
 const app = createApp({
     isProduction,
     rateLimit: true,
@@ -35,7 +42,7 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
         "default-src 'self'",
         `script-src 'self' ${contentOrigin} 'nonce-${nonce}'`,
         `style-src 'self' ${contentOrigin} 'nonce-${nonce}'`,
-        `connect-src 'self' ${contentOrigin}`,
+        `connect-src 'self' ${contentOrigin} ${apiOrigin}`,
         "img-src 'self'",
         "font-src 'self'",
         "frame-src 'none'",
