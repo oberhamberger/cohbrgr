@@ -4,7 +4,7 @@
 
 - [x] CORS policy only allows `localhost:3000` and `cohbrgr.com` — Cloud Run origins are rejected → Fixed: CORS origins now use shared `@cohbrgr/env` constants
 - [x] Hardcoded Cloud Run URLs in env files are baked at build time → Fixed: centralised in `@cohbrgr/env` package
-- [ ] Module Federation remote URLs are hardcoded at build time — shell can't find content at a different URL (`apps/shell/build/configs/rspack.federated.config.ts`)
+- [x] ~~Module Federation remote URLs are hardcoded at build time~~ → Won't fix: only one relevant production environment (Cloud Run), local development uses localhost
 - [x] `publicPath` hardcoded to `https://cohbrgr.com/` for Cloud Run builds → Fixed: uses `productionDomain` from `@cohbrgr/env`
 - [x] `docker-compose.yml` doesn't pass `PROJECT_ID` build arg to Dockerfiles → Fixed: passes `PROJECT_ID` from host environment
 
@@ -31,4 +31,4 @@
 - [x] Add structured logging (JSON format) for production → Fixed: logger uses JSON format in production, colorized text in development
 - [x] Improve error middleware to include correlation IDs in responses → Fixed: error responses include `correlationId` when available
 - [x] Apply rate limiting consistently across content and API apps → Fixed: enabled `rateLimit: true` in content and API `createApp` calls
-- [ ] Add health checks before Module Federation component loads to verify content/api availability
+- [x] Add health checks before Module Federation component loads → Fixed: `FederatedContent` component checks `/content-health` before loading remote, shell proxies to content app's `/health` endpoint
