@@ -22,7 +22,7 @@
 - [x] Forward actual errors in SSR render middleware → Fixed: `onShellError` and `onError` now forward the original error
 - [ ] Replace `console.log` Web Vitals logging with analytics endpoint (`apps/shell/src/client/App.tsx:17-20`) - metrics are logged to console in production
 - [x] Add CORS origin URL validation in `createApp` (`packages/server/src/app/createApp.ts`) - origins are passed directly without validation
-- [ ] Synchronize root `package.json` version (v1.0.0) with app/package versions (v2.0.1), or document the versioning strategy
+- [x] Synchronize root `package.json` version (v1.0.0) with app/package versions (v2.0.1) → Fixed: adopted CalVer (YYYY.MM.PATCH) across all packages, added `scripts/version.sh` for unified bumps
 
 ## Low Priority
 

@@ -1,6 +1,6 @@
 {
     "name": "cohbrgr",
-    "version": "1.0.0",
+    "version": "2026.03.0",
     "main": "apps/shell/dist/server",
     "author": "Christian Oberhamberger",
     "description": "temporary website gone mad",
