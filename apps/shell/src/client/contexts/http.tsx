@@ -18,6 +18,21 @@ export const HttpProvider = ({ children, context }: ProviderProps) => {
     );
 };
 
+/**
+ * Sets the HTTP status code during SSR via shared context mutation.
+ *
+ * This component directly mutates the HttpContext object during render,
+ * which the SSR middleware reads in the `onAllReady` callback. This is
+ * safe because:
+ *
+ * 1. The render middleware uses `onAllReady` (not `onShellReady`), so the
+ *    status code is only read after all Suspense boundaries have resolved.
+ * 2. This component must NOT be placed inside a Suspense boundary — doing
+ *    so could cause the status code to be set by a render attempt that React
+ *    later discards during fallback resolution.
+ *
+ * On the client side, the mutation is harmless (no server response to set).
+ */
 export function HttpStatus({
     code,
     children,
@@ -25,8 +40,6 @@ export function HttpStatus({
     code: Readonly<number>;
     children?: Readonly<ReactNode>;
 }) {
-    // TODO: This might not work properly with suspense, figure out how to prevent adding
-    // a new item for renders that aren't "committed"
     const ctx = useContext(HttpContext);
     if (ctx) ctx.statusCode = code;
     return <>{children}</>;
