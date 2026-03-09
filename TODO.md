@@ -368,6 +368,8 @@ Publish an npm package `cohbrgr` that serves as the terminal version of the webs
 - `cohbrgr docs [topic]` → render bundled `./docs` markdown in terminal
 - `cohbrgr open` → open website in browser
 - `cohbrgr info` → repo architecture / tech stack summary
+- `cohbrgr mcp` → start MCP server (stdio, for local agent use)
+- `cohbrgr mcp --http` → start MCP server (HTTP/SSE, for remote deployment)
 - `npx cohbrgr` support
 
 ### Tech Stack
@@ -385,27 +387,9 @@ Publish an npm package `cohbrgr` that serves as the terminal version of the webs
 - [ ] Add `open` command — open cohbrgr.com in default browser
 - [ ] Add `info` command — display architecture / tech stack
 - [ ] Add styled default output (business card)
+- [ ] Add `mcp` command — start MCP server (stdio + HTTP/SSE modes) with tools: `search_docs`, `get_doc`, `get_architecture`, `get_translations`
 - [ ] Configure `bin` field in package.json for `npx` support
 - [ ] Publish to npm
-
-## MCP Server (`apps/mcp/`)
-
-MCP server exposing project docs and content to AI agents. Runs locally (`npx cohbrgr-mcp`) or deployed remotely alongside other apps.
-
-### Tools
-
-- `search_docs` — full-text search across docs
-- `get_doc` — retrieve a specific doc by topic
-- `get_architecture` — structured project overview
-- `get_translations` — fetch translations by language
-
-### TODO
-
-- [ ] Scaffold `apps/mcp/` with MCP SDK
-- [ ] Implement tools using `@cohbrgr/docs` core library
-- [ ] Local mode — `npx cohbrgr-mcp` starts stdio server
-- [ ] Remote mode — HTTP/SSE transport, deployable to Cloud Run
-- [ ] Publish to npm as `cohbrgr-mcp`
 
 ## Performance
 
