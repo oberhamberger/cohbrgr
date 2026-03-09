@@ -98,7 +98,7 @@ describe('content-health', () => {
     });
 
     describe('startHealthChecks', () => {
-        it('performs initial check and schedules interval', async () => {
+        it('stops when initially healthy', async () => {
             jest.spyOn(global, 'fetch').mockResolvedValue({
                 ok: true,
             } as Response);
@@ -106,16 +106,24 @@ describe('content-health', () => {
             await startHealthChecks(CONTENT_ORIGIN);
 
             expect(isContentHealthy()).toBe(true);
-            expect(jest.getTimerCount()).toBe(1);
+            expect(jest.getTimerCount()).toBe(0);
         });
 
-        it('uses rapid interval when initially unhealthy', async () => {
-            jest.spyOn(global, 'fetch').mockRejectedValue(new Error('fail'));
+        it('retries when initially unhealthy and stops once healthy', async () => {
+            jest.spyOn(global, 'fetch')
+                .mockRejectedValueOnce(new Error('fail'))
+                .mockResolvedValue({ ok: true } as Response);
 
             await startHealthChecks(CONTENT_ORIGIN);
 
             expect(isContentHealthy()).toBe(false);
             expect(jest.getTimerCount()).toBe(1);
+
+            // Advance past retry interval
+            await jest.advanceTimersByTimeAsync(2_000);
+
+            expect(isContentHealthy()).toBe(true);
+            expect(jest.getTimerCount()).toBe(0);
         });
     });
 });

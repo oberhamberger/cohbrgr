@@ -76,16 +76,14 @@ echo ""
 # ── Start servers ──────────────────────────────────────────────────
 echo "Starting servers..."
 
-cd "$ROOT_DIR/apps/api" && NODE_ENV=production node . &
+(cd "$ROOT_DIR/apps/api" && NODE_ENV=production exec node .) &
 PIDS+=($!)
 
-cd "$ROOT_DIR/apps/content" && NODE_ENV=production node . &
+(cd "$ROOT_DIR/apps/content" && NODE_ENV=production exec node .) &
 PIDS+=($!)
 
-cd "$ROOT_DIR/apps/shell" && NODE_ENV=production node . &
+(cd "$ROOT_DIR/apps/shell" && NODE_ENV=production exec node .) &
 PIDS+=($!)
-
-cd "$ROOT_DIR"
 
 echo "Waiting for servers to be ready..."
 wait_for_server $API_PORT "API"
