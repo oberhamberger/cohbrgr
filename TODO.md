@@ -338,6 +338,75 @@ Most infrastructure is already in place from the existing setup. Verify before s
 - **Selective deploys**: `deploy.sh --only shell` to rebuild/deploy a single service
 - **Rollback script**: `scripts/rollback.sh` that reverts a Cloud Run service to its previous revision
 
+## Docs Core Library (`packages/docs/`)
+
+Shared library that provides structured access to project documentation, translations, and architecture info. Consumed by both the CLI and MCP server.
+
+### Responsibilities
+
+- Bundle and index `./docs` markdown files
+- Fetch translations from live API (with offline cache)
+- Expose structured project architecture / tech stack data
+- Full-text search across docs
+
+### TODO
+
+- [ ] Scaffold `packages/docs/` with TypeScript
+- [ ] Doc loader — read/parse/index bundled markdown files
+- [ ] Translations client — fetch from live API with local cache fallback
+- [ ] Architecture/info data module
+- [ ] Full-text search across docs
+
+## CLI Package (`apps/cli/`)
+
+Publish an npm package `cohbrgr` that serves as the terminal version of the website.
+
+### Features
+
+- `cohbrgr` (no args) → styled summary / business card
+- `cohbrgr content [--lang de]` → fetch & display translations from live API
+- `cohbrgr docs [topic]` → render bundled `./docs` markdown in terminal
+- `cohbrgr open` → open website in browser
+- `cohbrgr info` → repo architecture / tech stack summary
+- `npx cohbrgr` support
+
+### Tech Stack
+
+- TypeScript, Commander, Inquirer
+- CLI spinners for loading states
+- Offline fallback (cache translations locally)
+
+### TODO
+
+- [ ] Scaffold `apps/cli/` with Commander entrypoint
+- [ ] Add `content` command — fetch translations from live API, display formatted
+- [ ] Add offline caching for translations
+- [ ] Add `docs` command — bundle and render `./docs` markdown via `marked-terminal`
+- [ ] Add `open` command — open cohbrgr.com in default browser
+- [ ] Add `info` command — display architecture / tech stack
+- [ ] Add styled default output (business card)
+- [ ] Configure `bin` field in package.json for `npx` support
+- [ ] Publish to npm
+
+## MCP Server (`apps/mcp/`)
+
+MCP server exposing project docs and content to AI agents. Runs locally (`npx cohbrgr-mcp`) or deployed remotely alongside other apps.
+
+### Tools
+
+- `search_docs` — full-text search across docs
+- `get_doc` — retrieve a specific doc by topic
+- `get_architecture` — structured project overview
+- `get_translations` — fetch translations by language
+
+### TODO
+
+- [ ] Scaffold `apps/mcp/` with MCP SDK
+- [ ] Implement tools using `@cohbrgr/docs` core library
+- [ ] Local mode — `npx cohbrgr-mcp` starts stdio server
+- [ ] Remote mode — HTTP/SSE transport, deployable to Cloud Run
+- [ ] Publish to npm as `cohbrgr-mcp`
+
 ## Performance
 
 - ~~Evaluate streaming SSR~~ → Won't do: streaming sends incomplete HTML with placeholders, defeating the purpose of SSR
