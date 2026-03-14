@@ -1,21 +1,63 @@
 {
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Edit|Write|NotebookEdit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "pnpm exec prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true",
+                        "statusMessage": "Formatting..."
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "Edit|Write",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(pnpm-lock\\.yaml|package-lock\\.json|yarn\\.lock)$'; then echo 'BLOCKED: Do not edit lock files directly. Use pnpm install instead.' >&2; exit 1; fi"
+                    }
+                ]
+            }
+        ]
+    },
     "permissions": {
         "allow": [
             "Bash(pnpm run prettier:*)",
+            "Bash(pnpm prettier:*)",
             "Bash(pnpm run test:*)",
             "Bash(pnpm run test)",
+            "Bash(pnpm test:*)",
             "Bash(pnpm run build:*)",
             "Bash(pnpm run build)",
+            "Bash(pnpm build:*)",
+            "Bash(pnpm install:*)",
             "Bash(pnpm run lint:*)",
             "Bash(pnpm run lint)",
+            "Bash(pnpm lint:*)",
+            "Bash(pnpm e2e:test:*)",
+            "Bash(npx tsc:*)",
             "Bash(pnpm exec prettier:*)",
+            "Bash(pnpm view:*)",
+            "Bash(pnpm ls:*)",
             "Bash(git status:*)",
             "Bash(git diff:*)",
             "Bash(git log:*)",
             "Bash(git add:*)",
             "Bash(git commit:*)",
-            "Bash(lhci autorun:*)",
-            "Bash(ls:*)"
+            "Bash(ls:*)",
+            "Bash(cat:*)",
+            "Bash(head:*)",
+            "Bash(tail:*)",
+            "Bash(mkdir:*)",
+            "Bash(cd:*)",
+            "Bash(grep:*)",
+            "Bash(lsof:*)",
+            "Bash(pnpm list:*)",
+            "Bash(find:*)"
         ]
     }
 }
