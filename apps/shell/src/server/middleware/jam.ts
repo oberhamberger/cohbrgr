@@ -1,5 +1,5 @@
-import { resolve } from 'path';
-import { access, constants, readFileSync } from 'fs';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
 import { NextFunction, Request, Response } from 'express';
 import routes from 'src/client/routes';
@@ -25,23 +25,6 @@ const matchPathWithRoutes = (path: string) => {
 };
 
 /**
- * Checks if a file exists at the given path and returns a promise resolving to true or false.
- */
-const checkFileExists = (filePath: string) => {
-    return new Promise((resolve) => {
-        access(filePath, constants.F_OK, (err) => {
-            if (err) {
-                // The file does not exist or there was an error accessing it
-                resolve(false);
-            } else {
-                // The file exists
-                resolve(true);
-            }
-        });
-    });
-};
-
-/**
  * Middleware factory that serves pre-generated static HTML files in production, replacing CSP nonce placeholders with actual nonces.
  */
 const jam =
@@ -50,18 +33,16 @@ const jam =
         if (isProduction && !isGenerator) {
             const matchedRequestRoute = matchPathWithRoutes(req.path);
             const matchedHTMLFileName = resolve(
-                __dirname + `/../client/static/${matchedRequestRoute}.html`,
+                __dirname,
+                `../client/static/${matchedRequestRoute}.html`,
             );
-            const fileExists = await Promise.resolve(
-                checkFileExists(matchedHTMLFileName),
-            );
-            if (fileExists) {
-                Logger.info(
-                    `Found generated file for ${req.path} on route ${matchedRequestRoute}`,
-                );
-                const matchedHTMLFile = readFileSync(
+            try {
+                const matchedHTMLFile = await readFile(
                     matchedHTMLFileName,
                     'utf8',
+                );
+                Logger.info(
+                    `Found generated file for ${req.path} on route ${matchedRequestRoute}`,
                 );
                 const matchedHTMLFileWithNonce = matchedHTMLFile.replace(
                     noncePlaceHolder,
@@ -69,6 +50,8 @@ const jam =
                 );
                 res.statusCode = 200;
                 return res.send(matchedHTMLFileWithNonce);
+            } catch {
+                // intentionally swallow: missing or unreadable file → next()
             }
         }
         return next();
