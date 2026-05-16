@@ -1,7 +1,6 @@
 {
     "extends": "@cohbrgr/tsconfig",
     "compilerOptions": {
-        "baseUrl": ".",
         "rootDir": "./src",
         "paths": {
             "src/*": ["./*"]
