@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.6
-FROM node:24-slim
+FROM node:26-slim
 
 # 1. Install system dependencies
 RUN apt-get update && \

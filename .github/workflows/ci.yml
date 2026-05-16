@@ -10,7 +10,7 @@ jobs:
     lint:
         runs-on: ubuntu-latest
         container:
-            image: node:24-alpine
+            image: node:26-alpine
         steps:
             - uses: actions/checkout@v4
             - uses: ./.github/actions/setup-and-build
@@ -20,7 +20,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         container:
-            image: node:24-alpine
+            image: node:26-alpine
         steps:
             - uses: actions/checkout@v4
             - uses: ./.github/actions/setup-and-build
@@ -30,7 +30,7 @@ jobs:
     integration:
         runs-on: ubuntu-latest
         container:
-            image: node:24-alpine
+            image: node:26-alpine
         needs: [lint, test]
         steps:
             - uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
     lighthouse:
         runs-on: ubuntu-latest
         container:
-            image: node:24-alpine
+            image: node:26-alpine
         needs: [lint, test]
         steps:
             - uses: actions/checkout@v4

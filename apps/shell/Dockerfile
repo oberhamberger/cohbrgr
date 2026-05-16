@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.6
 
 # ---------- builder ----------
-FROM node:24-slim AS builder
+FROM node:26-slim AS builder
 WORKDIR /usr/app
 
 COPY . .
@@ -11,7 +11,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 ENV CLOUD_RUN=true
 ENV CI=true
 
-RUN corepack enable
+RUN npm install -g corepack && corepack enable
 RUN pnpm install --frozen-lockfile
 
 ARG PROJECT_ID
@@ -23,7 +23,7 @@ RUN NPM_CONFIG_INJECT_WORKSPACE_PACKAGES=true pnpm deploy --filter=./apps/shell 
 RUN cp -r apps/shell/dist /prod/shell/dist
 
 # ---------- runtime ----------
-FROM node:24-slim AS runtime
+FROM node:26-slim AS runtime
 WORKDIR /prod/shell
 
 COPY --from=builder /prod/shell /prod/shell

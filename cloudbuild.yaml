@@ -111,13 +111,13 @@ steps:
 
     # 4. Post-deploy e2e smoke test (skipped during --dry-run)
     - id: e2e
-      name: node:24
+      name: node:26
       entrypoint: bash
       args:
           - -c
           - |
               if [ "$_DEPLOY" != "true" ]; then echo "Skipping e2e (dry run)"; exit 0; fi
-              corepack enable
+              npm install -g corepack && corepack enable
               pnpm install --frozen-lockfile
               pnpm exec playwright install --with-deps chromium
               E2E_BASE_URL=https://cohbrgr.com pnpm run test:e2e
