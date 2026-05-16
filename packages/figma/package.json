@@ -15,6 +15,6 @@
         "build": "style-dictionary build"
     },
     "dependencies": {
-        "style-dictionary": "5.3.3"
+        "style-dictionary": "5.4.0"
     }
 }
