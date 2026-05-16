@@ -14,7 +14,7 @@ import {
 } from '@cohbrgr/build';
 import { cloudRunOrigins, ports } from '@cohbrgr/env';
 
-import getModuleFederationPlugins from './rspack.federated.config.ts';
+import getModuleFederationPlugins from './rspack.federated.config.mts';
 
 const config: RspackOptions = {
     ...baseConfig,
