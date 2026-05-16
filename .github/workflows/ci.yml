@@ -50,7 +50,7 @@ jobs:
                   node-version: 26
             - uses: ./.github/actions/setup-and-build
             - name: Install Playwright browsers
-              run: pnpm exec playwright install --with-deps chromium
+              run: pnpm --filter @cohbrgr/e2e exec playwright install --with-deps chromium
             - name: Run e2e tests
               run: pnpm run test:e2e
 
