@@ -18,8 +18,7 @@ ARG PROJECT_ID
 ENV GCLOUD_RUN=$PROJECT_ID
 RUN pnpm run build:content
 
-# Force injection ONLY for the deploy step
-RUN NPM_CONFIG_INJECT_WORKSPACE_PACKAGES=true pnpm deploy --filter=./apps/content --prod /prod/content
+RUN pnpm deploy --legacy --filter=./apps/content --prod /prod/content
 RUN cp -r apps/content/dist /prod/content/dist
 
 # ---------- runtime ----------
