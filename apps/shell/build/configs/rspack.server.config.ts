@@ -56,6 +56,7 @@ const config: RspackOptions = {
         library: { type: 'commonjs2' },
     },
     externalsPresets: { node: true },
+    externalsType: 'commonjs',
     externals: ['express'],
 };
 

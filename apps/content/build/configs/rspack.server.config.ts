@@ -53,6 +53,7 @@ const config: RspackOptions = {
         clean: true,
     },
     externalsPresets: { node: true },
+    externalsType: 'commonjs',
     externals: ['express'],
 };
 

@@ -3,10 +3,10 @@ packages:
     - apps/*
     - e2e
 
+catalog:
+    '@rspack/cli': 2.0.3
+    '@rspack/core': 2.0.3
+
 publicHoistPattern:
     - '@types/*'
     - '@testing-library/*'
-
-catalog:
-    '@rspack/cli': 1.7.8
-    '@rspack/core': 1.7.8
