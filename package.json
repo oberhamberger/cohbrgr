@@ -69,8 +69,8 @@
     },
     "devDependencies": {
         "@cohbrgr/prettier": "workspace:*",
-        "@commitlint/cli": "20.4.4",
-        "@commitlint/config-conventional": "20.4.4",
+        "@commitlint/cli": "21.0.1",
+        "@commitlint/config-conventional": "21.0.1",
         "@nx/js": "22.7.2",
         "@types/node": "25.8.0",
         "@types/react": "19.2.14",
