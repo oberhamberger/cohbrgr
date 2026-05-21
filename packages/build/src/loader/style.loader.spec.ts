@@ -24,7 +24,7 @@ describe('getStyleLoader', () => {
 
         expect(sassLoader.loader).toContain('sass-loader');
         expect(sassLoader.options).toEqual({
-            api: 'modern-compiler',
+            api: 'auto',
             implementation: expect.stringContaining('sass-embedded'),
         });
     });

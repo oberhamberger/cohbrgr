@@ -11,7 +11,7 @@ export const getStyleLoader = (): RuleSetUseItem[] => {
         {
             loader: require.resolve('sass-loader'),
             options: {
-                api: 'modern-compiler',
+                api: 'auto',
                 implementation: require.resolve('sass-embedded'),
             },
         },
