@@ -12,14 +12,15 @@ An Architectural Decision Record captures an important architectural decision ma
 
 ## ADR Index
 
-| ADR                                                 | Title                             | Status   | Date       |
-| --------------------------------------------------- | --------------------------------- | -------- | ---------- |
-| [0001](./0001-use-monorepo-structure.md)            | Use Monorepo Structure            | Accepted | 2025-01-28 |
-| [0002](./0002-adopt-micro-frontend-architecture.md) | Adopt Micro-Frontend Architecture | Accepted | 2025-01-28 |
-| [0003](./0003-use-module-federation.md)             | Use Module Federation             | Accepted | 2025-01-28 |
-| [0004](./0004-choose-rspack-over-webpack.md)        | Choose Rspack Over Webpack        | Accepted | 2025-01-28 |
-| [0005](./0005-implement-server-side-rendering.md)   | Implement Server-Side Rendering   | Accepted | 2025-01-28 |
-| [0006](./0006-use-pnpm-workspaces-with-nx.md)       | Use pnpm Workspaces with Nx       | Accepted | 2025-01-28 |
+| ADR                                                 | Title                                            | Status   | Date       |
+| --------------------------------------------------- | ------------------------------------------------ | -------- | ---------- |
+| [0001](./0001-use-monorepo-structure.md)            | Use Monorepo Structure                           | Accepted | 2025-01-28 |
+| [0002](./0002-adopt-micro-frontend-architecture.md) | Adopt Micro-Frontend Architecture                | Accepted | 2025-01-28 |
+| [0003](./0003-use-module-federation.md)             | Use Module Federation                            | Accepted | 2025-01-28 |
+| [0004](./0004-choose-rspack-over-webpack.md)        | Choose Rspack Over Webpack                       | Accepted | 2025-01-28 |
+| [0005](./0005-implement-server-side-rendering.md)   | Implement Server-Side Rendering                  | Accepted | 2025-01-28 |
+| [0006](./0006-use-pnpm-workspaces-with-nx.md)       | Use pnpm Workspaces with Nx                      | Accepted | 2025-01-28 |
+| [0007](./0007-use-pnpm-deploy-legacy.md)            | Use `pnpm deploy --legacy` for App Docker Images | Accepted | 2026-05-21 |
 
 ## Creating a New ADR
 
