@@ -32,7 +32,7 @@
         "@cohbrgr/localization": "workspace:*",
         "@cohbrgr/server": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
-        "@tanstack/react-query": "5.100.10",
+        "@tanstack/react-query": "5.100.11",
         "express": "5.2.1",
         "normalize.css": "8.0.1",
         "web-vitals": "5.2.0",
@@ -51,7 +51,7 @@
         "@rspack/cli": "catalog:",
         "@rspack/core": "catalog:",
         "@types/express": "5.0.6",
-        "html-validate": "11.1.0",
+        "html-validate": "11.2.0",
         "node-mocks-http": "1.17.2"
     }
 }
