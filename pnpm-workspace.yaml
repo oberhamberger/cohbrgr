@@ -14,8 +14,6 @@ catalog:
     '@rspack/cli': 2.0.4
     '@rspack/core': 2.0.4
 
-# Reject any version published less than 24h ago (pnpm v11 default, made
-# explicit so the policy is visible and survives default changes).
 minimumReleaseAge: 1440
 
 publicHoistPattern:
