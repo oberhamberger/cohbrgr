@@ -16,7 +16,7 @@
         "test": "jest"
     },
     "dependencies": {
-        "@aaroon/workbox-rspack-plugin": "0.3.3",
+        "@aaroon/workbox-rspack-plugin": "1.0.1",
         "@module-federation/enhanced": "2.7.0",
         "@module-federation/node": "2.7.46",
         "@rsdoctor/rspack-plugin": "1.5.18",
