@@ -10,10 +10,11 @@ A proposal becomes obsolete in one of three ways:
 
 ## Proposal Index
 
-| Proposal                                    | Title                        |
-| ------------------------------------------- | ---------------------------- |
-| [cli-package](./cli-package.md)             | Publish `cohbrgr` CLI to npm |
-| [mobile-native-app](./mobile-native-app.md) | Native Mobile App with Expo  |
+| Proposal                                    | Title                            |
+| ------------------------------------------- | -------------------------------- |
+| [cli-package](./cli-package.md)             | Publish `cohbrgr` CLI to npm     |
+| [mobile-native-app](./mobile-native-app.md) | Native Mobile App with Expo      |
+| [vitest-migration](./vitest-migration.md)   | Migrate the test layer to Vitest |
 
 ## Creating a New Proposal
 
