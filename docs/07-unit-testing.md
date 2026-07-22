@@ -45,7 +45,15 @@ The `@cohbrgr/vitest` package provides the shared configuration and the `vitest`
 - `defineProject` — a single test project
 - `defineProjects` — composes several projects into one suite (for apps with client and server code)
 
-The base sets `globals: true`, so `describe` / `it` / `expect` / `vi` are ambient and do not need importing. Path aliases are read from each package's own `tsconfig.json` via Vite's native `resolve.tsconfigPaths`, so module resolution always matches what `tsc` does.
+Globals are **not** enabled. Spec files import what they use from `vitest`:
+
+```typescript
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+```
+
+This is deliberate. Ambient globals require a `types` entry, which only applies to files owned by a tsconfig that declares it — but most packages exclude their specs from `tsconfig.json`, so editors fall back to an inferred project and flag every global as undefined. Explicit imports resolve the same way everywhere, in the editor and in the runner.
+
+Path aliases are read from each package's own `tsconfig.json` via Vite's native `resolve.tsconfigPaths`, so module resolution always matches what `tsc` does.
 
 ### Package Configuration
 
@@ -117,7 +125,7 @@ Some files are excluded from coverage because they:
 | Server code      | `node`      | Testing Express middleware, utilities      |
 | Pure functions   | `node`      | Testing utilities, helpers                 |
 
-Projects declaring `environment: 'jsdom'` automatically load a shared setup file that registers the `@testing-library/jest-dom` matchers, so individual spec files never import them.
+Projects declaring `environment: 'jsdom'` automatically load a shared setup file that registers the `@testing-library/jest-dom` matchers and runs Testing Library's `cleanup` after each test, so individual spec files never do either. (Testing Library only self-registers that cleanup when a global `afterEach` exists, which it does not here.)
 
 ## File Organization
 
@@ -148,6 +156,7 @@ src/server/
 ### React Components
 
 ```typescript
+import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import { Spinner } from './Spinner';
@@ -163,6 +172,8 @@ describe('Spinner', () => {
 ### Express Middleware
 
 ```typescript
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { NextFunction, Request, Response } from 'express';
 
 import { errorHandler } from './error';
@@ -194,6 +205,8 @@ describe('errorHandler', () => {
 Re-evaluating a module under different environment variables uses `vi.resetModules()` plus a dynamic `import()`. There is no synchronous `require()` in ESM, so the test must be `async`:
 
 ```typescript
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
+
 describe('env config', () => {
     const originalEnv = process.env;
 
@@ -219,6 +232,8 @@ describe('env config', () => {
 ### Module Mocks
 
 ```typescript
+import { vi } from 'vitest';
+
 vi.mock('@cohbrgr/server', () => ({
     logging: vi.fn(() => vi.fn()),
     methodDetermination: vi.fn(),
