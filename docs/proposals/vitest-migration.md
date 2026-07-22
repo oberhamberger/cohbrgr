@@ -34,9 +34,14 @@ Each app/package that currently has `jest.config.ts` (and the shell's multi-proj
 
 ### Mock migration
 
-The bulk is mechanical: `jest.fn` (42 sites) → `vi.fn`, `jest.spyOn` (9) → `vi.spyOn`, `jest.clearAllMocks` (7) / `jest.restoreAllMocks` (8) → their `vi.` equivalents, and the `jest.Mock` **type** annotations (14 sites across 4 spec files) → `vi.Mock`.
+The bulk is mechanical: `jest.fn` (42 sites) → `vi.fn`, `jest.spyOn` (9) → `vi.spyOn`, `jest.clearAllMocks` (7) / `jest.restoreAllMocks` (8) → their `vi.` equivalents.
 
-Do it file-by-file with the suite green after each. The three items below are where a blind rename produces silently-passing or broken tests.
+Two things keep this diff small:
+
+- **Set `globals: true`.** Proven in the spike: with globals enabled, spec files that never touch `jest.*` need **zero changes** — `describe`/`it`/`expect`/`beforeEach` all resolve. The diff is therefore bounded to the files that actually call a `jest.` API, not all 41 spec files.
+- The `jest.Mock` **type** annotations (14 sites across 4 files) become `Mock` via `import type { Mock } from 'vitest'` — **not** `vi.Mock`. There is no `vi` type namespace, so a naive `jest.` → `vi.` rename produces code that runs but does not typecheck.
+
+Do it file-by-file with the suite green after each. The items below are where a blind rename produces silently-passing or broken tests.
 
 ### Migration hazards
 
@@ -60,9 +65,29 @@ Affects both API controller specs. `FederatedContent.spec.tsx` is the worst case
 
 **2. Three bare `jest.mock(path)` calls rely on Jest automocking.** In `translation.controller.spec.ts` (2) and `navigation.controller.spec.ts` (1), with **no `__mocks__` directories anywhere in the repo**. Vitest does automock a factory-less `vi.mock`, but the semantics are not identical to Jest's, so these three need their assertions re-checked rather than assumed — an automock that returns `undefined` where Jest returned a mock function will fail loudly, but the reverse can pass vacuously.
 
-**3. Those same paths are aliased** (`src/modules/...`), so `vi.mock` has to resolve through `resolve.alias` — the replacement for today's `moduleNameMapper`. Worth proving on one aliased mock early, since it gates the whole API suite.
+**3. Those same paths are aliased** (`src/modules/...`), so `vi.mock` has to resolve through `resolve.alias` — the replacement for today's `moduleNameMapper`. Confirmed working in the spike.
+
+**4. `modulePaths: ['node_modules', '<rootDir>']` has no Vitest equivalent.** Jest uses it as a catch-all root resolver, which is how bare imports like `data/translations.json` resolve today. Vitest needs an **explicit alias per root-relative import prefix** (`src/*` and `data/*` in the api package). Missing one fails loudly at import time, so it is self-revealing — but every package's `modulePaths` has to be audited for which prefixes it was silently covering.
+
+**5. JSON module mocks change shape.** Under Jest's CJS interop a mock factory's return value _is_ the default export; under Vitest's ESM the return value is the **module namespace**. So a JSON mock must nest its body under `default`:
+
+```ts
+// Jest: factory return is the default export
+jest.mock('data/navigation.json', () => ({ hero: { nodes: [...] } }));
+
+// Vitest: factory return is the namespace
+vi.mock('data/navigation.json', () => ({ default: { hero: { nodes: [...] } } }));
+```
 
 Also present and straightforward, but needs confirming rather than assuming: fake timers (`useFakeTimers`, `advanceTimersByTimeAsync`, `getTimerCount`) and one `jest.resetModules`.
+
+### Spike result
+
+The `api` package was migrated end-to-end on `feature/vitest-spike` as a feasibility check. It was chosen because one spec (`navigation.controller.spec.ts`) exercises hazards 1–3 simultaneously: an aliased bare automock, a sync `requireActual` spread inside a factory, and `jest.Mock` casts.
+
+Outcome: **parity at 5 suites / 41 tests**, Jest and Vitest alike, in ~200ms versus Jest's ~1.5s. Total diff was ~100 lines across 4 spec files plus a 27-line `vitest.config.ts`. Hazards 4 and 5 were both discovered _during_ the spike rather than predicted, which is the main argument for porting the remaining packages one at a time rather than in a single sweep.
+
+Caveat: `api` is the simplest package — `node` environment, no jsdom, no React, no `html-validate`. It does not derisk the shell's three-project split, the `FederatedContent` async-factory rewrite, or the testing-library setup.
 
 ## Plan
 
