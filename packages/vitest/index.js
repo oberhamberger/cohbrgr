@@ -44,8 +44,11 @@ const withCoverageDefaults = (overrides) => ({
  * as a catch-all root resolver that Vitest has no equivalent for. Reading the
  * tsconfig keeps resolution identical to what `tsc` does, for every package.
  *
- * `globals: true` keeps `describe`/`it`/`expect` ambient, so spec files that
- * never touched a `jest.*` API needed no changes at all during the migration.
+ * Globals are deliberately NOT enabled: spec files import `describe`/`it`/
+ * `expect`/`vi` from 'vitest' explicitly. Ambient globals would need a types
+ * entry that only resolves for files owned by a tsconfig, and most packages
+ * exclude their specs — so editors fell back to an inferred project and
+ * reported every global as undefined. Explicit imports resolve everywhere.
  *
  * @param {{ name: string, environment?: 'node' | 'jsdom', root?: string } & Record<string, unknown>} options
  */
@@ -63,7 +66,6 @@ export const defineProject = ({
             environment,
             root,
             include,
-            globals: true,
             // jsdom suites get the jest-dom matchers registered for them.
             ...(environment === 'jsdom'
                 ? { setupFiles: [jsdomSetup] }

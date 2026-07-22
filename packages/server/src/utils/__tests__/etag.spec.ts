@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { etagOf, sendJsonWithEtag } from '../etag';
 
 import type { Request, Response } from 'express';

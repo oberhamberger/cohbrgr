@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { coerceToString } from '../coerce';
 
 describe('coerce utilities', () => {

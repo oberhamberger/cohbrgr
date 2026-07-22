@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import { render } from '@testing-library/react';
 
 import { AppStateProvider } from 'src/client/contexts/app-state';

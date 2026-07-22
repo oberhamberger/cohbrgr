@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import navigationJson from 'data/navigation.json';
 
 import navigationService from './navigation.service';

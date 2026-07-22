@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Request, Response } from 'express';
 import { ConfigData, HtmlValidate } from 'html-validate';
 import 'html-validate/vitest';

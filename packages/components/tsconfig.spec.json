@@ -10,7 +10,7 @@
         "**/__tests_/**/*"
     ],
     "compilerOptions": {
-        "types": ["node", "vitest-globals"]
+        "types": ["node"]
     },
     "exclude": ["dist", "node_modules"]
 }

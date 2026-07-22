@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import translationService from './translation.service';
 
 describe('TranslationService', () => {

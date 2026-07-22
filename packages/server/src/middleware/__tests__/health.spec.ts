@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Request, Response } from 'express';
 
 import { getHealthStatus } from '../health';

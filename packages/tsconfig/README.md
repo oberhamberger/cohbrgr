@@ -22,7 +22,7 @@ In addition to the extended configurations, the following `compilerOptions` are 
 - **`allowJs`**: `false` - Disallows JavaScript files to be included in the compilation.
 - **`checkJs`**: `false` - Disables type checking for JavaScript files.
 - **`resolveJsonModule`**: `true` - Allows importing `.json` files as modules.
-- **`types`**: `["node", "vitest-globals"]` - Restricts automatic type inclusion to Node.js and the Vitest globals shim (see `@types/vitest-globals`).
+- **`types`**: `["node"]` - Restricts automatic type inclusion to Node.js types. Test globals are not ambient; spec files import them from `vitest` directly.
 - **`typeRoots`**: `["../../node_modules/@types", "../../@types", "node_modules/@types", "@types"]` - Specifies the directories where TypeScript should look for type definition files, covering both monorepo root and local package type directories.
 
 ## Usage
