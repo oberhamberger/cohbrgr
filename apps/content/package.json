@@ -31,7 +31,7 @@
         "@cohbrgr/localization": "workspace:*",
         "@cohbrgr/server": "workspace:*",
         "@cohbrgr/utils": "workspace:*",
-        "@tanstack/react-query": "5.101.2",
+        "@tanstack/react-query": "5.101.4",
         "express": "5.2.1"
     },
     "devDependencies": {
