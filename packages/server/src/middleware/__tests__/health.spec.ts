@@ -9,7 +9,7 @@ describe('getHealthStatus handler', () => {
     beforeEach(() => {
         mockRequest = {};
         mockResponse = {
-            send: jest.fn(),
+            send: vi.fn(),
         };
     });
 

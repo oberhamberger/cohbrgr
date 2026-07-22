@@ -3,6 +3,6 @@ import config from '@cohbrgr/eslint';
 export default [
     ...config,
     {
-        ignores: ['jest.config.ts', '**/*.spec.ts'],
+        ignores: ['vitest.config.ts', '**/*.spec.ts'],
     },
 ];

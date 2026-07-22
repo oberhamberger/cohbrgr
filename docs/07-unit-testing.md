@@ -4,7 +4,9 @@ This document covers the testing setup and practices for the cohbrgr project.
 
 ## Overview
 
-The project uses Jest for unit testing with TypeScript support via ts-jest. Tests are written alongside source files using the `.spec.ts` or `.spec.tsx` extension.
+The project uses [Vitest](https://vitest.dev) for unit testing. Tests are written alongside source files using the `.spec.ts` or `.spec.tsx` extension, or inside `__tests__` directories for server code.
+
+Vitest runs tests as native ESM, which is why it replaced Jest: the runner no longer needs a CommonJS transform step, so ESM-only dependencies work without babel shims.
 
 ## Running Tests
 
@@ -18,86 +20,85 @@ Run tests for a specific package:
 
 ```bash
 pnpm run test:components
-pnpm run test:server
-pnpm run test:utils
 ```
 
-Run tests with coverage (within a package directory):
+Run tests with coverage (within a package or app directory):
 
 ```bash
-cd apps/api && npx jest --coverage
-cd packages/components && npx jest --coverage
+cd apps/api && npx vitest run --coverage
+cd packages/components && npx vitest run --coverage
 ```
 
-Run tests in watch mode:
+Run tests in watch mode (omit `run`):
 
 ```bash
 cd packages/components
-npx jest --watch
+npx vitest
 ```
 
 ## Configuration
 
 ### Base Configuration
 
-The `@cohbrgr/jest` package provides the base configuration that all packages extend:
+The `@cohbrgr/vitest` package provides the shared configuration and the `vitest` binary that each package's `test` script invokes. It exposes two helpers:
 
-```typescript
-// packages/jest/index.ts
-export default {
-    preset: 'ts-jest',
-    transform: {
-        '^.+\\.tsx?$': 'ts-jest',
-    },
-    moduleNameMapper: {
-        '\\.(css|scss)$': 'jest-transform-stub',
-        '\\.(jpg|jpeg|png|svg)$': 'jest-transform-stub',
-    },
-};
-```
+- `defineProject` — a single test project
+- `defineProjects` — composes several projects into one suite (for apps with client and server code)
+
+The base sets `globals: true`, so `describe` / `it` / `expect` / `vi` are ambient and do not need importing. Path aliases are read from each package's own `tsconfig.json` via Vite's native `resolve.tsconfigPaths`, so module resolution always matches what `tsc` does.
 
 ### Package Configuration
 
-Each testable package has its own `jest.config.ts` that extends the base:
+Each testable package has a `vitest.config.ts`:
 
 ```typescript
-// packages/components/jest.config.ts
-import baseConfig from '@cohbrgr/jest';
+// packages/components/vitest.config.ts
+import { defineProject } from '@cohbrgr/vitest';
 
-export default {
-    ...baseConfig,
-    displayName: 'components',
-    testEnvironment: 'jsdom',
-    rootDir: '.',
-    testMatch: ['**/*.spec.ts', '**/*.spec.tsx'],
-};
+export default defineProject({
+    name: 'components',
+    environment: 'jsdom',
+    root: 'src',
+});
 ```
 
 ### Multi-Project Setup
 
-Apps with both client and server code use Jest's multi-project feature:
+Apps with both client and server code compose several projects:
 
 ```typescript
-// apps/shell/jest.config.ts
-export default {
+// apps/shell/vitest.config.ts
+import { defineProjects } from '@cohbrgr/vitest';
+
+export default defineProjects({
     projects: [
-        'src/client/jest.config.ts',
-        'src/server/jest.config.ts',
-        'env/jest.config.ts',
+        'src/client/vitest.config.ts',
+        'src/server/vitest.config.ts',
+        'env/vitest.config.ts',
     ],
-    collectCoverageFrom: [
-        'src/**/*.{ts,tsx}',
-        'env/**/*.ts',
-        '!src/**/*.d.ts',
-        '!src/**/jest.config.ts',
-        '!src/**/*.spec.{ts,tsx}',
-        // Entry points with side effects
-        '!src/client/index.ts',
-        '!src/client/bootstrap.tsx',
-        '!src/server/index.ts',
-    ],
-};
+    coverage: {
+        include: ['src/**/*.{ts,tsx}', 'env/**/*.ts'],
+        exclude: ['src/**/*.spec.{ts,tsx}' /* ... */],
+    },
+});
 ```
+
+Each sub-project resolves its own `root` from its file location:
+
+```typescript
+// apps/shell/src/client/vitest.config.ts
+import { fileURLToPath } from 'node:url';
+
+import { defineProject } from '@cohbrgr/vitest';
+
+export default defineProject({
+    name: 'client',
+    root: fileURLToPath(new URL('.', import.meta.url)),
+    environment: 'jsdom',
+});
+```
+
+The absolute path matters: Vitest resolves a project's `root` against the **parent config's** root, not against the project config's own location, so a relative string like `'./../../'` silently escapes to the wrong directory.
 
 ### Coverage Exclusions
 
@@ -116,6 +117,8 @@ Some files are excluded from coverage because they:
 | Server code      | `node`      | Testing Express middleware, utilities      |
 | Pure functions   | `node`      | Testing utilities, helpers                 |
 
+Projects declaring `environment: 'jsdom'` automatically load a shared setup file that registers the `@testing-library/jest-dom` matchers, so individual spec files never import them.
+
 ## File Organization
 
 Test files live alongside the code they test:
@@ -125,9 +128,6 @@ src/
 ├── components/
 │   ├── Spinner.tsx
 │   └── Spinner.spec.tsx
-├── contexts/
-│   ├── http.tsx
-│   └── http.spec.tsx
 └── utils/
     ├── helpers.ts
     └── helpers.spec.ts
@@ -148,7 +148,6 @@ src/server/
 ### React Components
 
 ```typescript
-import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
 import { Spinner } from './Spinner';
@@ -157,36 +156,6 @@ describe('Spinner', () => {
     it('renders with default props', () => {
         render(<Spinner />);
         expect(screen.getByRole('status')).toBeInTheDocument();
-    });
-
-    it('has correct displayName', () => {
-        expect(Spinner.displayName).toBe('Spinner');
-    });
-});
-```
-
-### React Context Providers
-
-```typescript
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import { useContext } from 'react';
-
-import { HttpContext, HttpProvider, HttpStatus } from './http';
-
-const TestConsumer = () => {
-    const context = useContext(HttpContext);
-    return <span data-testid="status">{context?.statusCode ?? 'none'}</span>;
-};
-
-describe('HttpProvider', () => {
-    it('provides context values to children', () => {
-        render(
-            <HttpProvider context={{ statusCode: 200 }}>
-                <TestConsumer />
-            </HttpProvider>,
-        );
-        expect(screen.getByTestId('status')).toHaveTextContent('200');
     });
 });
 ```
@@ -199,62 +168,37 @@ import type { NextFunction, Request, Response } from 'express';
 import { errorHandler } from './error';
 
 describe('errorHandler', () => {
-    let mockRequest: Partial<Request>;
     let mockResponse: Partial<Response>;
-    let mockNext: NextFunction;
 
     beforeEach(() => {
-        mockRequest = { method: 'GET', path: '/api/test' };
         mockResponse = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis(),
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn().mockReturnThis(),
         };
-        mockNext = jest.fn();
     });
 
     it('sends 500 status for errors', () => {
-        const error = new Error('Test error');
         errorHandler(
-            error,
-            mockRequest as Request,
+            new Error('Test error'),
+            {} as Request,
             mockResponse as Response,
-            mockNext,
+            vi.fn() as NextFunction,
         );
         expect(mockResponse.status).toHaveBeenCalledWith(500);
     });
 });
 ```
 
-### Utilities with Process Arguments
-
-```typescript
-import { findProcessArgs } from './findProcessArgs';
-
-describe('findProcessArgs', () => {
-    it('returns the value for existing arg', () => {
-        const args = ['--port', '3000', '--verbose'];
-        expect(findProcessArgs('--port', args)).toBe('3000');
-    });
-
-    it('returns true for flag without value', () => {
-        const args = ['--verbose'];
-        expect(findProcessArgs('--verbose', args)).toBe(true);
-    });
-
-    it('returns undefined for missing arg', () => {
-        expect(findProcessArgs('--missing', [])).toBeUndefined();
-    });
-});
-```
-
 ### Environment Configuration
+
+Re-evaluating a module under different environment variables uses `vi.resetModules()` plus a dynamic `import()`. There is no synchronous `require()` in ESM, so the test must be `async`:
 
 ```typescript
 describe('env config', () => {
     const originalEnv = process.env;
 
     beforeEach(() => {
-        jest.resetModules();
+        vi.resetModules();
         process.env = { ...originalEnv };
     });
 
@@ -262,16 +206,10 @@ describe('env config', () => {
         process.env = originalEnv;
     });
 
-    it('uses local config when CLOUD_RUN is not set', () => {
+    it('uses local config when CLOUD_RUN is not set', async () => {
         delete process.env['CLOUD_RUN'];
-        const { Config } = require('./index');
+        const { Config } = await import('./index');
         expect(Config.location).toBe('http://localhost');
-    });
-
-    it('uses cloud run config when CLOUD_RUN is set', () => {
-        process.env['CLOUD_RUN'] = 'true';
-        const { Config } = require('./index');
-        expect(Config.location).toContain('run.app');
     });
 });
 ```
@@ -281,15 +219,48 @@ describe('env config', () => {
 ### Module Mocks
 
 ```typescript
-jest.mock('@cohbrgr/server', () => ({
-    logging: jest.fn(() => jest.fn()),
-    methodDetermination: jest.fn(),
+vi.mock('@cohbrgr/server', () => ({
+    logging: vi.fn(() => vi.fn()),
+    methodDetermination: vi.fn(),
 }));
+```
+
+### Partial Mocks
+
+`vi.importActual` returns a promise, so any factory that spreads the real module must be `async`:
+
+```typescript
+vi.mock('@cohbrgr/server', async () => ({
+    ...(await vi.importActual<typeof import('@cohbrgr/server')>(
+        '@cohbrgr/server',
+    )),
+    sendJsonWithEtag: vi.fn(),
+}));
+```
+
+### Mocking JSON
+
+A mock factory returns the **module namespace**, so JSON fixtures must be nested under `default`:
+
+```typescript
+vi.mock('data/navigation.json', () => ({
+    default: { hero: { nodes: [] } },
+}));
+```
+
+### Typing Mocks
+
+`Mock` is a named export, not a namespace:
+
+```typescript
+import type { Mock } from 'vitest';
+
+(navigationService.get as Mock).mockReturnValue(navigationData);
 ```
 
 ### Asset Stubs
 
-CSS, images, and other assets are automatically stubbed via `jest-transform-stub` in the base configuration.
+CSS, images, and other assets are handled by Vite natively — no stub transformer is configured.
 
 ### Express Request/Response Mocks
 
@@ -307,44 +278,39 @@ const mockResponse = httpMocks.createResponse();
 
 ## Adding Tests to a New Package
 
-1. Add `@cohbrgr/jest` as a dev dependency:
+1. Add `@cohbrgr/vitest` as a dev dependency:
 
     ```bash
-    pnpm add -D @cohbrgr/jest
+    pnpm add -D @cohbrgr/vitest
     ```
 
-2. Create `jest.config.ts`:
+2. Create `vitest.config.ts`:
 
     ```typescript
-    import type { JestConfigWithTsJest } from 'ts-jest';
+    import { defineProject } from '@cohbrgr/vitest';
 
-    import baseConfig from '@cohbrgr/jest';
-
-    const config: JestConfigWithTsJest = {
-        ...baseConfig,
-        displayName: 'my-package',
-        testEnvironment: 'node', // or 'jsdom' for React
-        rootDir: '.',
-    };
-
-    export default config;
+    export default defineProject({
+        name: 'my-package',
+        environment: 'node', // or 'jsdom' for React
+        root: 'src',
+    });
     ```
 
-3. Add test script to `package.json`:
+3. Add the test script to `package.json`:
 
     ```json
     {
         "scripts": {
-            "test": "jest"
+            "test": "vitest run"
         }
     }
     ```
 
-4. Update `tsconfig.json` to exclude test files from build:
+4. Update `tsconfig.json` to exclude test files from the build:
 
     ```json
     {
-        "exclude": ["dist", "node_modules", "jest.config.ts", "**/*.spec.ts"]
+        "exclude": ["dist", "node_modules", "vitest.config.ts", "**/*.spec.ts"]
     }
     ```
 
@@ -353,5 +319,8 @@ const mockResponse = httpMocks.createResponse();
     ```javascript
     import config from '@cohbrgr/eslint';
 
-    export default [...config, { ignores: ['jest.config.ts', '**/*.spec.ts'] }];
+    export default [
+        ...config,
+        { ignores: ['vitest.config.ts', '**/*.spec.ts'] },
+    ];
     ```

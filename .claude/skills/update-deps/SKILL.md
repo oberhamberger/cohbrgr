@@ -38,7 +38,7 @@ Apply safe (patch/minor) updates in this order, verifying after each tier:
 - `@cohbrgr/utils`: `winston`
 - `@cohbrgr/figma`: `style-dictionary`
 - `@cohbrgr/components`, `@cohbrgr/localization`
-- `@cohbrgr/jest`: `jest`, `ts-jest`, `@testing-library/*`
+- `@cohbrgr/vitest`: `vitest`, `jsdom`, `@testing-library/*`
 - **Verify:** `pnpm run build && pnpm run test`
 
 ### Tier 4 — Applications

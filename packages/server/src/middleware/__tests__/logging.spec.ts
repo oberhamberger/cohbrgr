@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 
 import { logging } from '../logging';
 
-const mockLoggerInfo = jest.fn();
-jest.mock('@cohbrgr/utils', () => ({
+const mockLoggerInfo = vi.fn();
+vi.mock('@cohbrgr/utils', () => ({
     Logger: {
         info: (...args: unknown[]) => mockLoggerInfo(...args),
     },
@@ -26,10 +26,10 @@ describe('logging middleware', () => {
         mockResponse = {
             locals: { correlationId: 'test-id' },
             statusCode: 0,
-            json: jest.fn(),
-            send: jest.fn(),
+            json: vi.fn(),
+            send: vi.fn(),
         };
-        mockNext = jest.fn();
+        mockNext = vi.fn();
     });
 
     it('should call next() for production requests', () => {

@@ -1,15 +1,17 @@
-import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import { AppStateProvider } from 'src/client/contexts/app-state';
 
 // Mock the lazy-loaded federated module before importing the component.
-// We replace the entire module to avoid dynamic import issues in Jest.
-jest.mock('../FederatedContent', () => {
-    const { useContext } = jest.requireActual('react');
-    const { AppStateContext } = jest.requireActual(
-        'src/client/contexts/app-state',
-    );
+// We replace the entire module to avoid dynamic import issues in the runner.
+// The factory is async because vi.importActual returns a promise, unlike
+// Jest's synchronous jest.requireActual.
+vi.mock('../FederatedContent', async () => {
+    const { useContext } =
+        await vi.importActual<typeof import('react')>('react');
+    const { AppStateContext } = await vi.importActual<
+        typeof import('src/client/contexts/app-state')
+    >('src/client/contexts/app-state');
 
     const MockFederatedContent = () => {
         const { contentHealthy } = useContext(AppStateContext);

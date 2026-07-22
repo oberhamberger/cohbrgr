@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { ConfigData, HtmlValidate } from 'html-validate';
-import 'html-validate/jest';
+import 'html-validate/vitest';
 import httpMocks, { MockRequest, MockResponse } from 'node-mocks-http';
 import render from 'src/server/middleware/render';
 
-jest.mock('src/server/content-health', () => ({
+vi.mock('src/server/content-health', () => ({
     isContentHealthy: () => true,
 }));
 
@@ -30,14 +30,14 @@ describe('render middleware', () => {
     const htmlvalidate = new HtmlValidate(htmlValidatorConfig);
 
     beforeEach(() => {
-        global.fetch = jest.fn().mockResolvedValue({
+        global.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: () => Promise.resolve(mockTranslationResponse),
         });
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     // doesn't work with federated modules yet

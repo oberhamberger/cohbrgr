@@ -1,3 +1,5 @@
+import type { Mock } from 'vitest';
+
 import { fetchTranslations, translationQueryOptions } from './translation';
 
 const mockResponse = {
@@ -10,17 +12,17 @@ const mockResponse = {
 
 describe('translation queries', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
-        global.fetch = jest.fn();
+        vi.clearAllMocks();
+        global.fetch = vi.fn();
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     describe('fetchTranslations', () => {
         it('should fetch translations for default language', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve(mockResponse),
             });
@@ -34,7 +36,7 @@ describe('translation queries', () => {
         });
 
         it('should fetch translations for specified language', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve({ ...mockResponse, lang: 'de' }),
             });
@@ -48,7 +50,7 @@ describe('translation queries', () => {
         });
 
         it('should throw error when fetch fails', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: false,
                 statusText: 'Not Found',
             });
@@ -75,7 +77,7 @@ describe('translation queries', () => {
         });
 
         it('should have a queryFn that calls fetchTranslations', async () => {
-            (global.fetch as jest.Mock).mockResolvedValueOnce({
+            (global.fetch as Mock).mockResolvedValueOnce({
                 ok: true,
                 json: () => Promise.resolve(mockResponse),
             });

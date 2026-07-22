@@ -19,3 +19,5 @@ minimumReleaseAge: 1440
 publicHoistPattern:
     - '@types/*'
     - '@testing-library/*'
+    # so `types: ['vitest/globals']` resolves from every package
+    - 'vitest'

@@ -2,7 +2,7 @@
     "extends": "./tsconfig.json",
     "include": [
         "./",
-        "jest.config.ts",
+        "vitest.config.ts",
         "**/*.spec.ts",
         "**/*.spec.tsx",
         "**/*.test.ts",
@@ -10,7 +10,7 @@
         "**/__tests_/**/*"
     ],
     "compilerOptions": {
-        "types": ["node", "jest"]
+        "types": ["node", "vitest-globals"]
     },
     "exclude": ["dist", "node_modules"]
 }

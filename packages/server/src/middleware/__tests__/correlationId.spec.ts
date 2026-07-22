@@ -13,9 +13,9 @@ describe('correlationId middleware', () => {
         };
         mockResponse = {
             locals: {},
-            setHeader: jest.fn(),
+            setHeader: vi.fn(),
         };
-        mockNext = jest.fn();
+        mockNext = vi.fn();
     });
 
     it('should generate a UUID when no header is present', () => {

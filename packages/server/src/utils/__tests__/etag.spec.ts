@@ -36,10 +36,10 @@ describe('etag utilities', () => {
             };
             mockResponse = {
                 req: mockRequest as Request,
-                set: jest.fn().mockReturnThis(),
-                status: jest.fn().mockReturnThis(),
-                end: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
+                set: vi.fn().mockReturnThis(),
+                status: vi.fn().mockReturnThis(),
+                end: vi.fn().mockReturnThis(),
+                json: vi.fn().mockReturnThis(),
             };
         });
 

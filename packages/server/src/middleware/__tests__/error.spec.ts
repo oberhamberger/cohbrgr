@@ -14,10 +14,10 @@ describe('errorHandler middleware', () => {
         };
         mockResponse = {
             locals: {},
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn(),
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
         };
-        mockNext = jest.fn();
+        mockNext = vi.fn();
     });
 
     it('should return 500 status code', () => {

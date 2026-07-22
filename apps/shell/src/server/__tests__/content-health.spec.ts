@@ -4,20 +4,20 @@ import {
     startHealthChecks,
 } from 'src/server/content-health';
 
-jest.mock('@cohbrgr/utils', () => ({
-    Logger: { info: jest.fn() },
+vi.mock('@cohbrgr/utils', () => ({
+    Logger: { info: vi.fn() },
 }));
 
 const CONTENT_ORIGIN = 'http://localhost:3001';
 
 describe('content-health', () => {
     beforeEach(() => {
-        jest.useFakeTimers();
-        jest.restoreAllMocks();
+        vi.useFakeTimers();
+        vi.restoreAllMocks();
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     describe('isContentHealthy', () => {
@@ -28,7 +28,7 @@ describe('content-health', () => {
 
     describe('checkContentHealth', () => {
         it('sets healthy when fetch returns ok', async () => {
-            jest.spyOn(global, 'fetch').mockResolvedValue({
+            vi.spyOn(global, 'fetch').mockResolvedValue({
                 ok: true,
             } as Response);
 
@@ -43,7 +43,7 @@ describe('content-health', () => {
         });
 
         it('sets unhealthy when fetch returns not ok', async () => {
-            jest.spyOn(global, 'fetch').mockResolvedValue({
+            vi.spyOn(global, 'fetch').mockResolvedValue({
                 ok: false,
             } as Response);
 
@@ -54,7 +54,7 @@ describe('content-health', () => {
         });
 
         it('sets unhealthy when fetch throws', async () => {
-            jest.spyOn(global, 'fetch').mockRejectedValue(
+            vi.spyOn(global, 'fetch').mockRejectedValue(
                 new Error('Connection refused'),
             );
 
@@ -65,16 +65,19 @@ describe('content-health', () => {
         });
 
         it('logs when health status changes', async () => {
-            const { Logger } = jest.requireMock('@cohbrgr/utils');
+            const { Logger } =
+                await vi.importMock<typeof import('@cohbrgr/utils')>(
+                    '@cohbrgr/utils',
+                );
 
-            jest.spyOn(global, 'fetch').mockResolvedValue({
+            vi.spyOn(global, 'fetch').mockResolvedValue({
                 ok: true,
             } as Response);
             await checkContentHealth(CONTENT_ORIGIN);
 
             expect(Logger.info).toHaveBeenCalledWith('Content health: healthy');
 
-            jest.spyOn(global, 'fetch').mockResolvedValue({
+            vi.spyOn(global, 'fetch').mockResolvedValue({
                 ok: false,
             } as Response);
             await checkContentHealth(CONTENT_ORIGIN);
@@ -85,9 +88,12 @@ describe('content-health', () => {
         });
 
         it('does not log when health status stays the same', async () => {
-            const { Logger } = jest.requireMock('@cohbrgr/utils');
+            const { Logger } =
+                await vi.importMock<typeof import('@cohbrgr/utils')>(
+                    '@cohbrgr/utils',
+                );
 
-            jest.spyOn(global, 'fetch').mockRejectedValue(new Error('fail'));
+            vi.spyOn(global, 'fetch').mockRejectedValue(new Error('fail'));
             await checkContentHealth(CONTENT_ORIGIN);
 
             // Was already unhealthy, stays unhealthy — no log
@@ -99,31 +105,31 @@ describe('content-health', () => {
 
     describe('startHealthChecks', () => {
         it('stops when initially healthy', async () => {
-            jest.spyOn(global, 'fetch').mockResolvedValue({
+            vi.spyOn(global, 'fetch').mockResolvedValue({
                 ok: true,
             } as Response);
 
             await startHealthChecks(CONTENT_ORIGIN);
 
             expect(isContentHealthy()).toBe(true);
-            expect(jest.getTimerCount()).toBe(0);
+            expect(vi.getTimerCount()).toBe(0);
         });
 
         it('retries when initially unhealthy and stops once healthy', async () => {
-            jest.spyOn(global, 'fetch')
+            vi.spyOn(global, 'fetch')
                 .mockRejectedValueOnce(new Error('fail'))
                 .mockResolvedValue({ ok: true } as Response);
 
             await startHealthChecks(CONTENT_ORIGIN);
 
             expect(isContentHealthy()).toBe(false);
-            expect(jest.getTimerCount()).toBe(1);
+            expect(vi.getTimerCount()).toBe(1);
 
             // Advance past retry interval
-            await jest.advanceTimersByTimeAsync(2_000);
+            await vi.advanceTimersByTimeAsync(2_000);
 
             expect(isContentHealthy()).toBe(true);
-            expect(jest.getTimerCount()).toBe(0);
+            expect(vi.getTimerCount()).toBe(0);
         });
     });
 });

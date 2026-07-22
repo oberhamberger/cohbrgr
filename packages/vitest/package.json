@@ -1,27 +1,26 @@
 {
-    "name": "@cohbrgr/jest",
+    "name": "@cohbrgr/vitest",
     "version": "2026.3.0",
     "author": "Christian Oberhamberger",
     "license": "ISC",
     "private": true,
     "type": "module",
     "files": [
-        "index.ts",
+        "index.js",
+        "setup-jsdom.js",
         "cli.cjs"
     ],
     "bin": {
-        "jest": "./cli.cjs"
+        "vitest": "./cli.cjs"
     },
     "exports": {
-        ".": "./index.ts"
+        ".": "./index.js"
     },
     "dependencies": {
         "@testing-library/jest-dom": "7.0.0",
         "@testing-library/react": "16.3.2",
-        "@types/jest": "30.0.0",
-        "jest": "30.4.2",
-        "jest-environment-jsdom": "30.4.1",
-        "jest-transform-stub": "2.0.0",
-        "ts-jest": "29.4.11"
+        "@vitest/coverage-istanbul": "4.1.10",
+        "jsdom": "29.1.1",
+        "vitest": "4.1.10"
     }
 }

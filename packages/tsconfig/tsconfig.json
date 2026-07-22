@@ -9,7 +9,7 @@
         "allowJs": false,
         "checkJs": false,
         "resolveJsonModule": true,
-        "types": ["node", "jest"],
+        "types": ["node", "vitest-globals"],
         "typeRoots": [
             "../../node_modules/@types",
             "../../@types",

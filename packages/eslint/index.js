@@ -1,6 +1,6 @@
 import eslint from '@eslint/js';
 import prettier from 'eslint-config-prettier';
-import jestPlugin from 'eslint-plugin-jest';
+import vitestPlugin from '@vitest/eslint-plugin';
 import tseslint from 'typescript-eslint';
 
 export const config = tseslint.config([
@@ -11,7 +11,7 @@ export const config = tseslint.config([
     {
         ignores: ['dist', 'node_modules'],
     },
-    // Jest specific configuration
+    // Vitest specific configuration
     {
         files: [
             '**/*.spec.ts',
@@ -20,7 +20,7 @@ export const config = tseslint.config([
             '**/__tests__/**/*.tsx',
         ],
         plugins: {
-            jest: jestPlugin,
+            vitest: vitestPlugin,
         },
         languageOptions: {
             parserOptions: {
@@ -28,10 +28,10 @@ export const config = tseslint.config([
             },
         },
         rules: {
-            'jest/no-disabled-tests': 'warn',
-            'jest/no-focused-tests': 'error',
-            'jest/no-identical-title': 'error',
-            'jest/valid-expect': 'error',
+            'vitest/no-disabled-tests': 'warn',
+            'vitest/no-focused-tests': 'error',
+            'vitest/no-identical-title': 'error',
+            'vitest/valid-expect': 'error',
         },
     },
     // General TypeScript configuration

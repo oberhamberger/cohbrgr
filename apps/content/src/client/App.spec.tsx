@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { Suspense } from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -40,15 +39,15 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
 
 describe('App', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
-        global.fetch = jest.fn().mockResolvedValue({
+        vi.clearAllMocks();
+        global.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: () => Promise.resolve({ lang: 'en', keys: mockTranslations }),
         });
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     it('renders Content component', async () => {
