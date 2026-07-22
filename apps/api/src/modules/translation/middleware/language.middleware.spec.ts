@@ -214,10 +214,10 @@ describe('language.middleware', () => {
 
         beforeEach(() => {
             mockResponse = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
+                status: vi.fn().mockReturnThis(),
+                json: vi.fn().mockReturnThis(),
             };
-            mockNext = jest.fn();
+            mockNext = vi.fn();
         });
 
         it('should call next() when no explicit language is provided', () => {

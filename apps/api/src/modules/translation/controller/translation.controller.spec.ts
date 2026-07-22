@@ -1,3 +1,5 @@
+import type { Mock } from 'vitest';
+
 import {
     fullTranslationController,
     languageSpecificTranslationController,
@@ -9,11 +11,11 @@ import { sendJsonWithEtag } from '@cohbrgr/server';
 
 import type { Request, Response } from 'express';
 
-jest.mock('src/modules/translation/middleware/language.middleware');
-jest.mock('src/modules/translation/service/translation.service');
-jest.mock('@cohbrgr/server', () => ({
-    ...jest.requireActual('@cohbrgr/server'),
-    sendJsonWithEtag: jest.fn(),
+vi.mock('src/modules/translation/middleware/language.middleware');
+vi.mock('src/modules/translation/service/translation.service');
+vi.mock('@cohbrgr/server', async () => ({
+    ...(await vi.importActual('@cohbrgr/server')),
+    sendJsonWithEtag: vi.fn(),
 }));
 
 describe('translation.controller', () => {
@@ -23,20 +25,20 @@ describe('translation.controller', () => {
     beforeEach(() => {
         mockRequest = {};
         mockResponse = {
-            send: jest.fn(),
-            set: jest.fn(),
-            status: jest.fn().mockReturnThis(),
+            send: vi.fn(),
+            set: vi.fn(),
+            status: vi.fn().mockReturnThis(),
         };
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     describe('fullTranslationController', () => {
         it('should send the full translation bundle', () => {
             const translations = { en: { a: 'b' }, de: { c: 'd' } };
-            (translationService.get as jest.Mock).mockReturnValue(translations);
+            (translationService.get as Mock).mockReturnValue(translations);
 
             fullTranslationController(
                 mockRequest as Request,
@@ -54,8 +56,8 @@ describe('translation.controller', () => {
         it('should send language-specific translations', () => {
             const lang = 'de';
             const translations = { en: { a: 'b' }, de: { c: 'd' } };
-            (pickLanguage as jest.Mock).mockReturnValue(lang);
-            (translationService.get as jest.Mock).mockReturnValue(translations);
+            (pickLanguage as Mock).mockReturnValue(lang);
+            (translationService.get as Mock).mockReturnValue(translations);
 
             languageSpecificTranslationController(
                 mockRequest as Request,
