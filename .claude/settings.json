@@ -57,7 +57,10 @@
             "Bash(grep:*)",
             "Bash(lsof:*)",
             "Bash(pnpm list:*)",
-            "Bash(find:*)"
+            "Bash(find:*)",
+            "Bash(pnpm outdated *)",
+            "Bash(npx prettier *)",
+            "Bash(npx vitest *)"
         ]
     }
 }
