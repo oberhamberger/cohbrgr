@@ -7,7 +7,7 @@ Replace Jest with Vitest across the workspace so tests run ESM-native, unblockin
 The test layer currently runs Jest in **CommonJS mode**. The `ts-jest/presets/default-esm` preset in `@cohbrgr/jest` is effectively inert: because the base tsconfig is `module: nodenext` and most packages lack `"type": "module"`, ts-jest emits CommonJS. This is fine today, but it blocks two dependency upgrades and forces CJS-interop workarounds:
 
 - **react-router 8** — ships **pure ESM** with no `react-router-dom` v8 (that package is frozen at 7.18.1; v8 consolidates everything into `react-router`). The app-code migration is trivial (import swaps; `build` and `lint` pass), but Jest's CommonJS runtime can't `require()` react-router v8, which also uses `import.meta.hot`. Making it work under Jest requires a growing stack of babel shims (`@babel/preset-env` + a custom `import.meta`-neutralizing plugin + `transformIgnorePatterns` gymnastics). That scaffolding exists **only** because Jest runs CJS.
-- **typescript 7** — the native (Go) compiler. `ts-jest` (peer `>=4.3 <7`) and `typescript-eslint` (peer `>=4.8.4 <6.1.0`) both hard-exclude it today. This is gated on the broader toolchain, not just our test runner, but a modern runner is a prerequisite.
+- **typescript 7** — the native (Go) compiler. `ts-jest` (peer `>=4.3 <7`) and `typescript-eslint` (peer `>=4.8.4 <6.1.0`) both hard-exclude it today. This is gated on the broader toolchain, not just our test runner, but a modern runner is a prerequisite. _Re-verified 2026-07: still blocked at `ts-jest@29.4.11` and `typescript-eslint@8.65.0`._
 
 Vitest is ESM-native (no `--experimental-vm-modules`), transforms ESM dependencies without babel shims, and mocks without Jest's hoisting constraints. Migrating deletes every CJS workaround at once and lets react-router 8 land as a clean import swap.
 
@@ -15,8 +15,9 @@ Vitest is ESM-native (no `--experimental-vm-modules`), transforms ESM dependenci
 
 - Replace `@cohbrgr/jest` (Jest + ts-jest preset) with a shared Vitest config package (or a root `vitest.workspace.ts`).
 - Convert every package's `test` target to Vitest, keeping the `nx run-many -t test` orchestration and per-project configs intact.
-- Rewrite the **12 `jest.mock(...)` call sites across 8 test files** to Vitest's `vi.mock(...)` (ESM-safe; no hoisting workarounds needed).
-- Preserve current behavior: `@testing-library/react` + jsdom for component/client tests, `node` environment for server tests, `html-validate/jest` matchers, and the `jest-transform-stub` asset stubs (Vitest handles assets via `css`/`assets` config or inline stubs).
+- Rewrite the **12 `jest.mock(...)` call sites across 8 test files** to Vitest's `vi.mock(...)` (ESM-safe; no hoisting workarounds needed), plus the wider `jest.*` surface across the 41 spec files — see [Migration hazards](#migration-hazards) for the parts that are not a mechanical find-and-replace.
+- Convert the **14 `jest.config.ts` files**. Note this is not one per package: `shell` splits into `src/client`, `src/server` and `env`, and `content` into `src/client` and `src/server`, so the nested multi-project layout has to be modelled as Vitest projects.
+- Preserve current behavior: `@testing-library/react` + jsdom for component/client tests, `node` environment for server tests, `html-validate` matchers, and the `jest-transform-stub` asset stubs (Vitest handles assets via `css`/`assets` config or inline stubs).
 - Keep `pnpm run test`, `pnpm run test:components`, and the CI `pnpm run test` invocation working unchanged from the caller's side.
 
 Out of scope: the react-router 8 and typescript 7 upgrades themselves — they become follow-up work once this lands (react-router 8 is a near-trivial import swap afterward).
@@ -33,7 +34,35 @@ Each app/package that currently has `jest.config.ts` (and the shell's multi-proj
 
 ### Mock migration
 
-`jest.mock` → `vi.mock`, `jest.fn` → `vi.fn`, `jest.spyOn` → `vi.spyOn`, etc. The 12 `jest.mock` sites are the error-prone part; do them file-by-file with the suite green after each.
+The bulk is mechanical: `jest.fn` (42 sites) → `vi.fn`, `jest.spyOn` (9) → `vi.spyOn`, `jest.clearAllMocks` (7) / `jest.restoreAllMocks` (8) → their `vi.` equivalents, and the `jest.Mock` **type** annotations (14 sites across 4 spec files) → `vi.Mock`.
+
+Do it file-by-file with the suite green after each. The three items below are where a blind rename produces silently-passing or broken tests.
+
+### Migration hazards
+
+**1. `requireActual`/`requireMock` are synchronous; the Vitest equivalents are not.** This is the sharpest one. `vi.importActual` and `vi.importMock` return Promises, so every factory using them must become `async`:
+
+```ts
+// before — sync spread inside the factory
+jest.mock('@cohbrgr/server', () => ({
+    ...jest.requireActual('@cohbrgr/server'),
+    sendJsonWithEtag: jest.fn(),
+}));
+
+// after — factory must be async
+vi.mock('@cohbrgr/server', async () => ({
+    ...(await vi.importActual('@cohbrgr/server')),
+    sendJsonWithEtag: vi.fn(),
+}));
+```
+
+Affects both API controller specs. `FederatedContent.spec.tsx` is the worst case: its factory pulls `useContext` from `react` and `AppStateContext` from an aliased path via two separate sync `requireActual` calls, then defines a React component from them — all of which has to be threaded through one async factory. The two `jest.requireMock('@cohbrgr/utils')` calls in `content-health.spec.ts` are easier, since they already sit inside `async` test bodies and just need an `await`.
+
+**2. Three bare `jest.mock(path)` calls rely on Jest automocking.** In `translation.controller.spec.ts` (2) and `navigation.controller.spec.ts` (1), with **no `__mocks__` directories anywhere in the repo**. Vitest does automock a factory-less `vi.mock`, but the semantics are not identical to Jest's, so these three need their assertions re-checked rather than assumed — an automock that returns `undefined` where Jest returned a mock function will fail loudly, but the reverse can pass vacuously.
+
+**3. Those same paths are aliased** (`src/modules/...`), so `vi.mock` has to resolve through `resolve.alias` — the replacement for today's `moduleNameMapper`. Worth proving on one aliased mock early, since it gates the whole API suite.
+
+Also present and straightforward, but needs confirming rather than assuming: fake timers (`useFakeTimers`, `advanceTimersByTimeAsync`, `getTimerCount`) and one `jest.resetModules`.
 
 ## Plan
 
@@ -46,10 +75,18 @@ Each app/package that currently has `jest.config.ts` (and the shell's multi-proj
 7. Update `docs/07-unit-testing.md` and the CI notes in `CLAUDE.md`.
 8. Follow-up (separate proposals/PRs): land **react-router 8** as an import swap; revisit **typescript 7** once `typescript-eslint` ships stable native support.
 
+## Resolved
+
+Checked 2026-07, so the plan no longer depends on these:
+
+- **`html-validate` ships a `./vitest` entrypoint** (`html-validate/vitest`, ESM-only — fine under Vitest). No manual `expect.extend` needed; it's a straight swap from `html-validate/jest`.
+- **`@testing-library/jest-dom` ships `./vitest`** too, and we are already on v7 which requires it be paired with an explicit `@testing-library/dom` peer (10.4.1 installed).
+- **`@nx/vite` publishes 23.1.0**, matching our pinned `nx`/`@nx/js` exactly, so adopting it needs no Nx version movement.
+- **Versions available**: `vitest` 4.1.10, requiring `vite` ^6/^7/^8 (latest 8.1.5) and `@types/node` >=24 (we run 26). No conflicts with the current tree.
+
 ## Open Questions
 
-- Shared config as a workspace package (`packages/vitest/`) mirroring today's `@cohbrgr/jest`, or a single root `vitest.workspace.ts`? The package approach matches the existing convention; the workspace file is less boilerplate.
+- Shared config as a workspace package (`packages/vitest/`) mirroring today's `@cohbrgr/jest`, or a single root `vitest.workspace.ts`? The package approach matches the existing convention; the workspace file is less boilerplate. The 14 nested configs push toward the workspace file.
 - Coverage provider: `v8` (no instrumentation, fast) vs `istanbul` (matches current jest coverage semantics more closely). Does anything consume the coverage output (e.g. a threshold gate)?
-- Does `html-validate/jest` have a Vitest-compatible entrypoint, or do we register its matchers manually via `expect.extend`?
-- Nx has first-class Vitest support (`@nx/vite`) — adopt it for caching/affected, or keep the current thin `test` script per package?
+- Adopt `@nx/vite` for caching/affected, or keep the current thin `test` script per package? The thin script is what exists today and works; `@nx/vite` is available if we want the tighter integration.
 - Sequencing vs the deferred react-router 8 work: land Vitest fully first, or migrate the shell suites and react-router 8 together since they touch the same SSR render tests?
