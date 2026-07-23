@@ -3,6 +3,12 @@
 **Status:** Accepted
 **Date:** 2026-05-21
 
+> **Amendment (2026-07-23):** `packages/jest` no longer exists. The test layer migrated to Vitest, and the replacement `packages/vitest` exports a plain `./index.js` instead of raw TypeScript, so it needs no build step to be injected.
+>
+> The decision stands unchanged, but one input to it has moved: the "two packages export raw `.ts`" objection is now one, `packages/components`. That is a partial hit on the **Trigger to Revisit** below, which lists the friction inventory shrinking as a reason to reconsider — not enough on its own, since `components` still exports `./src/index.ts` and the Nx/pnpm double-build objection is untouched.
+>
+> References to `packages/jest` in the text below are left as written; they record the state at the time of the decision.
+
 ## Context
 
 The three app Dockerfiles (`apps/{shell,content,api}/Dockerfile`) use `pnpm deploy` to materialize a standalone production tree containing the app and its workspace dependencies. The semantics of `pnpm deploy` changed across recent pnpm versions:
