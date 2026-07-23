@@ -60,7 +60,7 @@ docker run -d -p 3000:3000 node-[APP]
 - Serviceworker using Workbox (for offline-Mode)
 - Linting
 - Prettier
-- Jest + React Testing Library
+- Vitest + React Testing Library
 - and of course: dark mode
 
 ## CI/CD
@@ -68,7 +68,7 @@ docker run -d -p 3000:3000 node-[APP]
 This project uses GitHub Actions for continuous integration. The following checks run automatically:
 
 - **Linting**: Ensures code style consistency
-- **Tests**: Runs the Jest test suite
+- **Tests**: Runs the Vitest test suite
 - **Integration**: Builds all apps, starts them, and runs smoke tests (health checks, API endpoints, SSR, security headers)
 - **E2E**: Runs Playwright end-to-end tests
 - **Lighthouse**: Runs Lighthouse CI performance audits

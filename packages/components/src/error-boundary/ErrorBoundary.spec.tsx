@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import ErrorBoundary from './ErrorBoundary';
@@ -9,11 +9,11 @@ const ThrowingComponent = () => {
 
 describe('ErrorBoundary component', () => {
     beforeEach(() => {
-        jest.spyOn(console, 'error').mockImplementation(() => {});
+        vi.spyOn(console, 'error').mockImplementation(() => {});
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     it('renders children when there is no error', () => {

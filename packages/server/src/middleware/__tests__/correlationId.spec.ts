@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextFunction, Request, Response } from 'express';
 
 import { correlationId, CORRELATION_ID_HEADER } from '../correlationId';
@@ -13,9 +14,9 @@ describe('correlationId middleware', () => {
         };
         mockResponse = {
             locals: {},
-            setHeader: jest.fn(),
+            setHeader: vi.fn(),
         };
-        mockNext = jest.fn();
+        mockNext = vi.fn();
     });
 
     it('should generate a UUID when no header is present', () => {

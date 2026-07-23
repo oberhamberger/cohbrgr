@@ -14,7 +14,7 @@
         "build": "tsc",
         "lint": "eslint",
         "prettier": "prettier --write .",
-        "test": "jest"
+        "test": "vitest run"
     },
     "dependencies": {
         "@cohbrgr/utils": "workspace:*",
@@ -27,8 +27,8 @@
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
-        "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
+        "@cohbrgr/vitest": "workspace:*",
         "@types/compression": "1.8.1",
         "@types/cors": "2.8.19",
         "@types/express": "5.0.6"

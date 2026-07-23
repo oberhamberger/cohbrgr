@@ -13,7 +13,7 @@
     "scripts": {
         "build": "tsc",
         "lint": "eslint",
-        "test": "jest"
+        "test": "vitest run"
     },
     "peerDependencies": {
         "react": "^19.0.0",
@@ -21,8 +21,8 @@
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
-        "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
+        "@cohbrgr/vitest": "workspace:*",
         "@testing-library/jest-dom": "7.0.0",
         "@testing-library/react": "16.3.2",
         "@types/react": "19.2.17",

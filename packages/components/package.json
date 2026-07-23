@@ -13,12 +13,12 @@
     "scripts": {
         "lint": "eslint",
         "prettier": "prettier --write .",
-        "test": "jest"
+        "test": "vitest run"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
-        "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
-        "@cohbrgr/utils": "workspace:*"
+        "@cohbrgr/utils": "workspace:*",
+        "@cohbrgr/vitest": "workspace:*"
     }
 }

@@ -13,11 +13,11 @@
     "scripts": {
         "build": "tsc",
         "lint": "eslint",
-        "test": "jest"
+        "test": "vitest run"
     },
     "devDependencies": {
         "@cohbrgr/eslint": "workspace:*",
-        "@cohbrgr/jest": "workspace:*",
-        "@cohbrgr/tsconfig": "workspace:*"
+        "@cohbrgr/tsconfig": "workspace:*",
+        "@cohbrgr/vitest": "workspace:*"
     }
 }

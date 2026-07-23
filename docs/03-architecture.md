@@ -57,7 +57,7 @@ cohbrgr/
     ├── server/         # Express middleware (correlation IDs, logging, rate limiting)
     ├── utils/          # General utilities (logger, argument parser)
     ├── figma/          # Design tokens
-    └── [configs]/      # ESLint, Prettier, Jest, TSConfig
+    └── [configs]/      # ESLint, Prettier, Vitest, TSConfig
 ```
 
 See [ADR-0001](./adr/0001-use-monorepo-structure.md) for the rationale behind the monorepo approach.
@@ -124,7 +124,7 @@ Rspack handles bundling with Webpack-compatible configuration. Nx orchestrates b
 
 Packages are built in dependency order:
 
-1. Config packages (tsconfig, eslint, prettier, jest)
+1. Config packages (tsconfig, eslint, prettier, vitest)
 2. Utilities (utils, build)
 3. Libraries (components, server)
 4. Applications (shell, content, api)

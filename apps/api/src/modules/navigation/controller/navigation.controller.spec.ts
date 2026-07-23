@@ -1,3 +1,6 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Mock } from 'vitest';
+
 import navigationService from 'src/modules/navigation/services/navigation.service';
 
 import { sendJsonWithEtag } from '@cohbrgr/server';
@@ -9,10 +12,10 @@ import {
 
 import type { Request, Response } from 'express';
 
-jest.mock('src/modules/navigation/services/navigation.service');
-jest.mock('@cohbrgr/server', () => ({
-    ...jest.requireActual('@cohbrgr/server'),
-    sendJsonWithEtag: jest.fn(),
+vi.mock('src/modules/navigation/services/navigation.service');
+vi.mock('@cohbrgr/server', async () => ({
+    ...(await vi.importActual('@cohbrgr/server')),
+    sendJsonWithEtag: vi.fn(),
 }));
 
 describe('navigation.controller', () => {
@@ -22,21 +25,19 @@ describe('navigation.controller', () => {
     beforeEach(() => {
         mockRequest = {};
         mockResponse = {
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn(),
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
         };
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     describe('fullNavigationController', () => {
         it('should call navigationService.get and send the result', () => {
             const navigationData = { hero: { nodes: [] } };
-            (navigationService.get as jest.Mock).mockReturnValue(
-                navigationData,
-            );
+            (navigationService.get as Mock).mockReturnValue(navigationData);
 
             fullNavigationController(
                 mockRequest as Request,
@@ -69,7 +70,7 @@ describe('navigation.controller', () => {
         it('should return 404 if sub-navigation is not found', () => {
             const nodeId = 'non-existent-node';
             mockRequest.params = { nodeId };
-            (navigationService.getSubNavigation as jest.Mock).mockReturnValue(
+            (navigationService.getSubNavigation as Mock).mockReturnValue(
                 undefined,
             );
 
@@ -91,7 +92,7 @@ describe('navigation.controller', () => {
             const nodeId = 'hero';
             const subNavigationData = [{ id: 'hero-github' }];
             mockRequest.params = { nodeId };
-            (navigationService.getSubNavigation as jest.Mock).mockReturnValue(
+            (navigationService.getSubNavigation as Mock).mockReturnValue(
                 subNavigationData,
             );
 

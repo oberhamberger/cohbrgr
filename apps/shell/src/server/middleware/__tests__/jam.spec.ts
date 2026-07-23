@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import jam from '../jam';
 
 import type { NextFunction, Request, Response } from 'express';
@@ -14,13 +15,13 @@ describe('jam middleware', () => {
         mockResponse = {
             locals: { cspNonce: 'test-nonce' },
             statusCode: 200,
-            send: jest.fn().mockReturnThis(),
+            send: vi.fn().mockReturnThis(),
         };
-        mockNext = jest.fn();
+        mockNext = vi.fn();
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('should call next() in non-production mode', async () => {

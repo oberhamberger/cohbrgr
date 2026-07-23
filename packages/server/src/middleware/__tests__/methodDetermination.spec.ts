@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextFunction, Request, Response } from 'express';
 
 import { HttpMethod, methodDetermination } from '../methodDetermination';
@@ -15,14 +16,14 @@ describe('methodDetermination middleware', () => {
         mockRequest = {};
         mockResponse = {
             statusCode: 0,
-            json: jest.fn(),
-            send: jest.fn(),
-            status: jest.fn(function (code) {
+            json: vi.fn(),
+            send: vi.fn(),
+            status: vi.fn(function (code) {
                 this.statusCode = code;
                 return this;
             }),
         };
-        mockNext = jest.fn();
+        mockNext = vi.fn();
     });
 
     it('should return 405 without any Headers', async () => {

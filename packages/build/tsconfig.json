@@ -7,5 +7,5 @@
         },
         "outDir": "dist"
     },
-    "exclude": ["dist", "node_modules", "jest.config.ts", "**/*.spec.ts"]
+    "exclude": ["dist", "node_modules", "vitest.config.ts", "**/*.spec.ts"]
 }

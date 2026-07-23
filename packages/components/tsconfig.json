@@ -3,7 +3,7 @@
     "compilerOptions": {
         "rootDir": "./src",
         "paths": {
-            "src/*": ["./*"]
+            "src/*": ["./src/*"]
         },
         "outDir": "dist"
     },
@@ -11,7 +11,7 @@
     "exclude": [
         "dist",
         "node_modules",
-        "jest.config.ts",
+        "vitest.config.ts",
         "**/*.spec.ts",
         "**/*.spec.tsx",
         "**/*.test.ts",

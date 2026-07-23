@@ -20,7 +20,7 @@
         "build": "NODE_ENV=production rspack build",
         "build:analyze": "pnpm run build -- --analyze",
         "start": "pnpm run dev",
-        "test": "jest"
+        "test": "vitest run"
     },
     "dependencies": {
         "@cohbrgr/env": "workspace:*",
@@ -31,8 +31,8 @@
     "devDependencies": {
         "@cohbrgr/build": "workspace:*",
         "@cohbrgr/eslint": "workspace:*",
-        "@cohbrgr/jest": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
+        "@cohbrgr/vitest": "workspace:*",
         "@rspack/cli": "catalog:",
         "@rspack/core": "catalog:",
         "@types/express": "5.0.6"

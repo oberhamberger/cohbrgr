@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Request, Response } from 'express';
 
 import { getHealthStatus } from '../health';
@@ -9,7 +10,7 @@ describe('getHealthStatus handler', () => {
     beforeEach(() => {
         mockRequest = {};
         mockResponse = {
-            send: jest.fn(),
+            send: vi.fn(),
         };
     });
 

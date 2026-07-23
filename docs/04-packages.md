@@ -131,15 +131,17 @@ import config from '@cohbrgr/prettier';
 export default config;
 ```
 
-### @cohbrgr/jest
+### @cohbrgr/vitest
 
-Base Jest configuration for TypeScript projects.
+Shared Vitest configuration for TypeScript projects, plus the `vitest` binary.
 
 ```typescript
-import baseConfig from '@cohbrgr/jest';
+import { defineProject } from '@cohbrgr/vitest';
 
-export default { ...baseConfig };
+export default defineProject({ name: 'my-package', root: 'src' });
 ```
+
+See [Unit Testing](./07-unit-testing.md) for the full setup.
 
 ## Dependency Graph
 

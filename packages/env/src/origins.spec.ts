@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { cloudRunOrigins, productionDomain } from './origins';
 
 describe('cloudRunOrigins', () => {

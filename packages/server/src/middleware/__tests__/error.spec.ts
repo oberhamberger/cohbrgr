@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextFunction, Request, Response } from 'express';
 
 import { errorHandler } from '../error';
@@ -14,10 +15,10 @@ describe('errorHandler middleware', () => {
         };
         mockResponse = {
             locals: {},
-            status: jest.fn().mockReturnThis(),
-            json: jest.fn(),
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
         };
-        mockNext = jest.fn();
+        mockNext = vi.fn();
     });
 
     it('should return 500 status code', () => {

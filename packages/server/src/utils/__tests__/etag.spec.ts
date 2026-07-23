@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { etagOf, sendJsonWithEtag } from '../etag';
 
 import type { Request, Response } from 'express';
@@ -36,10 +37,10 @@ describe('etag utilities', () => {
             };
             mockResponse = {
                 req: mockRequest as Request,
-                set: jest.fn().mockReturnThis(),
-                status: jest.fn().mockReturnThis(),
-                end: jest.fn().mockReturnThis(),
-                json: jest.fn().mockReturnThis(),
+                set: vi.fn().mockReturnThis(),
+                status: vi.fn().mockReturnThis(),
+                end: vi.fn().mockReturnThis(),
+                json: vi.fn().mockReturnThis(),
             };
         });
 

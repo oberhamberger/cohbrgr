@@ -1,13 +1,14 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Request, Response } from 'express';
 import httpMocks, { MockRequest, MockResponse } from 'node-mocks-http';
 import render from 'src/server/middleware/render';
 
-jest.mock('src/server/content-health', () => ({
+vi.mock('src/server/content-health', () => ({
     isContentHealthy: () => true,
 }));
 
-const mockRenderToPipeableStream = jest.fn();
-jest.mock('react-dom/server', () => ({
+const mockRenderToPipeableStream = vi.fn();
+vi.mock('react-dom/server', () => ({
     renderToPipeableStream: (...args: unknown[]) =>
         mockRenderToPipeableStream(...args),
 }));
@@ -18,14 +19,14 @@ describe('render middleware error handling', () => {
 
     beforeEach(() => {
         mockRenderToPipeableStream.mockReset();
-        global.fetch = jest.fn().mockResolvedValue({
+        global.fetch = vi.fn().mockResolvedValue({
             ok: true,
             json: () => Promise.resolve({ lang: 'en', keys: {} }),
         });
     });
 
     afterEach(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
     it('should send styled error page when onShellError is triggered', async () => {
@@ -37,7 +38,7 @@ describe('render middleware error handling', () => {
                 if (options?.onShellError) {
                     options.onShellError(new Error('Shell render failed'));
                 }
-                return { pipe: jest.fn(), abort: jest.fn() };
+                return { pipe: vi.fn(), abort: vi.fn() };
             },
         );
 
@@ -70,7 +71,7 @@ describe('render middleware error handling', () => {
                         componentStack: '',
                     });
                 }
-                return { pipe: jest.fn(), abort: jest.fn() };
+                return { pipe: vi.fn(), abort: vi.fn() };
             },
         );
 

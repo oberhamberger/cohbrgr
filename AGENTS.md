@@ -35,7 +35,7 @@ pnpm run test:components    # Test specific package
 pnpm run test:integration   # Full integration test (builds, starts all apps, runs smoke tests)
 
 # Run tests with coverage (within a package/app directory)
-npx jest --coverage
+npx vitest run --coverage
 
 # Linting and formatting
 pnpm run lint
@@ -63,16 +63,16 @@ Three deployable applications communicate via Module Federation:
 
 ### Shared Packages (`packages/`)
 
-| Package                                                                      | Purpose                                                         |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `@cohbrgr/build`                                                             | Rspack/Webpack configuration utilities                          |
-| `@cohbrgr/components`                                                        | Shared React UI components                                      |
-| `@cohbrgr/env`                                                               | Shared environment constants (ports, origins)                   |
-| `@cohbrgr/server`                                                            | Express.js middleware (logging, correlation IDs, rate limiting) |
-| `@cohbrgr/figma`                                                             | Design tokens from Figma via Style Dictionary                   |
-| `@cohbrgr/utils`                                                             | General utilities (logger, argument parser)                     |
-| `@cohbrgr/localization`                                                      | i18n utilities (TranslationProvider, useTranslation, Message)   |
-| `@cohbrgr/eslint`, `@cohbrgr/prettier`, `@cohbrgr/jest`, `@cohbrgr/tsconfig` | Shared configs                                                  |
+| Package                                                                        | Purpose                                                         |
+| ------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| `@cohbrgr/build`                                                               | Rspack/Webpack configuration utilities                          |
+| `@cohbrgr/components`                                                          | Shared React UI components                                      |
+| `@cohbrgr/env`                                                                 | Shared environment constants (ports, origins)                   |
+| `@cohbrgr/server`                                                              | Express.js middleware (logging, correlation IDs, rate limiting) |
+| `@cohbrgr/figma`                                                               | Design tokens from Figma via Style Dictionary                   |
+| `@cohbrgr/utils`                                                               | General utilities (logger, argument parser)                     |
+| `@cohbrgr/localization`                                                        | i18n utilities (TranslationProvider, useTranslation, Message)   |
+| `@cohbrgr/eslint`, `@cohbrgr/prettier`, `@cohbrgr/vitest`, `@cohbrgr/tsconfig` | Shared configs                                                  |
 
 ### Key Technical Decisions
 
