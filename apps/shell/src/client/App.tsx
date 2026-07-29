@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import type { FunctionComponent } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 
 import 'src/client/styles/index.scss';
 

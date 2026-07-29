@@ -1,5 +1,5 @@
 import { FunctionComponent, Suspense } from 'react';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { productionDomain } from '@cohbrgr/env';
