@@ -43,14 +43,16 @@ jobs:
     e2e:
         runs-on: ubuntu-latest
         needs: [lint, test]
+        # Pinned to the Playwright image so CI renders screenshots identically to
+        # the committed Linux baselines (e2e/specs/*-snapshots). The image ships
+        # Node 24 (satisfies engines >=24) and the browsers, so no separate
+        # setup-node or `playwright install` step is needed. Keep the tag in sync
+        # with @cohbrgr/e2e's @playwright/test version.
+        container:
+            image: mcr.microsoft.com/playwright:v1.61.1-noble
         steps:
             - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 26
             - uses: ./.github/actions/setup-and-build
-            - name: Install Playwright browsers
-              run: pnpm --filter @cohbrgr/e2e exec playwright install --with-deps chromium
             - name: Run e2e tests
               run: pnpm run test:e2e
 
