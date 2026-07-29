@@ -49,7 +49,7 @@ jobs:
         # setup-node or `playwright install` step is needed. Keep the tag in sync
         # with @cohbrgr/e2e's @playwright/test version.
         container:
-            image: mcr.microsoft.com/playwright:v1.61.1-noble
+            image: mcr.microsoft.com/playwright:v1.62.0-noble
         steps:
             - uses: actions/checkout@v4
             - uses: ./.github/actions/setup-and-build

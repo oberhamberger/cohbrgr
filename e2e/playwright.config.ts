@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 const baseURL = process.env['E2E_BASE_URL'] || 'http://localhost:3000';
 const isLocal = baseURL.includes('localhost');
@@ -14,10 +14,17 @@ export default defineConfig({
         baseURL,
         trace: 'on-first-retry',
     },
+    // Mobile first, then desktop. Both use Chromium so a chromium-only local
+    // install still runs the non-visual specs, and CI reuses the one browser in
+    // the Playwright image.
     projects: [
         {
-            name: 'chromium',
-            use: { browserName: 'chromium' },
+            name: 'mobile',
+            use: { ...devices['Pixel 5'] },
+        },
+        {
+            name: 'desktop',
+            use: { ...devices['Desktop Chrome'] },
         },
     ],
     ...(isLocal && {
