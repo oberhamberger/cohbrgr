@@ -2,28 +2,65 @@ name: CI
 
 on:
     push:
-        branches: ['main', 'develop']
+        branches: ['main']
     pull_request:
-        branches: ['main', 'develop']
+        branches: ['main']
+
+# Cancel superseded runs on the same ref instead of running them to completion.
+concurrency:
+    group: ci-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+# Least privilege by default; jobs opt into more where needed.
+permissions:
+    contents: read
 
 jobs:
+    # Lint needs no build output, so it runs immediately alongside build.
     lint:
         runs-on: ubuntu-latest
         container:
             image: node:26-alpine
         steps:
             - uses: actions/checkout@v4
-            - uses: ./.github/actions/setup-and-build
+            - uses: ./.github/actions/setup
             - name: Run linting
               run: pnpm run lint
 
-    test:
+    # Build once, share the output. test/integration/e2e/lighthouse all consume
+    # this artifact instead of rebuilding the whole workspace themselves.
+    build:
         runs-on: ubuntu-latest
         container:
             image: node:26-alpine
         steps:
             - uses: actions/checkout@v4
-            - uses: ./.github/actions/setup-and-build
+            - uses: ./.github/actions/setup
+            - name: Build all projects
+              run: pnpm run build
+            - name: Upload build output
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dist
+                  path: |
+                      apps/*/dist
+                      packages/*/dist
+                  retention-days: 1
+                  # Fail loudly if a cache mishap produced no output to share.
+                  if-no-files-found: error
+
+    test:
+        runs-on: ubuntu-latest
+        container:
+            image: node:26-alpine
+        needs: build
+        steps:
+            - uses: actions/checkout@v4
+            - uses: ./.github/actions/setup
+            - name: Download build output
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist
             - name: Run tests
               run: pnpm run test
 
@@ -31,18 +68,22 @@ jobs:
         runs-on: ubuntu-latest
         container:
             image: node:26-alpine
-        needs: [lint, test]
+        needs: build
         steps:
             - name: Install bash and curl
               run: apk add --no-cache bash curl
             - uses: actions/checkout@v4
-            - uses: ./.github/actions/setup-and-build
+            - uses: ./.github/actions/setup
+            - name: Download build output
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist
             - name: Run integration tests
               run: pnpm run test:integration
 
     e2e:
         runs-on: ubuntu-latest
-        needs: [lint, test]
+        needs: build
         # Pinned to the Playwright image so CI renders screenshots identically to
         # the committed Linux baselines (e2e/specs/*-snapshots). The image ships
         # Node 24 (satisfies engines >=24) and the browsers, so no separate
@@ -52,7 +93,11 @@ jobs:
             image: mcr.microsoft.com/playwright:v1.62.0-noble
         steps:
             - uses: actions/checkout@v4
-            - uses: ./.github/actions/setup-and-build
+            - uses: ./.github/actions/setup
+            - name: Download build output
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist
             - name: Run e2e tests
               run: pnpm run test:e2e
 
@@ -60,12 +105,19 @@ jobs:
         runs-on: ubuntu-latest
         container:
             image: node:26-alpine
-        needs: [lint, test]
+        needs: build
+        permissions:
+            contents: read
+            statuses: write
         steps:
             - uses: actions/checkout@v4
             - name: Install Chromium
               run: apk add --no-cache chromium
-            - uses: ./.github/actions/setup-and-build
+            - uses: ./.github/actions/setup
+            - name: Download build output
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist
             - name: Run Lighthouse CI
               env:
                   LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

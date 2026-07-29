@@ -3,6 +3,17 @@ description: Installs pnpm and dependencies with caching
 runs:
     using: 'composite'
     steps:
+        # musl (alpine) and glibc (playwright image) resolve different prebuilt
+        # native binaries, so the pnpm store must not be shared across them.
+        - name: Detect libc
+          shell: sh
+          run: |
+              if [ -f /etc/alpine-release ]; then
+                  echo "LIBC=musl" >> "$GITHUB_ENV"
+              else
+                  echo "LIBC=glibc" >> "$GITHUB_ENV"
+              fi
+
         - name: Install pnpm
           run: npm install -g pnpm@11.1.2
           shell: sh
@@ -10,9 +21,9 @@ runs:
         - uses: actions/cache@v4
           with:
               path: ~/.local/share/pnpm/store
-              key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+              key: ${{ runner.os }}-${{ env.LIBC }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
               restore-keys: |
-                  ${{ runner.os }}-pnpm-
+                  ${{ runner.os }}-${{ env.LIBC }}-pnpm-
 
         - name: Install dependencies
           run: pnpm install
