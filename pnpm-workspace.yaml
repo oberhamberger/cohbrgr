@@ -11,8 +11,8 @@ allowBuilds:
     unrs-resolver: false
 
 catalog:
-    '@rspack/cli': 2.1.5
-    '@rspack/core': 2.1.5
+    '@rspack/cli': 2.1.6
+    '@rspack/core': 2.1.6
 
 minimumReleaseAge: 1440
 

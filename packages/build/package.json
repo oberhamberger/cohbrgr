@@ -17,8 +17,8 @@
     },
     "dependencies": {
         "@aaroon/workbox-rspack-plugin": "1.0.1",
-        "@module-federation/enhanced": "2.8.0",
-        "@module-federation/node": "2.7.47",
+        "@module-federation/enhanced": "2.8.1",
+        "@module-federation/node": "2.7.48",
         "@rsdoctor/rspack-plugin": "1.6.1",
         "@rspack/cli": "catalog:",
         "@rspack/core": "catalog:",
@@ -26,7 +26,7 @@
         "@swc/helpers": "0.5.23",
         "nodemon-webpack-plugin": "4.8.2",
         "raw-loader": "4.0.2",
-        "sass": "1.101.3",
+        "sass": "1.102.0",
         "sass-embedded": "1.100.0",
         "sass-loader": "17.0.0",
         "webpack-merge": "6.0.1"
