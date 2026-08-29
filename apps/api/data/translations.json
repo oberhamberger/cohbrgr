@@ -31,7 +31,7 @@
         "codex.subtitle": "C·V·Q·O",
         "codex.title": "Codex Visioque",
         "codex.lede": "Das hier ist eine Referenzarchitektur für Micro-Frontends in Enterprise-Anwendungen, die irgendwann über ein einzelnes Team hinauswachsen.",
-        "codex.rendering": "Die gesamte Seite wird serverseitig gerendert, inklusive der föderierten Teile, die separat gebaut und deployed wurden.",
+        "codex.rendering": "Die gesamte Seite wird serverseitig gerendert, auch die Teile, die per Module Federation dazukommen und ihr eigenes Deployment haben.",
         "codex.foundations": "Was über Teams hinweg konsistent bleiben muss, wird geteilt: Farb-Tokens, Server-Middleware, die Lokalisierung und andere technische Grundlagen wie React, TypeScript und der Build-Prozess.",
         "codex.nav.home": "Startseite",
         "codex.nav.source": "Quellcode",
