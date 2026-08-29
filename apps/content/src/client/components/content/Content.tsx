@@ -47,20 +47,26 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
                     <Message id="hero.text" html />
                 </p>
             </main>
-            <Navigation>
-                {/* Plain anchors even for internal paths: this is the remote,
-                    and reaching for the host's router would couple it to a
-                    context it cannot provide on its own. */}
-                {navigationNodes.map((node) => (
-                    <a
-                        key={node.id}
-                        href={node.path}
-                        {...(node.external && { rel: 'noopener noreferrer' })}
-                    >
-                        <Message id={node.labelKey} />
-                    </a>
-                ))}
-            </Navigation>
+            {/* No nodes means the API is unreachable. Render no landmark at
+                all rather than an empty one a screen reader still announces. */}
+            {navigationNodes.length > 0 && (
+                <Navigation>
+                    {/* Plain anchors even for internal paths: this is the
+                        remote, and reaching for the host's router would couple
+                        it to a context it cannot provide on its own. */}
+                    {navigationNodes.map((node) => (
+                        <a
+                            key={node.id}
+                            href={node.path}
+                            {...(node.external && {
+                                rel: 'noopener noreferrer',
+                            })}
+                        >
+                            <Message id={node.labelKey} />
+                        </a>
+                    ))}
+                </Navigation>
+            )}
             <StructuredData nonce={nonce} />
         </TranslationProvider>
     );
