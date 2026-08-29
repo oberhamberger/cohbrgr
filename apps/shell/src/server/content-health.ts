@@ -1,4 +1,4 @@
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 const RETRY_INTERVAL_MS = 2_000;
 

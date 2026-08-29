@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { NextFunction, Request, Response } from 'express';
 import routes from 'src/client/routes';
 
-import { findProcessArgs, Logger } from '@cohbrgr/utils';
+import { findProcessArgs, Logger } from '@cohbrgr/utils/node';
 
 const isGenerator = findProcessArgs(['--generator']);
 const routeKeys = Object.keys(routes);

@@ -3,7 +3,7 @@ import { join } from 'path';
 import { fork } from 'child_process';
 import { mkdirSync, writeFile } from 'fs';
 
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 import { port } from '../utils/constants';
 

@@ -1,4 +1,4 @@
-import { isProduction, Logger } from '@cohbrgr/utils';
+import { isProduction, Logger } from '@cohbrgr/utils/node';
 
 import type { Application } from 'express';
 

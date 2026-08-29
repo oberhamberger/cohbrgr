@@ -5,7 +5,7 @@ import {
     startHealthChecks,
 } from 'src/server/content-health';
 
-vi.mock('@cohbrgr/utils', () => ({
+vi.mock('@cohbrgr/utils/node', () => ({
     Logger: { info: vi.fn() },
 }));
 
@@ -66,10 +66,9 @@ describe('content-health', () => {
         });
 
         it('logs when health status changes', async () => {
-            const { Logger } =
-                await vi.importMock<typeof import('@cohbrgr/utils')>(
-                    '@cohbrgr/utils',
-                );
+            const { Logger } = await vi.importMock<
+                typeof import('@cohbrgr/utils/node')
+            >('@cohbrgr/utils/node');
 
             vi.spyOn(global, 'fetch').mockResolvedValue({
                 ok: true,
@@ -89,10 +88,9 @@ describe('content-health', () => {
         });
 
         it('does not log when health status stays the same', async () => {
-            const { Logger } =
-                await vi.importMock<typeof import('@cohbrgr/utils')>(
-                    '@cohbrgr/utils',
-                );
+            const { Logger } = await vi.importMock<
+                typeof import('@cohbrgr/utils/node')
+            >('@cohbrgr/utils/node');
 
             vi.spyOn(global, 'fetch').mockRejectedValue(new Error('fail'));
             await checkContentHealth(CONTENT_ORIGIN);

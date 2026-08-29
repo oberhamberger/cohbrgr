@@ -4,7 +4,7 @@ import { readdirSync, readFileSync } from 'fs';
 import { FunctionComponent } from 'react';
 
 import { Config } from '@cohbrgr/shell/env';
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 interface IStylesheetProps {
     nonce: string;

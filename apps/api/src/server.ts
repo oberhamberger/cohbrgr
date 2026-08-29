@@ -4,7 +4,7 @@ import translationRoutes from 'src/modules/translation/translation.routes';
 
 import { createApp, errorHandler } from '@cohbrgr/server';
 import { ports, productionDomain } from '@cohbrgr/env';
-import { isProduction } from '@cohbrgr/utils';
+import { isProduction } from '@cohbrgr/utils/node';
 
 // Shell app origins that need to access the API
 const shellOrigins = isProduction
