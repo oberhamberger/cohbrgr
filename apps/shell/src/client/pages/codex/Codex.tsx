@@ -1,7 +1,12 @@
 import { FunctionComponent } from 'react';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
+
+import { Message, TranslationProvider } from '@cohbrgr/localization';
+
 import ApiNavigation from 'src/client/components/api-navigation';
 import * as styles from 'src/client/pages/codex/Codex.module.scss';
+import { translationQueryOptions } from 'src/client/queries/translation';
 
 /**
  * States what the architecture is for: a foundation sized for enterprise
@@ -10,35 +15,37 @@ import * as styles from 'src/client/pages/codex/Codex.module.scss';
  * when the remote is unhealthy.
  */
 const Codex: FunctionComponent = () => {
+    const { data: translations } = useSuspenseQuery(
+        translationQueryOptions('en'),
+    );
+
     return (
-        <>
+        <TranslationProvider context={translations}>
             <main>
                 <article className={styles.codex}>
                     <header>
-                        <p role="doc-subtitle">C·V·Q·O</p>
-                        <h1>Codex Visioque</h1>
+                        <p role="doc-subtitle">
+                            <Message id="codex.subtitle" />
+                        </p>
+                        <h1>
+                            <Message id="codex.title" />
+                        </h1>
                     </header>
 
                     <p className={styles.lede}>
-                        This is a reference micro-frontend architecture for
-                        enterprise applications that eventually outgrow one
-                        team.
+                        <Message id="codex.lede" />
                     </p>
                     <p>
-                        The entire page is server-side rendered, including its
-                        federated parts that were built and deployed separately.
+                        <Message id="codex.rendering" />
                     </p>
                     <p>
-                        The pieces that have to stay consistent across teams are
-                        shared: colour tokens, server middleware, the
-                        localisation contract and other technical foundations
-                        like React, TypeScript and the build process.
+                        <Message id="codex.foundations" />
                     </p>
                 </article>
             </main>
 
             <ApiNavigation nodeId="codex" />
-        </>
+        </TranslationProvider>
     );
 };
 

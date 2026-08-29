@@ -9,6 +9,11 @@
         "hero.nav.linkedin": "LinkedIn",
         "offline.nav.refresh": "return",
         "offline.nav.back": "zurück",
+        "codex.subtitle": "C·V·Q·O",
+        "codex.title": "Codex Visioque",
+        "codex.lede": "This is a reference micro-frontend architecture for enterprise applications that eventually outgrow one team.",
+        "codex.rendering": "The entire page is server-side rendered, including its federated parts that were built and deployed separately.",
+        "codex.foundations": "The pieces that have to stay consistent across teams are shared: colour tokens, server middleware, the localisation contract and other technical foundations like React, TypeScript and the build process.",
         "codex.nav.home": "Home",
         "codex.nav.source": "Source",
         "notfound.nav.back": "return"
@@ -23,6 +28,11 @@
         "hero.nav.linkedin": "LinkedIn",
         "offline.nav.refresh": "neu laden",
         "offline.nav.back": "zurück",
+        "codex.subtitle": "C·V·Q·O",
+        "codex.title": "Codex Visioque",
+        "codex.lede": "Das hier ist eine Referenzarchitektur für Micro-Frontends in Enterprise-Anwendungen, die irgendwann über ein einzelnes Team hinauswachsen.",
+        "codex.rendering": "Die gesamte Seite wird serverseitig gerendert, inklusive der föderierten Teile, die separat gebaut und deployed wurden.",
+        "codex.foundations": "Was über Teams hinweg konsistent bleiben muss, wird geteilt: Farb-Tokens, Server-Middleware, die Lokalisierung und andere technische Grundlagen wie React, TypeScript und der Build-Prozess.",
         "codex.nav.home": "Startseite",
         "codex.nav.source": "Quellcode",
         "notfound.nav.back": "zurück"
