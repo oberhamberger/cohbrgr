@@ -20,36 +20,36 @@ const Codex: FunctionComponent = () => {
                     </header>
 
                     <p className={styles.lede}>
-                        The homepage is a heading, one sentence and three links.
-                        The architecture under it was built for applications
-                        with hundreds of screens and several teams, where
-                        replacing a foundation gets more expensive every month
-                        that anything depends on it.
+                        A reference architecture for front-end applications that
+                        outgrow one team. Three services deploy independently
+                        and are composed into a single server-rendered page
+                        while the request is still open.
                     </p>
                     <dl>
                         <dt>Shell</dt>
                         <dd>
-                            Renders React on the server and composes whatever
-                            remotes the page asks for. Adding a micro-frontend
-                            is a config entry.
+                            Express streams the HTML and React takes over in the
+                            browser. Remotes are named in config, so the host
+                            never needs to know what they contain.
                         </dd>
                         <dt>Content</dt>
                         <dd>
-                            A remote, loaded over Module Federation while the
-                            request is still open. Its team deploys without the
-                            shell being rebuilt.
+                            A remote, pulled in over Module Federation while the
+                            server is still rendering. Its team releases without
+                            a shell rebuild.
                         </dd>
                         <dt>API</dt>
                         <dd>
-                            Serves the copy and the navigation as data, so
-                            changing either takes no build at all.
+                            Copy and navigation as data. The front end is never
+                            rebuilt to change either, and nothing in it depends
+                            on where the data comes from.
                         </dd>
                     </dl>
                     <p>
-                        Nx caches the build graph so an unchanged package never
-                        compiles twice. Design tokens live in one file that
-                        generates the stylesheet. Each app ships as its own
-                        container to Cloud Run.
+                        Everything that has to stay consistent lives in one
+                        place: the colour tokens, the Express middleware, the
+                        localisation contract. Nx rebuilds only what changed,
+                        and each app ships as its own container.
                     </p>
                 </article>
             </main>
