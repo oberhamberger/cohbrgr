@@ -14,7 +14,7 @@
     "scripts": {
         "build": "style-dictionary build"
     },
-    "dependencies": {
-        "style-dictionary": "5.5.0"
+    "devDependencies": {
+        "style-dictionary": "5.5.2"
     }
 }
