@@ -2,11 +2,6 @@
     "hero": {
         "nodes": [
             {
-                "id": "hero-codex",
-                "labelKey": "hero.nav.codex",
-                "path": "/codex"
-            },
-            {
                 "id": "hero-github",
                 "labelKey": "hero.nav.github",
                 "path": "https://github.com/oberhamberger",

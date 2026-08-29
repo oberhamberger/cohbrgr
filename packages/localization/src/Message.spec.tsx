@@ -10,7 +10,6 @@ const mockTranslations: TranslationKeys = {
     'hero.subtitle.label': 'Codex Visioque',
     'hero.title': 'My Name is Christian.',
     'hero.text': '<a href="https://example.com">Link</a>',
-    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',

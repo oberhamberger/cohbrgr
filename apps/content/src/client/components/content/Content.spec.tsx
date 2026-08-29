@@ -16,7 +16,6 @@ const mockTranslations: TranslationKeys = {
     'hero.title': 'My Name is Christian.',
     'hero.text':
         "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>.",
-    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',
@@ -43,7 +42,6 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
 };
 
 const mockNavigationNodes = [
-    { id: 'hero-codex', labelKey: 'hero.nav.codex', path: '/codex' },
     {
         id: 'hero-github',
         labelKey: 'hero.nav.github',
@@ -100,9 +98,8 @@ describe('Main Content Component', () => {
         await screen.findByText('My Name is Christian.');
 
         expect(container.getElementsByTagName('nav').length).toEqual(1);
-        expect(container.getElementsByTagName('li').length).toEqual(4);
+        expect(container.getElementsByTagName('li').length).toEqual(3);
 
-        expect(screen.getByText('Codex')).toBeInTheDocument();
         expect(screen.getByText('Github')).toBeInTheDocument();
         expect(screen.getByText('Bluesky')).toBeInTheDocument();
         expect(screen.getByText('LinkedIn')).toBeInTheDocument();

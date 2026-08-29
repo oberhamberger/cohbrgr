@@ -7,7 +7,6 @@ export type TranslationKey =
     | 'hero.subtitle.label'
     | 'hero.title'
     | 'hero.text'
-    | 'hero.nav.codex'
     | 'hero.nav.github'
     | 'hero.nav.bluesky'
     | 'hero.nav.linkedin'

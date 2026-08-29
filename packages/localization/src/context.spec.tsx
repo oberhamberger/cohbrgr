@@ -21,7 +21,6 @@ const mockTranslations: TranslationKeys = {
     'hero.subtitle.label': 'Codex Visioque',
     'hero.title': 'Test Title',
     'hero.text': 'Test text',
-    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',

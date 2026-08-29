@@ -14,7 +14,6 @@ const mockTranslations: TranslationKeys = {
     'hero.title': 'My Name is Christian.',
     'hero.text':
         "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>.",
-    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',
@@ -41,7 +40,6 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
 };
 
 const mockNavigationNodes = [
-    { id: 'hero-codex', labelKey: 'hero.nav.codex', path: '/codex' },
     {
         id: 'hero-github',
         labelKey: 'hero.nav.github',
