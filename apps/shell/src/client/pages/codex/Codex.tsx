@@ -20,11 +20,11 @@ const Codex: FunctionComponent = () => {
                     </header>
 
                     <p className={styles.lede}>
-                        This site is one page. Almost nothing here is needed to
-                        serve it. The structure is built for the other case:
-                        applications that grow to hundreds of screens and
-                        several teams, where a foundation laid badly gets
-                        expensive to replace as soon as anything depends on it.
+                        The homepage is a heading, one sentence and three links.
+                        The architecture under it was built for applications
+                        with hundreds of screens and several teams, where
+                        replacing a foundation gets more expensive every month
+                        that anything depends on it.
                     </p>
                     <dl>
                         <dt>Shell</dt>
@@ -47,8 +47,9 @@ const Codex: FunctionComponent = () => {
                     </dl>
                     <p>
                         Nx caches the build graph so an unchanged package never
-                        compiles twice. Design tokens are generated from Figma.
-                        Each app ships as its own container to Cloud Run.
+                        compiles twice. Design tokens live in one file that
+                        generates the stylesheet. Each app ships as its own
+                        container to Cloud Run.
                     </p>
                 </article>
             </main>
