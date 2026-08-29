@@ -5,11 +5,6 @@
         font-size: clamp(2rem, 2.5vw + 1rem, 2.75rem);
     }
 
-    h2 {
-        margin-top: 3.5rem;
-        font-size: clamp(1.375rem, 1vw + 1.125rem, 1.625rem);
-    }
-
     dl {
         max-width: var(--measure);
         margin: 2rem 0 0;
