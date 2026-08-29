@@ -7,6 +7,7 @@ import { TranslationKeys } from './types';
 
 const mockTranslations: TranslationKeys = {
     'hero.subtitle': 'C·V·Q·O',
+    'hero.subtitle.label': 'Codex Visioque',
     'hero.title': 'My Name is Christian.',
     'hero.text': '<a href="https://example.com">Link</a>',
     'hero.nav.codex': 'Codex',

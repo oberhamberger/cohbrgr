@@ -29,8 +29,16 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <TranslationProvider context={translations}>
             <main>
+                {/* The mark is the way into the codex. It carries no link
+                    styling by design, so it needs an accessible name — read on
+                    its own, C·V·Q·O announces as four letters. */}
                 <p role="doc-subtitle">
-                    <Message id="hero.subtitle" />
+                    <a
+                        href="/codex"
+                        aria-label={translations.keys['hero.subtitle.label']}
+                    >
+                        <Message id="hero.subtitle" />
+                    </a>
                 </p>
                 <h1>
                     <Message id="hero.title" html />

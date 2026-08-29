@@ -28,6 +28,22 @@ test.describe('Navigation', () => {
         await expect(page.locator('h1')).toHaveText('Codex Visioque');
     });
 
+    // The mark carries no link styling by design, so nothing visual would catch
+    // it breaking. These assertions are the only guard it has.
+    test('the C·V·Q·O mark links to the codex page', async ({ page }) => {
+        await page.goto('/');
+
+        const mark = page.locator('[role="doc-subtitle"] a');
+        await expect(mark).toBeVisible({ timeout: 15_000 });
+        await expect(mark).toHaveAttribute('href', '/codex');
+        await expect(mark).toHaveAttribute('aria-label', 'Codex Visioque');
+        // No underline at rest — that is the whole point of the treatment.
+        await expect(mark).toHaveCSS('text-decoration-line', 'none');
+
+        await mark.click();
+        await expect(page).toHaveURL(/\/codex$/);
+    });
+
     // The codex link is rendered by the content remote but points at a shell
     // route, so this covers the hand-off across the federation boundary.
     test('homepage links to the codex page', async ({ page }) => {

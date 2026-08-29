@@ -70,6 +70,20 @@ p {
     color: var(--color-muted);
 }
 
+// The mark links to the codex but carries no link styling: no underline, no
+// weight change, no colour of its own. Only hover and focus give it away.
+[role='doc-subtitle'] a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+    transition: color 150ms ease;
+
+    &:hover,
+    &:active {
+        color: var(--color-font);
+    }
+}
+
 // Accent. Two appearances only: the full stop after the name, and a link on
 // hover. Anything more and the restraint that makes the page work is gone.
 .mark {

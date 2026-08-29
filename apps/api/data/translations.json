@@ -1,6 +1,7 @@
 {
     "en": {
         "hero.subtitle": "C·V·Q·O",
+        "hero.subtitle.label": "Codex Visioque",
         "hero.title": "My Name is Christian<span class='mark'>.</span>",
         "hero.text": "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>. I mainly work with React and Node.js on online commerce platforms.",
         "hero.nav.codex": "Codex",
@@ -15,6 +16,7 @@
     },
     "de": {
         "hero.subtitle": "C·V·Q·O",
+        "hero.subtitle.label": "Codex Visioque",
         "hero.title": "Mein Name ist Christian<span class='mark'>.</span>",
         "hero.text": "Ich bin Frontend-Architekt bei <a href='https://netconomy.net'>Netconomy</a>. Ich arbeite hauptsächlich mit React und Node.js an Online-Commerce-Plattformen.",
         "hero.nav.codex": "Codex",

@@ -4,6 +4,7 @@
  */
 export type TranslationKey =
     | 'hero.subtitle'
+    | 'hero.subtitle.label'
     | 'hero.title'
     | 'hero.text'
     | 'hero.nav.codex'

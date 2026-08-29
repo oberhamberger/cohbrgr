@@ -12,6 +12,7 @@ const nonce = '123456789';
 
 const mockTranslations: TranslationKeys = {
     'hero.subtitle': 'C·V·Q·O',
+    'hero.subtitle.label': 'Codex Visioque',
     'hero.title': 'My Name is Christian.',
     'hero.text':
         "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>.",
