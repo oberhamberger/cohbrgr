@@ -20,27 +20,19 @@ const Codex: FunctionComponent = () => {
                     </header>
 
                     <p className={styles.lede}>
-                        A reference architecture for front-end applications that
-                        outgrow one team.
+                        This is a reference micro-frontend architecture for
+                        enterprise applications that eventually outgrow one
+                        team.
                     </p>
                     <p>
-                        The page is assembled at request time. A host renders on
-                        the server and pulls in front-ends that were built and
-                        deployed separately, so one team releases without
-                        waiting on another’s build.
+                        The entire page is server-side rendered, including its
+                        federated parts that were built and deployed separately.
                     </p>
                     <p>
-                        There is a data service because real applications query
-                        data from somewhere, and that path has to exist before
-                        anything is built on top of it. What it returns is
-                        fetched during the same render and reaches the browser
-                        with the HTML.
-                    </p>
-                    <p>
-                        The pieces that have to stay consistent are shared:
-                        colour tokens, server middleware, the localisation
-                        contract. Nx rebuilds only what changed, and each piece
-                        ships as its own container.
+                        The pieces that have to stay consistent across teams are
+                        shared: colour tokens, server middleware, the
+                        localisation contract and other technical foundations
+                        like React, TypeScript and the build process.
                     </p>
                 </article>
             </main>
