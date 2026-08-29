@@ -4,9 +4,10 @@ import ApiNavigation from 'src/client/components/api-navigation';
 import * as styles from 'src/client/pages/codex/Codex.module.scss';
 
 /**
- * Explains what this repository is and how it is put together. Rendered by the
- * shell rather than the content remote, so it stays reachable when the remote
- * is unhealthy.
+ * States what the architecture is for: a foundation sized for enterprise
+ * applications, of which this site is the smallest possible demonstration.
+ * Rendered by the shell rather than the content remote, so it stays reachable
+ * when the remote is unhealthy.
  */
 const Codex: FunctionComponent = () => {
     return (
@@ -19,36 +20,37 @@ const Codex: FunctionComponent = () => {
                     </header>
 
                     <p className={styles.lede}>
-                        cohbrgr is a monorepo for finding out how far
-                        server-rendered React gets with no framework doing the
-                        work. No create-react-app, no Next.js.
-                    </p>
-                    <p>
-                        The page you came from is assembled at request time out
-                        of three applications that deploy on their own.
+                        This site runs on a foundation meant for enterprise
+                        applications. One page is what it happens to serve. The
+                        structure underneath assumes many more, built by teams
+                        that ship on their own schedule.
                     </p>
                     <dl>
                         <dt>Shell</dt>
                         <dd>
-                            The host. Express renders React to HTML and the
-                            browser takes over from there.
+                            The host. Renders on the server and composes
+                            whatever the remotes hand it, so adding one is a
+                            configuration entry.
                         </dd>
                         <dt>Content</dt>
                         <dd>
-                            A remote component the shell pulls in over Module
-                            Federation, on the server as much as in the browser.
+                            A remote, federated at runtime. Its team deploys
+                            without waiting for the shell.
                         </dd>
                         <dt>API</dt>
                         <dd>
-                            Holds the copy and the navigation, so neither is
-                            compiled into a page.
+                            Copy and navigation live here instead of in a build,
+                            so changing either is a data change.
                         </dd>
                     </dl>
                     <p>
-                        Rspack does the bundling and Nx caches the build graph.
-                        Deployment is three containers on Cloud Run, versioned
-                        by date. Every one of those choices sits in the
-                        repository, not inside a framework.
+                        Nx keeps the build fast as the graph grows. Design
+                        tokens come out of Figma, and every app ships as its own
+                        container to Cloud Run.
+                    </p>
+                    <p>
+                        At this size none of it is necessary. It is here so it
+                        does not have to be retrofitted later.
                     </p>
                 </article>
             </main>
