@@ -8,7 +8,8 @@
         "dist"
     ],
     "exports": {
-        ".": "./dist/index.js"
+        ".": "./dist/index.js",
+        "./api-failure": "./dist/api-failure.js"
     },
     "scripts": {
         "build": "tsc",

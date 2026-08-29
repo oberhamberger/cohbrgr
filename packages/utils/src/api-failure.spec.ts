@@ -1,9 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import {
-    API_FAILURE_PREFIX,
-    reportApiFailure,
-} from 'src/client/queries/api-failure';
+import { API_FAILURE_PREFIX, reportApiFailure } from './api-failure';
 
 afterEach(() => {
     vi.restoreAllMocks();
@@ -16,7 +13,6 @@ describe('reportApiFailure', () => {
             written.push(String(chunk));
             return true;
         });
-        vi.stubGlobal('window', undefined);
 
         reportApiFailure({
             endpoint: '/navigation/hero',
@@ -38,7 +34,6 @@ describe('reportApiFailure', () => {
             written.push(String(chunk));
             return true;
         });
-        vi.stubGlobal('window', undefined);
 
         reportApiFailure({
             endpoint: '/translation/en',
@@ -51,7 +46,6 @@ describe('reportApiFailure', () => {
 
     it('survives a thrown value that is not an Error', () => {
         vi.spyOn(process.stderr, 'write').mockImplementation(() => true);
-        vi.stubGlobal('window', undefined);
 
         expect(() =>
             reportApiFailure({

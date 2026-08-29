@@ -1,9 +1,8 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { NavigationResponse } from '@cohbrgr/localization';
+import { reportApiFailure } from '@cohbrgr/utils/api-failure';
 import { Config } from '@cohbrgr/shell/env';
-
-import { reportApiFailure } from 'src/client/queries/api-failure';
 
 /**
  * Fetches the navigation nodes for a single tree from the API.

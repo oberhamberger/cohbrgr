@@ -1,9 +1,8 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { TranslationKeys, TranslationResponse } from '@cohbrgr/localization';
+import { reportApiFailure } from '@cohbrgr/utils/api-failure';
 import { Config } from '@cohbrgr/content/env';
-
-import { reportApiFailure } from 'src/client/queries/api-failure';
 
 /**
  * Last-resort copy for when the API cannot be reached.
