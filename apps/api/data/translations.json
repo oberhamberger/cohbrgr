@@ -1,22 +1,40 @@
 {
     "en": {
-        "hero.subtitle": "c.f.k.o",
-        "hero.title": "My Name is Christian.",
+        "hero.subtitle": "C·V·Q·O",
+        "hero.subtitle.label": "Codex Visioque",
+        "hero.title": "My Name is Christian<span class='mark'>.</span>",
         "hero.text": "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>. I mainly work with React and Node.js on online commerce platforms.",
         "hero.nav.github": "Github",
         "hero.nav.bluesky": "Bluesky",
         "hero.nav.linkedin": "LinkedIn",
         "offline.nav.refresh": "return",
-        "offline.nav.back": "zurück"
+        "offline.nav.back": "zurück",
+        "codex.subtitle": "C·V·Q·O",
+        "codex.title": "Codex Visioque",
+        "codex.lede": "This is a reference micro-frontend architecture for enterprise applications that eventually outgrow one team.",
+        "codex.rendering": "The entire page is server-side rendered, including its federated parts that were built and deployed separately.",
+        "codex.foundations": "The pieces that have to stay consistent across teams are shared: colour tokens, server middleware, the localisation contract and other technical foundations like React, TypeScript and the build process.",
+        "codex.nav.home": "Home",
+        "codex.nav.source": "Source",
+        "notfound.nav.back": "return"
     },
     "de": {
-        "hero.subtitle": "c.f.k.o",
-        "hero.title": "Mein Name ist Christian.",
+        "hero.subtitle": "C·V·Q·O",
+        "hero.subtitle.label": "Codex Visioque",
+        "hero.title": "Mein Name ist Christian<span class='mark'>.</span>",
         "hero.text": "Ich bin Frontend-Architekt bei <a href='https://netconomy.net'>Netconomy</a>. Ich arbeite hauptsächlich mit React und Node.js an Online-Commerce-Plattformen.",
         "hero.nav.github": "Github",
         "hero.nav.bluesky": "Bluesky",
         "hero.nav.linkedin": "LinkedIn",
         "offline.nav.refresh": "neu laden",
-        "offline.nav.back": "zurück"
+        "offline.nav.back": "zurück",
+        "codex.subtitle": "C·V·Q·O",
+        "codex.title": "Codex Visioque",
+        "codex.lede": "Das hier ist eine Referenzarchitektur für Micro-Frontends in Enterprise-Anwendungen, die irgendwann über ein einzelnes Team hinauswachsen.",
+        "codex.rendering": "Die gesamte Seite wird serverseitig gerendert, auch die Teile, die per Module Federation dazukommen und ihr eigenes Deployment haben.",
+        "codex.foundations": "Was über Teams hinweg konsistent bleiben muss, wird geteilt: Farb-Tokens, Server-Middleware, die Lokalisierung und andere technische Grundlagen wie React, TypeScript und der Build-Prozess.",
+        "codex.nav.home": "Startseite",
+        "codex.nav.source": "Quellcode",
+        "notfound.nav.back": "zurück"
     }
 }

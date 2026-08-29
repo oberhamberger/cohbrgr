@@ -5,6 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Navigation } from '@cohbrgr/components';
 import { Message, TranslationProvider } from '@cohbrgr/localization';
 
+import { navigationQueryOptions } from 'src/client/queries/navigation';
 import { translationQueryOptions } from 'src/client/queries/translation';
 
 import StructuredData from '../structured-data';
@@ -21,28 +22,51 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     const { data: translations } = useSuspenseQuery(
         translationQueryOptions('en'),
     );
+    const { data: navigationNodes } = useSuspenseQuery(
+        navigationQueryOptions('hero'),
+    );
 
     return (
         <TranslationProvider context={translations}>
             <main>
+                {/* The mark is the way into the codex. It carries no link
+                    styling by design, so it needs an accessible name — read on
+                    its own, C·V·Q·O announces as four letters. */}
+                <p role="doc-subtitle">
+                    <a
+                        href="/codex"
+                        aria-label={translations.keys['hero.subtitle.label']}
+                    >
+                        <Message id="hero.subtitle" />
+                    </a>
+                </p>
                 <h1>
-                    <Message id="hero.title" />
+                    <Message id="hero.title" html />
                 </h1>
                 <p>
                     <Message id="hero.text" html />
                 </p>
             </main>
-            <Navigation>
-                <a href="https://github.com/oberhamberger">
-                    <Message id="hero.nav.github" />
-                </a>
-                <a href="https://bsky.app/profile/cohbrgr.bsky.social">
-                    <Message id="hero.nav.bluesky" />
-                </a>
-                <a href="https://www.linkedin.com/in/oberhamberger">
-                    <Message id="hero.nav.linkedin" />
-                </a>
-            </Navigation>
+            {/* No nodes means the API is unreachable. Render no landmark at
+                all rather than an empty one a screen reader still announces. */}
+            {navigationNodes.length > 0 && (
+                <Navigation>
+                    {/* Plain anchors even for internal paths: this is the
+                        remote, and reaching for the host's router would couple
+                        it to a context it cannot provide on its own. */}
+                    {navigationNodes.map((node) => (
+                        <a
+                            key={node.id}
+                            href={node.path}
+                            {...(node.external && {
+                                rel: 'noopener noreferrer',
+                            })}
+                        >
+                            <Message id={node.labelKey} />
+                        </a>
+                    ))}
+                </Navigation>
+            )}
             <StructuredData nonce={nonce} />
         </TranslationProvider>
     );

@@ -1,19 +1,19 @@
 .layout {
     display: grid;
-    height: 100vh;
-    align-content: space-between;
-    max-width: calc(768px - 2rem);
+    // One composition at every width. The previous rule switched from
+    // `height: 100vh; align-content: space-between` to `height: unset` at
+    // 1024px, which gave the narrow view a void in the middle and the wide view
+    // a void at the bottom.
+    align-content: center;
+    gap: 3.5rem;
 
-    /* Avoid Chrome to see Safari hack */
-    @supports (-webkit-touch-callout: none) {
-        height: -webkit-fill-available;
-    }
+    min-height: 100vh;
+    min-height: 100svh; // svh accounts for mobile browser chrome, no hack needed
 
-    @media screen and (min-width: 1024px) {
-        height: unset;
+    // Top inset smaller than the bottom one, so the block lands where the eye
+    // expects a title — around 40% down rather than dead centre.
+    padding: clamp(3.5rem, 12svh, 9rem) var(--space-inline)
+        clamp(5rem, 18svh, 12rem);
 
-        @supports (-webkit-touch-callout: none) {
-            height: unset;
-        }
-    }
+    max-width: calc(48rem + 2 * var(--space-inline));
 }

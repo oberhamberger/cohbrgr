@@ -38,5 +38,20 @@
                 "path": "/"
             }
         ]
+    },
+    "codex": {
+        "nodes": [
+            {
+                "id": "codex-home",
+                "labelKey": "codex.nav.home",
+                "path": "/"
+            },
+            {
+                "id": "codex-source",
+                "labelKey": "codex.nav.source",
+                "path": "https://github.com/oberhamberger/cohbrgr",
+                "external": true
+            }
+        ]
     }
 }

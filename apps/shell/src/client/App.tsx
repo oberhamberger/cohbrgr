@@ -6,6 +6,7 @@ import 'src/client/styles/index.scss';
 
 import FederatedContent from 'src/client/components/federated-content/FederatedContent';
 import Layout from 'src/client/components/layout';
+import Codex from 'src/client/pages/codex';
 import NotFound from 'src/client/pages/not-found';
 import Offline from 'src/client/pages/offline';
 import AppRoutes from 'src/client/routes';
@@ -22,6 +23,7 @@ const App: FunctionComponent = () => {
         <Layout>
             <Routes>
                 <Route path={AppRoutes.start} element={<FederatedContent />} />
+                <Route path={AppRoutes.codex} element={<Codex />} />
                 <Route path={AppRoutes.offline} element={<Offline />} />
                 <Route path={AppRoutes.notFound} element={<NotFound />} />
             </Routes>

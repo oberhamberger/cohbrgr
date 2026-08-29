@@ -1,0 +1,11 @@
+.codex {
+    // The homepage h1 is a nameplate and earns 4rem. Here it heads a column of
+    // running text, so it scales against the measure instead of the viewport.
+    h1 {
+        font-size: clamp(2rem, 2.5vw + 1rem, 2.75rem);
+    }
+}
+
+.lede {
+    font-size: clamp(1.1875rem, 0.6vw + 1.0625rem, 1.4375rem);
+}

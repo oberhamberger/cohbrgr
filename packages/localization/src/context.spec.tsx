@@ -17,7 +17,8 @@ const TestConsumer = () => {
 };
 
 const mockTranslations: TranslationKeys = {
-    'hero.subtitle': 'c.f.k.o',
+    'hero.subtitle': 'C·V·Q·O',
+    'hero.subtitle.label': 'Codex Visioque',
     'hero.title': 'Test Title',
     'hero.text': 'Test text',
     'hero.nav.github': 'Github',
