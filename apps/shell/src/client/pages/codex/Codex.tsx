@@ -20,37 +20,35 @@ const Codex: FunctionComponent = () => {
                     </header>
 
                     <p className={styles.lede}>
-                        This site runs on a foundation meant for enterprise
-                        applications. One page is what it happens to serve. The
-                        structure underneath assumes many more, built by teams
-                        that ship on their own schedule.
+                        This site is one page. Almost nothing here is needed to
+                        serve it. The structure is built for the other case:
+                        applications that grow to hundreds of screens and
+                        several teams, where a foundation laid badly gets
+                        expensive to replace as soon as anything depends on it.
                     </p>
                     <dl>
                         <dt>Shell</dt>
                         <dd>
-                            The host. Renders on the server and composes
-                            whatever the remotes hand it, so adding one is a
-                            configuration entry.
+                            Renders React on the server and composes whatever
+                            remotes the page asks for. Adding a micro-frontend
+                            is a config entry.
                         </dd>
                         <dt>Content</dt>
                         <dd>
-                            A remote, federated at runtime. Its team deploys
-                            without waiting for the shell.
+                            A remote, loaded over Module Federation while the
+                            request is still open. Its team deploys without the
+                            shell being rebuilt.
                         </dd>
                         <dt>API</dt>
                         <dd>
-                            Copy and navigation live here instead of in a build,
-                            so changing either is a data change.
+                            Serves the copy and the navigation as data, so
+                            changing either takes no build at all.
                         </dd>
                     </dl>
                     <p>
-                        Nx keeps the build fast as the graph grows. Design
-                        tokens come out of Figma, and every app ships as its own
-                        container to Cloud Run.
-                    </p>
-                    <p>
-                        At this size none of it is necessary. It is here so it
-                        does not have to be retrofitted later.
+                        Nx caches the build graph so an unchanged package never
+                        compiles twice. Design tokens are generated from Figma.
+                        Each app ships as its own container to Cloud Run.
                     </p>
                 </article>
             </main>
