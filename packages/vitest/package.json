@@ -17,10 +17,10 @@
         ".": "./index.js"
     },
     "dependencies": {
-        "@testing-library/jest-dom": "7.0.0",
-        "@testing-library/react": "16.3.2",
-        "@vitest/coverage-istanbul": "4.1.10",
-        "jsdom": "30.0.0",
-        "vitest": "4.1.10"
+        "@testing-library/jest-dom": "7.0.1",
+        "@testing-library/react": "16.3.3",
+        "@vitest/coverage-istanbul": "4.1.11",
+        "jsdom": "30.0.1",
+        "vitest": "4.1.11"
     }
 }

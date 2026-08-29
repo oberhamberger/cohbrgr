@@ -23,10 +23,10 @@
         "@cohbrgr/eslint": "workspace:*",
         "@cohbrgr/tsconfig": "workspace:*",
         "@cohbrgr/vitest": "workspace:*",
-        "@testing-library/jest-dom": "7.0.0",
-        "@testing-library/react": "16.3.2",
-        "@types/react": "19.2.17",
-        "react": "19.2.8",
-        "react-dom": "19.2.8"
+        "@testing-library/jest-dom": "7.0.1",
+        "@testing-library/react": "16.3.3",
+        "@types/react": "19.2.18",
+        "react": "^19.2.8",
+        "react-dom": "^19.2.8"
     }
 }
