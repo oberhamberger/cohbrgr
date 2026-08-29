@@ -11,10 +11,11 @@ import Content from './Content';
 const nonce = '123456789';
 
 const mockTranslations: TranslationKeys = {
-    'hero.subtitle': 'c.f.k.o',
+    'hero.subtitle': 'C·V·Q·O',
     'hero.title': 'My Name is Christian.',
     'hero.text':
         "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>.",
+    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',
@@ -65,8 +66,9 @@ describe('Main Content Component', () => {
         await screen.findByText('My Name is Christian.');
 
         expect(container.getElementsByTagName('nav').length).toEqual(1);
-        expect(container.getElementsByTagName('li').length).toEqual(3);
+        expect(container.getElementsByTagName('li').length).toEqual(4);
 
+        expect(screen.getByText('Codex')).toBeInTheDocument();
         expect(screen.getByText('Github')).toBeInTheDocument();
         expect(screen.getByText('Bluesky')).toBeInTheDocument();
         expect(screen.getByText('LinkedIn')).toBeInTheDocument();

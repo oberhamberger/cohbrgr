@@ -9,10 +9,11 @@ import { TranslationKeys } from '@cohbrgr/localization';
 import App from './App';
 
 const mockTranslations: TranslationKeys = {
-    'hero.subtitle': 'c.f.k.o',
+    'hero.subtitle': 'C·V·Q·O',
     'hero.title': 'My Name is Christian.',
     'hero.text':
         "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>.",
+    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',

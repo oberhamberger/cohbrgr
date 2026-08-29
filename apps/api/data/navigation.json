@@ -2,6 +2,11 @@
     "hero": {
         "nodes": [
             {
+                "id": "hero-codex",
+                "labelKey": "hero.nav.codex",
+                "path": "/codex"
+            },
+            {
                 "id": "hero-github",
                 "labelKey": "hero.nav.github",
                 "path": "https://github.com/oberhamberger",
@@ -36,6 +41,21 @@
                 "id": "notfound-back",
                 "labelKey": "notfound.nav.back",
                 "path": "/"
+            }
+        ]
+    },
+    "codex": {
+        "nodes": [
+            {
+                "id": "codex-home",
+                "labelKey": "codex.nav.home",
+                "path": "/"
+            },
+            {
+                "id": "codex-source",
+                "labelKey": "codex.nav.source",
+                "path": "https://github.com/oberhamberger/cohbrgr",
+                "external": true
             }
         ]
     }

@@ -1,8 +1,9 @@
 {
     "en": {
-        "hero.subtitle": "c.f.k.o",
+        "hero.subtitle": "C·V·Q·O",
         "hero.title": "My Name is Christian<span class='mark'>.</span>",
         "hero.text": "I am a Frontend Architect at <a href='https://netconomy.net'>Netconomy</a>. I mainly work with React and Node.js on online commerce platforms.",
+        "hero.nav.codex": "Codex",
         "hero.nav.github": "Github",
         "hero.nav.bluesky": "Bluesky",
         "hero.nav.linkedin": "LinkedIn",
@@ -10,9 +11,10 @@
         "offline.nav.back": "zurück"
     },
     "de": {
-        "hero.subtitle": "c.f.k.o",
+        "hero.subtitle": "C·V·Q·O",
         "hero.title": "Mein Name ist Christian<span class='mark'>.</span>",
         "hero.text": "Ich bin Frontend-Architekt bei <a href='https://netconomy.net'>Netconomy</a>. Ich arbeite hauptsächlich mit React und Node.js an Online-Commerce-Plattformen.",
+        "hero.nav.codex": "Codex",
         "hero.nav.github": "Github",
         "hero.nav.bluesky": "Bluesky",
         "hero.nav.linkedin": "LinkedIn",

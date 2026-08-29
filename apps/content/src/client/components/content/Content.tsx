@@ -36,6 +36,9 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
                 </p>
             </main>
             <Navigation>
+                <a href="/codex">
+                    <Message id="hero.nav.codex" />
+                </a>
                 <a href="https://github.com/oberhamberger">
                     <Message id="hero.nav.github" />
                 </a>

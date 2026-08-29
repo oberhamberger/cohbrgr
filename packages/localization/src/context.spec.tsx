@@ -17,9 +17,10 @@ const TestConsumer = () => {
 };
 
 const mockTranslations: TranslationKeys = {
-    'hero.subtitle': 'c.f.k.o',
+    'hero.subtitle': 'C·V·Q·O',
     'hero.title': 'Test Title',
     'hero.text': 'Test text',
+    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',

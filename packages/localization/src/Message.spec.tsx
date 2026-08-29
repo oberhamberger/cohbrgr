@@ -6,9 +6,10 @@ import Message from './Message';
 import { TranslationKeys } from './types';
 
 const mockTranslations: TranslationKeys = {
-    'hero.subtitle': 'c.f.k.o',
+    'hero.subtitle': 'C·V·Q·O',
     'hero.title': 'My Name is Christian.',
     'hero.text': '<a href="https://example.com">Link</a>',
+    'hero.nav.codex': 'Codex',
     'hero.nav.github': 'Github',
     'hero.nav.bluesky': 'Bluesky',
     'hero.nav.linkedin': 'LinkedIn',

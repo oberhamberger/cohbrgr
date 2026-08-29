@@ -1,0 +1,46 @@
+.codex {
+    // The homepage h1 is a nameplate and earns 4rem. Here it heads a column of
+    // running text, so it scales against the measure instead of the viewport.
+    h1 {
+        font-size: clamp(2rem, 2.5vw + 1rem, 2.75rem);
+    }
+
+    h2 {
+        margin-top: 3.5rem;
+        font-size: clamp(1.375rem, 1vw + 1.125rem, 1.625rem);
+    }
+
+    dl {
+        max-width: var(--measure);
+        margin: 2rem 0 0;
+    }
+
+    // Each term sits tight against its description and apart from the next
+    // entry, so the three read as three things rather than six.
+    dt {
+        margin-top: 1.75rem;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
+
+    dd {
+        margin: 0.4rem 0 0;
+        font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.25rem);
+        text-wrap: pretty;
+    }
+
+    dl + p {
+        margin-top: 2.5rem;
+    }
+}
+
+.lede {
+    font-size: clamp(1.1875rem, 0.6vw + 1.0625rem, 1.4375rem);
+}

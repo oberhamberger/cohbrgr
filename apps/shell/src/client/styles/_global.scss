@@ -63,7 +63,9 @@ p {
     font-family: var(--font-system);
     font-size: 0.8125rem;
     font-weight: 500;
-    letter-spacing: 0.32em;
+    // The mark carries its own separators (C·V·Q·O), so it needs less
+    // tracking than a bare string would.
+    letter-spacing: 0.2em;
     line-height: 1;
     color: var(--color-muted);
 }
