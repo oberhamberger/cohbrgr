@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { createApp, cspNonce, staticFiles } from '@cohbrgr/server';
 import { cloudRunOrigins, ports } from '@cohbrgr/env';
 import { Config } from '@cohbrgr/shell/env';
-import { findProcessArgs, isProduction } from '@cohbrgr/utils';
+import { findProcessArgs, isProduction } from '@cohbrgr/utils/node';
 
 import type { NextFunction, Request, Response } from 'express';
 

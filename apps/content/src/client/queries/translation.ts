@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { TranslationKeys, TranslationResponse } from '@cohbrgr/localization';
-import { reportApiFailure } from '@cohbrgr/utils/api-failure';
+import { reportApiFailure } from '@cohbrgr/utils/browser';
 import { Config } from '@cohbrgr/content/env';
 
 /**

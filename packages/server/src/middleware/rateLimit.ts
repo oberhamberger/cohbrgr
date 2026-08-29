@@ -1,6 +1,6 @@
 import rateLimit, { type Options } from 'express-rate-limit';
 
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 import type { Application, NextFunction, Request, Response } from 'express';
 

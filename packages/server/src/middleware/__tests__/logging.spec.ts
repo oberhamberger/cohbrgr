@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { logging } from '../logging';
 
 const mockLoggerInfo = vi.fn();
-vi.mock('@cohbrgr/utils', () => ({
+vi.mock('@cohbrgr/utils/node', () => ({
     Logger: {
         info: (...args: unknown[]) => mockLoggerInfo(...args),
     },

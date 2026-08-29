@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 import type { RequestHandler } from 'express';
 

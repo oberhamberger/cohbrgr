@@ -8,7 +8,7 @@ import Index from 'src/server/template/Index.html';
 import { DEHYDRATED_STATE_PLACEHOLDER } from 'src/server/template/components/Javascript.html';
 
 import { HttpMethod } from '@cohbrgr/server';
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 import { isContentHealthy } from 'src/server/content-health';
 
 /**

@@ -1,6 +1,6 @@
 import TranslationData from 'data/translations.json';
 
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 /**
  * TranslationService

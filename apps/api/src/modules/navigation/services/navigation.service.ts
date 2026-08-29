@@ -1,6 +1,6 @@
 import navigationJson from 'data/navigation.json';
 
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 interface NavigationNode {
     id: string; // Unique identifier for the node

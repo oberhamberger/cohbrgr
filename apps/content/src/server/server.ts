@@ -2,7 +2,7 @@ import { resolve } from 'path';
 
 import { Config } from '@cohbrgr/content/env';
 import { createApp, staticFiles } from '@cohbrgr/server';
-import { isProduction } from '@cohbrgr/utils';
+import { isProduction } from '@cohbrgr/utils/node';
 
 import type { NextFunction, Request, Response } from 'express';
 

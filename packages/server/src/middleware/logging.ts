@@ -1,4 +1,4 @@
-import { Logger } from '@cohbrgr/utils';
+import { Logger } from '@cohbrgr/utils/node';
 
 import type { NextFunction, Request, Response } from 'express';
 
