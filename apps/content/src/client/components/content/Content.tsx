@@ -25,8 +25,11 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <TranslationProvider context={translations}>
             <main>
+                <p role="doc-subtitle">
+                    <Message id="hero.subtitle" />
+                </p>
                 <h1>
-                    <Message id="hero.title" />
+                    <Message id="hero.title" html />
                 </h1>
                 <p>
                     <Message id="hero.text" html />

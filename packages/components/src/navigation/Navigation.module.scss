@@ -1,28 +1,20 @@
 .navigation {
-    padding: 0 2rem 2rem;
-
-    @media screen and (min-width: 1024px) {
-        padding: 0 4rem;
-    }
-
+    // No inset of its own — the page gutter belongs to the layout, which is the
+    // only way the links stay flush with the heading above them at every width.
     ul {
-        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 2rem;
         margin: 0;
-        :last-child {
-            margin-right: 0;
-        }
+        padding: 0;
+        list-style: none;
     }
 
     li {
-        list-style: none;
-        display: inline-block;
-        margin-right: 1.618em;
+        margin: 0;
     }
 
     a {
-        font-size: 1.125rem;
-        @media screen and (min-width: 1025px) {
-            font-size: 1.25rem;
-        }
+        font-size: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
     }
 }

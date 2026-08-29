@@ -13,7 +13,7 @@ export const Navigation: FunctionComponent<INavigation> = ({ children }) => {
 
     return (
         <nav className={styles.navigation}>
-            <ul>{navigationNodes}</ul>
+            <ul role="list">{navigationNodes}</ul>
         </nav>
     );
 };

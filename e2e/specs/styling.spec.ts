@@ -14,15 +14,14 @@ test.describe('Scoped CSS modules resolve', () => {
         const nav = page.locator('nav');
         await expect(nav).toBeVisible({ timeout: 15_000 });
 
-        // From Navigation.module.scss: `.navigation li { display: inline-block;
-        // list-style: none }`. Without the scoped class these fall back to the
-        // browser defaults (`list-item` / `disc`) — exactly the broken state.
-        const firstItem = page.locator('nav li').first();
-        await expect(firstItem).toHaveCSS('display', 'inline-block');
-        await expect(firstItem).toHaveCSS('list-style-type', 'none');
-
-        // `.navigation ul { margin: 0; padding: 0 }`
+        // From Navigation.module.scss: `.navigation ul { display: flex;
+        // list-style: none; gap: 0.75rem 2rem; margin: 0; padding: 0 }`.
+        // Without the scoped class these fall back to the browser defaults
+        // (`block` / `disc` / a 40px inline padding) — the broken state.
         const list = page.locator('nav ul');
+        await expect(list).toHaveCSS('display', 'flex');
+        await expect(list).toHaveCSS('list-style-type', 'none');
+        await expect(list).toHaveCSS('column-gap', '32px');
         await expect(list).toHaveCSS('margin', '0px');
         await expect(list).toHaveCSS('padding', '0px');
     });
@@ -35,5 +34,8 @@ test.describe('Scoped CSS modules resolve', () => {
         const layout = page.locator('div[class^="layout-"]');
         await expect(layout).toBeVisible({ timeout: 15_000 });
         await expect(layout).toHaveCSS('display', 'grid');
+        // `.layout { align-content: center }` — the single vertical
+        // composition. A fallback to `normal` means the module dropped out.
+        await expect(layout).toHaveCSS('align-content', 'center');
     });
 });

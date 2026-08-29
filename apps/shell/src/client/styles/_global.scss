@@ -1,87 +1,111 @@
-html,
-body {
-    font-family: var(--font-system);
-    -webkit-font-smoothing: antialiased;
-    color: var(--color-font);
-    padding: 0;
-    margin: 0;
-    font-size: 100%;
-    line-height: 1.618;
-    max-width: 100vw;
-    overflow-x: hidden;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 html {
     background-color: var(--color-background);
 }
 
-// html::after {
-//     content: '';
-//     position: fixed;
-//     top: 15vh;
-//     left: 0;
-//     right: 0;
-//     bottom: 0;
-//     background: var(--gradient-background);
-//     mask: linear-gradient(transparent, #fff);
-//     z-index: -1;
-// }
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-system);
+    font-size: 100%;
+    // 1.618 was too airy at 20px: the two lines of the intro read as two
+    // separate lines instead of one block.
+    line-height: 1.45;
+    color: var(--color-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
-[role='doc-subtitle'] {
-    line-height: 1.07143;
+h6 {
     margin: 0;
     padding: 0;
     font-family: var(--font-serif);
-}
-
-[role='doc-subtitle'] {
-    font-weight: 400;
-    letter-spacing: 5px;
-    text-indent: 1rem;
-    padding-bottom: 0.5rem;
+    // Georgia is cut for body copy, so it needs negative tracking once it is
+    // scaled up to display sizes.
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
 }
 
 h1 {
-    font-size: 1.8rem;
-    @media screen and (min-width: 1025px) {
-        font-size: 2rem;
-    }
+    // The name is the only thing on the page, so it gets the room to say so:
+    // 36px on a phone up to 64px past ~1000px.
+    font-size: clamp(2.25rem, 6vw + 0.5rem, 4rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
 }
 
 p {
-    font-size: 1.125rem;
-    @media screen and (min-width: 1025px) {
-        font-size: 1.25rem;
-    }
+    margin: 1.5rem 0 0;
+    max-width: var(--measure);
+    font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.25rem);
+    text-wrap: pretty;
+}
+
+// The monogram above the name. System font, tracked out, muted — a mark rather
+// than a line of copy. Declared after `p` so it wins on a `<p role=…>`.
+[role='doc-subtitle'] {
+    margin: 0 0 1.25rem;
+    max-width: none;
+    font-family: var(--font-system);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    line-height: 1;
+    color: var(--color-muted);
+}
+
+// Accent. Two appearances only: the full stop after the name, and a link on
+// hover. Anything more and the restraint that makes the page work is gone.
+.mark {
+    color: var(--color-accent);
 }
 
 a {
-    color: var(--color-font);
-    text-decoration: none;
-    font-weight: bold;
+    color: inherit;
+    font-weight: 700;
+    // A resting underline, not a hover-only one. Bold alone made the inline
+    // link in the intro read as an emphasised company name, and no hover state
+    // exists on touch at all.
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition:
+        text-decoration-color 150ms ease,
+        text-decoration-thickness 150ms ease;
+
     &:hover,
-    &:active,
-    &:focus {
-        text-decoration: underline;
+    &:active {
+        text-decoration-color: var(--color-accent);
+        text-decoration-thickness: 2px;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 4px;
+        border-radius: 2px;
     }
 }
 
-main {
-    padding: 1.5rem 2rem 1rem 2rem;
-    @media screen and (orientation: portrait) {
-        padding: 4rem 4rem 6rem 2rem;
-    }
-    @media screen and (min-width: 768px) {
-        padding: 4rem 4rem 6rem 2rem;
-    }
-
-    @media screen and (min-width: 1024px) {
-        padding: 5.5rem 4rem 6rem 4rem;
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
