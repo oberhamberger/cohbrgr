@@ -3,6 +3,8 @@ import { queryOptions } from '@tanstack/react-query';
 import { TranslationKeys, TranslationResponse } from '@cohbrgr/localization';
 import { Config } from '@cohbrgr/content/env';
 
+import { reportApiFailure } from 'src/client/queries/api-failure';
+
 /**
  * Last-resort copy for when the API cannot be reached.
  *
@@ -28,13 +30,20 @@ export const FALLBACK_TRANSLATIONS: TranslationKeys = {
 
 /**
  * Fetches translations for a specific language from the API.
+ *
+ * `cache: 'no-store'` for the same reason as navigation: the endpoint answers a
+ * conditional request with 304, which is not `ok`.
  */
 export const fetchTranslations = async (
     lang: string = 'en',
 ): Promise<TranslationResponse> => {
-    const response = await fetch(`${Config.apiUrl}/translation/${lang}`);
+    const response = await fetch(`${Config.apiUrl}/translation/${lang}`, {
+        cache: 'no-store',
+    });
     if (!response.ok) {
-        throw new Error(`Failed to fetch translations: ${response.statusText}`);
+        throw new Error(
+            `HTTP ${response.status} ${response.statusText}`.trim(),
+        );
     }
     return response.json();
 };
@@ -52,7 +61,12 @@ export const translationQueryOptions = (lang: string = 'en') =>
         queryFn: async (): Promise<TranslationResponse> => {
             try {
                 return await fetchTranslations(lang);
-            } catch {
+            } catch (error) {
+                reportApiFailure({
+                    endpoint: `/translation/${lang}`,
+                    error,
+                    degradedTo: 'the bundled fallback copy',
+                });
                 return { lang, keys: FALLBACK_TRANSLATIONS };
             }
         },

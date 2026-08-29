@@ -32,6 +32,8 @@ describe('translation queries', () => {
 
             expect(global.fetch).toHaveBeenCalledWith(
                 expect.stringContaining('/translation/en'),
+                // no-store keeps the runtime from revalidating and getting a 304
+                expect.objectContaining({ cache: 'no-store' }),
             );
             expect(result).toEqual(mockResponse);
         });
@@ -46,6 +48,8 @@ describe('translation queries', () => {
 
             expect(global.fetch).toHaveBeenCalledWith(
                 expect.stringContaining('/translation/de'),
+                // no-store keeps the runtime from revalidating and getting a 304
+                expect.objectContaining({ cache: 'no-store' }),
             );
             expect(result.lang).toBe('de');
         });
@@ -53,11 +57,12 @@ describe('translation queries', () => {
         it('should throw error when fetch fails', async () => {
             (global.fetch as Mock).mockResolvedValueOnce({
                 ok: false,
+                status: 404,
                 statusText: 'Not Found',
             });
 
             await expect(fetchTranslations('fr')).rejects.toThrow(
-                'Failed to fetch translations: Not Found',
+                'HTTP 404 Not Found',
             );
         });
     });
