@@ -5,6 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Navigation } from '@cohbrgr/components';
 import { Message, TranslationProvider } from '@cohbrgr/localization';
 
+import { navigationQueryOptions } from 'src/client/queries/navigation';
 import { translationQueryOptions } from 'src/client/queries/translation';
 
 import StructuredData from '../structured-data';
@@ -21,6 +22,9 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     const { data: translations } = useSuspenseQuery(
         translationQueryOptions('en'),
     );
+    const { data: navigationNodes } = useSuspenseQuery(
+        navigationQueryOptions('hero'),
+    );
 
     return (
         <TranslationProvider context={translations}>
@@ -36,18 +40,18 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
                 </p>
             </main>
             <Navigation>
-                <a href="/codex">
-                    <Message id="hero.nav.codex" />
-                </a>
-                <a href="https://github.com/oberhamberger">
-                    <Message id="hero.nav.github" />
-                </a>
-                <a href="https://bsky.app/profile/cohbrgr.bsky.social">
-                    <Message id="hero.nav.bluesky" />
-                </a>
-                <a href="https://www.linkedin.com/in/oberhamberger">
-                    <Message id="hero.nav.linkedin" />
-                </a>
+                {/* Plain anchors even for internal paths: this is the remote,
+                    and reaching for the host's router would couple it to a
+                    context it cannot provide on its own. */}
+                {navigationNodes.map((node) => (
+                    <a
+                        key={node.id}
+                        href={node.path}
+                        {...(node.external && { rel: 'noopener noreferrer' })}
+                    >
+                        <Message id={node.labelKey} />
+                    </a>
+                ))}
             </Navigation>
             <StructuredData nonce={nonce} />
         </TranslationProvider>

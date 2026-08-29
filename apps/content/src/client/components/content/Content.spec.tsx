@@ -41,13 +41,46 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
     );
 };
 
+const mockNavigationNodes = [
+    { id: 'hero-codex', labelKey: 'hero.nav.codex', path: '/codex' },
+    {
+        id: 'hero-github',
+        labelKey: 'hero.nav.github',
+        path: 'https://github.com/oberhamberger',
+        external: true,
+    },
+    {
+        id: 'hero-bluesky',
+        labelKey: 'hero.nav.bluesky',
+        path: 'https://bsky.app/profile/cohbrgr.bsky.social',
+        external: true,
+    },
+    {
+        id: 'hero-linkedin',
+        labelKey: 'hero.nav.linkedin',
+        path: 'https://www.linkedin.com/in/oberhamberger/',
+        external: true,
+    },
+];
+
+// The component now calls two endpoints, so the mock has to route on URL.
+const mockApi = (translations: TranslationKeys) =>
+    vi.fn().mockImplementation((url: string) =>
+        Promise.resolve({
+            ok: true,
+            json: () =>
+                Promise.resolve(
+                    url.includes('/navigation/')
+                        ? mockNavigationNodes
+                        : { lang: 'en', keys: translations },
+                ),
+        }),
+    );
+
 describe('Main Content Component', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        global.fetch = vi.fn().mockResolvedValue({
-            ok: true,
-            json: () => Promise.resolve({ lang: 'en', keys: mockTranslations }),
-        });
+        global.fetch = mockApi(mockTranslations);
     });
 
     afterEach(() => {

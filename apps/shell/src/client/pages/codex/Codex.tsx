@@ -1,8 +1,6 @@
 import { FunctionComponent } from 'react';
-import { Link } from 'react-router';
 
-import { Navigation } from '@cohbrgr/components';
-
+import ApiNavigation from 'src/client/components/api-navigation';
 import * as styles from 'src/client/pages/codex/Codex.module.scss';
 
 /**
@@ -91,10 +89,7 @@ const Codex: FunctionComponent = () => {
                 </article>
             </main>
 
-            <Navigation>
-                <Link to="/">Home</Link>
-                <a href="https://github.com/oberhamberger/cohbrgr">Source</a>
-            </Navigation>
+            <ApiNavigation nodeId="codex" />
         </>
     );
 };

@@ -22,8 +22,18 @@ export const fetchTranslations = async (
  */
 export const translationQueryOptions = (lang: string = 'en') =>
     queryOptions({
+        // Same key the content remote uses, so the two share one cache entry.
         queryKey: ['translations', lang],
-        queryFn: () => fetchTranslations(lang),
+        // Falls back to empty keys rather than throwing, for the same reason
+        // navigationQueryOptions does: an SSR throw becomes a 500 and would
+        // take the 404 and codex pages down with the API.
+        queryFn: async (): Promise<TranslationResponse> => {
+            try {
+                return await fetchTranslations(lang);
+            } catch {
+                return { lang, keys: {} };
+            }
+        },
         staleTime: 1000 * 60 * 60, // 1 hour
         gcTime: 1000 * 60 * 60 * 24, // 24 hours
     });

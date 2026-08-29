@@ -14,8 +14,13 @@ const mockTranslationResponse = {
     keys: {
         'hero.title': 'Test Title',
         'hero.subtitle': 'Test Subtitle',
+        'notfound.nav.back': 'return',
     },
 };
+
+const mockNavigationResponse = [
+    { id: 'notfound-back', labelKey: 'notfound.nav.back', path: '/' },
+];
 
 describe('render middleware', () => {
     let mockRequest: MockRequest<Request>;
@@ -31,10 +36,19 @@ describe('render middleware', () => {
     const htmlvalidate = new HtmlValidate(htmlValidatorConfig);
 
     beforeEach(() => {
-        global.fetch = vi.fn().mockResolvedValue({
-            ok: true,
-            json: () => Promise.resolve(mockTranslationResponse),
-        });
+        // The 404 page pulls its navigation from the API too, so the mock has
+        // to answer both endpoints.
+        global.fetch = vi.fn().mockImplementation((url: string) =>
+            Promise.resolve({
+                ok: true,
+                json: () =>
+                    Promise.resolve(
+                        url.includes('/navigation/')
+                            ? mockNavigationResponse
+                            : mockTranslationResponse,
+                    ),
+            }),
+        );
     });
 
     afterEach(() => {

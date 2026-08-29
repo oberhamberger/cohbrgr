@@ -1,9 +1,8 @@
 import { FunctionComponent } from 'react';
 import { Link } from 'react-router';
 
+import ApiNavigation from 'src/client/components/api-navigation';
 import { HttpStatus } from 'src/client/contexts/http';
-
-import { Navigation } from '@cohbrgr/components';
 
 const NotFound: FunctionComponent = () => {
     return (
@@ -12,9 +11,10 @@ const NotFound: FunctionComponent = () => {
                 <h1>Not Found</h1>
             </main>
 
-            <Navigation>
-                <Link to="/">return</Link>
-            </Navigation>
+            <ApiNavigation
+                nodeId="not-found"
+                fallback={<Link to="/">return</Link>}
+            />
         </HttpStatus>
     );
 };

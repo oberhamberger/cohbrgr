@@ -8,7 +8,10 @@
         "hero.nav.bluesky": "Bluesky",
         "hero.nav.linkedin": "LinkedIn",
         "offline.nav.refresh": "return",
-        "offline.nav.back": "zurück"
+        "offline.nav.back": "zurück",
+        "codex.nav.home": "Home",
+        "codex.nav.source": "Source",
+        "notfound.nav.back": "return"
     },
     "de": {
         "hero.subtitle": "C·V·Q·O",
@@ -19,6 +22,9 @@
         "hero.nav.bluesky": "Bluesky",
         "hero.nav.linkedin": "LinkedIn",
         "offline.nav.refresh": "neu laden",
-        "offline.nav.back": "zurück"
+        "offline.nav.back": "zurück",
+        "codex.nav.home": "Startseite",
+        "codex.nav.source": "Quellcode",
+        "notfound.nav.back": "zurück"
     }
 }
