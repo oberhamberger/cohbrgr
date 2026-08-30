@@ -4,6 +4,19 @@ import { Logger } from '@cohbrgr/utils/node';
 
 import type { Application, NextFunction, Request, Response } from 'express';
 
+/**
+ * Requests the limiter ignores. A single page view already costs several of
+ * these — stylesheet, scripts, icons, and now two font files — so counting them
+ * turns a 500-request budget into roughly fifty page views per address. That is
+ * low for anyone behind a corporate proxy or a NAT, where every visitor shares
+ * one bucket, and it is what the limiter exists to protect least.
+ */
+export const STATIC_ASSET =
+    /\.(?:woff2?|ttf|otf|eot|css|js|mjs|map|png|jpe?g|gif|svg|webp|avif|ico|webmanifest|txt|json)$/i;
+
+/** True when the path is an asset the limiter should not count. */
+export const isStaticAsset = (path: string): boolean => STATIC_ASSET.test(path);
+
 export interface RateLimitOptions {
     /**
      * Time window in milliseconds. Defaults to 10 minutes.
@@ -35,6 +48,8 @@ export function applyRateLimit(
         rateLimit({
             windowMs,
             max,
+            // Only dynamic routes are counted.
+            skip: (request: Request) => isStaticAsset(request.path),
             handler: (
                 request: Request,
                 response: Response,

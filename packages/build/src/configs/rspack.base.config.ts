@@ -57,6 +57,20 @@ export const baseConfig: RspackOptions = {
                 ],
             },
             {
+                // Emitted rather than inlined, under a stable name so the shell
+                // can preload the display face by path.
+                //
+                // `publicPath: '/'` overrides the app-level publicPath, which is
+                // origin-absolute for Module Federation. Without it the built
+                // CSS carries `http://localhost:3000/fonts/...` into production,
+                // where it becomes a cross-origin URL that `font-src 'self'`
+                // blocks — and which no longer matches the preload, so the face
+                // is fetched twice.
+                test: /\.woff2$/,
+                type: 'asset/resource',
+                generator: { filename: 'fonts/[name][ext]', publicPath: '/' },
+            },
+            {
                 test: regexStyle,
                 use: getStyleLoader(),
                 type: 'css/auto',

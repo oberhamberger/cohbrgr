@@ -1,8 +1,8 @@
 // Semantic layer. Raw values live in @cohbrgr/figma and are generated from
 // packages/figma/src/tokens.json by Style Dictionary — no hex belongs here.
 :root {
-    --font-system: var(--cohbrgr-styles-font-system);
     --font-serif: var(--cohbrgr-styles-font-serif);
+    --font-mono: var(--cohbrgr-styles-font-mono);
 
     // Reading measure for body copy, and the page gutter. The gutter grows with
     // the viewport so the column never hugs the window edge on a wide screen.
@@ -16,6 +16,11 @@
     --color-muted: var(--cohbrgr-styles-color-muted-light);
     --color-accent: var(--cohbrgr-styles-color-accent-light);
 
+    // EB Garamond is low contrast, so the dark ground costs it less than a
+    // Didone, but body text still needs a step of weight to hold its colour.
+    --weight-body: 400;
+    --weight-display: 600;
+
     @media (prefers-color-scheme: dark) {
         color-scheme: dark;
 
@@ -23,5 +28,7 @@
         --color-font: var(--cohbrgr-styles-color-font-dark);
         --color-muted: var(--cohbrgr-styles-color-muted-dark);
         --color-accent: var(--cohbrgr-styles-color-accent-dark);
+
+        --weight-body: 500;
     }
 }

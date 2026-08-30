@@ -15,6 +15,8 @@
     }
 
     a {
-        font-size: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+        // Mono capitals run large for their point size, so this sits below the
+        // body scale rather than alongside it.
+        font-size: clamp(0.8125rem, 0.2vw + 0.78rem, 0.875rem);
     }
 }

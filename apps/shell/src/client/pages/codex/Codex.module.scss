@@ -1,11 +1,15 @@
 .codex {
-    // The homepage h1 is a nameplate and earns 4rem. Here it heads a column of
-    // running text, so it scales against the measure instead of the viewport.
+    // The homepage h1 is a nameplate and earns the full scale. Here it heads a
+    // column of running text, so it scales against the measure instead of the
+    // viewport — and Garamond's small x-height needs the extra point size.
     h1 {
-        font-size: clamp(2rem, 2.5vw + 1rem, 2.75rem);
+        font-size: clamp(2.25rem, 2.6vw + 1.1rem, 3rem);
     }
 }
 
+// Two points above the body scale was invisible once the page moved to
+// Garamond. This is a step, not a nudge.
 .lede {
-    font-size: clamp(1.1875rem, 0.6vw + 1.0625rem, 1.4375rem);
+    font-size: clamp(1.3125rem, 0.9vw + 1.15rem, 1.625rem);
+    line-height: 1.42;
 }
