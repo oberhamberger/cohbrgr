@@ -1,13 +1,20 @@
 // Semantic layer. Raw values live in @cohbrgr/figma and are generated from
 // packages/figma/src/tokens.json by Style Dictionary — no hex belongs here.
 :root {
-    --font-serif: var(--cohbrgr-styles-font-serif);
-    --font-mono: var(--cohbrgr-styles-font-mono);
+    --font-sans: var(--cohbrgr-styles-font-sans);
 
-    // Reading measure for body copy, and the page gutter. The gutter grows with
-    // the viewport so the column never hugs the window edge on a wide screen.
-    --measure: 34rem;
+    // Wider than a serif page wants. Tracked capitals need more room per
+    // character, and the gutter grows with the viewport so the column never
+    // hugs the window edge.
+    --measure: 38rem;
     --space-inline: clamp(1.5rem, 6vw, 6rem);
+
+    // Tracking is the whole register. It is a token because it appears on the
+    // mark, the display line, the eyebrow and the navigation, and those have to
+    // move together when it is tuned.
+    --track-display: 0.1em;
+    --track-label: 0.24em;
+    --track-mark: 0.42em;
 
     color-scheme: light;
 
@@ -16,10 +23,28 @@
     --color-muted: var(--cohbrgr-styles-color-muted-light);
     --color-accent: var(--cohbrgr-styles-color-accent-light);
 
-    // EB Garamond is low contrast, so the dark ground costs it less than a
-    // Didone, but body text still needs a step of weight to hold its colour.
-    --weight-body: 400;
-    --weight-display: 600;
+    // Brushed metal, as a gradient. The stops are deliberately uneven: two
+    // evenly spaced ones read as a web page, and it takes irregular banding
+    // before the eye accepts it as a surface. The radial is the highlight,
+    // thrown from off the top-left corner the way a light source would be.
+    --ground-metal:
+        radial-gradient(
+            118% 76% at 20% -12%,
+            rgb(0 0 0 / 4%) 0%,
+            transparent 58%
+        ),
+        linear-gradient(
+            104deg,
+            #f7f7f6 0%,
+            #ffffff 17%,
+            #f1f1ef 29%,
+            #fcfcfb 38%,
+            #f4f4f2 53%,
+            #fdfdfc 66%,
+            #eeeeec 77%,
+            #fafaf9 89%,
+            #f6f6f4 100%
+        );
 
     @media (prefers-color-scheme: dark) {
         color-scheme: dark;
@@ -29,6 +54,23 @@
         --color-muted: var(--cohbrgr-styles-color-muted-dark);
         --color-accent: var(--cohbrgr-styles-color-accent-dark);
 
-        --weight-body: 500;
+        --ground-metal:
+            radial-gradient(
+                118% 76% at 20% -12%,
+                rgb(255 255 255 / 13%) 0%,
+                transparent 58%
+            ),
+            linear-gradient(
+                104deg,
+                #0a0a0a 0%,
+                #151515 17%,
+                #212121 29%,
+                #181818 38%,
+                #0d0d0d 53%,
+                #1b1b1b 66%,
+                #242424 77%,
+                #131313 89%,
+                #090909 100%
+            );
     }
 }
