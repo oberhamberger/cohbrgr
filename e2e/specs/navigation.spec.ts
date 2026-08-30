@@ -38,7 +38,9 @@ test.describe('Navigation', () => {
         const mark = page.locator('[role="doc-subtitle"] a');
         await expect(mark).toBeVisible({ timeout: 15_000 });
         await expect(mark).toHaveAttribute('href', '/codex');
-        await expect(mark).toHaveAttribute('aria-label', 'Codex Visioque');
+        // WCAG 2.5.3: the accessible name has to contain the visible text, so a
+        // speech-input user can activate it by saying what is on screen.
+        await expect(mark).toHaveAccessibleName(/C·V·Q·O.*Codex Visioque/);
         // No underline at rest — that is the whole point of the treatment.
         await expect(mark).toHaveCSS('text-decoration-line', 'none');
 
