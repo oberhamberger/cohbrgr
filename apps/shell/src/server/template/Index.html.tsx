@@ -43,12 +43,12 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 <meta
                     name="theme-color"
                     media="(prefers-color-scheme: light)"
-                    content="#fff"
+                    content="#efe9dd"
                 />
                 <meta
                     name="theme-color"
                     media="(prefers-color-scheme: dark)"
-                    content="#000"
+                    content="#0c0b0a"
                 />
 
                 <link
@@ -70,6 +70,16 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
                 />
 
                 <link rel="manifest" href="/manifest.json" />
+
+                {/* The display face draws the first thing on the page, so it is
+                    fetched alongside the stylesheet rather than after it. */}
+                <link
+                    rel="preload"
+                    href="/fonts/eb-garamond-latin-var.woff2"
+                    as="font"
+                    type="font/woff2"
+                    crossOrigin="anonymous"
+                />
 
                 <Stylesheets
                     isProduction={props.isProduction}

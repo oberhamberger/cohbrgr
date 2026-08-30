@@ -12,12 +12,17 @@ html,
 body {
     margin: 0;
     padding: 0;
-    font-family: var(--font-system);
+    // One family sets the whole page. EB Garamond is a text face first, which is
+    // why it can carry the display sizes as well as the running copy.
+    font-family: var(--font-serif);
+    font-weight: var(--weight-body);
     font-size: 100%;
-    // 1.618 was too airy at 20px: the two lines of the intro read as two
-    // separate lines instead of one block.
-    line-height: 1.45;
+    line-height: 1.55;
     color: var(--color-font);
+    // Garamond has real optical detail; ligatures and old-style figures are the
+    // point of choosing it over a system stack.
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: 'onum' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -31,39 +36,41 @@ h6 {
     margin: 0;
     padding: 0;
     font-family: var(--font-serif);
-    // Georgia is cut for body copy, so it needs negative tracking once it is
-    // scaled up to display sizes.
-    letter-spacing: -0.02em;
-    line-height: 1.08;
+    font-weight: var(--weight-display);
+    // Far less than Georgia needed. Garamond's fit is already close at display
+    // sizes, and over-tightening closes the counters.
+    letter-spacing: -0.006em;
+    line-height: 1.02;
     text-wrap: balance;
 }
 
 h1 {
-    // The name is the only thing on the page, so it gets the room to say so:
-    // 36px on a phone up to 64px past ~1000px.
-    font-size: clamp(2.25rem, 6vw + 0.5rem, 4rem);
+    // Garamond's x-height is smaller than Georgia's, so the same optical size
+    // needs a larger point size: 38px on a phone up to 68px past ~1000px.
+    font-size: clamp(2.375rem, 6.2vw + 0.5rem, 4.25rem);
 }
 
 p {
     margin: 1.5rem 0 0;
     max-width: var(--measure);
-    font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.25rem);
+    font-size: clamp(1.125rem, 0.45vw + 1.05rem, 1.3125rem);
     text-wrap: pretty;
 }
 
-// The monogram above the name. System font, tracked out, muted — a mark rather
-// than a line of copy. Declared after `p` so it wins on a `<p role=…>`.
+// The monogram above the name. The one place the mono face appears besides the
+// navigation — a mark rather than a line of copy.
 [role='doc-subtitle'] {
     margin: 0 0 1.25rem;
     max-width: none;
-    font-family: var(--font-system);
-    font-size: 0.8125rem;
-    font-weight: 500;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.75rem;
     // The mark carries its own separators (C·V·Q·O), so it needs less
     // tracking than a bare string would.
     letter-spacing: 0.2em;
     line-height: 1;
     color: var(--color-muted);
+    font-feature-settings: normal;
 }
 
 // The mark links to the codex but carries no link styling: no underline, no
@@ -95,21 +102,21 @@ p {
     border: 0;
 }
 
-// Accent. Two appearances only: the full stop after the name, and a link on
-// hover. Anything more and the restraint that makes the page work is gone.
+// Oxblood on bone, carmine on the dark ground. Two appearances only: the full
+// stop after the name, and a link on hover.
 .mark {
     color: var(--color-accent);
 }
 
 a {
     color: inherit;
-    font-weight: 700;
-    // A resting underline, not a hover-only one. Bold alone made the inline
+    font-weight: 600;
+    // A resting underline, not a hover-only one. Weight alone made the inline
     // link in the intro read as an emphasised company name, and no hover state
     // exists on touch at all.
     text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 0.22em;
+    text-underline-offset: 0.18em;
     transition:
         text-decoration-color 150ms ease,
         text-decoration-thickness 150ms ease;
@@ -124,6 +131,25 @@ a {
         outline: 2px solid var(--color-accent);
         outline-offset: 4px;
         border-radius: 2px;
+    }
+}
+
+// The navigation is the mono face, set as small tracked capitals. It is the
+// only utility type on the page and it keeps the mark from standing alone.
+nav a {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 3px;
+    font-feature-settings: normal;
+
+    &:hover,
+    &:active {
+        color: var(--color-accent);
+        border-bottom-color: var(--color-accent);
     }
 }
 
