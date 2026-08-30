@@ -15,13 +15,14 @@ test.describe('Scoped CSS modules resolve', () => {
         await expect(nav).toBeVisible({ timeout: 15_000 });
 
         // From Navigation.module.scss: `.navigation ul { display: flex;
-        // list-style: none; gap: 0.75rem 2rem; margin: 0; padding: 0 }`.
+        // list-style: none; gap: 0.75rem 2.4rem; margin: 0; padding: 0 }`.
+        // Tracked capitals need more room between them than a serif label did.
         // Without the scoped class these fall back to the browser defaults
         // (`block` / `disc` / a 40px inline padding) — the broken state.
         const list = page.locator('nav ul');
         await expect(list).toHaveCSS('display', 'flex');
         await expect(list).toHaveCSS('list-style-type', 'none');
-        await expect(list).toHaveCSS('column-gap', '32px');
+        await expect(list).toHaveCSS('column-gap', '38.4px');
         await expect(list).toHaveCSS('margin', '0px');
         await expect(list).toHaveCSS('padding', '0px');
     });

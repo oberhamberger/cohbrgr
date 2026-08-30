@@ -12,17 +12,13 @@ html,
 body {
     margin: 0;
     padding: 0;
-    // One family sets the whole page. EB Garamond is a text face first, which is
-    // why it can carry the display sizes as well as the running copy.
-    font-family: var(--font-serif);
-    font-weight: var(--weight-body);
+    // One family sets the whole page. A geometric sans in tracked capitals is
+    // what the maisons print; none of them uses a serif for structure.
+    font-family: var(--font-sans);
+    font-weight: 300;
     font-size: 100%;
-    line-height: 1.55;
+    line-height: 1.72;
     color: var(--color-font);
-    // Garamond has real optical detail; ligatures and old-style figures are the
-    // point of choosing it over a system stack.
-    font-variant-ligatures: common-ligatures;
-    font-feature-settings: 'onum' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -35,61 +31,66 @@ h5,
 h6 {
     margin: 0;
     padding: 0;
-    font-family: var(--font-serif);
-    font-weight: var(--weight-display);
-    // Far less than Georgia needed. Garamond's fit is already close at display
-    // sizes, and over-tightening closes the counters.
-    letter-spacing: -0.006em;
-    line-height: 1.02;
+    font-family: var(--font-sans);
+    // Light, uppercase and tracked. Every headline on omegawatches.com,
+    // longines.com and tudorwatch.com is uppercase — not one is sentence case.
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: var(--track-display);
+    // Tracking adds a trailing space after the last character, so the block
+    // needs pulling back by the same amount to sit flush with the column.
+    text-indent: var(--track-display);
+    line-height: 1.2;
     text-wrap: balance;
 }
 
 h1 {
-    // Garamond's x-height is smaller than Georgia's, so the same optical size
-    // needs a larger point size: 38px on a phone up to 68px past ~1000px.
-    font-size: clamp(2.375rem, 6.2vw + 0.5rem, 4.25rem);
+    font-size: clamp(1.6rem, 3.6vw + 0.4rem, 3rem);
 }
 
 p {
     margin: 1.5rem 0 0;
     max-width: var(--measure);
-    font-size: clamp(1.125rem, 0.45vw + 1.05rem, 1.3125rem);
+    font-size: clamp(0.95rem, 0.28vw + 0.9rem, 1.06rem);
+    color: var(--color-muted);
     text-wrap: pretty;
 }
 
-// The monogram above the name. The one place the mono face appears besides the
-// navigation — a mark rather than a line of copy.
+// The mark. Smallest thing on the page and the most widely tracked — a maison
+// never sets its own name large.
 [role='doc-subtitle'] {
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.6rem;
     max-width: none;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 0.75rem;
-    // The mark carries its own separators (C·V·Q·O), so it needs less
-    // tracking than a bare string would.
-    letter-spacing: 0.2em;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: var(--track-mark);
+    text-indent: var(--track-mark);
+    text-transform: uppercase;
     line-height: 1;
-    color: var(--color-muted);
-    font-feature-settings: normal;
+    color: var(--color-font);
 }
 
-// The mark links to the codex but carries no link styling: no underline, no
-// weight change, no colour of its own. Only hover and focus give it away.
+// The mark links to the codex but carries no link styling. Only hover and the
+// focus ring give it away.
 [role='doc-subtitle'] a {
     color: inherit;
     font-weight: inherit;
     text-decoration: none;
+    // Links are underlined with a border now, so nulling text-decoration alone
+    // leaves the rule from `a` in place and the mark gets a line under it.
+    border-bottom: 0;
+    padding-bottom: 0;
     transition: color 150ms ease;
 
     &:hover,
     &:active {
-        color: var(--color-font);
+        color: var(--color-muted);
     }
 }
 
-// Visible to assistive technology, not on screen. Used to extend an accessible
-// name rather than replace it — an aria-label that drops the visible text
-// breaks WCAG 2.5.3, because a speech-input user says what they can see.
+// Visible to assistive technology, not on screen. Extends an accessible name
+// rather than replacing it — an aria-label that drops the visible text breaks
+// WCAG 2.5.3, because a speech-input user says what they can see.
 .sr-only {
     position: absolute;
     width: 1px;
@@ -102,54 +103,49 @@ p {
     border: 0;
 }
 
-// Oxblood on bone, carmine on the dark ground. Two appearances only: the full
-// stop after the name, and a link on hover.
+// No accent colour anywhere. Omega ships none at all, and the discipline is the
+// point: there is no colour to get wrong because there is no colour.
 .mark {
-    color: var(--color-accent);
+    color: inherit;
 }
 
 a {
-    color: inherit;
-    font-weight: 600;
-    // A resting underline, not a hover-only one. Weight alone made the inline
-    // link in the intro read as an emphasised company name, and no hover state
-    // exists on touch at all.
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
+    color: var(--color-font);
+    font-weight: 400;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
     transition:
-        text-decoration-color 150ms ease,
-        text-decoration-thickness 150ms ease;
+        color 150ms ease,
+        border-color 150ms ease;
 
     &:hover,
     &:active {
-        text-decoration-color: var(--color-accent);
-        text-decoration-thickness: 2px;
+        color: var(--color-muted);
+        border-bottom-color: var(--color-muted);
     }
 
     &:focus-visible {
-        outline: 2px solid var(--color-accent);
+        outline: 1px solid var(--color-accent);
         outline-offset: 4px;
-        border-radius: 2px;
     }
 }
 
-// The navigation is the mono face, set as small tracked capitals. It is the
-// only utility type on the page and it keeps the mark from standing alone.
+// The navigation is the same tracked capitals as everything structural, one
+// step smaller than the mark.
 nav a {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    letter-spacing: 0.13em;
+    font-weight: 400;
+    font-size: 0.66rem;
+    letter-spacing: var(--track-label);
+    text-indent: var(--track-label);
     text-transform: uppercase;
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 3px;
-    font-feature-settings: normal;
+    color: var(--color-muted);
+    border-bottom: 0;
+    padding-bottom: 0;
 
     &:hover,
     &:active {
-        color: var(--color-accent);
-        border-bottom-color: var(--color-accent);
+        color: var(--color-font);
     }
 }
 
