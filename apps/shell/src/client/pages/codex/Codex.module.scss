@@ -1,19 +1,16 @@
 .codex {
-    // The homepage intro is one sentence and can sit at the muted step. Three
-    // paragraphs of running text cannot — an article carries full contrast.
-    p {
+    // Running text carries full contrast, unlike the one-sentence homepage
+    // intro. The subtitle is excluded because `.codex p` outranks the bare
+    // attribute selector and would otherwise paint the mark back to ink.
+    p:not([role='doc-subtitle']) {
         color: var(--color-font);
     }
 
-    // The homepage h1 is a nameplate. Here it heads a column of running text, so
-    // it steps down and lets the copy carry the page.
     h1 {
         font-size: clamp(1.4rem, 1.9vw + 0.8rem, 2.1rem);
     }
 }
 
-// One step above the body scale, and lighter, so the opening claim reads as a
-// statement rather than as the first of three paragraphs.
 .lede {
     font-size: clamp(1.1rem, 0.6vw + 0.98rem, 1.35rem);
     font-weight: 200;

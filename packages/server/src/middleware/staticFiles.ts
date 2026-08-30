@@ -9,12 +9,16 @@ export interface StaticFilesOptions {
     dotfiles?: 'allow' | 'deny' | 'ignore';
     /**
      * Cache-Control max-age in seconds. If provided, sets Cache-Control header.
-     * Files with content hashes in their names automatically get immutable + 1 year cache.
+     * Content-hashed files and fonts get immutable + 1 year instead.
      */
     maxAge?: number;
 }
 
 const CONTENT_HASH_PATTERN = /\.[a-f0-9]{16,}\.\w+$/;
+// Fonts are not content-hashed, because the preload in Index.html.tsx has to
+// name the file statically. They are immutable by filename contract instead:
+// a new cut of the face ships under a new name.
+const FONT_PATTERN = /\.woff2?$/;
 const ONE_YEAR = 31536000;
 
 /**
@@ -33,7 +37,10 @@ export function staticFiles(
 
     if (maxAge !== undefined) {
         staticOptions.setHeaders = (res: Response, filePath: string) => {
-            if (CONTENT_HASH_PATTERN.test(filePath)) {
+            if (
+                CONTENT_HASH_PATTERN.test(filePath) ||
+                FONT_PATTERN.test(filePath)
+            ) {
                 res.set(
                     'Cache-Control',
                     `public, max-age=${ONE_YEAR}, immutable`,

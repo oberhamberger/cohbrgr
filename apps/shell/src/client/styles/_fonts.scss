@@ -1,11 +1,7 @@
 // Self-hosted so the page opens no third-party connection and the CSP keeps
-// `font-src 'self'`. Referenced relatively so rspack emits it as an asset; the
-// asset rule pins the output to fonts/[name][ext], which keeps the path stable
-// enough for the preload in Index.html.tsx to point at it.
-//
-// One family for the whole site. A geometric sans set in tracked capitals is
-// what the maisons actually use, and it replaces two faces with one that is
-// half their combined weight.
+// `font-src 'self'`. The asset rule pins the output to fonts/[name][ext], which
+// the preload in Index.html.tsx and the immutable cache rule in
+// packages/server staticFiles.ts both depend on: a new cut ships a new name.
 
 @font-face {
     font-family: 'Jost';

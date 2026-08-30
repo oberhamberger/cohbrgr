@@ -57,15 +57,10 @@ export const baseConfig: RspackOptions = {
                 ],
             },
             {
-                // Emitted rather than inlined, under a stable name so the shell
-                // can preload the display face by path.
-                //
-                // `publicPath: '/'` overrides the app-level publicPath, which is
-                // origin-absolute for Module Federation. Without it the built
+                // `publicPath: '/'` overrides the app-level publicPath, which
+                // is origin-absolute for Module Federation. Without it the built
                 // CSS carries `http://localhost:3000/fonts/...` into production,
-                // where it becomes a cross-origin URL that `font-src 'self'`
-                // blocks — and which no longer matches the preload, so the face
-                // is fetched twice.
+                // where `font-src 'self'` blocks it.
                 test: /\.woff2$/,
                 type: 'asset/resource',
                 generator: { filename: 'fonts/[name][ext]', publicPath: '/' },
@@ -78,18 +73,12 @@ export const baseConfig: RspackOptions = {
         ],
         generator: {
             'css/auto': {
-                // SSR needs the server bundle and the client stylesheet to agree
-                // on every scoped class name. rspack derives the local ident from
-                // two different code paths: a node build defaults to `exportsOnly`
-                // (it emits only the name mappings, no stylesheet) while a web build
-                // emits a full stylesheet — and the `[hash]` token comes out
-                // different between them, even with a fixed localIdentHashSalt. The
-                // server then renders `navigation-<A>` while the stylesheet only
-                // defines `.navigation-<B>`, so the styles silently drop on first
-                // paint. Forcing `exportsOnly: false` puts the server through the
-                // same stylesheet hashing path as the client, so both produce an
-                // identical hash. The server emits an unused `.css` file per chunk
-                // as a result; it is never served (the app only exposes dist/client).
+                // The server and client bundles must agree on every scoped
+                // class name. A node build defaults to `exportsOnly`, which
+                // hashes idents through a different path than a web build, so
+                // the server renders `navigation-<A>` against a stylesheet that
+                // defines `.navigation-<B>` and the styles drop on first paint.
+                // Forcing it false costs an unused .css per server chunk.
                 exportsOnly: false,
                 localIdentName: '[local]-[hash:base64:6]',
             },

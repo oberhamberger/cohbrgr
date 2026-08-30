@@ -12,17 +12,11 @@ import { translationQueryOptions } from 'src/client/queries/translation';
 interface IApiNavigation {
     /** Key of the navigation tree in the API, e.g. `codex` or `not-found`. */
     nodeId: string;
-    /**
-     * Rendered when the API returns nothing, so a page is never a dead end.
-     * Only worth passing on pages a visitor needs a way out of.
-     */
+    /** Rendered when the API returns nothing, so a page is never a dead end. */
     fallback?: ReactNode;
 }
 
-/**
- * Renders a navigation tree served by the API. Shell-side, so internal paths
- * become router links and stay client-side; external ones fall back to anchors.
- */
+// Shell-side, so internal paths can be router links; external ones are anchors.
 const ApiNavigation: FunctionComponent<IApiNavigation> = ({
     nodeId,
     fallback,

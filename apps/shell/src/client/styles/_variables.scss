@@ -1,17 +1,13 @@
-// Semantic layer. Raw values live in @cohbrgr/figma and are generated from
-// packages/figma/src/tokens.json by Style Dictionary — no hex belongs here.
+// Semantic layer over @cohbrgr/figma, which Style Dictionary generates from
+// packages/figma/src/tokens.json. No hex belongs here.
 :root {
     --font-sans: var(--cohbrgr-styles-font-sans);
 
-    // Wider than a serif page wants. Tracked capitals need more room per
-    // character, and the gutter grows with the viewport so the column never
-    // hugs the window edge.
+    // Wide, because tracked capitals need more room per character.
     --measure: 38rem;
     --space-inline: clamp(1.5rem, 6vw, 6rem);
 
-    // Tracking is the whole register. It is a token because it appears on the
-    // mark, the display line, the eyebrow and the navigation, and those have to
-    // move together when it is tuned.
+    // Shared so the mark, the display line and the navigation move together.
     --track-display: 0.1em;
     --track-label: 0.24em;
     --track-mark: 0.42em;
@@ -23,10 +19,8 @@
     --color-muted: var(--cohbrgr-styles-color-muted-light);
     --color-accent: var(--cohbrgr-styles-color-accent-light);
 
-    // Brushed metal, as a gradient. The stops are deliberately uneven: two
-    // evenly spaced ones read as a web page, and it takes irregular banding
-    // before the eye accepts it as a surface. The radial is the highlight,
-    // thrown from off the top-left corner the way a light source would be.
+    // Brushed metal. The stops are deliberately uneven — evenly spaced ones
+    // read as a web page rather than a surface.
     --ground-metal:
         radial-gradient(
             118% 76% at 20% -12%,
@@ -57,20 +51,20 @@
         --ground-metal:
             radial-gradient(
                 118% 76% at 20% -12%,
-                rgb(255 255 255 / 13%) 0%,
+                rgb(255 255 255 / 10%) 0%,
                 transparent 58%
             ),
             linear-gradient(
                 104deg,
-                #0a0a0a 0%,
-                #151515 17%,
-                #212121 29%,
-                #181818 38%,
-                #0d0d0d 53%,
-                #1b1b1b 66%,
-                #242424 77%,
-                #131313 89%,
-                #090909 100%
+                #090909 0%,
+                #111111 17%,
+                #1a1a1a 29%,
+                #131313 38%,
+                #0b0b0b 53%,
+                #151515 66%,
+                #1c1c1c 77%,
+                #0f0f0f 89%,
+                #080808 100%
             );
     }
 }

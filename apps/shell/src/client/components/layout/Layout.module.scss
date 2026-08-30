@@ -1,17 +1,12 @@
 .layout {
     display: grid;
-    // One composition at every width. The previous rule switched from
-    // `height: 100vh; align-content: space-between` to `height: unset` at
-    // 1024px, which gave the narrow view a void in the middle and the wide view
-    // a void at the bottom.
     align-content: center;
     gap: 3.5rem;
 
     min-height: 100vh;
-    min-height: 100svh; // svh accounts for mobile browser chrome, no hack needed
+    min-height: 100svh; // accounts for mobile browser chrome
 
-    // Top inset smaller than the bottom one, so the block lands where the eye
-    // expects a title — around 40% down rather than dead centre.
+    // Top inset smaller than the bottom, so the block lands around 40% down.
     padding: clamp(3.5rem, 12svh, 9rem) var(--space-inline)
         clamp(5rem, 18svh, 12rem);
 

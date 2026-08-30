@@ -14,10 +14,6 @@ export interface IContent {
     nonce?: string | undefined;
 }
 
-/**
- * Main content component displaying the hero section with translated text.
- * Fetches translations using TanStack Query and provides them via context.
- */
 const Content: FunctionComponent<IContent> = ({ nonce }) => {
     const { data: translations } = useSuspenseQuery(
         translationQueryOptions('en'),
@@ -29,11 +25,9 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <TranslationProvider context={translations}>
             <main>
-                {/* The mark is the way into the codex and carries no link
-                    styling, so the expansion is appended for assistive tech
-                    rather than replacing the name with aria-label. Overriding
-                    it fails WCAG 2.5.3: the accessible name has to contain the
-                    text a speech-input user can actually see. */}
+                {/* The expansion is appended rather than set as an aria-label:
+                    overriding the name fails WCAG 2.5.3, which requires it to
+                    contain the text a speech-input user can see. */}
                 <p role="doc-subtitle">
                     <a href="/codex">
                         <Message id="hero.subtitle" />
@@ -50,13 +44,12 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
                     <Message id="hero.text" html />
                 </p>
             </main>
-            {/* No nodes means the API is unreachable. Render no landmark at
-                all rather than an empty one a screen reader still announces. */}
+            {/* No nodes means the API is unreachable. Render no landmark
+                rather than an empty one a screen reader still announces. */}
             {navigationNodes.length > 0 && (
                 <Navigation>
-                    {/* Plain anchors even for internal paths: this is the
-                        remote, and reaching for the host's router would couple
-                        it to a context it cannot provide on its own. */}
+                    {/* Plain anchors even for internal paths — the remote has
+                        no access to the host's router context. */}
                     {navigationNodes.map((node) => (
                         <a
                             key={node.id}

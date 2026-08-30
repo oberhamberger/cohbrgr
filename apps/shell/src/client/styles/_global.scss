@@ -8,9 +8,8 @@ html {
     background-color: var(--color-background);
 }
 
-// The ground. A fixed layer rather than a background on `html`, so it does not
-// scroll with the page and does not depend on background-attachment, which iOS
-// has never handled well.
+// Fixed rather than a background on `html`, so it does not depend on
+// background-attachment, which iOS has never handled well.
 body::before {
     content: '';
     position: fixed;
@@ -24,8 +23,6 @@ html,
 body {
     margin: 0;
     padding: 0;
-    // One family sets the whole page. A geometric sans in tracked capitals is
-    // what the maisons print; none of them uses a serif for structure.
     font-family: var(--font-sans);
     font-weight: 300;
     font-size: 100%;
@@ -44,13 +41,11 @@ h6 {
     margin: 0;
     padding: 0;
     font-family: var(--font-sans);
-    // Light, uppercase and tracked. Every headline on omegawatches.com,
-    // longines.com and tudorwatch.com is uppercase — not one is sentence case.
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: var(--track-display);
-    // Tracking adds a trailing space after the last character, so the block
-    // needs pulling back by the same amount to sit flush with the column.
+    // Tracking adds a trailing space after the last character; the matching
+    // indent pulls the block back flush with the column.
     text-indent: var(--track-display);
     line-height: 1.2;
     text-wrap: balance;
@@ -68,8 +63,6 @@ p {
     text-wrap: pretty;
 }
 
-// The mark. Smallest thing on the page and the most widely tracked — a maison
-// never sets its own name large.
 [role='doc-subtitle'] {
     margin: 0 0 1.6rem;
     max-width: none;
@@ -79,16 +72,16 @@ p {
     text-indent: var(--track-mark);
     text-transform: uppercase;
     line-height: 1;
-    color: var(--color-font);
+    // The one accent on the site.
+    color: var(--color-accent);
 }
 
-// The mark links to the codex but carries no link styling. Only hover and the
-// focus ring give it away.
+// The mark links to the codex but carries no link styling.
 [role='doc-subtitle'] a {
     color: inherit;
     font-weight: inherit;
     text-decoration: none;
-    // Links are underlined with a border now, so nulling text-decoration alone
+    // Links are underlined with a border, so nulling text-decoration alone
     // leaves the rule from `a` in place and the mark gets a line under it.
     border-bottom: 0;
     padding-bottom: 0;
@@ -96,13 +89,12 @@ p {
 
     &:hover,
     &:active {
-        color: var(--color-muted);
+        color: var(--color-font);
     }
 }
 
-// Visible to assistive technology, not on screen. Extends an accessible name
-// rather than replacing it — an aria-label that drops the visible text breaks
-// WCAG 2.5.3, because a speech-input user says what they can see.
+// Extends an accessible name rather than replacing it. An aria-label that drops
+// the visible text breaks WCAG 2.5.3: a speech-input user says what they see.
 .sr-only {
     position: absolute;
     width: 1px;
@@ -115,8 +107,8 @@ p {
     border: 0;
 }
 
-// No accent colour anywhere. Omega ships none at all, and the discipline is the
-// point: there is no colour to get wrong because there is no colour.
+// The full stop after the name in hero.title. Stays ink — the accent has one
+// place, and it is the mark above.
 .mark {
     color: inherit;
 }
@@ -143,8 +135,6 @@ a {
     }
 }
 
-// The navigation is the same tracked capitals as everything structural, one
-// step smaller than the mark.
 nav a {
     font-weight: 400;
     font-size: 0.66rem;

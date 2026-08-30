@@ -71,8 +71,6 @@ const Index: FunctionComponent<IIndexProps> = (props: IIndexProps) => {
 
                 <link rel="manifest" href="/manifest.json" />
 
-                {/* The one face on the page, fetched alongside the stylesheet
-                    rather than after it. */}
                 <link
                     rel="preload"
                     href="/fonts/jost-latin-var.woff2"

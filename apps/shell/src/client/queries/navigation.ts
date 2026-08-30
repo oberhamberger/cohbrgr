@@ -4,15 +4,9 @@ import { NavigationResponse } from '@cohbrgr/localization';
 import { reportApiFailure } from '@cohbrgr/utils/browser';
 import { Config } from '@cohbrgr/shell/env';
 
-/**
- * Fetches the navigation nodes for a single tree from the API.
- * The nodes carry translation keys, not labels, so the caller resolves them.
- *
- * `cache: 'no-store'` stops the runtime revalidating with If-None-Match. The
- * endpoint answers a conditional request with 304, which is not `ok` and carries
- * no body we can use, so a 304 read as a failure and silently emptied the
- * navigation in production.
- */
+// `cache: 'no-store'` stops the runtime revalidating with If-None-Match. The
+// endpoint answers a conditional request with 304, which is not `ok` and has no
+// body, so a 304 read as a failure and silently emptied the navigation.
 export const fetchNavigation = async (
     nodeId: string,
 ): Promise<NavigationResponse> => {
@@ -27,15 +21,9 @@ export const fetchNavigation = async (
     return response.json();
 };
 
-/**
- * TanStack Query options for fetching a navigation tree.
- *
- * Resolves to an empty list instead of throwing when the API is unreachable.
- * The shell renders the 404 page with this, and `render.tsx` turns any error
- * thrown during SSR into a 500 — so a throw here would replace a 404 with a
- * server error whenever the API is down. Navigation is chrome; its absence
- * should not take the page with it.
- */
+// Resolves to an empty list rather than throwing: render.tsx turns an error
+// thrown during SSR into a 500, so a throw here would replace the 404 page with
+// a server error whenever the API is down.
 export const navigationQueryOptions = (nodeId: string) =>
     queryOptions({
         queryKey: ['navigation', nodeId],
@@ -51,6 +39,6 @@ export const navigationQueryOptions = (nodeId: string) =>
                 return [];
             }
         },
-        staleTime: 1000 * 60 * 60, // 1 hour
-        gcTime: 1000 * 60 * 60 * 24, // 24 hours
+        staleTime: 1000 * 60 * 60,
+        gcTime: 1000 * 60 * 60 * 24,
     });
