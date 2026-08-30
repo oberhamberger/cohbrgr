@@ -9,9 +9,9 @@ const INDEX_EVERY = 6;
 
 /**
  * Draws the ground: guilloché, the pattern a rose engine cuts into a watch dial
- * by modulating its radius as it turns. Two summed harmonics per pass, which is
- * enough for the passes to interfere with each other and produce the moiré the
- * eye actually reads — no single line is visible, the pattern between them is.
+ * by modulating its radius as it turns. No single line is meant to be visible —
+ * the passes interfere with each other, and the woven diagonals between them are
+ * what the eye actually reads.
  *
  * Decorative, so it is aria-hidden and never server-rendered. Without JavaScript
  * the page is exactly what it was before: a flat ground.
@@ -42,9 +42,15 @@ const Guilloche: FunctionComponent = () => {
 
             // The engraving colour follows the theme by reading the text colour,
             // so this needs no palette of its own and no duplicate dark-mode block.
-            const ink = getComputedStyle(document.documentElement)
-                .getPropertyValue('--color-font')
-                .trim();
+            const rootStyle = getComputedStyle(document.documentElement);
+            const ink = rootStyle.getPropertyValue('--color-font').trim();
+            // Depth is a token too, because it has to differ per theme: the same
+            // alpha reads far fainter on black than it does on white.
+            const cut =
+                Number(rootStyle.getPropertyValue('--guilloche-cut')) || 0.075;
+            const cutIndex =
+                Number(rootStyle.getPropertyValue('--guilloche-cut-index')) ||
+                0.14;
 
             // Off to the right and low, so the centre of the pattern sits outside
             // the reading column instead of behind it.
@@ -52,14 +58,13 @@ const Guilloche: FunctionComponent = () => {
             const centreY = height * 0.62;
             const spacing = Math.max(width, height) / 58;
 
-            // The wobble is a function of arc length, not of angle. Driving it
-            // from the angle alone makes the lobe count constant, so the waves
-            // stretch as the radius grows and the outer field turns into lazy
-            // curves instead of engraving. Arc length holds the wavelength even
-            // across the whole plate, which is what a rose engine actually cuts.
-            // One clean wave, not two. Competing harmonics read as noise; a
-            // single sine whose phase advances a fixed amount per pass is what
-            // produces the woven diagonals the pattern is known for.
+            // Two rules, both learned the hard way. The wobble is a function of
+            // arc length rather than of angle: driving it from the angle keeps
+            // the lobe count constant, so the waves stretch as the radius grows
+            // and the outer field turns into lazy curves instead of engraving.
+            // And it is one clean sine, not two summed — competing harmonics
+            // read as noise, while a single wave whose phase advances a fixed
+            // amount per pass is what produces the weave.
             const wavelength = spacing * 3.1;
             const amplitude = spacing * 0.34;
             const phasePerRing = 0.55;
@@ -93,7 +98,7 @@ const Guilloche: FunctionComponent = () => {
                 }
 
                 context.closePath();
-                context.globalAlpha = ring % INDEX_EVERY === 0 ? 0.1 : 0.055;
+                context.globalAlpha = ring % INDEX_EVERY === 0 ? cutIndex : cut;
                 context.strokeStyle = ink;
                 context.stroke();
             }

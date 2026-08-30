@@ -23,6 +23,12 @@
     --color-muted: var(--cohbrgr-styles-color-muted-light);
     --color-accent: var(--cohbrgr-styles-color-accent-light);
 
+    // How deeply the ground is engraved. A stroke at a given alpha reads far
+    // fainter on black than the same alpha does on white, so dark is cut
+    // roughly twice as deep to arrive at the same apparent depth.
+    --guilloche-cut: 0.075;
+    --guilloche-cut-index: 0.14;
+
     @media (prefers-color-scheme: dark) {
         color-scheme: dark;
 
@@ -30,5 +36,8 @@
         --color-font: var(--cohbrgr-styles-color-font-dark);
         --color-muted: var(--cohbrgr-styles-color-muted-dark);
         --color-accent: var(--cohbrgr-styles-color-accent-dark);
+
+        --guilloche-cut: 0.15;
+        --guilloche-cut-index: 0.28;
     }
 }
