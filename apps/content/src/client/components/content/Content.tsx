@@ -29,15 +29,18 @@ const Content: FunctionComponent<IContent> = ({ nonce }) => {
     return (
         <TranslationProvider context={translations}>
             <main>
-                {/* The mark is the way into the codex. It carries no link
-                    styling by design, so it needs an accessible name — read on
-                    its own, C·V·Q·O announces as four letters. */}
+                {/* The mark is the way into the codex and carries no link
+                    styling, so the expansion is appended for assistive tech
+                    rather than replacing the name with aria-label. Overriding
+                    it fails WCAG 2.5.3: the accessible name has to contain the
+                    text a speech-input user can actually see. */}
                 <p role="doc-subtitle">
-                    <a
-                        href="/codex"
-                        aria-label={translations.keys['hero.subtitle.label']}
-                    >
+                    <a href="/codex">
                         <Message id="hero.subtitle" />
+                        <span className="sr-only">
+                            {' — '}
+                            <Message id="hero.subtitle.label" />
+                        </span>
                     </a>
                 </p>
                 <h1>
