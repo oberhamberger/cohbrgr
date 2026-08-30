@@ -8,6 +8,18 @@ html {
     background-color: var(--color-background);
 }
 
+// The ground. A fixed layer rather than a background on `html`, so it does not
+// scroll with the page and does not depend on background-attachment, which iOS
+// has never handled well.
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--ground-metal);
+    pointer-events: none;
+}
+
 html,
 body {
     margin: 0;
